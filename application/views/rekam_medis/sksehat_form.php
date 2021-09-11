@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<?php echo form_open(current_url(), array('class' => 'form-horizontal', 'id' => 'form-rekam_medis','target'=>'_blank')); ?>
+<?php echo form_open(current_url(), array('class' => 'form-horizontal', 'id' => 'form-rekam_medis')); ?>
 <div class="content-wrapper">
     <section class="content">
         <div class="row">
@@ -39,44 +39,56 @@
 							</div>
                         </div>
                         <div class="form-group">
-							<div class="col-sm-2">Umur <?php echo form_error('umur'); ?></div>
+                            <div class="col-sm-2">Jenis Kelamin <?php echo form_error('jenis_kelamin'); ?></div>
 							<div class="col-sm-10">
-                                    <?php echo form_input(array('id'=>'umur','name'=>'umur','type'=>'number','value'=>'','class'=>'form-control'));?>
+                                <div class="radio">
+                                    <label>
+                                        <?php echo form_radio(array('id'=>'jenis_kelamin','name'=>'jenis_kelamin','value'=>'Laki-laki'));?>
+                                        Laki-laki
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <?php echo form_radio(array('id'=>'jenis_kelamin','name'=>'jenis_kelamin','value'=>'Perempuan'));?>
+                                        Perempuan
+                                    </label>
+                                </div>
 							</div>
                         </div>
                         <div class="form-group">
-							<div class="col-sm-2">Jenis Kelamin <?php echo form_error('jenis_kelamin'); ?></div>
-							<div class="col-sm-10">
-							    <div class="radio">
-							    <label>
-                                    <?php echo form_radio(array('id'=>'jenis_kelamin','name'=>'jenis_kelamin','value'=>'Laki-laki'));?>
-                                    Laki-laki
-                                </label>
-                                </div>
-                                <div class="radio">
-                                <label>
-                                    <?php echo form_radio(array('id'=>'jenis_kelamin','name'=>'jenis_kelamin','value'=>'Perempuan'));?>
-                                    Perempuan
-                                </label>
-                                </div>
-							</div>
+                            <div class="col-sm-2">Umur <?php echo form_error('umur'); ?></div>
+                            <div class="col-sm-10">
+                                    <?php echo form_input(array('id'=>'umur','name'=>'umur','type'=>'number','value'=>'','class'=>'form-control'));?>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">Pekerjaan <?php echo form_error('pekerjaan'); ?></div>
+                            <div class="col-sm-10">
+                                    <?php echo form_input(array('id'=>'pekerjaan','name'=>'pekerjaan','type'=>'text','value'=>'','class'=>'form-control'));?>
+                            </div>
                         </div>
                         <div class="form-group">
 							<div class="col-sm-2">Tinggi Badan <?php echo form_error('tinggi_badan'); ?></div>
 							<div class="col-sm-10">
-                                    <?php echo form_input(array('id'=>'tinggi_badan','name'=>'tinggi_badan','type'=>'text','value'=>'','class'=>'form-control'));?>
+                                    <?php echo form_input(array('id'=>'tinggi_badan','name'=>'tinggi_badan','type'=>'number','value'=>'','class'=>'form-control'));?>
 							</div>
                         </div>
                         <div class="form-group">
 							<div class="col-sm-2">Berat Badan <?php echo form_error('berat_badan'); ?></div>
 							<div class="col-sm-10">
-                                    <?php echo form_input(array('id'=>'berat_badan','name'=>'berat_badan','type'=>'text','value'=>'','class'=>'form-control'));?>
+                                    <?php echo form_input(array('id'=>'berat_badan','name'=>'berat_badan','type'=>'number','value'=>'','class'=>'form-control'));?>
 							</div>
                         </div>
                         <div class="form-group">
-							<div class="col-sm-2">Tekanan Darah <?php echo form_error('tekanan_darah'); ?></div>
+							<div class="col-sm-2">Golongan Darah <?php echo form_error('golongan_darah'); ?></div>
 							<div class="col-sm-10">
-                                    <?php echo form_input(array('id'=>'tekanan_darah','name'=>'tekanan_darah','type'=>'text','value'=>'','class'=>'form-control'));?>
+                                    <?php echo form_input(array('id'=>'golongan_darah','name'=>'golongan_darah','type'=>'text','value'=>'','class'=>'form-control'));?>
+							</div>
+                        </div>
+                        <div class="form-group">
+							<div class="col-sm-2">Buta Warna <?php echo form_error('buta_warna'); ?></div>
+							<div class="col-sm-10">
+                                    <?php echo form_input(array('id'=>'buta_warna','name'=>'buta_warna','type'=>'text','value'=>'','class'=>'form-control'));?>
 							</div>
                         </div>
                         <div class="form-group">
@@ -85,7 +97,7 @@
                                 <?php echo form_textarea(array('id'=>'alamat','name'=>'alamat','type'=>'textarea','value'=>'','rows'=>'4','class'=>'form-control'));?>
                             </div>
 						</div>
-						<div class="form-group">
+                        <div class="form-group">
 							<div class="col-sm-2">Keperluan <?php echo form_error('keperluan'); ?></div>
 							<div class="col-sm-10">
                                 <?php echo form_textarea(array('id'=>'keperluan','name'=>'keperluan','type'=>'textarea','value'=>'','rows'=>'4','class'=>'form-control'));?>
@@ -99,7 +111,7 @@
                                     <script type="text/javascript"> 
                                         function tab1Show()
                                         {
-                                            document.location.reload()
+                                            // document.location.reload()
                                         //     // var is_cetak = $('#is_cetak_surat:checked').val();
                                         //     // if(is_cetak)
                                         //         window.open('<?php // echo site_url('periksamedis/cetak_sksehat');?>', '_blank');

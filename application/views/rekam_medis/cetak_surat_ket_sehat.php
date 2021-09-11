@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+`<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,18 +14,12 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/paper-css/paper.css">
   
   <style>
-	.header img {
-	  float: left;
-	  width: 100px;
-	  height: 100px;
-	}
-
-	.header h2 {
-	  position: relative;
-	  top: 15px;
-	  left: 20px;
-	  font-size: 20px;
-	}
+	  .header{
+		  display: flex;
+	  }
+	  .header .right{
+		  width: 100%;
+	  }
   </style>
   
 
@@ -36,7 +30,7 @@
 
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
-<body class="A5" onload="window.print()">
+<body class="A5" onload="/* window.print() */">
 
   <!-- Each sheet element should have the class "sheet" -->
   <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
@@ -45,44 +39,66 @@
     <!-- Write HTML just like a web page -->
     <!--<article>This is an A5 document.</article>-->
 	<div class="header">
-	  <img src="<?php echo base_url()?>assets\images/logo_mitra_sehat_keluarga.png" alt="logo" />
-	  <h2 style="text-align: left;"><span style="color: #ff0000;">MITRA SEHAT KELUARGA</span>
-		<br />
-		PRAKTEK DOKTER UMUM
-		<br />
-		<span style="font-size:12px;">Ruko Atrani 24 - Sukorahayu - Wagir - Telp. (0341) 806305</span>
-	  </h2>
+		<div class="left">
+			<img src="<?php echo base_url()."assets/images/".getInfoRS('logo')?>" alt="logo" width="100" />
+		</div>
+	  <div class="right">
+		  <center>
+			  <h2><?= getInfoRS('nama_rumah_sakit') ?></h2>
+			  <p><?= getInfoRS('alamat') ?></p>
+			  <p><?= getInfoRS('no_telpon') ?></p>
+			</center>
+		</div>
 	  <!--<h4 style="text-align: left;">Ruko Atrani 24 - Sukorahayu - Wagir - Telp. (0341) 806305</h4>-->
 	</div>
-<br />
 <hr />
-<h3 style="text-align: center;"><span style="text-decoration: underline;">Surat Keterangan Sehat</span></h3>
-<p>Dengan ini, saya menerangkan bahwa yang dibawah ini :</p>
-<table>
+	<div style="display:inline-block;position:relative;left:50%;transform:translateX(-50%);-moz-transform:translateX(-50%);-webkit-transform:translateX(-50%)">
+		<h3 style="margin-bottom : 0px;margin-top:5"><span style="text-decoration: underline;">SURAT KETERANGAN SEHAT</span></h3>
+		<p style="margin-top : 5px;margin-bottom:0;margin-left:20"><b>No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</b></p>
+	</div>
+<p style="text-indent: 30px;"> Yang bertanda tangan dibawah ini, dokter jaga pada <?= getInfoRS('nama_rumah_sakit') ?> dengan sebenarnya bahwa</p>
+<table style="margin-right : 30px;margin-left : 30px">
 <tbody>
-<tr>
-<td>Nama</td>
-<td>:</td>
-<td colspan="5"><?php echo $nama;?></td>
-</tr>
-<tr>
-<td>Umur</td>
-<td>:</td>
-<td colspan="5"><?php echo $umur;?> Tahun</td>
-</tr>
-<tr>
-<td>Jenis Kelamin</td>
-<td>:</td>
-<td colspan="5"><?php echo $jenis_kelamin;?></td>
-</tr>
+	<tr>
+		<td width="25%">Nama</td>
+		<td width="2%">:</td>
+		<td colspan="5"><?php echo $nama;?></td>
+	</tr>
+	<tr>
+		<td>Jenis Kelamin</td>
+		<td>:</td>
+		<td colspan="5"><?php echo $jenis_kelamin;?></td>
+	</tr>
+	<tr>
+		<td>Umur</td>
+		<td>:</td>
+		<td colspan="5"><?php echo $umur;?> Tahun</td>
+	</tr>
+	<tr>
+		<td>Pekerjaan</td>
+		<td>:</td>
+		<td colspan="5"><?php echo $pekerjaan;?></td>
+	</tr>
+	<tr>
+		<td>Alamat</td>
+		<td>:</td>
+		<td colspan="5"><?php echo $alamat;?></td>
+	</tr>
+	<tr>
+		<td colspan="8">Pada hari ini kami lakukan pemeriksaan terhadap orang tersebut diatas ternyata orang ini berbadan sehat dapat <?= $keperluan ?></td>
+	</tr>
+</tbody>
+</table>
+<p style="text-indent: 30px;margin-top:0"> Demikian surat keterangan ini kami buat dengan sebenarnya untuk dapat dipergunakan dimana perlunya. </p>
+
+<p style="margin-bottom:5">Catatan :</p>
+<table style="margin-right : 30px;margin-left : 30px">
+<tbody>
 <tr>
 <td>Tinggi Badan</td>
 <td>:</td>
 <td><?php echo $tinggi_badan;?> cm</td>
 <td>&nbsp;</td>
-<td>Tekanan Darah</td>
-<td>:</td>
-<td><?php echo $tekanan_darah;?> mmHg</td>
 </tr>
 <tr>
 <td>Berat Badan</td>
@@ -90,23 +106,20 @@
 <td colspan="5"><?php echo $berat_badan;?> kg</td>
 </tr>
 <tr>
-<td>Alamat</td>
+<td>Golongan Darah</td>
 <td>:</td>
-<td colspan="5"><?php echo $alamat;?></td>
+<td><?php echo $golongan_darah;?></td>
 </tr>
 <tr>
-<td>Keperluan</td>
+<td>Buta Warna</td>
 <td>:</td>
-<td colspan="5"><?php echo $keperluan;?></td>
+<td><?php echo $buta_warna;?></td>
 </tr>
 </tbody>
 </table>
-<p>Secara General saat ini dalam keadaan sehat.</p>
-<p>Demikian surat keterangan ini dibuat dengan sebenar-benarnya. Atas perhatiaannya saya ucapkan Terima Kasih.</p>
-<p style="text-align: right;">Malang, <?php echo $tgl_cetak;?></p>
-<p style="text-align: right;">&nbsp;</p>
-<p style="text-align: right;">( <?php echo $nama_dokter;?> )</p>
-
+<p style="text-align: right;margin-bottom:5"><?= getInfoRS('kabupaten') ?>, <?php echo $tgl_cetak;?></p>
+<p style="text-align: right; margin-top:5;margin-bottom:70">Dokter yang memeriksa</p>
+<p style="text-align: right;"><u> <?php echo $nama_dokter;?> </u></p>
   </section>
 
 </body>

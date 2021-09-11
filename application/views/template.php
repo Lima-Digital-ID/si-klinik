@@ -60,7 +60,7 @@
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>A</b>LT</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b><?php echo $this->session->userdata('id_klinik') != 0 ? getBranchKlinik($this->session->userdata('id_klinik'))['nama'] : getInfoRS('nama_rumah_sakit'); ?></b></span>
+                    <span class="logo-lg"><img src="<?= base_url()."assets/images/".getInfoRS('logo') ?>" alt="" width="35"> <b><?php echo $this->session->userdata('id_klinik') != 0 ? getBranchKlinik($this->session->userdata('id_klinik'))['nama'] : getInfoRS('nama_rumah_sakit'); ?></b></span>
                 </a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top">

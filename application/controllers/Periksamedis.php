@@ -519,14 +519,15 @@ class Periksamedis extends CI_Controller
     public function sksehat(){
         $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
         $this->form_validation->set_rules('umur', 'Umur', 'trim|required');
+        $this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'trim|required');
         $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'trim|required');
         $this->form_validation->set_rules('tinggi_badan', 'Tinggi Badan', 'trim|required');
         $this->form_validation->set_rules('berat_badan', 'Berat Badan', 'trim|required');
-        $this->form_validation->set_rules('tekanan_darah', 'Tekanan Darah', 'trim|required');
+        $this->form_validation->set_rules('golongan_darah', 'Golongan Darah', 'trim|required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
+        $this->form_validation->set_rules('buta_warna', 'Buta Warna', 'trim|required');
         $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
-        
         if ($this->form_validation->run() == TRUE) {
             //Get Data Dokter
             $data_dokter = $this->Tbl_dokter_model->get_by_id($this->id_dokter);
@@ -534,11 +535,13 @@ class Periksamedis extends CI_Controller
             $data = array(
                 'nama' => $this->input->post('nama'),  
                 'umur' => $this->input->post('umur'),
+                'pekerjaan' => $this->input->post('pekerjaan'),
                 'jenis_kelamin' => $this->input->post('jenis_kelamin'),
                 'tinggi_badan' => $this->input->post('tinggi_badan'),
                 'berat_badan' => $this->input->post('berat_badan'),
-                'tekanan_darah' => $this->input->post('tekanan_darah'),
+                'golongan_darah' => $this->input->post('golongan_darah'),
                 'alamat' => $this->input->post('alamat'),
+                'buta_warna' => $this->input->post('buta_warna'),
                 'keperluan' => $this->input->post('keperluan'),
                 'tgl_cetak' => date("d M Y",  time()),
                 'nama_dokter' => $data_dokter->nama_dokter
