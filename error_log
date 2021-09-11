@@ -1,0 +1,226 @@
+[28-Feb-2018 10:25:32 America/Chicago] PHP Parse error:  syntax error, unexpected 'i' (T_STRING), expecting ';' in /home/custrave/public_html/simklinik/application/models/Master_sequence_model.php on line 29
+[28-Feb-2018 10:26:48 America/Chicago] PHP Parse error:  syntax error, unexpected 'i' (T_STRING), expecting ';' in /home/custrave/public_html/simklinik/application/models/Master_sequence_model.php on line 29
+[28-Feb-2018 10:29:42 America/Chicago] PHP Fatal error:  Call to undefined function get_master_sequence_by_master_seq_code() in /home/custrave/public_html/simklinik/application/models/Master_sequence_model.php on line 23
+[28-Feb-2018 10:32:45 America/Chicago] PHP Fatal error:  Call to undefined function get_master_sequence_by_master_seq_code() in /home/custrave/public_html/simklinik/application/models/Master_sequence_model.php on line 23
+[01-Mar-2018 06:54:24 America/Chicago] PHP Fatal error:  Call to a member function set_rules() on a non-object in /home/custrave/public_html/simklinik/application/controllers/Pendaftaran.php on line 72
+[01-Mar-2018 07:00:46 America/Chicago] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/custrave/public_html/simklinik/application/controllers/Pendaftaran.php on line 76
+[01-Mar-2018 10:13:55 America/Chicago] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR), expecting ')' in /home/custrave/public_html/simklinik/application/views/pendaftaran/create.php on line 24
+[01-Mar-2018 11:28:15 America/Chicago] PHP Parse error:  syntax error, unexpected '$this' (T_VARIABLE) in /home/custrave/public_html/simklinik/application/controllers/Pendaftaran.php on line 36
+[01-Mar-2018 11:29:08 America/Chicago] PHP Parse error:  syntax error, unexpected 'redirect' (T_STRING) in /home/custrave/public_html/simklinik/application/controllers/Pendaftaran.php on line 38
+[02-Mar-2018 13:44:53 America/Chicago] PHP Fatal error:  Call to a member function get_by_id() on a non-object in /home/custrave/public_html/simklinik/application/controllers/Periksamedis.php on line 17
+[06-Mar-2018 22:31:52 America/Chicago] PHP Fatal error:  Call to undefined function get_alkes_by_id() in /home/custrave/public_html/simklinik/application/controllers/Periksamedis.php on line 39
+[06-Mar-2018 22:32:49 America/Chicago] PHP Fatal error:  Call to undefined function get_alkes_by_id() in /home/custrave/public_html/simklinik/application/controllers/Periksamedis.php on line 39
+[06-Mar-2018 22:45:07 America/Chicago] PHP Fatal error:  Function name must be a string in /home/custrave/public_html/simklinik/application/controllers/Periksamedis.php on line 59
+[06-Mar-2018 22:45:31 America/Chicago] PHP Fatal error:  Function name must be a string in /home/custrave/public_html/simklinik/application/controllers/Periksamedis.php on line 59
+[06-Mar-2018 22:46:20 America/Chicago] PHP Fatal error:  Function name must be a string in /home/custrave/public_html/simklinik/application/controllers/Periksamedis.php on line 59
+[06-Mar-2018 22:48:38 America/Chicago] PHP Fatal error:  Function name must be a string in /home/custrave/public_html/simklinik/application/controllers/Periksamedis.php on line 59
+[11-Mar-2018 04:52:36 America/Chicago] PHP Fatal error:  Function name must be a string in /home/custrave/public_html/simklinik/application/controllers/Periksamedis.php on line 44
+[11-Mar-2018 04:53:23 America/Chicago] PHP Fatal error:  Function name must be a string in /home/custrave/public_html/simklinik/application/controllers/Periksamedis.php on line 44
+[11-Mar-2018 08:32:55 America/Chicago] PHP Fatal error:  Call to a member function select() on a non-object in /home/custrave/public_html/simklinik/application/models/Periksa_model.php on line 56
+[11-Mar-2018 08:33:11 America/Chicago] PHP Fatal error:  Call to a member function select() on a non-object in /home/custrave/public_html/simklinik/application/models/Periksa_model.php on line 56
+[11-Mar-2018 08:33:56 America/Chicago] PHP Fatal error:  Call to a member function select() on a non-object in /home/custrave/public_html/simklinik/application/models/Periksa_model.php on line 56
+[11-Mar-2018 08:35:02 America/Chicago] PHP Fatal error:  Call to a member function select() on a non-object in /home/custrave/public_html/simklinik/application/models/Periksa_model.php on line 56
+[11-Mar-2018 10:38:04 America/Chicago] PHP Fatal error:  Call to undefined method Datatables::get() in /home/custrave/public_html/simklinik/application/models/Periksa_model.php on line 65
+[11-Mar-2018 10:40:52 America/Chicago] PHP Fatal error:  Call to undefined method Datatables::get() in /home/custrave/public_html/simklinik/application/models/Periksa_model.php on line 63
+[11-Mar-2018 11:46:48 America/Chicago] PHP Fatal error:  Call to a member function row() on a non-object in /home/custrave/public_html/simklinik/application/models/Periksa_model.php on line 60
+[11-Mar-2018 12:05:09 America/Chicago] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home/custrave/public_html/simklinik/application/models/Periksa_model.php on line 64
+[12-Mar-2018 01:47:31 America/Chicago] PHP Fatal error:  Call to undefined method Datatables::get() in /home/custrave/public_html/simklinik/application/models/Periksa_model.php on line 70
+[12-Mar-2018 04:03:01 America/Chicago] PHP Fatal error:  Call to undefined method Auth::userdata() in /home/custrave/public_html/simklinik/application/controllers/Auth.php on line 20
+[12-Mar-2018 04:11:23 America/Chicago] PHP Fatal error:  Call to undefined function active_link_controller() in /home/custrave/public_html/simklinik/application/views/template/sidebar.php on line 55
+[12-Mar-2018 05:10:28 America/Chicago] PHP Fatal error:  Call to undefined function NOW() in /home/custrave/public_html/simklinik/application/controllers/Periksamedis.php on line 116
+[12-Mar-2018 09:50:32 America/Chicago] PHP Fatal error:  Call to undefined method Datatables::order_by() in /home/custrave/public_html/simklinik/application/models/Transaksi_model.php on line 44
+[12-Mar-2018 09:50:36 America/Chicago] PHP Fatal error:  Call to undefined method Datatables::order_by() in /home/custrave/public_html/simklinik/application/models/Transaksi_model.php on line 44
+[12-Mar-2018 09:51:57 America/Chicago] PHP Fatal error:  Call to undefined method Datatables::order_by() in /home/custrave/public_html/simklinik/application/models/Transaksi_model.php on line 44
+[12-Mar-2018 09:52:10 America/Chicago] PHP Fatal error:  Call to undefined method Datatables::order_by() in /home/custrave/public_html/simklinik/application/models/Transaksi_model.php on line 44
+[12-Mar-2018 12:10:15 America/Chicago] PHP Fatal error:  Call to undefined method Datatables::order_by() in /home/custrave/public_html/simklinik/application/models/Transaksi_model.php on line 56
+[12-Mar-2018 12:39:27 America/Chicago] PHP Fatal error:  Call to undefined function where() in /home/custrave/public_html/simklinik/application/models/Transaksi_model.php on line 55
+[12-Mar-2018 12:39:31 America/Chicago] PHP Fatal error:  Call to undefined function where() in /home/custrave/public_html/simklinik/application/models/Transaksi_model.php on line 55
+[12-Mar-2018 12:41:03 America/Chicago] PHP Fatal error:  Call to undefined function where() in /home/custrave/public_html/simklinik/application/models/Transaksi_model.php on line 56
+[12-Mar-2018 12:41:05 America/Chicago] PHP Fatal error:  Call to undefined function where() in /home/custrave/public_html/simklinik/application/models/Transaksi_model.php on line 56
+[13-Mar-2018 02:03:58 America/Chicago] PHP Fatal error:  Call to undefined method stdClass::num_rows() in /home/custrave/public_html/simklinik/application/controllers/Pembayaran.php on line 31
+[16-Mar-2018 14:49:55 America/Chicago] PHP Fatal error:  Call to undefined method Datatables::order_by() in /home/custrave/public_html/simklinik/application/models/Transaksi_model.php on line 97
+[16-Mar-2018 14:49:59 America/Chicago] PHP Fatal error:  Call to undefined method Datatables::order_by() in /home/custrave/public_html/simklinik/application/models/Transaksi_model.php on line 97
+[16-Mar-2018 15:10:11 America/Chicago] PHP Fatal error:  Call to a member function get_by_id() on a non-object in /home/custrave/public_html/simklinik/application/controllers/Apotek.php on line 39
+[17-Mar-2018 04:32:34 America/Chicago] PHP Parse error:  syntax error, unexpected ')' in /home/custrave/public_html/simklinik/application/controllers/Apotek.php on line 26
+[17-Mar-2018 05:08:50 America/Chicago] PHP Fatal error:  Cannot use isset() on the result of a function call (you can use "null !== func()" instead) in /home/custrave/public_html/simklinik/application/controllers/Apotek.php on line 26
+[17-Mar-2018 06:40:55 America/Chicago] PHP Fatal error:  Call to undefined function hitung_total_alkes_obat() in /home/custrave/public_html/simklinik/application/controllers/Apotek.php on line 42
+[17-Mar-2018 06:42:08 America/Chicago] PHP Fatal error:  Call to undefined function hitung_total_alkes_obat() in /home/custrave/public_html/simklinik/application/controllers/Apotek.php on line 42
+[17-Mar-2018 06:42:48 America/Chicago] PHP Fatal error:  Call to undefined function get_d_obat_tebus_by_id() in /home/custrave/public_html/simklinik/application/controllers/Apotek.php on line 94
+[17-Mar-2018 13:51:53 America/Chicago] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE), expecting function (T_FUNCTION) in /home/custrave/public_html/simklinik/application/controllers/Apotek.php on line 66
+[17-Mar-2018 13:51:59 America/Chicago] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE), expecting function (T_FUNCTION) in /home/custrave/public_html/simklinik/application/controllers/Apotek.php on line 66
+[18-Mar-2018 04:27:59 America/Chicago] PHP Fatal error:  Call to a member function select() on a non-object in /home/custrave/public_html/simklinik/application/models/Tbl_pasien_model.php on line 53
+[18-Mar-2018 08:14:52 America/Chicago] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/custrave/public_html/simklinik/application/controllers/Pasien.php on line 104
+[18-Mar-2018 08:14:55 America/Chicago] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/custrave/public_html/simklinik/application/controllers/Pasien.php on line 104
+[20-Mar-2018 22:51:10 America/Chicago] PHP Fatal error:  Call to undefined method Pendaftaran_model::json() in /home/custrave/public_html/simklinik/application/controllers/Pendaftaran.php on line 144
+[21-Mar-2018 06:11:16 America/Chicago] PHP Fatal error:  Call to undefined method Tbl_dokter_model::get_all_jaga() in /home/custrave/public_html/simklinik/application/controllers/Pendaftaran.php on line 86
+[21-Mar-2018 06:11:41 America/Chicago] PHP Fatal error:  Call to undefined method Tbl_dokter_model::get_all_jaga() in /home/custrave/public_html/simklinik/application/controllers/Pendaftaran.php on line 86
+[21-Mar-2018 06:13:12 America/Chicago] PHP Fatal error:  Call to undefined method Tbl_dokter_model::get_all_jaga() in /home/custrave/public_html/simklinik/application/controllers/Pendaftaran.php on line 86
+[21-Mar-2018 06:14:40 America/Chicago] PHP Fatal error:  Call to undefined method Tbl_dokter_model::get_all_jaga() in /home/custrave/public_html/simklinik/application/controllers/Pendaftaran.php on line 86
+[21-Mar-2018 06:15:19 America/Chicago] PHP Fatal error:  Call to undefined method Tbl_dokter_model::get_all_jaga() in /home/custrave/public_html/simklinik/application/controllers/Pendaftaran.php on line 86
+[21-Mar-2018 06:15:34 America/Chicago] PHP Fatal error:  Call to undefined method Tbl_dokter_model::get_all_jaga() in /home/custrave/public_html/simklinik/application/controllers/Pendaftaran.php on line 86
+[22-Mar-2018 11:02:53 America/Chicago] PHP Fatal error:  Call to a member function get_by_id() on a non-object in /home/custrave/public_html/simklinik/application/controllers/Apotek.php on line 113
+[22-Mar-2018 22:16:39 America/Chicago] PHP Fatal error:  Call to a member function join() on a non-object in /home/custrave/public_html/simklinik/application/models/Pendaftaran_model.php on line 56
+[22-Mar-2018 22:17:18 America/Chicago] PHP Fatal error:  Call to a member function join() on a non-object in /home/custrave/public_html/simklinik/application/models/Pendaftaran_model.php on line 56
+[22-Mar-2018 22:28:46 America/Chicago] PHP Fatal error:  Call to a member function json() on a non-object in /home/custrave/public_html/simklinik/application/controllers/User.php on line 24
+[23-Mar-2018 05:47:37 America/Chicago] PHP Fatal error:  Cannot redeclare Periksamedis::$master_ref_code_diagnosa in /home/custrave/public_html/simklinik/application/controllers/Periksamedis.php on line 14
+[25-Mar-2018 22:48:29 America/Chicago] PHP Fatal error:  Call to a member function get_by_id() on a non-object in /home/custrave/public_html/simklinik/application/controllers/Pembayaran.php on line 164
+[25-Mar-2018 22:49:00 America/Chicago] PHP Fatal error:  Call to a member function get_by_id() on a non-object in /home/custrave/public_html/simklinik/application/controllers/Pembayaran.php on line 185
+[27-Mar-2018 01:30:52 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:52 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:53 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:53 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:53 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:53 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:54 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:54 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:54 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:54 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:54 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:55 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:55 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:55 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:55 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:55 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:56 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:56 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:56 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:56 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:30:57 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:44 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:45 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:45 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:45 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:45 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:45 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:32:48 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 161
+[27-Mar-2018 01:35:33 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:33 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:33 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:33 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:33 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:33 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:34 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:34 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:34 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:34 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:34 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:34 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:34 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:34 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:34 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:34 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:34 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:35 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:35 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:35 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:35:35 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:45 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:45 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:45 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:46 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:47 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:48 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:48 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:36:48 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:38 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:38 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:38 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:39 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:39 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:39 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:39 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:39 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:39 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:40 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:40 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:40 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:40 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:40 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:40 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:40 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:40 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:41 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:41 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:41 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:37:42 America/Chicago] PHP Fatal error:  Call to a member function key() on a non-object in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 162
+[27-Mar-2018 01:42:40 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:40 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:40 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:41 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:41 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:41 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:41 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:41 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:41 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:41 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:42 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:42 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:42 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:42 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:42 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:42 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:42 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:42 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:42 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:42 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:42:43 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:30 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:30 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:30 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:30 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:30 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:30 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:30 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:31 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:31 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:31 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:31 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:31 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:31 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:31 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:32 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:32 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:32 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:32 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:32 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:32 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[27-Mar-2018 01:43:33 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 163
+[02-Apr-2018 02:55:45 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 188
+[02-Apr-2018 04:05:00 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 178
+[02-Apr-2018 04:05:57 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 190
+[02-Apr-2018 04:06:17 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 190
+[02-Apr-2018 04:07:57 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 178
+[02-Apr-2018 04:08:36 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 193
+[02-Apr-2018 04:12:22 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 178
+[02-Apr-2018 04:13:07 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 178
+[02-Apr-2018 04:14:36 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 193
+[02-Apr-2018 04:16:23 America/Chicago] PHP Fatal error:  Only variables can be passed by reference in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 192
+[02-Apr-2018 04:19:26 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 193
+[02-Apr-2018 04:20:14 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home/custrave/public_html/simrs/application/controllers/Sinkronisasi.php on line 194

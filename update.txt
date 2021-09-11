@@ -1,0 +1,16 @@
+UPDATE MENU
+Dataobat.php
+
+dataobat/stok-barang
+dataobat/history-barang
+dataobat/laporan-keuangan-barang
+dataobat/manufaktur-barang
+dataobat/manufaktur-barang-detail
+
+template
+
+Transaksi_model.php
+Tbl_obat_alkes_bhp_model
+
+table tbl_manufaktur
+table tbl_manufaktur_detail
