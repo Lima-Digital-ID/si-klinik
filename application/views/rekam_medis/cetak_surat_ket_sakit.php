@@ -14,18 +14,23 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/paper-css/paper.css">
   
   <style>
-	.header img {
-	  float: left;
-	  width: 100px;
-	  height: 100px;
-	}
-
-	.header h2 {
-	  position: relative;
-	  top: 15px;
-	  left: 20px;
-	  font-size: 20px;
-	}
+	  .body{
+		  line-height: 1.3;
+	  }
+	  .header{
+		  display: flex;
+		  position: relative;
+	  }
+	  .header img{
+		  position: absolute;
+		  width: 100px;
+		  left : 0;
+		  top : 0;
+	  }
+	  .header .right{
+		  margin-top:15px;
+		  width: 100%;
+	  }
   </style>
 
   <!-- Set page size here: A5, A4 or A3 -->
@@ -35,37 +40,62 @@
 
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
-<body class="A5" onload="window.print()">
+<body class="A5 landscape" onload="/* window.print() */">
 
   <!-- Each sheet element should have the class "sheet" -->
   <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
-  <section class="sheet padding-10mm">
+  <section class="sheet padding-10mm" style="padding-top:5mm">
 
     <!-- Write HTML just like a web page -->
     <!--<article>This is an A5 document.</article>-->
-    <div class="header">
-	  <img src="<?php echo base_url()?>assets\images/logo_mitra_sehat_keluarga.png" alt="logo" />
-	  <h2 style="text-align: left;"><span style="color: #ff0000;">MITRA SEHAT KELUARGA</span>
-		<br />
-		PRAKTEK DOKTER UMUM
-		<br />
-		<span style="font-size:12px;">Ruko Atrani 24 - Sukorahayu - Wagir - Telp. (0341) 806305</span>
-	  </h2>
+	<div class="header">
+	<img src="<?php echo base_url()."assets/images/".getInfoRS('logo')?>" alt="logo" class="img-logo" />
+	  <div class="right">
+		  <center>
+			  <h2 style="margin-bottom:0;margin-top:0"><?= getInfoRS('nama_rumah_sakit') ?></h2>
+			  <p style="margin-bottom:0;margin-top:5px"><?= getInfoRS('alamat') ?></p>
+			  <p style="margin-bottom:0;margin-top:5px"><?= getInfoRS('no_telpon') ?></p>
+			</center>
+		</div>
 	  <!--<h4 style="text-align: left;">Ruko Atrani 24 - Sukorahayu - Wagir - Telp. (0341) 806305</h4>-->
 	</div>
-<br />
+	<br>
 <hr />
-<h3 style="text-align: center;"><span style="text-decoration: underline;">Surat Keterangan Sakit</span></h3>
-<p><span style="font-style: inherit; font-weight: inherit;">Kepada Yth.&nbsp;<br /> <strong><?php echo $tujuan_surat;?></strong>&nbsp;<br /> di Tempat</span></p>
-<p>Yang bertanda tangan dibawah ini menerangkan bahwa :<br /> Nama : <strong><?php echo $nama_pasien;?></strong><br /> Pekerjaan : <strong><?php echo $pekerjaan;?></strong><br /> Alamat : <strong><?php echo $alamat;?></strong></p>
-<p>Berdasarkan hasil pemeriksaan yang telah dilakukan, pasien tersebut dalam keadaan sakit, sehingga perlu beristirahat selama <strong><?php echo $lama_istirahat;?></strong> hari, dari tanggal <strong><?php echo $tgl_periksa;?></strong> s/d <strong><?php echo $tgl_periksa2;?></strong></p>
-<p>Diagnosa : <strong><?php echo $diagnosa;?></strong></p>
-<p>Demikian surat keterangan ini diberikan, untuk diketahui dan dipergunakan sebagaimana mestinya</p>
-<div align="right">
-<p>Malang, <?php echo $tgl_cetak;?><br /> Dokter Pemeriksa,</p>
-<br />
-<p>( <strong><?php echo $dokter;?></strong> )</p>
-</div>
+<div style="display:inline-block;position:relative;left:50%;transform:translateX(-50%);-moz-transform:translateX(-50%);-webkit-transform:translateX(-50%)">
+		<h3 style="margin-bottom : 0px;margin-top:0"><span style="text-decoration: underline;">SURAT KETERANGAN SAKIT</span></h3>
+		<p style="margin-top : 5px;margin-bottom:0;margin-left:20"><b>No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</b></p>
+	</div>
+<div class="body">
+	<p style="margin-bottom:0px" >Yang bertanda tangan dibawah ini, Dokter yang bertugas di <?= ucwords(strtolower(getInfoRS('nama_rumah_sakit'))) ?> menerangkan dengan sebenarnya, mengingat sumpah jabatan bahwa  : </p>
+	<table style="margin-right : 30px;margin-left : 30px">
+	  <tr>
+		  <td>Nama</td>
+		  <td>:</td>
+		  <td><?php echo $nama_pasien;?></td>
+	  </tr>
+	  <tr>
+		  <td>Umur</td>
+		  <td>:</td>
+		  <td><?php echo $umur;?> Tahun</td>
+	  </tr>
+	  <tr>
+		  <td>Pekerjaan</td>
+		  <td>:</td>
+		  <td><?php echo $pekerjaan;?></td>
+	  </tr>
+	  <tr>
+		  <td>Alamat</td>
+		  <td>:</td>
+		  <td><?php echo $alamat;?></td>
+	  </tr>
+	</table>
+	<p style="margin-top:0px">Berdasarkan hasil pemeriksaan fisik memang benar yang bersangkutan diatas dalam keadaan sakit, dipandang perlu diberikan istirahat selama <?= $lama_istirahat ?> hari, terhitung mulai tanggal <?= $tgl_periksa ?> sd <?= $tgl_periksa2 ?> 
+	<br>
+Demikian surat keterangan sakit ini kami buat agar dapat dipergunakan dimana perlu.
+</p>
+<p style="text-align: right;margin-bottom:0"><?= getInfoRS('kabupaten') ?>, <?php echo $tgl_cetak;?></p>
+<p style="text-align: right; margin-top:3px;margin-bottom:50px">Dokter yang memeriksa</p>
+<p style="text-align: right;"><u> <?php echo $dokter;?> </u></p></div>
   </section>
 
 </body>

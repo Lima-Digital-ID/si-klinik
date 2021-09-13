@@ -731,6 +731,16 @@ class Periksamedis extends CI_Controller
         $this->data['tujuan_surat'] = $data->tujuan_surat;
         $this->data['nama_pasien'] = $data->nama_lengkap;
         $this->data['pekerjaan'] = $data->pekerjaan;
+        // tanggal lahir
+        $tanggal = new DateTime($data_pasien->tanggal_lahir);
+
+        // tanggal hari ini
+        $today = new DateTime('today');
+
+        // tahun
+        $y = $today->diff($tanggal)->y;
+        $this->data['umur'] = $y ;
+
         $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
         $this->data['lama_istirahat'] = $data->lama_istirahat_surat;
         
