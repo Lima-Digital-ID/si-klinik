@@ -31,6 +31,10 @@ class Periksamedis extends CI_Controller
         $this->load->library('form_validation');
         $this->load->library('datatables');
         $this->load->model('Master_sequence_model');
+
+        $this->load->model('Tbl_diagnosa_icd10_model');   
+        $this->load->model('Tbl_periksa_diagnosa_model');
+
         
         $this->id_dokter = $this->session->userdata('id_dokter');
         $this->id_klinik = $this->session->userdata('id_klinik');
@@ -336,7 +340,16 @@ class Periksamedis extends CI_Controller
                     ));
                 }
             }
-            
+
+            //Insert Periksa Diagnosa
+            foreach($_POST['id_diagnosa'] as $id){
+                $arr = array(
+                    'no_periksa' => $this->input->post('no_periksa'),
+                    'id_diagnosa' => $id
+                );
+
+                $this->Tbl_periksa_diagnosa_model->insert($arr);
+            }
             //Set session sukses
             $this->session->set_flashdata('message', 'Data pemeriksaan berhasil disimpan, No Pendaftaran ' . $this->no_pendaftaran);
             $this->session->set_flashdata('message_type', 'success');
@@ -385,7 +398,9 @@ class Periksamedis extends CI_Controller
             $this->data['anjuran_obat'] = $this->get_master_ref($this->master_ref_code_anjuranobat);
             
             $this->data['alkes'] = $this->get_all_alkes();
-            $this->data['obat'] = $this->get_all_obat();    
+            $this->data['obat'] = $this->get_all_obat();
+
+            $this->data['diagnosa_icd10'] = $this->Tbl_diagnosa_icd10_model->getAll();
             //Set session error
             if($this->input->post('no_periksa')){
                 $this->session->set_flashdata('message', 'Terdapat error input, silahkan cek ulang');

@@ -145,6 +145,18 @@
                                 <?php echo form_textarea(array('id'=>'diagnosa','name'=>'diagnosa','type'=>'textarea','value'=>'','rows'=>'4','class'=>'form-control'));?>
                             </div>
 						</div>
+						<div class="form-group">
+							<div class="col-sm-2">Diagnosa ICD 10 <?php echo form_error('id_diagnosa'); ?></div>
+							<div class="col-sm-10">
+                                <select name="id_diagnosa[]" class="form-control select2" multiple="multiple" id="">
+                                    <?php
+                                        foreach ($diagnosa_icd10 as $value) {
+                                            echo "<option value='".$value->id_diagnosa."'>".$value->diagnosa."</option>";
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+						</div>
 						<!--
 						<div class="form-group">
 							<div class="col-sm-2">Diagnosa</div>
