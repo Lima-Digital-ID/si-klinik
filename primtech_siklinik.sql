@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2021 at 10:22 AM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.4.22
+-- Generation Time: Sep 15, 2021 at 05:42 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -1260,7 +1260,7 @@ CREATE TABLE `tbl_dokter` (
 --
 
 INSERT INTO `tbl_dokter` (`id_dokter`, `nama_dokter`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `id_agama`, `alamat_tinggal`, `no_hp`, `id_status_menikah`, `id_spesialis`, `no_izin_praktek`, `golongan_darah`, `alumni`, `is_jaga`, `no_pendaftaran`, `dtm_crt`, `dtm_upd`) VALUES
-(1, 'dr. Sunari', 'L', 'Malang', '1959-09-09', 1, 'Malang', '08', 1, 2, 'PRKT001-11/02', 'A', 'UI', 1, '000066', '2018-03-01 16:30:43', '2021-06-23 04:39:58'),
+(1, 'dr. Sunari', 'L', 'Malang', '1959-09-09', 1, 'Malang', '08', 1, 2, 'PRKT001-11/02', 'A', 'UI', 1, '000078', '2018-03-01 16:30:43', '2021-09-14 17:47:03'),
 (3, 'Wijaya, S.Ked', 'L', 'Lumajang', '1994-04-01', 1, 'Malang', '089691402885', 1, 1, 'PRKT00/00/21', 'A', 'Brawijaya', 1, '000052', '2018-03-21 15:38:37', '2021-09-13 04:51:17');
 
 -- --------------------------------------------------------
@@ -1436,7 +1436,8 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`, `dtm_crt`, `dtm_u
 (200, 8, 45, '2019-12-17 11:19:42', '2019-12-17 11:19:42'),
 (201, 8, 62, '2019-12-17 11:20:16', '2019-12-17 11:20:16'),
 (202, 4, 40, '2018-04-19 10:35:23', '2018-04-19 10:35:23'),
-(203, 1, 41, '2018-04-19 10:35:23', '2018-04-19 10:35:23');
+(203, 4, 41, '2018-04-19 10:35:23', '2018-04-19 10:35:23'),
+(204, 5, 39, '2021-09-14 20:44:09', '2021-09-14 20:44:09');
 
 -- --------------------------------------------------------
 
@@ -1923,8 +1924,9 @@ CREATE TABLE `tbl_menu` (
 --
 
 INSERT INTO `tbl_menu` (`id_menu`, `title`, `url`, `icon`, `is_main_menu`, `is_aktif`, `dtm_crt`, `dtm_upd`) VALUES
+(39, 'Pemeriksaan Rapid Antigen', 'rapid_antigen', 'fa fa-book', 0, 'y', '2021-09-13 10:35:14', '2021-09-13 10:35:14'),
 (40, 'Pencarian', 'pendaftaran/pencarian', 'fa fa-search', 0, 'y', '2018-04-19 10:35:14', '2018-04-19 10:35:14'),
-(41, 'Formulir Rapid Antigen', 'rapid_antigen', 'fa fa-book', 0, 'y', '2021-09-13 10:35:14', '2021-09-13 10:35:14'),
+(41, 'Formulir Rapid Antigen', 'pendaftaran_rapid_antigen', 'fa fa-book', 0, 'y', '2021-09-13 10:35:14', '2021-09-13 10:35:14'),
 (42, 'Form Pendaftaran', 'pendaftaran/create', 'fa fa-pencil-square-o', 0, 'y', '2018-03-27 10:45:17', '2018-03-27 10:45:17'),
 (43, 'Antrian Pendaftaran', 'pendaftaran', 'fa fa-pencil-square', 0, 'y', '2018-03-27 10:45:17', '2018-03-27 10:45:17'),
 (44, 'Periksa Medis', 'periksamedis', 'fa fa-stethoscope', 0, 'y', '2018-03-27 10:45:17', '2018-03-27 10:45:17'),
@@ -2675,8 +2677,8 @@ CREATE TABLE `tbl_rapid_antigen` (
   `nama` varchar(150) NOT NULL,
   `no_sampel` varchar(30) NOT NULL,
   `nik_or_passport` varchar(20) NOT NULL,
-  `tgl_lahir` int(11) NOT NULL,
-  `jenis_kelamin` enum('L','P') NOT NULL,
+  `tgl_lahir` date NOT NULL,
+  `jenis_kelamin` enum('L','P') DEFAULT NULL,
   `email` varchar(150) NOT NULL,
   `no_hp` varchar(15) NOT NULL,
   `alamat_domisili` text NOT NULL,
@@ -2694,11 +2696,24 @@ CREATE TABLE `tbl_rapid_antigen` (
   `riwayat_swab_rapid_sebelumnya` text NOT NULL,
   `id_dokter` int(11) NOT NULL,
   `parameter_pemeriksaan` varchar(255) NOT NULL,
-  `hasil` enum('Positif','Negatif') NOT NULL,
-  `nilai_rujukan` enum('Positif','Negatif') NOT NULL,
+  `hasil` enum('Positif','Negatif') DEFAULT NULL,
+  `nilai_rujukan` enum('Positif','Negatif') DEFAULT NULL,
   `saran` text NOT NULL,
-  `tgl_pemeriksaan` datetime NOT NULL
+  `tgl_pemeriksaan` datetime NOT NULL,
+  `status` enum('0','1') NOT NULL DEFAULT '0',
+  `qr_code` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_rapid_antigen`
+--
+
+INSERT INTO `tbl_rapid_antigen` (`id_rapid`, `nama`, `no_sampel`, `nik_or_passport`, `tgl_lahir`, `jenis_kelamin`, `email`, `no_hp`, `alamat_domisili`, `pekerjaan`, `alamat_bekerja`, `keluhan`, `komorbid`, `alasan`, `riwayat_vaksin`, `tgl_vaksin_1`, `tgl_vaksin_2`, `riwayat_kontak`, `tgl_kontak`, `kontak_di`, `riwayat_swab_rapid_sebelumnya`, `id_dokter`, `parameter_pemeriksaan`, `hasil`, `nilai_rujukan`, `saran`, `tgl_pemeriksaan`, `status`, `qr_code`) VALUES
+(5, 'Ipsum qui sint odi', '1/IX/COVID-19/KR/2021', '', '0000-00-00', NULL, 'gycyrum@mailinator.com', 'Nihil est autem', 'Nobis ipsum reiciend', 'Velit non voluptatem', 'Cum quos est volupta', 'Provident quis repr', 'In consequuntur nisi', 'Ducimus consequatur', 'Belum', '0000-00-00', '0000-00-00', 'Tidak', '0000-00-00', '', 'Tempore eos cum vol', 1, 'Sint qui ducimus e', 'Negatif', 'Positif', 'Odit non optio comm', '2021-09-15 09:24:14', '0', '1-IX-COVID-19-KR-2021.png'),
+(6, 'Ipsum qui sint odi', '2/IX/COVID-19/KR/2021', '', '0000-00-00', NULL, 'gycyrum@mailinator.com', 'Nihil est autem', 'Nobis ipsum reiciend', 'Velit non voluptatem', 'Cum quos est volupta', 'Provident quis repr', 'In consequuntur nisi', 'Ducimus consequatur', 'Belum', '0000-00-00', '0000-00-00', 'Tidak', '0000-00-00', '', 'Tempore eos cum vol', 1, '', NULL, NULL, '', '2021-09-14 09:12:59', '0', ''),
+(7, 'Ipsum qui sint odi', '3/IX/COVID-19/KR/2021', '', '0000-00-00', NULL, 'gycyrum@mailinator.com', 'Nihil est autem', 'Nobis ipsum reiciend', 'Velit non voluptatem', 'Cum quos est volupta', 'Provident quis repr', 'In consequuntur nisi', 'Ducimus consequatur', 'Belum', '0000-00-00', '0000-00-00', 'Tidak', '0000-00-00', '', 'Tempore eos cum vol', 1, '', NULL, NULL, '', '2021-09-14 09:13:31', '0', ''),
+(8, 'Dolorem alias dolore', '4/IX/COVID-19/KR/2021', '', '0000-00-00', NULL, 'jelodafiw@mailinator.com', 'Quod aut aut no', 'Minim autem repudian', 'Et libero alias dolo', 'Neque aliquip qui in', 'Quibusdam amet offi', 'Obcaecati qui quae a', 'Et quia non dolorum ', 'Sudah', '1980-03-02', '2021-07-10', 'Tidak', '0000-00-00', '', 'Eos ut in harum seq', 1, '', NULL, NULL, '', '2021-09-14 09:14:00', '0', ''),
+(9, 'Tempore qui est do', '5/IX/COVID-19/KR/2021', '', '0000-00-00', NULL, 'cuzuxebe@mailinator.com', 'Qui vel aut con', 'Dolore rem aliquip v', 'Illum labore velit ', 'Praesentium voluptat', 'Lorem assumenda cons', 'Atque in nemo quia i', 'Veniam debitis volu', 'Belum', '0000-00-00', '0000-00-00', 'Tidak', '0000-00-00', '', 'Cupidatat in sint a', 1, '', NULL, NULL, '', '2021-09-14 09:16:44', '0', '');
 
 -- --------------------------------------------------------
 
@@ -13337,7 +13352,7 @@ ALTER TABLE `tbl_golongan_barang`
 -- AUTO_INCREMENT for table `tbl_hak_akses`
 --
 ALTER TABLE `tbl_hak_akses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
 
 --
 -- AUTO_INCREMENT for table `tbl_inventory_detail`
@@ -13451,7 +13466,7 @@ ALTER TABLE `tbl_purchase_d`
 -- AUTO_INCREMENT for table `tbl_rapid_antigen`
 --
 ALTER TABLE `tbl_rapid_antigen`
-  MODIFY `id_rapid` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rapid` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_ref_gaji`

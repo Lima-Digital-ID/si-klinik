@@ -52,3 +52,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['pendaftaran_rapid_antigen'] = "rapid_antigen";
+$route['rapid_antigen'] = "rapid_antigen/list_rapid_antigen";
