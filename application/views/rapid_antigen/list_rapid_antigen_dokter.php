@@ -72,7 +72,7 @@
             },
             processing: true,
             serverSide: true,
-            ajax: {"url": "apiListPemeriksaanDokter", "type": "POST"},
+            ajax: {"url": "<?= base_url()."rapid_antigen/" ?>apiListPemeriksaanDokter", "type": "POST"},
             columns: [
                 {
                     "data": "no_sampel",

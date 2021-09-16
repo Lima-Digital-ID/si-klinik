@@ -19,16 +19,8 @@
 	  }
 	  .header{
 		  display: flex;
-		  position: relative;
-	  }
-	  .header img{
-		  position: absolute;
-		  width: 100px;
-		  left : 0;
-		  top : 0;
 	  }
 	  .header .right{
-		  margin-top:15px;
 		  width: 100%;
 	  }
   </style>
@@ -40,7 +32,7 @@
 
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
-<body class="A5 landscape" onload="window.print()">
+<body class="A5" onload="window.print()">
 
   <!-- Each sheet element should have the class "sheet" -->
   <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
@@ -49,12 +41,14 @@
     <!-- Write HTML just like a web page -->
     <!--<article>This is an A5 document.</article>-->
 	<div class="header">
-	<img src="<?php echo base_url()."assets/images/".getInfoRS('logo')?>" alt="logo" class="img-logo" />
+		<div class="left">
+			<img src="<?php echo base_url()."assets/images/".getInfoRS('logo')?>" alt="logo" width="100" />
+		</div>
 	  <div class="right">
 		  <center>
-			  <h2 style="margin-bottom:0;margin-top:0"><?= getInfoRS('nama_rumah_sakit') ?></h2>
-			  <p style="margin-bottom:0;margin-top:5px"><?= getInfoRS('alamat') ?></p>
-			  <p style="margin-bottom:0;margin-top:5px"><?= getInfoRS('no_telpon') ?></p>
+			  <h2><?= getInfoRS('nama_rumah_sakit') ?></h2>
+			  <p><?= getInfoRS('alamat') ?></p>
+			  <p><?= getInfoRS('no_telpon') ?></p>
 			</center>
 		</div>
 	  <!--<h4 style="text-align: left;">Ruko Atrani 24 - Sukorahayu - Wagir - Telp. (0341) 806305</h4>-->

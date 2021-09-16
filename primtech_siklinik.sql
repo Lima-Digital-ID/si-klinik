@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2021 at 10:13 AM
+-- Generation Time: Sep 16, 2021 at 09:29 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -3230,6 +3230,8 @@ CREATE TABLE `tbl_dokter` (
   `alumni` varchar(40) NOT NULL,
   `is_jaga` int(1) NOT NULL COMMENT '0:"Lepas" , 1:"Jaga"',
   `no_pendaftaran` varchar(20) DEFAULT NULL COMMENT 'no_pendaftaran pasien yang sedang ditangani',
+  `komisi_biaya_pemeriksaan` int(11) NOT NULL,
+  `komisi_biaya_tindakan` int(11) NOT NULL,
   `dtm_crt` datetime NOT NULL DEFAULT current_timestamp(),
   `dtm_upd` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -3238,9 +3240,9 @@ CREATE TABLE `tbl_dokter` (
 -- Dumping data for table `tbl_dokter`
 --
 
-INSERT INTO `tbl_dokter` (`id_dokter`, `nama_dokter`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `id_agama`, `alamat_tinggal`, `no_hp`, `id_status_menikah`, `id_spesialis`, `no_izin_praktek`, `golongan_darah`, `alumni`, `is_jaga`, `no_pendaftaran`, `dtm_crt`, `dtm_upd`) VALUES
-(1, 'dr. Sunari', 'L', 'Malang', '1959-09-09', 1, 'Malang', '08', 1, 2, 'PRKT001-11/02', 'A', 'UI', 1, '000066', '2018-03-01 16:30:43', '2021-09-15 07:20:12'),
-(3, 'Wijaya, S.Ked', 'L', 'Lumajang', '1994-04-01', 1, 'Malang', '089691402885', 1, 1, 'PRKT00/00/21', 'A', 'Brawijaya', 1, '000052', '2018-03-21 15:38:37', '2021-09-13 04:51:17');
+INSERT INTO `tbl_dokter` (`id_dokter`, `nama_dokter`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `id_agama`, `alamat_tinggal`, `no_hp`, `id_status_menikah`, `id_spesialis`, `no_izin_praktek`, `golongan_darah`, `alumni`, `is_jaga`, `no_pendaftaran`, `komisi_biaya_pemeriksaan`, `komisi_biaya_tindakan`, `dtm_crt`, `dtm_upd`) VALUES
+(1, 'dr. Sunari', 'L', 'Malang', '1959-09-09', 1, 'Malang', '08', 1, 2, 'PRKT001-11/02', 'A', 'UI', 1, '000066', 10000, 20000, '2018-03-01 16:30:43', '2021-09-16 05:50:29'),
+(3, 'Wijaya, S.Ked', 'L', 'Lumajang', '1994-04-01', 1, 'Malang', '089691402885', 1, 1, 'PRKT00/00/21', 'A', 'Brawijaya', 1, '000052', 0, 0, '2018-03-21 15:38:37', '2021-09-13 04:51:17');
 
 -- --------------------------------------------------------
 
@@ -3328,7 +3330,6 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`, `dtm_crt`, `dtm_u
 (58, 1, 34, '2018-03-27 10:33:46', '2018-03-27 10:33:46'),
 (59, 1, 37, '2018-03-27 10:33:46', '2018-03-27 10:33:46'),
 (60, 1, 38, '2018-03-27 10:33:46', '2018-03-27 10:33:46'),
-(61, 1, 39, '2018-03-27 10:33:46', '2018-03-27 10:33:46'),
 (62, 1, 36, '2018-03-27 10:33:46', '2018-03-27 10:33:46'),
 (63, 1, 19, '2018-03-27 10:33:46', '2018-03-27 10:33:46'),
 (66, 2, 7, '2018-03-27 10:33:46', '2018-03-27 10:33:46'),
@@ -3483,7 +3484,10 @@ INSERT INTO `tbl_inventory` (`id_inventory`, `kode_purchase`, `inv_type`, `id_kl
 ('RCP1624431725', NULL, 'MANUFAKTUR_IN', 0, '2021-06-23 14:02:05', '2021-06-23 14:02:05'),
 ('RCP1624431726', NULL, 'MANUFAKTUR_OUT', 0, '2021-06-23 14:02:05', '2021-06-23 14:02:05'),
 ('RCP1631501477', NULL, 'TRX_STUFF', 1, '2021-09-13 09:51:17', '2021-09-13 09:51:17'),
-('RCP1631683212', NULL, 'TRX_STUFF', 1, '2021-09-15 12:20:12', '2021-09-15 12:20:12');
+('RCP1631683212', NULL, 'TRX_STUFF', 1, '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
+('RCP1631764229', NULL, 'TRX_STUFF', 1, '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+('RCP1631765309', NULL, 'TRX_STUFF', 1, '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
+('RCP1631765321', NULL, 'TRX_STUFF', 1, '2021-09-16 11:08:41', '2021-09-16 11:08:41');
 
 -- --------------------------------------------------------
 
@@ -3571,7 +3575,10 @@ INSERT INTO `tbl_inventory_detail` (`id_inventory_detail`, `id_inventory`, `kode
 (80, 'RCP1624431726', 'BRG1575602404', '', 0, 1, 1000, 0, '0000-00-00', NULL, '2021-06-23 14:02:05', '2021-06-23 14:02:05'),
 (81, 'RCP1624431726', 'BRG1575602130', '', 0, 1, 2000, 0, '0000-00-00', NULL, '2021-06-23 14:02:05', '2021-06-23 14:02:05'),
 (82, 'RCP1631501477', 'BRG1575602130', '', 0, 5, 30000, 100, '2021-06-18', NULL, '2021-09-13 09:51:17', '2021-09-13 09:51:17'),
-(83, 'RCP1631683212', 'BRG1575602130', '', 0, 5, 30000, 100, '2021-06-18', NULL, '2021-09-15 12:20:12', '2021-09-15 12:20:12');
+(83, 'RCP1631683212', 'BRG1575602130', '', 0, 5, 30000, 100, '2021-06-18', NULL, '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
+(84, 'RCP1631764229', 'BRG1575602404', '', 0, 5, 30000, 400, '2021-06-30', NULL, '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(85, 'RCP1631765309', 'BRG1575602404', '', 0, 1, 2000, 0, '2021-06-30', NULL, '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
+(86, 'RCP1631765321', 'BRG1575602404', '', 0, 1, 2000, 0, '2021-06-30', NULL, '2021-09-16 11:08:41', '2021-09-16 11:08:41');
 
 -- --------------------------------------------------------
 
@@ -3859,7 +3866,8 @@ INSERT INTO `tbl_master_reference` (`id`, `master_ref_code`, `master_ref_value`,
 (104, 'ANAMNESI', 'asa', 'asa', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
 (105, 'ALERGIOBAT', 'asas', 'asas', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
 (106, 'DIAGNOSA', 'assa', 'assa', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
-(107, 'TINDAKAN', 'asas', 'asas', '2021-09-15 12:20:12', '2021-09-15 12:20:12');
+(107, 'TINDAKAN', 'asas', 'asas', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
+(108, 'ALERGIOBAT', 'sasamarimas', 'SASAmarimas', '2021-09-16 10:50:29', '2021-09-16 10:50:29');
 
 -- --------------------------------------------------------
 
@@ -3885,7 +3893,7 @@ INSERT INTO `tbl_master_sequence` (`id_master_sequence`, `master_seq_code`, `seq
 (1, 'NOPERIKSA', 'No Periksa', 0, 6, '2018-02-28 22:01:47', '2018-02-28 22:01:47'),
 (2, 'NOREKAMMEDIS', 'No Rekam Medis', 34, 6, '2018-02-28 22:04:56', '2021-06-23 09:33:07'),
 (3, 'NOPENDAFTARAN', 'No Pendaftaran', 83, 6, '2018-03-03 01:32:21', '2021-09-13 09:51:44'),
-(4, 'NOTRANSAKSIOBAT', 'No Transaksi Obat', 76, 6, '2018-05-11 16:49:33', '2021-06-18 16:47:32');
+(4, 'NOTRANSAKSIOBAT', 'No Transaksi Obat', 78, 6, '2018-05-11 16:49:33', '2021-09-16 11:08:41');
 
 -- --------------------------------------------------------
 
@@ -4164,7 +4172,7 @@ INSERT INTO `tbl_pasien` (`no_rekam_medis`, `no_id_pasien`, `nama_lengkap`, `tan
 ('000024', '00001', 'mashfiyah', '2018-08-30', '', 'Belum Menikah', 'pelajar', 'pringgoboyo', 'lamongan', '9', '1', 'muflih', '081216262955', 'asa', NULL, '2020-01-15 05:42:48', '2021-09-13 04:51:17'),
 ('000025', '111', 'muntalib', '2001-12-12', 'A', 'Belum Menikah', 'pelajar', 'lamongan', 'lamongan', '8', '7', 'toha', '08119199920099', 'tidak ada', NULL, '2020-01-15 05:48:42', '2021-06-18 08:09:21'),
 ('000026', '3175073012820013', 'MMM', '2021-06-22', 'A', 'Belum Menikah', 'SWASTA', 'WONOCOLO', 'SURABAYA', '13', '04', 'SSS', '000212255', 'TIDAK ADA', NULL, '2020-01-15 16:15:50', '2020-01-16 06:53:44'),
-('000027', '0006', 'mahasiswa', '2020-01-01', 'B', 'Belum Menikah', 'SWASTA', 'wonocolo', 'SURABAYA', '2', '1', 'mahasiswi', '002255522335', 'marimas,', NULL, '2020-01-21 18:48:08', '2020-01-21 11:55:51'),
+('000027', '0006', 'mahasiswa', '2020-01-01', 'B', 'Belum Menikah', 'SWASTA', 'wonocolo', 'SURABAYA', '2', '1', 'mahasiswi', '002255522335', 'SASAmarimas, Paracetamol,', NULL, '2020-01-21 18:48:08', '2021-09-16 05:50:29'),
 ('000028', '122334499', 'Achmad Arif Setyoko', '1993-06-19', 'A', 'Menikah', 'Pengusaha', 'kecamatan rungkut', 'Surabaya', '2', '4', 'Sutrisna', '085648800199', 'Paracetamol,', NULL, '2020-06-19 08:20:25', '2020-06-19 01:22:57'),
 ('000029', '35081001001001001', 'Jafar Abdi', '1997-06-18', 'B', 'Belum Menikah', 'Pengusaha', 'kecamatan sumbersari', 'jember', '1', '6', 'Sutrisna', '085648800199', 'amoxicillin,', NULL, '2020-06-19 08:32:43', '2020-06-19 01:34:27'),
 ('000030', '3508100104940001', 'Jafar Abdillah', '1996-06-20', 'AB', 'Belum Menikah', 'Pengusaha', 'kecamatan rungkut', 'Surabaya', '1', '6', 'Sutrisna', '085648800199', 'Ultra Flu,', NULL, '2020-06-19 08:53:26', '2021-06-18 07:59:33'),
@@ -4269,7 +4277,7 @@ INSERT INTO `tbl_pendaftaran` (`no_pendaftaran`, `no_rekam_medis`, `id_klinik`, 
 ('000065', '000025', 1, 1, 1, '2020-01-15 17:23:43', '2021-06-18 08:09:21'),
 ('000066', '000026', 1, 1, 0, '2020-01-16 13:48:00', '2020-01-16 13:48:00'),
 ('000067', '000027', 1, 1, 1, '2020-01-21 18:48:08', '2020-01-21 11:55:51'),
-('000068', '000027', 1, 1, 0, '2020-01-21 18:51:12', '2020-01-21 18:51:12'),
+('000068', '000027', 1, 1, 1, '2020-01-21 18:51:12', '2021-09-16 05:50:29'),
 ('000069', '000003-1-1', 1, 1, 1, '2020-06-17 14:32:28', '2021-06-22 03:04:08'),
 ('000070', '000028', 1, 1, 1, '2020-06-19 08:20:25', '2020-06-19 01:22:57'),
 ('000071', '000029', 1, 1, 1, '2020-06-19 08:32:43', '2020-06-19 01:34:27'),
@@ -4349,7 +4357,8 @@ INSERT INTO `tbl_periksa` (`no_periksa`, `no_pendaftaran`, `no_rekam_medis`, `an
 ('000069/20210622/000003-1-1', '000069', '000003-1-1', 'pusing 7 keliling', 'Sakit Pusing', 'Suntik biasa', 0, '', NULL, 0, 1, NULL, 1, 'OBH IKA, SANMOL F 650MG TAB 4S STRIP 25S', '2021-06-22 10:04:08', '2021-06-22 03:06:52'),
 ('000082/20210623/000034', '000082', '000034', 'anamesti', 'tidak kenapa kenapa', 'diberi obat', 0, '', NULL, 0, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2021-06-23 09:39:58', '2021-06-23 04:43:17'),
 ('000061/20210913/000024', '000061', '000024', 'a', 'asa', 'sa', 1, 'ada', '2021-09-13', 3, 3, NULL, 0, 'OBH IKA', '2021-09-13 09:51:17', '2021-09-13 09:51:17'),
-('000078/20210915/000033', '000078', '000033', 'asa', 'assa', 'asas', 1, 'ada', '2021-09-15', 2, 1, NULL, 0, 'OBH IKA', '2021-09-15 12:20:12', '2021-09-15 12:20:12');
+('000078/20210915/000033', '000078', '000033', 'asa', 'assa', 'asas', 1, 'ada', '2021-09-15', 2, 1, NULL, 0, 'OBH IKA', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
+('000068/20210916/000027', '000068', '000027', 'asa', 'ASA', 'ASAS', 1, 'DAVID', '2021-09-16', 2, 1, NULL, 0, 'SANMOL F 650MG TAB 4S STRIP 25S', '2021-09-16 10:50:29', '2021-09-16 10:50:29');
 
 -- --------------------------------------------------------
 
@@ -4369,7 +4378,10 @@ CREATE TABLE `tbl_periksa_diagnosa` (
 
 INSERT INTO `tbl_periksa_diagnosa` (`id_periksa_diagnosa`, `no_periksa`, `id_diagnosa`) VALUES
 (1, '000078/20210915/000033', 4),
-(2, '000078/20210915/000033', 5);
+(2, '000078/20210915/000033', 5),
+(3, '000068/20210916/000027', 2),
+(4, '000068/20210916/000027', 5),
+(5, '000068/20210916/000027', 954);
 
 -- --------------------------------------------------------
 
@@ -4502,7 +4514,11 @@ INSERT INTO `tbl_periksa_d_fisik` (`id_periksa_d_fisik`, `no_periksa`, `nama_per
 (94, '000078/20210915/000033', 'Berat Badan', '12', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
 (95, '000078/20210915/000033', 'Tinggi Badan', '121', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
 (96, '000078/20210915/000033', 'Tekanan Darah', '12', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
-(97, '000078/20210915/000033', 'Suhu Tubuh', '121', '2021-09-15 12:20:12', '2021-09-15 12:20:12');
+(97, '000078/20210915/000033', 'Suhu Tubuh', '121', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
+(98, '000068/20210916/000027', 'Berat Badan', '12', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(99, '000068/20210916/000027', 'Tinggi Badan', '121', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(100, '000068/20210916/000027', 'Tekanan Darah', '12', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(101, '000068/20210916/000027', 'Suhu Tubuh', '121', '2021-09-16 10:50:29', '2021-09-16 10:50:29');
 
 -- --------------------------------------------------------
 
@@ -4557,7 +4573,8 @@ INSERT INTO `tbl_periksa_d_obat` (`id_periksa_d_obat`, `no_periksa`, `kode_baran
 (27, '000069/20210622/000003-1-1', 'BRG1575602404', 15, '3x1', '0', '', 1, '2021-06-22 10:04:08', '2021-06-22 03:06:52'),
 (28, '000082/20210623/000034', 'BRG1575602404', 5, '3x1', '0', '', 1, '2021-06-23 09:39:58', '2021-06-23 04:43:17'),
 (29, '000061/20210913/000024', 'BRG1575602130', 5, '3x1', '0', '', 0, '2021-09-13 09:51:17', '2021-09-13 09:51:17'),
-(30, '000078/20210915/000033', 'BRG1575602130', 5, '3x1/2', '0', 'asas', 0, '2021-09-15 12:20:12', '2021-09-15 12:20:12');
+(30, '000078/20210915/000033', 'BRG1575602130', 5, '3x1/2', '0', 'asas', 0, '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
+(31, '000068/20210916/000027', 'BRG1575602404', 5, '3x1', '0', '', 0, '2021-09-16 10:50:29', '2021-09-16 10:50:29');
 
 -- --------------------------------------------------------
 
@@ -4720,11 +4737,12 @@ CREATE TABLE `tbl_rapid_antigen` (
 --
 
 INSERT INTO `tbl_rapid_antigen` (`id_rapid`, `nama`, `no_sampel`, `nik_or_passport`, `tgl_lahir`, `jenis_kelamin`, `email`, `no_hp`, `alamat_domisili`, `pekerjaan`, `alamat_bekerja`, `keluhan`, `komorbid`, `alasan`, `riwayat_vaksin`, `tgl_vaksin_1`, `tgl_vaksin_2`, `riwayat_kontak`, `tgl_kontak`, `kontak_di`, `riwayat_swab_rapid_sebelumnya`, `id_dokter`, `parameter_pemeriksaan`, `hasil`, `nilai_rujukan`, `saran`, `tgl_pemeriksaan`, `status`, `qr_code`) VALUES
-(5, 'Ipsum qui sint odi', '1/IX/COVID-19/KR/2021', '', '0000-00-00', NULL, 'gycyrum@mailinator.com', 'Nihil est autem', 'Nobis ipsum reiciend', 'Velit non voluptatem', 'Cum quos est volupta', 'Provident quis repr', 'In consequuntur nisi', 'Ducimus consequatur', 'Belum', '0000-00-00', '0000-00-00', 'Tidak', '0000-00-00', '', 'Tempore eos cum vol', 1, 'Sint qui ducimus e', 'Negatif', 'Positif', 'Odit non optio comm', '2021-09-15 09:24:14', '0', '1-IX-COVID-19-KR-2021.png'),
+(5, 'Ipsum qui sint odi', '1/IX/COVID-19/KR/2021', '', '0000-00-00', NULL, 'gycyrum@mailinator.com', 'Nihil est autem', 'Nobis ipsum reiciend', 'Velit non voluptatem', 'Cum quos est volupta', 'Provident quis repr', 'In consequuntur nisi', 'Ducimus consequatur', 'Belum', '0000-00-00', '0000-00-00', 'Tidak', '0000-00-00', '', 'Tempore eos cum vol', 1, 'Rapid Antigen', 'Negatif', 'Negatif', 'Makan yang banyak', '2021-09-16 11:59:47', '0', '1-IX-COVID-19-KR-2021.png'),
 (6, 'Ipsum qui sint odi', '2/IX/COVID-19/KR/2021', '', '0000-00-00', NULL, 'gycyrum@mailinator.com', 'Nihil est autem', 'Nobis ipsum reiciend', 'Velit non voluptatem', 'Cum quos est volupta', 'Provident quis repr', 'In consequuntur nisi', 'Ducimus consequatur', 'Belum', '0000-00-00', '0000-00-00', 'Tidak', '0000-00-00', '', 'Tempore eos cum vol', 1, '', NULL, NULL, '', '2021-09-14 09:12:59', '0', ''),
 (7, 'Ipsum qui sint odi', '3/IX/COVID-19/KR/2021', '', '0000-00-00', NULL, 'gycyrum@mailinator.com', 'Nihil est autem', 'Nobis ipsum reiciend', 'Velit non voluptatem', 'Cum quos est volupta', 'Provident quis repr', 'In consequuntur nisi', 'Ducimus consequatur', 'Belum', '0000-00-00', '0000-00-00', 'Tidak', '0000-00-00', '', 'Tempore eos cum vol', 1, '', NULL, NULL, '', '2021-09-14 09:13:31', '0', ''),
 (8, 'Dolorem alias dolore', '4/IX/COVID-19/KR/2021', '', '0000-00-00', NULL, 'jelodafiw@mailinator.com', 'Quod aut aut no', 'Minim autem repudian', 'Et libero alias dolo', 'Neque aliquip qui in', 'Quibusdam amet offi', 'Obcaecati qui quae a', 'Et quia non dolorum ', 'Sudah', '1980-03-02', '2021-07-10', 'Tidak', '0000-00-00', '', 'Eos ut in harum seq', 1, '', NULL, NULL, '', '2021-09-14 09:14:00', '0', ''),
-(9, 'Tempore qui est do', '5/IX/COVID-19/KR/2021', '', '0000-00-00', NULL, 'cuzuxebe@mailinator.com', 'Qui vel aut con', 'Dolore rem aliquip v', 'Illum labore velit ', 'Praesentium voluptat', 'Lorem assumenda cons', 'Atque in nemo quia i', 'Veniam debitis volu', 'Belum', '0000-00-00', '0000-00-00', 'Tidak', '0000-00-00', '', 'Cupidatat in sint a', 1, '', NULL, NULL, '', '2021-09-14 09:16:44', '0', '');
+(9, 'Tempore qui est do', '5/IX/COVID-19/KR/2021', '', '0000-00-00', NULL, 'cuzuxebe@mailinator.com', 'Qui vel aut con', 'Dolore rem aliquip v', 'Illum labore velit ', 'Praesentium voluptat', 'Lorem assumenda cons', 'Atque in nemo quia i', 'Veniam debitis volu', 'Belum', '0000-00-00', '0000-00-00', 'Tidak', '0000-00-00', '', 'Cupidatat in sint a', 1, '', NULL, NULL, '', '2021-09-14 09:16:44', '0', ''),
+(10, 'Quibusdam sequi in a', '6/IX/COVID-19/KR/2021', 'Omnis enim velit mol', '0000-00-00', 'L', 'myfav@mailinator.com', 'Voluptate quo t', 'Eligendi molestiae q', 'Accusamus deserunt f', 'Et animi ea perspic', 'Eius omnis est comm', 'Non sapiente aliqua', 'Odio architecto sunt', 'Belum', '0000-00-00', '0000-00-00', 'Tidak', '0000-00-00', '', 'Exercitation quaerat', 3, '', NULL, NULL, '', '0000-00-00 00:00:00', '0', '');
 
 -- --------------------------------------------------------
 
@@ -5034,7 +5052,7 @@ INSERT INTO `tbl_transaksi` (`id_transaksi`, `kode_transaksi`, `id_klinik`, `no_
 (18, 'TRXOBAT', 1, 'TRXOBAT000073', '2020-01-15', 1, 'muflih', '2020-01-15 17:14:30', '2020-01-15 10:14:47'),
 (19, 'PRKS', 1, '000063/20200116/000026', '2020-01-16', 1, 'mmm', '2020-01-16 13:53:44', '2020-01-16 06:56:56'),
 (20, 'TRXOBAT', 1, 'TRXOBAT000074', '2020-01-16', 0, 'mmm', '2020-01-16 13:57:51', '2020-01-16 13:57:51'),
-(21, 'PRKS', 1, '000067/20200121/000027', '2020-01-21', 0, NULL, '2020-01-21 18:55:51', '2020-01-21 18:55:51'),
+(21, 'PRKS', 1, '000067/20200121/000027', '2020-01-21', 1, 'david', '2020-01-21 18:55:51', '2021-09-16 05:51:22'),
 (22, 'PRKS', 0, '000056/20200121/000001-1', '2020-01-21', 0, NULL, '2020-01-21 18:59:39', '2020-01-21 18:59:39'),
 (23, 'PRKS', 1, '000070/20200619/000028', '2020-06-19', 0, NULL, '2020-06-19 08:22:57', '2020-06-19 08:22:57'),
 (24, 'PRKS', 1, '000064/20200619/000001', '2020-06-19', 0, NULL, '2020-06-19 08:30:02', '2020-06-19 08:30:02'),
@@ -5050,7 +5068,10 @@ INSERT INTO `tbl_transaksi` (`id_transaksi`, `kode_transaksi`, `id_klinik`, `no_
 (34, 'PRKS', 1, '000069/20210622/000003-1-1', '2021-06-22', 1, 'Achmad Arif', '2021-06-22 10:04:08', '2021-06-22 03:09:28'),
 (35, 'PRKS', 1, '000082/20210623/000034', '2021-06-23', 0, NULL, '2021-06-23 09:39:58', '2021-06-23 09:39:58'),
 (36, 'PRKS', 1, '000061/20210913/000024', '2021-09-13', 0, NULL, '2021-09-13 09:51:17', '2021-09-13 09:51:17'),
-(37, 'PRKS', 1, '000078/20210915/000033', '2021-09-15', 0, NULL, '2021-09-15 12:20:12', '2021-09-15 12:20:12');
+(37, 'PRKS', 1, '000078/20210915/000033', '2021-09-15', 0, NULL, '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
+(38, 'PRKS', 1, '000068/20210916/000027', '2021-09-16', 0, NULL, '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(39, 'TRXOBAT', 1, 'TRXOBAT000077', '2021-09-16', 0, 'david', '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
+(40, 'TRXOBAT', 1, 'TRXOBAT000078', '2021-09-16', 0, 'david', '2021-09-16 11:08:41', '2021-09-16 11:08:41');
 
 -- --------------------------------------------------------
 
@@ -5223,7 +5244,15 @@ INSERT INTO `tbl_transaksi_d` (`id_transaksi_d`, `no_transaksi`, `deskripsi`, `a
 (148, '000078/20210915/000033', 'Total Obat-obatan', 75000, 'd', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
 (149, '000078/20210915/000033', 'Subsidi Obat-obatan', 0, 'c', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
 (150, '000078/20210915/000033', 'Biaya Pemeriksaan', 10000, 'd', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
-(151, '000078/20210915/000033', 'Biaya Tindakan', 10000, 'd', '2021-09-15 12:20:12', '2021-09-15 12:20:12');
+(151, '000078/20210915/000033', 'Biaya Tindakan', 10000, 'd', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
+(152, '000068/20210916/000027', 'Total Obat-obatan', 10000, 'd', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(153, '000068/20210916/000027', 'Subsidi Obat-obatan', 0, 'c', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(154, '000068/20210916/000027', 'Biaya Pemeriksaan', 10000, 'd', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(155, '000068/20210916/000027', 'Biaya Tindakan', 10000, 'd', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(156, '000067/20200121/000027', 'Pembayaran Biaya Medis a/n david', 115000, 'c', '2021-09-16 10:51:22', '2021-09-16 10:51:22'),
+(157, '000067/20200121/000027', 'Biaya Administrasi', 10000, 'd', '2021-09-16 10:51:22', '2021-09-16 10:51:22'),
+(158, 'TRXOBAT000077', 'Total Obat-obatan', 2000, 'd', '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
+(159, 'TRXOBAT000078', 'Total Obat-obatan', 2000, 'd', '2021-09-16 11:08:41', '2021-09-16 11:08:41');
 
 -- --------------------------------------------------------
 
@@ -5266,7 +5295,9 @@ INSERT INTO `tbl_transaksi_d_obat` (`id_transaksi_d_obat`, `no_transaksi`, `kode
 (18, 'TRXOBAT000075', 'BRG1575602130', 1, 15000, '2020-10-27 15:26:12', '2020-10-27 15:26:12'),
 (19, 'TRXOBAT000075', 'BRG1575602130', 1, 15000, '2020-10-27 15:26:12', '2020-10-27 15:26:12'),
 (20, 'TRXOBAT000075', 'BRG1575602404', 1, 2000, '2020-10-27 15:26:12', '2020-10-27 15:26:12'),
-(21, 'TRXOBAT000076', 'BRG1575602130', 2, 15000, '2021-06-18 16:47:33', '2021-06-18 16:47:33');
+(21, 'TRXOBAT000076', 'BRG1575602130', 2, 15000, '2021-06-18 16:47:33', '2021-06-18 16:47:33'),
+(22, 'TRXOBAT000077', 'BRG1575602404', 1, 2000, '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
+(23, 'TRXOBAT000078', 'BRG1575602404', 1, 2000, '2021-09-16 11:08:41', '2021-09-16 11:08:41');
 
 -- --------------------------------------------------------
 
@@ -5348,7 +5379,10 @@ INSERT INTO `tbl_trx_akuntansi` (`id_trx_akun`, `deskripsi`, `tanggal`, `dtm_crt
 (156, 'Pembelian Barang dengan Kode PO1624348456', '2021-06-22', '2021-06-22 14:54:40', '2021-06-22 14:54:40'),
 (157, 'Penjualan Obat dari Nomor Pemeriksaan 000082/20210623/000034', '2021-06-23', '2021-06-23 09:39:58', '2021-06-23 09:39:58'),
 (158, 'Penjualan Obat dari Nomor Pemeriksaan 000061/20210913/000024', '2021-09-13', '2021-09-13 09:51:17', '2021-09-13 09:51:17'),
-(159, 'Penjualan Obat dari Nomor Pemeriksaan 000078/20210915/000033', '2021-09-15', '2021-09-15 12:20:12', '2021-09-15 12:20:12');
+(159, 'Penjualan Obat dari Nomor Pemeriksaan 000078/20210915/000033', '2021-09-15', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
+(160, 'Penjualan Obat dari Nomor Pemeriksaan 000068/20210916/000027', '2021-09-16', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(161, 'Penjualan Obat dengan Kode Transaksi TRXOBAT000077', '2021-09-16', '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
+(162, 'Penjualan Obat dengan Kode Transaksi TRXOBAT000078', '2021-09-16', '2021-09-16 11:08:41', '2021-09-16 11:08:41');
 
 -- --------------------------------------------------------
 
@@ -5615,7 +5649,22 @@ INSERT INTO `tbl_trx_akuntansi_detail` (`id_trx_akun_detail`, `id_trx_akun`, `id
 (477, 159, 65, 149500, 'DEBIT', 'lawan', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
 (478, 159, 58, 149500, 'KREDIT', 'akun', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
 (479, 159, 39, 75000, 'KREDIT', 'akun', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
-(480, 159, 64, 0, 'DEBIT', 'akun', '2021-09-15 12:20:12', '2021-09-15 12:20:12');
+(480, 159, 64, 0, 'DEBIT', 'akun', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
+(481, 160, 20, 10000, 'DEBIT', 'lawan', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(482, 160, 65, 148000, 'DEBIT', 'lawan', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(483, 160, 58, 148000, 'KREDIT', 'akun', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(484, 160, 39, 10000, 'KREDIT', 'akun', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(485, 160, 64, 0, 'DEBIT', 'akun', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
+(486, 161, 39, 2000, 'KREDIT', 'akun', '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
+(487, 161, 58, 29600, 'KREDIT', 'akun', '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
+(488, 161, 46, 0, 'DEBIT', 'akun', '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
+(489, 161, 20, 2000, 'DEBIT', 'lawan', '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
+(490, 161, 65, 29600, 'DEBIT', 'lawan', '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
+(491, 162, 39, 2000, 'KREDIT', 'akun', '2021-09-16 11:08:41', '2021-09-16 11:08:41'),
+(492, 162, 58, 29600, 'KREDIT', 'akun', '2021-09-16 11:08:41', '2021-09-16 11:08:41'),
+(493, 162, 46, 0, 'DEBIT', 'akun', '2021-09-16 11:08:41', '2021-09-16 11:08:41'),
+(494, 162, 20, 2000, 'DEBIT', 'lawan', '2021-09-16 11:08:41', '2021-09-16 11:08:41'),
+(495, 162, 65, 29600, 'DEBIT', 'lawan', '2021-09-16 11:08:41', '2021-09-16 11:08:41');
 
 -- --------------------------------------------------------
 
@@ -15398,7 +15447,7 @@ ALTER TABLE `tbl_hak_akses`
 -- AUTO_INCREMENT for table `tbl_inventory_detail`
 --
 ALTER TABLE `tbl_inventory_detail`
-  MODIFY `id_inventory_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id_inventory_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `tbl_jabatan`
@@ -15440,7 +15489,7 @@ ALTER TABLE `tbl_manufaktur_detail`
 -- AUTO_INCREMENT for table `tbl_master_reference`
 --
 ALTER TABLE `tbl_master_reference`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `tbl_master_sequence`
@@ -15476,7 +15525,7 @@ ALTER TABLE `tbl_pegawai`
 -- AUTO_INCREMENT for table `tbl_periksa_diagnosa`
 --
 ALTER TABLE `tbl_periksa_diagnosa`
-  MODIFY `id_periksa_diagnosa` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_periksa_diagnosa` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_periksa_d_alkes`
@@ -15488,13 +15537,13 @@ ALTER TABLE `tbl_periksa_d_alkes`
 -- AUTO_INCREMENT for table `tbl_periksa_d_fisik`
 --
 ALTER TABLE `tbl_periksa_d_fisik`
-  MODIFY `id_periksa_d_fisik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id_periksa_d_fisik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `tbl_periksa_d_obat`
 --
 ALTER TABLE `tbl_periksa_d_obat`
-  MODIFY `id_periksa_d_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_periksa_d_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tbl_potongan_gaji`
@@ -15512,7 +15561,7 @@ ALTER TABLE `tbl_purchase_d`
 -- AUTO_INCREMENT for table `tbl_rapid_antigen`
 --
 ALTER TABLE `tbl_rapid_antigen`
-  MODIFY `id_rapid` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_rapid` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_ref_gaji`
@@ -15572,31 +15621,31 @@ ALTER TABLE `tbl_status_menikah`
 -- AUTO_INCREMENT for table `tbl_transaksi`
 --
 ALTER TABLE `tbl_transaksi`
-  MODIFY `id_transaksi` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_transaksi` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaksi_d`
 --
 ALTER TABLE `tbl_transaksi_d`
-  MODIFY `id_transaksi_d` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+  MODIFY `id_transaksi_d` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaksi_d_obat`
 --
 ALTER TABLE `tbl_transaksi_d_obat`
-  MODIFY `id_transaksi_d_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_transaksi_d_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbl_trx_akuntansi`
 --
 ALTER TABLE `tbl_trx_akuntansi`
-  MODIFY `id_trx_akun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
+  MODIFY `id_trx_akun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
 -- AUTO_INCREMENT for table `tbl_trx_akuntansi_detail`
 --
 ALTER TABLE `tbl_trx_akuntansi_detail`
-  MODIFY `id_trx_akun_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=481;
+  MODIFY `id_trx_akun_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=496;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`

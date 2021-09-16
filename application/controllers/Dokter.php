@@ -68,6 +68,8 @@ class Dokter extends CI_Controller
 	    'no_izin_praktek' => set_value('no_izin_praktek'),
 	    'golongan_darah' => set_value('golongan_darah'),
 	    'alumni' => set_value('alumni'),
+	    'komisi_biaya_pemeriksaan' => set_value('komisi_biaya_pemeriksaan'),
+	    'komisi_biaya_tindakan' => set_value('komisi_biaya_tindakan'),
 	);
         $this->template->load('template','dokter/tbl_dokter_form', $data);
     }
@@ -92,6 +94,8 @@ class Dokter extends CI_Controller
 		'no_izin_praktek' => $this->input->post('no_izin_praktek',TRUE),
 		'golongan_darah' => $this->input->post('golongan_darah',TRUE),
 		'alumni' => $this->input->post('alumni',TRUE),
+	    'komisi_biaya_pemeriksaan' => $this->input->post('komisi_biaya_pemeriksaan', TRUE),
+	    'komisi_biaya_tindakan' => $this->input->post('komisi_biaya_tindakan', TRUE),
 	    );
 
             $this->Tbl_dokter_model->insert($data);
@@ -121,6 +125,9 @@ class Dokter extends CI_Controller
 		'no_izin_praktek' => set_value('no_izin_praktek', $row->no_izin_praktek),
 		'golongan_darah' => set_value('golongan_darah', $row->golongan_darah),
 		'alumni' => set_value('alumni', $row->alumni),
+	    'komisi_biaya_pemeriksaan' => set_value('komisi_biaya_pemeriksaan',$row->komisi_biaya_pemeriksaan),
+	    'komisi_biaya_tindakan' => set_value('komisi_biaya_tindakan',$row->komisi_biaya_tindakan),
+        
 	    );
             $this->template->load('template','dokter/tbl_dokter_form', $data);
         } else {
@@ -149,9 +156,10 @@ class Dokter extends CI_Controller
 		'no_izin_praktek' => $this->input->post('no_izin_praktek',TRUE),
 		'golongan_darah' => $this->input->post('golongan_darah',TRUE),
 		'alumni' => $this->input->post('alumni',TRUE),
+	    'komisi_biaya_pemeriksaan' => $this->input->post('komisi_biaya_pemeriksaan', TRUE),
+	    'komisi_biaya_tindakan' => $this->input->post('komisi_biaya_tindakan', TRUE),
             'dtm_upd' => date("Y-m-d H:i:s",  time())
 	    );
-
             $this->Tbl_dokter_model->update($this->input->post('kode_dokter', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('dokter'));
