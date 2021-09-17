@@ -54,3 +54,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['pendaftaran_rapid_antigen'] = "rapid_antigen";
 $route['rapid_antigen'] = "rapid_antigen/list_rapid_antigen";
+$route['biayask'] = "periksamedis/biayask";

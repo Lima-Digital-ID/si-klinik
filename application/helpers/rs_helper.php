@@ -6,6 +6,13 @@ function getInfoRS($field){
     $rs = $ci->db->get('tbl_profil_rumah_sakit')->row_array();
     return $rs[$field];
 }
+function biayaSK($select)
+{
+    $ci = get_instance();
+    $ci->db->select($select);
+    $biaya = $ci->db->get('tbl_biaya_sk')->row_array();
+    return $biaya[$select];
+}
 
 function getBranchKlinik($id_klinik){
     $ci = get_instance();

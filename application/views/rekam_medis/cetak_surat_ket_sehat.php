@@ -34,7 +34,7 @@
 
   <!-- Each sheet element should have the class "sheet" -->
   <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
-  <section class="sheet padding-10mm"">
+  <section class="sheet padding-10mm"  style="padding-top:5mm">
 
     <!-- Write HTML just like a web page -->
     <!--<article>This is an A5 document.</article>-->
@@ -44,9 +44,9 @@
 		</div>
 	  <div class="right">
 		  <center>
-			  <h2><?= getInfoRS('nama_rumah_sakit') ?></h2>
-			  <p><?= getInfoRS('alamat') ?></p>
-			  <p><?= getInfoRS('no_telpon') ?></p>
+			  <h2 style="margin-bottom:0"><?= getInfoRS('nama_rumah_sakit') ?></h2>
+			  <p style="margin-top:5px;margin-bottom:0"><?= getInfoRS('alamat') ?></p>
+			  <p style="margin-top:5px"><?= getInfoRS('no_telpon') ?></p>
 			</center>
 		</div>
 	  <!--<h4 style="text-align: left;">Ruko Atrani 24 - Sukorahayu - Wagir - Telp. (0341) 806305</h4>-->
@@ -54,7 +54,7 @@
 <hr />
 	<div style="display:inline-block;position:relative;left:50%;transform:translateX(-50%);-moz-transform:translateX(-50%);-webkit-transform:translateX(-50%)">
 		<h3 style="margin-bottom : 0px;margin-top:5"><span style="text-decoration: underline;">SURAT KETERANGAN SEHAT</span></h3>
-		<p style="margin-top : 5px;margin-bottom:0;margin-left:20"><b>No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</b></p>
+		<p style="margin-top : 5px;margin-bottom:0;text-align:center;letter-spacing:2px"><b>No. <?= $nomor ?></b></p>
 	</div>
 <p style="text-indent: 30px;"> Yang bertanda tangan dibawah ini, dokter jaga pada <?= getInfoRS('nama_rumah_sakit') ?> dengan sebenarnya bahwa</p>
 <table style="margin-right : 30px;margin-left : 30px">

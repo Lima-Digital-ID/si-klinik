@@ -544,29 +544,35 @@ class Periksamedis extends CI_Controller
         $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
         if ($this->form_validation->run() == TRUE) {
-            //Get Data Dokter
-            $data_dokter = $this->Tbl_dokter_model->get_by_id($this->id_dokter);
+            $post = $this->input->post();
+            $this->load->model('Tbl_sksehat_model');
+            $getLastNomor = $this->Tbl_sksehat_model->getLastNomor();
+            if(count($getLastNomor)==0){
+                $nomor = 1;
+            } 
+            else{
+                $getNomor = explode('/',$getLastNomor[0]->nomor);
+                $nomor = (int)$getNomor[3]+1;
+            }
+            $post['nomor'] = "SKS/".date('y')."/".date('m')."/".$nomor;
+            $post['tgl_cetak'] = date('Y-m-d');
+            $post['id_dokter'] = $this->id_dokter;
+            $this->Tbl_sksehat_model->insert($post);
             
-            $data = array(
-                'nama' => $this->input->post('nama'),  
-                'umur' => $this->input->post('umur'),
-                'pekerjaan' => $this->input->post('pekerjaan'),
-                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                'tinggi_badan' => $this->input->post('tinggi_badan'),
-                'berat_badan' => $this->input->post('berat_badan'),
-                'golongan_darah' => $this->input->post('golongan_darah'),
-                'alamat' => $this->input->post('alamat'),
-                'buta_warna' => $this->input->post('buta_warna'),
-                'keperluan' => $this->input->post('keperluan'),
-                'tgl_cetak' => date("d M Y",  time()),
-                'nama_dokter' => $data_dokter->nama_dokter
-            );
-            $this->load->view('rekam_medis/cetak_surat_ket_sehat', $data);
+            redirect(base_url()."periksamedis/cetak_sksehat?nomor=".$post['nomor']);
         } else {
             $this->template->load('template','rekam_medis/sksehat_form');
         }
         
         // $this->load->view('rekam_medis/cetak_surat_ket_sehat');
+    }
+    
+    public function cetak_sksehat()
+    {
+        $this->load->model('Tbl_sksehat_model');
+        $data = $this->Tbl_sksehat_model->getDetail($_GET['nomor']);
+        $data['jenis_kelamin'] = $data['jenis_kelamin']=='L' ? 'Laki Laki' : 'Perempuan';
+        $this->load->view('rekam_medis/cetak_surat_ket_sehat', $data);
     }
     
     public function periksa($no_pend){
@@ -901,5 +907,39 @@ class Periksamedis extends CI_Controller
     	$this->form_validation->set_rules('nomor_telepon', 'Nomor Telepon', 'trim|required');
 		$this->form_validation->set_rules('nama_dokter', 'Nama Dokter', 'trim|required');
     	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    }
+    public function biayask()
+    {
+        $this->form_validation->set_rules('sksehat', 'Surat Keterangan Sehat', 'trim|required');
+        $this->form_validation->set_rules('sksakit', 'Surat Keterangan Sakit', 'trim|required');
+        $this->form_validation->set_rules('rapid_antigen', 'Rapid Antigen Covid-19', 'trim|required');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+
+
+        if($this->form_validation->run()==true){
+            $this->db->update('tbl_biaya_sk',$this->input->post());
+
+            $this->session->set_flashdata('success', 'Biaya Berhasil Diperbarui');
+
+            redirect(base_url()."biayask");
+        }
+        else{
+            if(isset($_POST['sksehat'])){
+                $data = array(
+                    'sksehat' => set_value('sksehat'),
+                    'sksakit' => set_value('sksakit'),
+                    'rapid_antigen' => set_value('rapid_antigen'),
+                );
+            }   
+            else{
+                $data = array(
+                    'sksehat' => biayaSK('sksehat'),
+                    'sksakit' => biayaSK('sksakit'),
+                    'rapid_antigen' => biayaSK('rapid_antigen'),
+                );
+            }         
+        }
+
+        $this->template->load('template','rekam_medis/biayask',$data);
     }
 }

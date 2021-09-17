@@ -43,13 +43,13 @@
 							<div class="col-sm-10">
                                 <div class="radio">
                                     <label>
-                                        <?php echo form_radio(array('id'=>'jenis_kelamin','name'=>'jenis_kelamin','value'=>'Laki-laki'));?>
+                                        <?php echo form_radio(array('id'=>'jenis_kelamin','name'=>'jenis_kelamin','value'=>'L'));?>
                                         Laki-laki
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label>
-                                        <?php echo form_radio(array('id'=>'jenis_kelamin','name'=>'jenis_kelamin','value'=>'Perempuan'));?>
+                                        <?php echo form_radio(array('id'=>'jenis_kelamin','name'=>'jenis_kelamin','value'=>'P'));?>
                                         Perempuan
                                     </label>
                                 </div>
