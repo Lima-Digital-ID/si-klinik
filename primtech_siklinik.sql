@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 16, 2021 at 09:29 AM
+-- Generation Time: Sep 17, 2021 at 10:18 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -1167,6 +1167,25 @@ CREATE TABLE `tbl_apoteker` (
 INSERT INTO `tbl_apoteker` (`id_apoteker`, `nama_apoteker`, `alamat`, `telp`, `email`, `no_sik_sipa`, `no_stra`, `tanggal_mulai_tugas`, `dtm_crt`, `dtm_upd`) VALUES
 (1, 'jafar', 'alsdh', '098090909', 'manajer_akuntan1@gmail.com', '0090ji09', 'olia00ii', '2019-11-14', '2019-11-14 21:21:30', '2019-11-14 15:22:16'),
 (2, 'ratna sari', 'jember', '09090909', 'mail@mail.com', '090090', '090999', '2019-11-19', '2019-11-19 15:45:12', '2019-11-19 15:45:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_biaya_sk`
+--
+
+CREATE TABLE `tbl_biaya_sk` (
+  `sksehat` int(11) NOT NULL,
+  `sksakit` int(11) NOT NULL,
+  `rapid_antigen` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_biaya_sk`
+--
+
+INSERT INTO `tbl_biaya_sk` (`sksehat`, `sksakit`, `rapid_antigen`) VALUES
+(50000, 20000, 30000);
 
 -- --------------------------------------------------------
 
@@ -3417,7 +3436,8 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`, `dtm_crt`, `dtm_u
 (201, 8, 62, '2019-12-17 11:20:16', '2019-12-17 11:20:16'),
 (202, 4, 40, '2018-04-19 10:35:23', '2018-04-19 10:35:23'),
 (203, 4, 41, '2018-04-19 10:35:23', '2018-04-19 10:35:23'),
-(204, 5, 39, '2021-09-14 20:44:09', '2021-09-14 20:44:09');
+(204, 5, 39, '2021-09-14 20:44:09', '2021-09-14 20:44:09'),
+(206, 1, 133, '2021-09-17 10:14:28', '2021-09-17 10:14:28');
 
 -- --------------------------------------------------------
 
@@ -4002,7 +4022,8 @@ INSERT INTO `tbl_menu` (`id_menu`, `title`, `url`, `icon`, `is_main_menu`, `is_a
 (129, 'Stok Obat', 'dataobat/stok', 'fa fa-line-chart', 77, 'y', '2021-06-22 14:13:22', '2021-06-22 14:13:22'),
 (130, 'History Barang', 'dataobat/history', 'fa fa-history', 77, 'y', '2021-06-22 22:47:39', '2021-06-22 22:47:39'),
 (131, 'Laporan Keuangan', 'dataobat/laporankeuangan', 'fa fa-book', 77, 'y', '2021-06-23 09:21:52', '2021-06-23 09:21:52'),
-(132, 'Manufaktur', 'dataobat/manufaktur', 'fa fa-industry', 77, 'y', '2021-06-23 10:18:24', '2021-06-23 10:18:24');
+(132, 'Manufaktur', 'dataobat/manufaktur', 'fa fa-industry', 77, 'y', '2021-06-23 10:18:24', '2021-06-23 10:18:24'),
+(133, 'Biaya Surat Keterangan', 'biayask', 'fa fa-money', 73, 'y', '2021-09-17 10:13:40', '2021-09-17 10:13:40');
 
 -- --------------------------------------------------------
 
@@ -4936,6 +4957,35 @@ INSERT INTO `tbl_shift` (`id_shift`, `nama_shift`, `jam_datang`, `jam_pulang`, `
 (2, 'Shift B', '10:00:00', '14:00:00', 1, '2019-11-26 13:17:05', '2019-11-26 13:17:05'),
 (3, 'Shift C', '14:00:00', '17:00:00', 1, '2019-11-26 13:18:03', '2019-11-26 13:18:03'),
 (4, 'Shift D', '17:00:00', '21:00:00', 1, '2019-11-26 13:18:25', '2019-11-26 13:18:25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sksehat`
+--
+
+CREATE TABLE `tbl_sksehat` (
+  `nomor` varchar(14) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `umur` int(2) NOT NULL,
+  `pekerjaan` varchar(200) NOT NULL,
+  `jenis_kelamin` enum('L','P') NOT NULL,
+  `tinggi_badan` float NOT NULL,
+  `berat_badan` float NOT NULL,
+  `golongan_darah` varchar(2) NOT NULL,
+  `alamat` text NOT NULL,
+  `buta_warna` varchar(150) NOT NULL,
+  `keperluan` text NOT NULL,
+  `tgl_cetak` date NOT NULL,
+  `id_dokter` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_sksehat`
+--
+
+INSERT INTO `tbl_sksehat` (`nomor`, `nama`, `umur`, `pekerjaan`, `jenis_kelamin`, `tinggi_badan`, `berat_badan`, `golongan_darah`, `alamat`, `buta_warna`, `keperluan`, `tgl_cetak`, `id_dokter`) VALUES
+('SKS/21/09/1', 'Et quisquam in odio', 92, 'Nulla sunt modi offi', 'P', 53, 20, 'De', 'Animi eum proident', 'Modi adipisci in ea', 'Sit non laudantium', '2021-09-17', 1);
 
 -- --------------------------------------------------------
 
@@ -15300,6 +15350,12 @@ ALTER TABLE `tbl_shift`
   ADD PRIMARY KEY (`id_shift`);
 
 --
+-- Indexes for table `tbl_sksehat`
+--
+ALTER TABLE `tbl_sksehat`
+  ADD PRIMARY KEY (`nomor`);
+
+--
 -- Indexes for table `tbl_spesialis`
 --
 ALTER TABLE `tbl_spesialis`
@@ -15441,7 +15497,7 @@ ALTER TABLE `tbl_golongan_barang`
 -- AUTO_INCREMENT for table `tbl_hak_akses`
 --
 ALTER TABLE `tbl_hak_akses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=207;
 
 --
 -- AUTO_INCREMENT for table `tbl_inventory_detail`
@@ -15501,7 +15557,7 @@ ALTER TABLE `tbl_master_sequence`
 -- AUTO_INCREMENT for table `tbl_menu`
 --
 ALTER TABLE `tbl_menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `tbl_obat_racikan_child_jasa`
