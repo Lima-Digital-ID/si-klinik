@@ -40,6 +40,17 @@ class Tbl_rapid_antigen_model extends CI_Model
         return $this->datatables->generate();
 
     }
+    public function bayarRapid($id_klinik)
+    {
+        $this->datatables->select('r.no_sampel,r.nama,r.nik_or_passport');
+        $this->datatables->from($this->table." as r");
+        $this->datatables->join('tbl_transaksi tr','r.no_sampel = tr.no_transaksi');
+        $this->datatables->where(['tr.id_klinik' => $id_klinik,'status' => '0']);
+        $this->datatables->add_column('action',anchor(site_url('pembayaran/rapid?nomor=$1'),'Bayar','class="btn btn-danger btn-sm"'),'nomor');
+        $this->datatables->add_column('status','Belum Membayar');
+
+        return $this->datatables->generate();
+    }    
     public function detailRapid($id)
     {
         $this->db->select("tbl_dokter.nama_dokter,".$this->table.".*");

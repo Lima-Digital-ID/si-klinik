@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2021 at 10:18 AM
+-- Generation Time: Sep 18, 2021 at 10:10 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -4329,6 +4329,7 @@ CREATE TABLE `tbl_periksa` (
   `diagnosa` text NOT NULL COMMENT 'Gunakan separator ;',
   `tindakan` text NOT NULL COMMENT 'Gunakan separator ;',
   `is_surat_ket_sakit` int(1) NOT NULL,
+  `nomor_skt` varchar(14) NOT NULL,
   `tujuan_surat` varchar(60) DEFAULT NULL,
   `tanggal_mulai` date DEFAULT NULL,
   `lama_istirahat_surat` int(2) DEFAULT NULL,
@@ -4344,42 +4345,42 @@ CREATE TABLE `tbl_periksa` (
 -- Dumping data for table `tbl_periksa`
 --
 
-INSERT INTO `tbl_periksa` (`no_periksa`, `no_pendaftaran`, `no_rekam_medis`, `anamnesi`, `diagnosa`, `tindakan`, `is_surat_ket_sakit`, `tujuan_surat`, `tanggal_mulai`, `lama_istirahat_surat`, `id_dokter`, `note_dokter`, `is_ambil_obat`, `obat_detail`, `dtm_crt`, `dtm_upd`) VALUES
-('000040-1/20191206/000003-1-1', '000040-1', '000003-1-1', 'Batuk, Pusing, Mual, panas', 'baik saja', '-', 1, 'pt hahaha', '2019-12-06', 3, 1, NULL, 1, 'OBH IKA, SANMOL F 650MG TAB 4S STRIP 25S', '2019-12-06 10:35:11', '2019-12-16 02:03:20'),
-('000020/20180426/000001-1', '000020', '000001-1', 'Pusing', 'sakit kepala', 'Suntik biasa', 0, '', NULL, 0, 1, NULL, 1, 'BETADIN', '2018-04-26 11:59:21', '2018-04-26 11:59:47'),
-('000046-1/20191201/000002-1-1', '000046-1', '000002-1-1', 'Demam 2 Hari', 'sa', 'Suntik biasa', 0, '', NULL, 0, 1, NULL, 0, 'BETADIN', '2019-12-01 21:32:39', '2019-12-01 21:32:39'),
-('000022/20180426/000003', '000022', '000003', 'Pusing, Batuk 3 Kali', 'Demam Berdarah, Mutaber', 'Suntik biasa', 1, 'HRD CV. Ken Madakarya', '2018-04-26', 3, 1, NULL, 1, 'Bodrex, Amoxilin, Inzana', '2018-04-26 21:33:08', '2018-05-10 11:30:02'),
-('000024/20180505/000007', '000024', '000007', 'batuk pilek panas 3 hari', 'ISPA', 'Cek Gula Darah, asam urat', 1, '', '2018-05-05', 2, 3, NULL, 1, 'Amoxilin, obat batuk, Bodrex, Ultraflu', '2018-05-05 14:17:26', '2018-05-10 11:30:21'),
-('000025/20180505/000008', '000025', '000008', 'asdasd', 'Hipertensi', 'Suntik Rabies', 0, '', NULL, 0, 3, NULL, 1, 'Amoxilin, Inzana, Bodrex', '2018-05-05 14:22:40', '2018-05-10 11:30:34'),
-('000026/20180510/000008', '000026', '000008', 'mencret', 'Gastro Enteritis', 'Cek Gula Darah', 0, '', NULL, 0, 3, NULL, 1, 'BETADIN, obat batuk', '2018-05-10 11:13:26', '2018-05-10 11:30:44'),
-('000023/20180510/000002', '000023', '000002', 'Batuk 3 Kali', 'Sakit Pusing', 'diberi obat', 0, '', NULL, 0, 1, NULL, 1, 'obat batuk', '2018-05-10 18:14:19', '2018-05-10 19:20:50'),
-('000031/20180518/000003', '000031', '000003', 'Demam 2 Hari, batuk pilek panas 3 hari', 'Tyfus', 'Suntik biasa, Pemberian Obat', 1, 'PT. Sukses Mekar Abadi', '2018-05-18', 3, 1, NULL, 1, 'obat batuk, Amoxilin, Inzana', '2018-05-18 08:34:59', '2018-05-18 11:19:51'),
-('000032/20180518/000012', '000032', '000012', 'panas, Pusing, sakit gigi', 'Sakit demam berdarah', 'Suntik biasa', 1, 'PT.NESTLE', '2018-05-18', 3, 3, NULL, 1, 'Amoxilin, Bodrex', '2018-05-18 23:09:12', '2018-05-19 11:03:20'),
-('000038-1/20191112/000003-1-1', '000038-1', '000003-1', 'Batuk 3 Kali, Demam 2 Hari', 'Tyfus', 'diberi obat, suntik difteri', 1, 'pt haha', '2019-11-12', 4, 1, NULL, 1, 'BETADIN, BETADIN', '2019-11-12 16:53:16', '2019-11-12 11:23:22'),
-('000047-1/20191206/000007-1', '000047-1', '000007-1', 'Batuk 3 Kali', 'sakit kepala', 'sasa', 0, '', NULL, 0, 1, NULL, 1, 'OBH IKA', '2019-12-06 20:29:51', '2019-12-16 02:03:29'),
-('000049/20191206/000001-1', '000049', '000001-1', 'Batuk 3 Kali', 'sakit kepala', 'sasa', 0, '', NULL, 0, 1, NULL, 1, 'OBH IKA', '2019-12-06 22:02:12', '2019-12-11 02:01:39'),
-('000053/20191221/000019', '000053', '000019', '-', '-', '-', 0, '', NULL, 0, 1, NULL, 0, 'OBH IKA, SANMOL F 650MG TAB 4S STRIP 25S', '2019-12-21 13:05:06', '2019-12-21 13:05:06'),
-('000054/20191221/000001', '000054', '000001', '-', 'batuk pilek', 'periksa', 0, '', NULL, 0, 1, NULL, 0, 'OBH IKA, SANMOL F 650MG TAB 4S STRIP 25S', '2019-12-21 13:08:22', '2019-12-21 13:08:22'),
-('000057/20200110/000020', '000057', '000020', 'Demam 2 Hari', 'febris', 'injeksi', 1, 'Kepala HRD', '2020-01-10', 1, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2020-01-10 11:57:04', '2020-01-10 05:02:27'),
-('000062/20200114/000025', '000062', '000025', 'sakit kepala, mual, muntah', 'DM', 'Pemberian Obat', 1, 'pt. indofud', '2020-01-14', 3, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S, OBH IKA', '2020-01-15 05:56:02', '2020-01-14 23:04:31'),
-('000055/20200115/000001-1', '000055', '000001-1', 'SAKIT PERUT', 'Gastro Enteritis', 'suntik difteri', 1, 'SSSSS', '2020-01-15', 3, 1, NULL, 0, 'OBH IKA, OBH IKA', '2020-01-15 16:30:05', '2020-01-15 16:30:05'),
-('000063/20200116/000026', '000063', '000026', 'MUAL MUNTAH', 'GEA', 'INJEKSI RANITIDIN', 1, 'PT. SANBE', '2020-01-16', 3, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2020-01-16 13:53:44', '2020-01-16 06:55:03'),
-('000067/20200121/000027', '000067', '000027', 'sssssss', 'sssss', 'daffds', 1, 'SSSSS', '2020-01-21', 2, 1, NULL, 1, 'OBH IKA', '2020-01-21 18:55:51', '2021-09-13 05:57:27'),
-('000056/20200121/000001-1', '000056', '000001-1', 'dqwd', 'dsffgsd', 'dfdaf', 1, 'SSSSS', '2020-01-21', 4, 1, NULL, 0, 'OBH IKA', '2020-01-21 18:59:39', '2020-01-21 18:59:39'),
-('000070/20200619/000028', '000070', '000028', 'Batuk 3 Kali, Demam 2 Hari', 'Demam Berdarah', 'Suntik biasa, Pemberian Obat', 1, 'PT Panca prima', '2020-06-19', 3, 1, NULL, 0, 'OBH IKA', '2020-06-19 08:22:57', '2020-06-19 08:22:57'),
-('000064/20200619/000001', '000064', '000001', 'Demam 2 Hari', 'sakit kepala', 'Cek Gula Darah', 0, '', NULL, 0, 1, NULL, 0, 'OBH IKA', '2020-06-19 08:30:02', '2020-06-19 08:30:02'),
-('000071/20200619/000029', '000071', '000029', 'Batuk 3 Kali, Demam 2 Hari', 'sakit kepala, Sakit Pusing', 'Suntik biasa, Pemberian Obat', 1, 'PT Panca prima', '2020-06-19', 3, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2020-06-19 08:34:27', '2020-06-19 01:35:07'),
-('000073/20200619/000007-1', '000073', '000007-1', 'Batuk 3 Kali, Demam 2 Hari', 'sakit kepala, Sakit Pusing, batuk pilek', 'Suntik biasa, Pemberian Obat', 1, 'Koperasi Unit Sejahtera', '2020-06-19', 3, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2020-06-19 08:59:25', '2020-06-19 02:00:30'),
-('000074/20200630/000031', '000074', '000031', 'sakit kepala, Pusing', 'Tyfus', 'injeksi', 1, 'Koperasi Unit Sejahtera', '2020-06-30', 3, 1, NULL, 1, 'OBH IKA', '2020-06-30 09:00:58', '2020-06-30 02:03:25'),
-('000075/20201027/000001', '000075', '000001', 'tes', 'tes', 'Suntik Rabies', 0, '', NULL, 0, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2020-10-27 14:21:38', '2020-10-27 07:55:05'),
-('000072/20210618/000030', '000072', '000030', 'Batuk 3 Kali, batuk pilek panas 3 hari', 'DBD, Tyfus', 'injeksi', 0, '', NULL, 0, 1, NULL, 1, 'OBH IKA', '2021-06-18 14:59:33', '2021-06-18 08:01:39'),
-('000065/20210618/000025', '000065', '000025', 'Demam 2 Hari', 'Tyfus', 'Pemberian Obat', 0, '', NULL, 0, 1, NULL, 0, 'SANMOL F 650MG TAB 4S STRIP 25S', '2021-06-18 15:09:21', '2021-06-18 15:09:21'),
-('000076/20210618/0000010-1', '000076', '0000010-1', 'pilek dengan dahak, Demam 2 Hari', 'DBD', 'Suntik biasa', 0, '', NULL, 0, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2021-06-18 16:31:53', '2021-06-22 03:07:17'),
-('000069/20210622/000003-1-1', '000069', '000003-1-1', 'pusing 7 keliling', 'Sakit Pusing', 'Suntik biasa', 0, '', NULL, 0, 1, NULL, 1, 'OBH IKA, SANMOL F 650MG TAB 4S STRIP 25S', '2021-06-22 10:04:08', '2021-06-22 03:06:52'),
-('000082/20210623/000034', '000082', '000034', 'anamesti', 'tidak kenapa kenapa', 'diberi obat', 0, '', NULL, 0, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2021-06-23 09:39:58', '2021-06-23 04:43:17'),
-('000061/20210913/000024', '000061', '000024', 'a', 'asa', 'sa', 1, 'ada', '2021-09-13', 3, 3, NULL, 0, 'OBH IKA', '2021-09-13 09:51:17', '2021-09-13 09:51:17'),
-('000078/20210915/000033', '000078', '000033', 'asa', 'assa', 'asas', 1, 'ada', '2021-09-15', 2, 1, NULL, 0, 'OBH IKA', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
-('000068/20210916/000027', '000068', '000027', 'asa', 'ASA', 'ASAS', 1, 'DAVID', '2021-09-16', 2, 1, NULL, 0, 'SANMOL F 650MG TAB 4S STRIP 25S', '2021-09-16 10:50:29', '2021-09-16 10:50:29');
+INSERT INTO `tbl_periksa` (`no_periksa`, `no_pendaftaran`, `no_rekam_medis`, `anamnesi`, `diagnosa`, `tindakan`, `is_surat_ket_sakit`, `nomor_skt`, `tujuan_surat`, `tanggal_mulai`, `lama_istirahat_surat`, `id_dokter`, `note_dokter`, `is_ambil_obat`, `obat_detail`, `dtm_crt`, `dtm_upd`) VALUES
+('000040-1/20191206/000003-1-1', '000040-1', '000003-1-1', 'Batuk, Pusing, Mual, panas', 'baik saja', '-', 1, '', 'pt hahaha', '2019-12-06', 3, 1, NULL, 1, 'OBH IKA, SANMOL F 650MG TAB 4S STRIP 25S', '2019-12-06 10:35:11', '2019-12-16 02:03:20'),
+('000020/20180426/000001-1', '000020', '000001-1', 'Pusing', 'sakit kepala', 'Suntik biasa', 0, '', '', NULL, 0, 1, NULL, 1, 'BETADIN', '2018-04-26 11:59:21', '2018-04-26 11:59:47'),
+('000046-1/20191201/000002-1-1', '000046-1', '000002-1-1', 'Demam 2 Hari', 'sa', 'Suntik biasa', 0, '', '', NULL, 0, 1, NULL, 0, 'BETADIN', '2019-12-01 21:32:39', '2019-12-01 21:32:39'),
+('000022/20180426/000003', '000022', '000003', 'Pusing, Batuk 3 Kali', 'Demam Berdarah, Mutaber', 'Suntik biasa', 1, '', 'HRD CV. Ken Madakarya', '2018-04-26', 3, 1, NULL, 1, 'Bodrex, Amoxilin, Inzana', '2018-04-26 21:33:08', '2018-05-10 11:30:02'),
+('000024/20180505/000007', '000024', '000007', 'batuk pilek panas 3 hari', 'ISPA', 'Cek Gula Darah, asam urat', 1, '', '', '2018-05-05', 2, 3, NULL, 1, 'Amoxilin, obat batuk, Bodrex, Ultraflu', '2018-05-05 14:17:26', '2018-05-10 11:30:21'),
+('000025/20180505/000008', '000025', '000008', 'asdasd', 'Hipertensi', 'Suntik Rabies', 0, '', '', NULL, 0, 3, NULL, 1, 'Amoxilin, Inzana, Bodrex', '2018-05-05 14:22:40', '2018-05-10 11:30:34'),
+('000026/20180510/000008', '000026', '000008', 'mencret', 'Gastro Enteritis', 'Cek Gula Darah', 0, '', '', NULL, 0, 3, NULL, 1, 'BETADIN, obat batuk', '2018-05-10 11:13:26', '2018-05-10 11:30:44'),
+('000023/20180510/000002', '000023', '000002', 'Batuk 3 Kali', 'Sakit Pusing', 'diberi obat', 0, '', '', NULL, 0, 1, NULL, 1, 'obat batuk', '2018-05-10 18:14:19', '2018-05-10 19:20:50'),
+('000031/20180518/000003', '000031', '000003', 'Demam 2 Hari, batuk pilek panas 3 hari', 'Tyfus', 'Suntik biasa, Pemberian Obat', 1, '', 'PT. Sukses Mekar Abadi', '2018-05-18', 3, 1, NULL, 1, 'obat batuk, Amoxilin, Inzana', '2018-05-18 08:34:59', '2018-05-18 11:19:51'),
+('000032/20180518/000012', '000032', '000012', 'panas, Pusing, sakit gigi', 'Sakit demam berdarah', 'Suntik biasa', 1, '', 'PT.NESTLE', '2018-05-18', 3, 3, NULL, 1, 'Amoxilin, Bodrex', '2018-05-18 23:09:12', '2018-05-19 11:03:20'),
+('000038-1/20191112/000003-1-1', '000038-1', '000003-1', 'Batuk 3 Kali, Demam 2 Hari', 'Tyfus', 'diberi obat, suntik difteri', 1, '', 'pt haha', '2019-11-12', 4, 1, NULL, 1, 'BETADIN, BETADIN', '2019-11-12 16:53:16', '2019-11-12 11:23:22'),
+('000047-1/20191206/000007-1', '000047-1', '000007-1', 'Batuk 3 Kali', 'sakit kepala', 'sasa', 0, '', '', NULL, 0, 1, NULL, 1, 'OBH IKA', '2019-12-06 20:29:51', '2019-12-16 02:03:29'),
+('000049/20191206/000001-1', '000049', '000001-1', 'Batuk 3 Kali', 'sakit kepala', 'sasa', 0, '', '', NULL, 0, 1, NULL, 1, 'OBH IKA', '2019-12-06 22:02:12', '2019-12-11 02:01:39'),
+('000053/20191221/000019', '000053', '000019', '-', '-', '-', 0, '', '', NULL, 0, 1, NULL, 0, 'OBH IKA, SANMOL F 650MG TAB 4S STRIP 25S', '2019-12-21 13:05:06', '2019-12-21 13:05:06'),
+('000054/20191221/000001', '000054', '000001', '-', 'batuk pilek', 'periksa', 0, '', '', NULL, 0, 1, NULL, 0, 'OBH IKA, SANMOL F 650MG TAB 4S STRIP 25S', '2019-12-21 13:08:22', '2019-12-21 13:08:22'),
+('000057/20200110/000020', '000057', '000020', 'Demam 2 Hari', 'febris', 'injeksi', 1, '', 'Kepala HRD', '2020-01-10', 1, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2020-01-10 11:57:04', '2020-01-10 05:02:27'),
+('000062/20200114/000025', '000062', '000025', 'sakit kepala, mual, muntah', 'DM', 'Pemberian Obat', 1, '', 'pt. indofud', '2020-01-14', 3, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S, OBH IKA', '2020-01-15 05:56:02', '2020-01-14 23:04:31'),
+('000055/20200115/000001-1', '000055', '000001-1', 'SAKIT PERUT', 'Gastro Enteritis', 'suntik difteri', 1, '', 'SSSSS', '2020-01-15', 3, 1, NULL, 0, 'OBH IKA, OBH IKA', '2020-01-15 16:30:05', '2020-01-15 16:30:05'),
+('000063/20200116/000026', '000063', '000026', 'MUAL MUNTAH', 'GEA', 'INJEKSI RANITIDIN', 1, '', 'PT. SANBE', '2020-01-16', 3, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2020-01-16 13:53:44', '2020-01-16 06:55:03'),
+('000067/20200121/000027', '000067', '000027', 'sssssss', 'sssss', 'daffds', 1, '', 'SSSSS', '2020-01-21', 2, 1, NULL, 1, 'OBH IKA', '2020-01-21 18:55:51', '2021-09-13 05:57:27'),
+('000056/20200121/000001-1', '000056', '000001-1', 'dqwd', 'dsffgsd', 'dfdaf', 1, '', 'SSSSS', '2020-01-21', 4, 1, NULL, 0, 'OBH IKA', '2020-01-21 18:59:39', '2020-01-21 18:59:39'),
+('000070/20200619/000028', '000070', '000028', 'Batuk 3 Kali, Demam 2 Hari', 'Demam Berdarah', 'Suntik biasa, Pemberian Obat', 1, '', 'PT Panca prima', '2020-06-19', 3, 1, NULL, 0, 'OBH IKA', '2020-06-19 08:22:57', '2020-06-19 08:22:57'),
+('000064/20200619/000001', '000064', '000001', 'Demam 2 Hari', 'sakit kepala', 'Cek Gula Darah', 0, '', '', NULL, 0, 1, NULL, 0, 'OBH IKA', '2020-06-19 08:30:02', '2020-06-19 08:30:02'),
+('000071/20200619/000029', '000071', '000029', 'Batuk 3 Kali, Demam 2 Hari', 'sakit kepala, Sakit Pusing', 'Suntik biasa, Pemberian Obat', 1, '', 'PT Panca prima', '2020-06-19', 3, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2020-06-19 08:34:27', '2020-06-19 01:35:07'),
+('000073/20200619/000007-1', '000073', '000007-1', 'Batuk 3 Kali, Demam 2 Hari', 'sakit kepala, Sakit Pusing, batuk pilek', 'Suntik biasa, Pemberian Obat', 1, '', 'Koperasi Unit Sejahtera', '2020-06-19', 3, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2020-06-19 08:59:25', '2020-06-19 02:00:30'),
+('000074/20200630/000031', '000074', '000031', 'sakit kepala, Pusing', 'Tyfus', 'injeksi', 1, '', 'Koperasi Unit Sejahtera', '2020-06-30', 3, 1, NULL, 1, 'OBH IKA', '2020-06-30 09:00:58', '2020-06-30 02:03:25'),
+('000075/20201027/000001', '000075', '000001', 'tes', 'tes', 'Suntik Rabies', 0, '', '', NULL, 0, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2020-10-27 14:21:38', '2020-10-27 07:55:05'),
+('000072/20210618/000030', '000072', '000030', 'Batuk 3 Kali, batuk pilek panas 3 hari', 'DBD, Tyfus', 'injeksi', 0, '', '', NULL, 0, 1, NULL, 1, 'OBH IKA', '2021-06-18 14:59:33', '2021-06-18 08:01:39'),
+('000065/20210618/000025', '000065', '000025', 'Demam 2 Hari', 'Tyfus', 'Pemberian Obat', 0, '', '', NULL, 0, 1, NULL, 0, 'SANMOL F 650MG TAB 4S STRIP 25S', '2021-06-18 15:09:21', '2021-06-18 15:09:21'),
+('000076/20210618/0000010-1', '000076', '0000010-1', 'pilek dengan dahak, Demam 2 Hari', 'DBD', 'Suntik biasa', 0, '', '', NULL, 0, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2021-06-18 16:31:53', '2021-06-22 03:07:17'),
+('000069/20210622/000003-1-1', '000069', '000003-1-1', 'pusing 7 keliling', 'Sakit Pusing', 'Suntik biasa', 0, '', '', NULL, 0, 1, NULL, 1, 'OBH IKA, SANMOL F 650MG TAB 4S STRIP 25S', '2021-06-22 10:04:08', '2021-06-22 03:06:52'),
+('000082/20210623/000034', '000082', '000034', 'anamesti', 'tidak kenapa kenapa', 'diberi obat', 0, '', '', NULL, 0, 1, NULL, 1, 'SANMOL F 650MG TAB 4S STRIP 25S', '2021-06-23 09:39:58', '2021-06-23 04:43:17'),
+('000061/20210913/000024', '000061', '000024', 'a', 'asa', 'sa', 1, '', 'ada', '2021-09-13', 3, 3, NULL, 0, 'OBH IKA', '2021-09-13 09:51:17', '2021-09-13 09:51:17'),
+('000078/20210915/000033', '000078', '000033', 'asa', 'assa', 'asas', 1, '', 'ada', '2021-09-15', 2, 1, NULL, 0, 'OBH IKA', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
+('000068/20210916/000027', '000068', '000027', 'asa', 'ASA', 'ASAS', 1, '', 'DAVID', '2021-09-16', 2, 1, NULL, 0, 'SANMOL F 650MG TAB 4S STRIP 25S', '2021-09-16 10:50:29', '2021-09-16 10:50:29');
 
 -- --------------------------------------------------------
 
@@ -4985,7 +4986,7 @@ CREATE TABLE `tbl_sksehat` (
 --
 
 INSERT INTO `tbl_sksehat` (`nomor`, `nama`, `umur`, `pekerjaan`, `jenis_kelamin`, `tinggi_badan`, `berat_badan`, `golongan_darah`, `alamat`, `buta_warna`, `keperluan`, `tgl_cetak`, `id_dokter`) VALUES
-('SKS/21/09/1', 'Et quisquam in odio', 92, 'Nulla sunt modi offi', 'P', 53, 20, 'De', 'Animi eum proident', 'Modi adipisci in ea', 'Sit non laudantium', '2021-09-17', 1);
+('SKS/21/09/1', 'Consequat Deserunt', 49, 'Ut amet omnis quibu', 'P', 11, 84, 'Ni', 'Sit velit quis temp', 'Consequatur Et vero', 'Est excepturi eum c', '2021-09-18', 1);
 
 -- --------------------------------------------------------
 
@@ -5121,7 +5122,8 @@ INSERT INTO `tbl_transaksi` (`id_transaksi`, `kode_transaksi`, `id_klinik`, `no_
 (37, 'PRKS', 1, '000078/20210915/000033', '2021-09-15', 0, NULL, '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
 (38, 'PRKS', 1, '000068/20210916/000027', '2021-09-16', 0, NULL, '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
 (39, 'TRXOBAT', 1, 'TRXOBAT000077', '2021-09-16', 0, 'david', '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
-(40, 'TRXOBAT', 1, 'TRXOBAT000078', '2021-09-16', 0, 'david', '2021-09-16 11:08:41', '2021-09-16 11:08:41');
+(40, 'TRXOBAT', 1, 'TRXOBAT000078', '2021-09-16', 0, 'david', '2021-09-16 11:08:41', '2021-09-16 11:08:41'),
+(44, 'SKS', 1, 'SKS/21/09/1', '2021-09-18', 0, 'Consequat Deserunt', '2021-09-18 10:50:26', '2021-09-18 10:50:26');
 
 -- --------------------------------------------------------
 
@@ -5302,7 +5304,8 @@ INSERT INTO `tbl_transaksi_d` (`id_transaksi_d`, `no_transaksi`, `deskripsi`, `a
 (156, '000067/20200121/000027', 'Pembayaran Biaya Medis a/n david', 115000, 'c', '2021-09-16 10:51:22', '2021-09-16 10:51:22'),
 (157, '000067/20200121/000027', 'Biaya Administrasi', 10000, 'd', '2021-09-16 10:51:22', '2021-09-16 10:51:22'),
 (158, 'TRXOBAT000077', 'Total Obat-obatan', 2000, 'd', '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
-(159, 'TRXOBAT000078', 'Total Obat-obatan', 2000, 'd', '2021-09-16 11:08:41', '2021-09-16 11:08:41');
+(159, 'TRXOBAT000078', 'Total Obat-obatan', 2000, 'd', '2021-09-16 11:08:41', '2021-09-16 11:08:41'),
+(162, 'SKS/21/09/1', 'Biaya Pemeriksaan', 50000, 'd', '2021-09-18 10:50:26', '2021-09-18 10:50:26');
 
 -- --------------------------------------------------------
 
@@ -5432,7 +5435,8 @@ INSERT INTO `tbl_trx_akuntansi` (`id_trx_akun`, `deskripsi`, `tanggal`, `dtm_crt
 (159, 'Penjualan Obat dari Nomor Pemeriksaan 000078/20210915/000033', '2021-09-15', '2021-09-15 12:20:12', '2021-09-15 12:20:12'),
 (160, 'Penjualan Obat dari Nomor Pemeriksaan 000068/20210916/000027', '2021-09-16', '2021-09-16 10:50:29', '2021-09-16 10:50:29'),
 (161, 'Penjualan Obat dengan Kode Transaksi TRXOBAT000077', '2021-09-16', '2021-09-16 11:08:29', '2021-09-16 11:08:29'),
-(162, 'Penjualan Obat dengan Kode Transaksi TRXOBAT000078', '2021-09-16', '2021-09-16 11:08:41', '2021-09-16 11:08:41');
+(162, 'Penjualan Obat dengan Kode Transaksi TRXOBAT000078', '2021-09-16', '2021-09-16 11:08:41', '2021-09-16 11:08:41'),
+(165, 'Biaya Pemeriksaan SKS/21/09/1', '2021-09-18', '2021-09-18 10:50:26', '2021-09-18 10:50:26');
 
 -- --------------------------------------------------------
 
@@ -5714,7 +5718,9 @@ INSERT INTO `tbl_trx_akuntansi_detail` (`id_trx_akun_detail`, `id_trx_akun`, `id
 (492, 162, 58, 29600, 'KREDIT', 'akun', '2021-09-16 11:08:41', '2021-09-16 11:08:41'),
 (493, 162, 46, 0, 'DEBIT', 'akun', '2021-09-16 11:08:41', '2021-09-16 11:08:41'),
 (494, 162, 20, 2000, 'DEBIT', 'lawan', '2021-09-16 11:08:41', '2021-09-16 11:08:41'),
-(495, 162, 65, 29600, 'DEBIT', 'lawan', '2021-09-16 11:08:41', '2021-09-16 11:08:41');
+(495, 162, 65, 29600, 'DEBIT', 'lawan', '2021-09-16 11:08:41', '2021-09-16 11:08:41'),
+(496, 165, 62, 50000, 'KREDIT', 'akun', '2021-09-18 10:50:26', '2021-09-18 10:50:26'),
+(497, 165, 20, 50000, 'DEBIT', 'lawan', '2021-09-18 10:50:26', '2021-09-18 10:50:26');
 
 -- --------------------------------------------------------
 
@@ -15677,13 +15683,13 @@ ALTER TABLE `tbl_status_menikah`
 -- AUTO_INCREMENT for table `tbl_transaksi`
 --
 ALTER TABLE `tbl_transaksi`
-  MODIFY `id_transaksi` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_transaksi` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaksi_d`
 --
 ALTER TABLE `tbl_transaksi_d`
-  MODIFY `id_transaksi_d` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
+  MODIFY `id_transaksi_d` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaksi_d_obat`
@@ -15695,13 +15701,13 @@ ALTER TABLE `tbl_transaksi_d_obat`
 -- AUTO_INCREMENT for table `tbl_trx_akuntansi`
 --
 ALTER TABLE `tbl_trx_akuntansi`
-  MODIFY `id_trx_akun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+  MODIFY `id_trx_akun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 
 --
 -- AUTO_INCREMENT for table `tbl_trx_akuntansi_detail`
 --
 ALTER TABLE `tbl_trx_akuntansi_detail`
-  MODIFY `id_trx_akun_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=496;
+  MODIFY `id_trx_akun_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=498;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`

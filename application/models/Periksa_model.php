@@ -79,6 +79,13 @@ class Periksa_model extends CI_Model
             $this->db->insert('tbl_periksa_d_fisik',$data_d_fisik[$i]);
         }
     }
+    public function getLastNomor()
+    {
+        $this->db->select('nomor_skt');
+        $this->db->order_by('nomor_skt','desc');
+        $this->db->limit(1);
+        return $this->db->get($this->table,['MONTH(dtm_crt)' => date('m'),'YEAR(dtm_crt)' => date('Y')])->result();
+    }
     
     function insert_periksa_d_alkes($data)
     {

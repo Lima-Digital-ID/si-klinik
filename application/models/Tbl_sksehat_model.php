@@ -21,6 +21,18 @@ class Tbl_sksehat_model extends CI_Model
         $this->db->limit(1);
         return $this->db->get($this->table,['MONTH(tgl_cetak)' => date('m'),'YEAR(tgl_cetak)' => date('Y')])->result();
     }
+    public function skBelumBayar($idKlinik)
+    {
+        $this->datatables->select('sk.nomor,sk.nama');
+        $this->datatables->from($this->table." as sk");
+        $this->datatables->join('tbl_transaksi tr','sk.nomor = tr.no_transaksi');
+        $this->datatables->where(['tr.id_klinik' => $idKlinik,'tr.status_transaksi'=>'0']);
+        $this->datatables->add_column('action',anchor(site_url('pembayaran/sksehat?nomor=$1'),'Bayar','class="btn btn-danger btn-sm"'),'nomor');
+        $this->datatables->add_column('status','Belum Membayar');
+
+        return $this->datatables->generate();
+
+    }
     public function getDetail($nomor)
     {
         $this->db->select("sk.*,d.nama_dokter");

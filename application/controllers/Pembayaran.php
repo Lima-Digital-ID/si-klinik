@@ -19,7 +19,9 @@ class Pembayaran extends CI_Controller
         $this->load->model('Tbl_dokter_model');
         $this->load->library('form_validation');        
         $this->load->library('datatables');
-        $this->load->model('akuntansi/Transaksi_akuntansi_model');        
+        $this->load->model('akuntansi/Transaksi_akuntansi_model');     
+        $this->load->model('Tbl_sksehat_model');
+        $this->load->model('Tbl_rapid_antigen_model');
         $this->id_klinik = $this->session->userdata('id_klinik');
         $this->nama_user = $this->session->userdata('full_name');
     }
@@ -29,6 +31,14 @@ class Pembayaran extends CI_Controller
         $this->template->load('template','pembayaran/pembayaran_list');
     } 
     
+    public function jsonSksehat() {
+        header('Content-Type: application/json');
+        echo $this->Tbl_sksehat_model->skBelumBayar($this->id_klinik);
+    }
+    public function jsonRapid() {
+        header('Content-Type: application/json');
+        echo $this->Tbl_rapid_antigen_model->bayarRapid($this->id_klinik);
+    }
     public function json() {
         header('Content-Type: application/json');
         echo $this->Transaksi_model->json($this->id_klinik);

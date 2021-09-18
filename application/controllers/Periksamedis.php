@@ -69,6 +69,16 @@ class Periksamedis extends CI_Controller
                     }
                 }
             }
+            $getLastNomor = $this->Periksa_model->getLastNomor();
+            if(count($getLastNomor)==0){
+                $nomor = 1;
+            } 
+            else{
+                $getNomor = explode('/',$getLastNomor[0]->nomor);
+                $nomor = (int)$getNomor[3]+1;
+            }
+            $sktNomor = "SKT/".date('y')."/".date('m')."/".$nomor;
+
             $data_periksa = array(
                 'no_periksa' => $this->input->post('no_periksa'),
                 'no_pendaftaran' => $data_pendaftaran->no_pendaftaran,
@@ -77,6 +87,7 @@ class Periksamedis extends CI_Controller
                 'diagnosa' => rtrim($this->input->post('diagnosa'),", "),
                 'tindakan' => rtrim($this->input->post('tindakan'),", "),
                 'is_surat_ket_sakit' => $this->input->post('is_cetak_surat') != null ? $this->input->post('is_cetak_surat') : 0,
+                'nomor_skt' => $sktNomor,
                 'tujuan_surat' => $this->input->post('is_cetak_surat') == 1 ? $this->input->post('tujuan_surat') : '',
                 'tanggal_mulai' => $this->input->post('is_cetak_surat') == 1 ? $this->input->post('tanggal_mulai') : null,
                 'lama_istirahat_surat' => $this->input->post('is_cetak_surat') == 1 ? $this->input->post('lama_istirahat_surat') : 0,
@@ -566,7 +577,7 @@ class Periksamedis extends CI_Controller
 				'id_klinik' => $this->id_klinik,
                 'no_transaksi' => $post['nomor'],
                 'tgl_transaksi' => date('Y-m-d'),
-                'status_transaksi' => 1,
+                'status_transaksi' => 0,
                 'atas_nama' => $post['nama'],
             );
             $trDetail = array(
