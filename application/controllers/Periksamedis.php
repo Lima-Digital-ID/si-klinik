@@ -558,6 +558,48 @@ class Periksamedis extends CI_Controller
             $post['tgl_cetak'] = date('Y-m-d');
             $post['id_dokter'] = $this->id_dokter;
             $this->Tbl_sksehat_model->insert($post);
+
+            //insert to transaksi
+            //insert transaksi detail
+            $tr = array(
+                'kode_transaksi' => "SKS",
+				'id_klinik' => $this->id_klinik,
+                'no_transaksi' => $post['nomor'],
+                'tgl_transaksi' => date('Y-m-d'),
+                'status_transaksi' => 1,
+                'atas_nama' => $post['nama'],
+            );
+            $trDetail = array(
+                [
+                'no_transaksi' => $post['nomor'],
+                'deskripsi' => 'Biaya Pemeriksaan',
+                'amount_transaksi' => biayaSK('sksehat'),
+                'dc' => 'd']
+            );
+            $this->Transaksi_model->insert($tr,$trDetail);
+            //insert akuntansi
+            //insert detail akuntansi
+            $trAkuntansi = array(
+                'deskripsi' => 'Biaya Pemeriksaan '.$post['nomor'],
+                'tanggal' => date('Y-m-d'),
+            );
+
+            $trAkuntansiDetail = array(
+                [
+                    'id_akun' => 62,
+                    'jumlah' => biayaSK('sksehat'),
+                    'tipe' => 'KREDIT',
+                    'keterangan' => 'akun'
+                ],
+                [
+                    'id_akun' => 20,
+                    'jumlah' => biayaSK('sksehat'),
+                    'tipe' => 'DEBIT',
+                    'keterangan' => 'lawan'
+                ],
+            );
+            $this->Transaksi_akuntansi_model->insertWithDetail($trAkuntansi,$trAkuntansiDetail);
+
             
             redirect(base_url()."periksamedis/cetak_sksehat?nomor=".$post['nomor']);
         } else {

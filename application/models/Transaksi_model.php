@@ -83,6 +83,16 @@ class Transaksi_model extends CI_Model
             $this->db->insert('tbl_transaksi_d',$data_d[$i]);
         }
     }
+
+    function insertTr($data = null, $data_d = null)
+    {
+        $this->db->insert($this->table, $data);
+        $insert_id = $this->db->insert_id();
+        for($i = 0; $i < count($data_d); $i++){
+            // $data_d[$i]['id_transaksi'] = $insert_id;
+            $this->db->insert('tbl_transaksi_d',$data_d[$i]);
+        }
+    }
     
     function insert_d($data_d){
         $this->db->insert('tbl_transaksi_d', $data_d);

@@ -46,6 +46,18 @@ class Transaksi_akuntansi_model extends CI_Model
         return true;
     }
 
+    // insert data
+    function insertWithDetail($data,$dataTr)
+    {
+        $insert=$this->db->insert($this->table, $data);
+        $insert_id = $this->db->insert_id();
+        for($i = 0; $i < count($dataTr); $i++){
+            $dataTr[$i]['id_trx_akun'] = $insert_id;
+            $this->db->insert('tbl_trx_akuntansi_detail',$dataTr[$i]);
+        }
+
+    }
+
     // update data
     function update($id, $data)
     {
