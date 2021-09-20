@@ -85,21 +85,57 @@
                     <div class="box-body">
                         <div style="padding-bottom: 10px;">
                         </div>
-                        <table class="table table-bordered table-striped" id="mytable2">
-                            <thead>
-                                <tr>
-                                    <th width="30px">No</th>
-                                    <th>No Transaksi</th>
-                                    <th>Nama Pasien</th>
-                                    <th>Klinik Periksa</th>
-                                    <th>Tgl Periksa</th>
-                                    <th>Tgl Pembayaran</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                        </table>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#list1">Pemeriksaan</a></li>
+                            <li><a data-toggle="tab" href="#list2">Surat Keterangan Sehat</a></li>
+                            <li><a data-toggle="tab" href="#list3">Rapid Antigen</a></li>
+                        </ul>
+                        <br>
+                        <div class="tab-content">
+                            <div id="list1" class="tab-pane fade in active">
+                                <table class="table table-bordered table-striped" id="mytable2">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px">No</th>
+                                            <th>No Transaksi</th>
+                                            <th>Nama Pasien</th>
+                                            <th>Klinik Periksa</th>
+                                            <th>Tgl Periksa</th>
+                                            <th>Tgl Pembayaran</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="list2" class="tab-pane fade in">
+                                <table class="table table-bordered table-striped" id="sksehat2" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px">No</th>
+                                            <th>Nomor SKS</th>
+                                            <th>Nama</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="list3" class="tab-pane fade in">
+                                <table class="table table-bordered table-striped" width="100%" id="rapid2">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px">No</th>
+                                            <th>No Sampel</th>
+                                            <th>NIK / Passport</th>
+                                            <th>Nama</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -198,6 +234,43 @@
                 $('td:eq(0)', row).html(index);
             }
         });
+        var t = $("#sksehat2").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#sksehat2_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "pembayaran/jsonSksehatLunas", "type": "POST"},
+            columns: [
+                {
+                    "data": "nomor",
+                    "orderable": false
+                },{"data": "nomor"},{"data": "nama"},{"data": "status"},
+                {
+                    "data" : "action",
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[1, 'asc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
         var t = $("#rapid").dataTable({
             initComplete: function() {
                 var api = this.api();
@@ -215,6 +288,43 @@
             processing: true,
             serverSide: true,
             ajax: {"url": "pembayaran/jsonRapid", "type": "POST"},
+            columns: [
+                {
+                    "data": "no_sampel",
+                    "orderable": false
+                },{"data": "no_sampel"},{"data": "nik_or_passport"},{"data": "nama"},{"data": "status"},
+                {
+                    "data" : "action",
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[1, 'asc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+        var t = $("#rapid2").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#rapid2_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "pembayaran/jsonRapidLunas", "type": "POST"},
             columns: [
                 {
                     "data": "no_sampel",

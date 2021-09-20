@@ -33,8 +33,18 @@
 
 <!--<input type="text" class="form-control" name="golongan_darah" id="golongan_darah" placeholder="Golongan Darah" value="<?php echo $golongan_darah; ?>" />--></td></tr>
                     <tr><td width='200'>Alumni <?php echo form_error('alumni') ?></td><td><input type="text" class="form-control" name="alumni" id="alumni" placeholder="Alumni" value="<?php echo $alumni; ?>" /></td></tr>
-                    <tr><td width='200'>Komisi Biaya Pemeriksaan <?php echo form_error('komisi_biaya_pemeriksaan') ?></td><td><input type="number" class="form-control" name="komisi_biaya_pemeriksaan" value="<?php echo $komisi_biaya_pemeriksaan; ?>" /></td></tr>
-                    <tr><td width='200'>Komisi Biaya Tindakan <?php echo form_error('komisi_biaya_tindakan') ?></td><td><input type="number" class="form-control" name="komisi_biaya_tindakan" value="<?php echo $komisi_biaya_tindakan; ?>" /></td></tr>
+                    <tr><td width='200'>Komisi Biaya Pemeriksaan <?php echo form_error('komisi_biaya_pemeriksaan') ?></td><td><div class="input-group mb-3"><input type="number"pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" class="form-control" name="komisi_biaya_pemeriksaan" value="<?php echo $komisi_biaya_pemeriksaan; ?>" />
+                        <span class="input-group-addon" id="basic-addon2">%</span>
+                        </div>
+                </td></tr>
+                    <tr><td width='200'>Komisi Biaya Tindakan <?php echo form_error('komisi_biaya_tindakan') ?></td><td><div class="input-group mb-3"><input type="number"pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" class="form-control" name="komisi_biaya_tindakan" value="<?php echo $komisi_biaya_tindakan; ?>" />
+                        <span class="input-group-addon" id="basic-addon2">%</span>
+                        </div>
+                </td></tr>
+                    <tr><td width='200'>Komisi Biaya Obat <?php echo form_error('komisi_biaya_obat') ?></td><td><div class="input-group mb-3"><input type="number"pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" class="form-control" name="komisi_biaya_obat" value="<?php echo $komisi_biaya_obat; ?>" />
+                        <span class="input-group-addon" id="basic-addon2">%</span>
+                        </div>
+                </td></tr>
                     <tr><td></td><td>
                             <!--<input type="hidden" name="kode_dokter" value="<?php echo $kode_dokter; ?>" /> -->
                             <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php echo $button ?></button> 

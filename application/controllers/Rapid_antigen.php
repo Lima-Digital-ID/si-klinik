@@ -5,14 +5,19 @@ if (!defined('BASEPATH'))
 
 class Rapid_antigen extends CI_Controller
 {
+    public $id_klinik;
+
     function __construct()
     {
         parent::__construct();
         date_default_timezone_set('Asia/Ujung_Pandang');
         $this->load->model('Tbl_dokter_model');
 		$this->load->model('Tbl_rapid_antigen_model');
+		$this->load->model('Transaksi_model');
+		$this->load->model('akuntansi/Transaksi_akuntansi_model');
         $this->load->library('datatables');
         $this->load->library('form_validation');
+        $this->id_klinik = $this->session->userdata('id_klinik');
 
         if($this->uri->segment(2)!='preview'){
             is_login();
@@ -92,6 +97,12 @@ class Rapid_antigen extends CI_Controller
     }
     public function periksa($id)
     {
+        $cekPeriksa = $this->Tbl_rapid_antigen_model->cekPeriksa($id);
+
+        if($cekPeriksa==1){
+            redirect(base_url()."rapid_antigen");
+        }
+
         $this->form_validation->set_rules('parameter_pemeriksaan', 'Parameter Pemeriksaan', 'trim|required');
         $this->form_validation->set_rules('hasil', 'Hasil', 'trim|required');
         $this->form_validation->set_rules('nilai_rujukan', 'Nilai Rujukan', 'trim|required');
@@ -124,8 +135,51 @@ class Rapid_antigen extends CI_Controller
             $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
             $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
             $post['qr_code'] = $image_name;
-            $post['status'] = 1;
+            $post['status'] = '1';
             $this->Tbl_rapid_antigen_model->update($post,$id);
+            
+            $getNama = $this->Tbl_rapid_antigen_model->detailRapid($id,'nama');
+            //insert to transaksi
+            //insert transaksi detail
+            $tr = array(
+                'kode_transaksi' => "RAPANTIGEN",
+				'id_klinik' => $this->id_klinik,
+                'no_transaksi' => $getNoSampel->no_sampel,
+                'tgl_transaksi' => date('Y-m-d'),
+                'status_transaksi' => 0,
+                'atas_nama' => $getNama->nama,
+            );
+            $trDetail = array(
+                [
+                'no_transaksi' => $getNoSampel->no_sampel,
+                'deskripsi' => 'Biaya Pemeriksaan',
+                'amount_transaksi' => biayaSK('rapid_antigen'),
+                'dc' => 'd']
+            );
+            $this->Transaksi_model->insert($tr,$trDetail);
+            //insert akuntansi
+            //insert detail akuntansi
+            $trAkuntansi = array(
+                'deskripsi' => 'Biaya Pemeriksaan '.$getNoSampel->no_sampel,
+                'tanggal' => date('Y-m-d'),
+            );
+
+            $trAkuntansiDetail = array(
+                [
+                    'id_akun' => 62,
+                    'jumlah' => biayaSK('rapid_antigen'),
+                    'tipe' => 'KREDIT',
+                    'keterangan' => 'akun'
+                ],
+                [
+                    'id_akun' => 20,
+                    'jumlah' => biayaSK('rapid_antigen'),
+                    'tipe' => 'DEBIT',
+                    'keterangan' => 'lawan'
+                ],
+            );
+            $this->Transaksi_akuntansi_model->insertWithDetail($trAkuntansi,$trAkuntansiDetail);
+
 
             redirect(base_url()."rapid_antigen/print/$id");
         }

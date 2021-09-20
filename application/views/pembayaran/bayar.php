@@ -8,7 +8,7 @@
 </style>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<?php  echo form_open(current_url(), array('class' => 'form-horizontal', 'id' => 'form-bayar')); ?>
+<?php  echo form_open(current_url()."?tab=".$_GET['tab'], array('class' => 'form-horizontal', 'id' => 'form-bayar')); ?>
 <div class="content-wrapper">
     <section class="content">
         <div class="row">

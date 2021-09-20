@@ -70,6 +70,7 @@ class Dokter extends CI_Controller
 	    'alumni' => set_value('alumni'),
 	    'komisi_biaya_pemeriksaan' => set_value('komisi_biaya_pemeriksaan'),
 	    'komisi_biaya_tindakan' => set_value('komisi_biaya_tindakan'),
+	    'komisi_biaya_obat' => set_value('komisi_biaya_obat'),
 	);
         $this->template->load('template','dokter/tbl_dokter_form', $data);
     }
@@ -96,6 +97,7 @@ class Dokter extends CI_Controller
 		'alumni' => $this->input->post('alumni',TRUE),
 	    'komisi_biaya_pemeriksaan' => $this->input->post('komisi_biaya_pemeriksaan', TRUE),
 	    'komisi_biaya_tindakan' => $this->input->post('komisi_biaya_tindakan', TRUE),
+	    'komisi_biaya_obat' => $this->input->post('komisi_biaya_obat', TRUE),
 	    );
 
             $this->Tbl_dokter_model->insert($data);
@@ -127,6 +129,7 @@ class Dokter extends CI_Controller
 		'alumni' => set_value('alumni', $row->alumni),
 	    'komisi_biaya_pemeriksaan' => set_value('komisi_biaya_pemeriksaan',$row->komisi_biaya_pemeriksaan),
 	    'komisi_biaya_tindakan' => set_value('komisi_biaya_tindakan',$row->komisi_biaya_tindakan),
+	    'komisi_biaya_obat' => set_value('komisi_biaya_obat',$row->komisi_biaya_obat),
         
 	    );
             $this->template->load('template','dokter/tbl_dokter_form', $data);
@@ -158,6 +161,7 @@ class Dokter extends CI_Controller
 		'alumni' => $this->input->post('alumni',TRUE),
 	    'komisi_biaya_pemeriksaan' => $this->input->post('komisi_biaya_pemeriksaan', TRUE),
 	    'komisi_biaya_tindakan' => $this->input->post('komisi_biaya_tindakan', TRUE),
+	    'komisi_biaya_obat' => $this->input->post('komisi_biaya_obat', TRUE),
             'dtm_upd' => date("Y-m-d H:i:s",  time())
 	    );
             $this->Tbl_dokter_model->update($this->input->post('kode_dokter', TRUE), $data);
@@ -235,6 +239,9 @@ class Dokter extends CI_Controller
 	xlsWriteLabel($tablehead, $kolomhead++, "No Izin Praktek");
 	xlsWriteLabel($tablehead, $kolomhead++, "Golongan Darah");
 	xlsWriteLabel($tablehead, $kolomhead++, "Alumni");
+	xlsWriteLabel($tablehead, $kolomhead++, "Komisi Biaya Pemeriksaan");
+	xlsWriteLabel($tablehead, $kolomhead++, "Komisi Biaya Tindakan");
+	xlsWriteLabel($tablehead, $kolomhead++, "Komisi Biaya Obat");
 
 	foreach ($this->Tbl_dokter_model->get_all() as $data) {
             $kolombody = 0;
@@ -253,6 +260,9 @@ class Dokter extends CI_Controller
 	    xlsWriteLabel($tablebody, $kolombody++, $data->no_izin_praktek);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->golongan_darah);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->alumni);
+	    xlsWriteLabel($tablebody, $kolombody++, $data->komisi_biaya_pemeriksaan);
+	    xlsWriteLabel($tablebody, $kolombody++, $data->komisi_biaya_tindakan);
+	    xlsWriteLabel($tablebody, $kolombody++, $data->komisi_biaya_obat);
 
 	    $tablebody++;
             $nourut++;

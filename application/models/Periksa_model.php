@@ -23,8 +23,11 @@ class Periksa_model extends CI_Model
     }
 
     // get data by id
-    function get_by_id($id)
+    function get_by_id($id,$select="")
     {
+        if($select!=""){
+            $this->db->select($select);
+        }
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }

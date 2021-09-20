@@ -118,7 +118,7 @@ class Transaksi_model extends CI_Model
         $this->datatables->where('tbl_periksa.is_ambil_obat', 1);
         if($id_klinik != null)
             $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);
-        $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
+        $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1?tab=pemeriksaan'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
             
         return $this->datatables->generate();
     }

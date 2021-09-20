@@ -40,22 +40,32 @@ class Tbl_rapid_antigen_model extends CI_Model
         return $this->datatables->generate();
 
     }
-    public function bayarRapid($id_klinik)
+    public function jsonRapid($id_klinik,$status)
     {
-        $this->datatables->select('r.no_sampel,r.nama,r.nik_or_passport');
+        $this->datatables->select('r.no_sampel,r.nama,r.nik_or_passport,tr.id_transaksi');
         $this->datatables->from($this->table." as r");
         $this->datatables->join('tbl_transaksi tr','r.no_sampel = tr.no_transaksi');
-        $this->datatables->where(['tr.id_klinik' => $id_klinik,'status' => '0']);
-        $this->datatables->add_column('action',anchor(site_url('pembayaran/rapid?nomor=$1'),'Bayar','class="btn btn-danger btn-sm"'),'nomor');
-        $this->datatables->add_column('status','Belum Membayar');
+        $this->datatables->where(['tr.id_klinik' => $id_klinik,'status_transaksi' => $status]);
+        if($status=='0'){
+            $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1?tab=rapid'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
+        }
+        else{
+            $this->datatables->add_column('action',anchor(site_url('pembayaran/cetak_surat/$1?tab=rapid'),'Cetak Kwitansi','class="btn btn-warning btn-sm"'),'id_transaksi');
+        }
+        $this->datatables->add_column('status',$status=='0' ? 'Belum Membayar' : 'Lunas');
 
         return $this->datatables->generate();
     }    
-    public function detailRapid($id)
+    public function detailRapid($id,$select="")
     {
-        $this->db->select("tbl_dokter.nama_dokter,".$this->table.".*");
+        $s = $select!="" ? $select : "tbl_dokter.nama_dokter,".$this->table.".*";
+        $this->db->select($select);
         $this->db->join('tbl_dokter',$this->table.".id_dokter = tbl_dokter.id_dokter");
         $this->db->where(['id_rapid' => $id]);
         return $this->db->get($this->table)->result()[0];
+    }
+    public function cekPeriksa($id)
+    {
+        return $this->db->get_where($this->table,['id_rapid' => $id,'status' => '1'])->num_rows();
     }
 }
