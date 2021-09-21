@@ -100,7 +100,7 @@
         </td>
         <td width="5%"></td>
         <td width="45%">
-        <table>
+        <table style="margin-top:30px">
             <tr>
               <td>Sex &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
               <td>:</td>
