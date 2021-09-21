@@ -24,7 +24,7 @@ class Tbl_rapid_antigen_model extends CI_Model
     public function getKode()
     {
         $this->db->select('no_sampel');
-        $this->db->where(['MONTH(tgl_pemeriksaan)' => date('m'), 'YEAR(tgl_pemeriksaan)' => date('Y')]);
+        $this->db->where(['MONTH(tgl_buat)' => date('m'), 'YEAR(tgl_buat)' => date('Y')]);
         $this->db->order_by('id_rapid','desc');
         $this->db->limit(1);
         return $this->db->get($this->table)->result();

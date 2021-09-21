@@ -75,6 +75,7 @@ class Rapid_antigen extends CI_Controller
             $bln = $array_bln[date('n')];
             $kode = $number."/$bln/COVID-19/KR/".date('Y');
             $post['no_sampel'] = $kode;
+            $post['tgl_buat'] = date('Y-m-d');
             $this->Tbl_rapid_antigen_model->insert($post);
 
             $this->session->set_flashdata('success', 'Formulir Rapid Antigen Berhasil Dibuat. Pemeriksaan berlanjut ke Dokter yang dipilih');
