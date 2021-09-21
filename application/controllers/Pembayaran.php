@@ -12,6 +12,7 @@ class Pembayaran extends CI_Controller
     {
         parent::__construct();
         is_login();
+        date_default_timezone_set('Asia/Jakarta');
         $this->load->model('Transaksi_model');
         $this->load->model('Periksa_model');
         $this->load->model('Tbl_pasien_model');
