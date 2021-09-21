@@ -196,7 +196,9 @@ class Rapid_antigen extends CI_Controller
     }
     public function preview()
     {
-        $data['detail'] = $this->Tbl_rapid_antigen_model->detailRapid($_GET['sampel']);
+        $this->db->select('id_rapid');
+        $getId = $this->db->get_where('tbl_rapid_antigen',['no_sampel' => $_GET['sampel']])->row();
+        $data['detail'] = $this->Tbl_rapid_antigen_model->detailRapid($getId->id_rapid);
         $this->load->view('rapid_antigen/print_rapid_antigen',$data);
     }
 }
