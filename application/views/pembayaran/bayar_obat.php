@@ -93,7 +93,7 @@ foreach($transaksi_d_obat as $data){
 $diskon=$total_transaksi*(($getDiskon != null ? $getDiskon->diskon : 0) / 100);
 ?>
                         
-                        Subsidi Bulanan :<b> <?php echo $getDiskon->diskon;?> % </b>
+                        Subsidi Bulanan :<b> <?php echo $getDiskon != null ?  $getDiskon->diskon : 0;?> % </b>
                         
                         <hr />
                         <div class="form-group">

@@ -169,11 +169,11 @@ class Transaksi_obat_model extends CI_Model
     }
 
     function json_detail_po($id){
-        $this->datatables->select('tbl_purchase_d.*, tbl_obat_alkes_bhp.nama_barang');
-        $this->datatables->from('tbl_purchase_d');
-        $this->datatables->join('tbl_obat_alkes_bhp','tbl_obat_alkes_bhp.kode_barang=tbl_purchase_d.kode_barang');
-        $this->datatables->where('tbl_purchase_d.kode_purchase', $id);
-        return $this->datatables->generate();
+        $this->db->select('tbl_purchase_d.*, tbl_obat_alkes_bhp.nama_barang');
+        $this->db->from('tbl_purchase_d');
+        $this->db->join('tbl_obat_alkes_bhp','tbl_obat_alkes_bhp.kode_barang=tbl_purchase_d.kode_barang');
+        $this->db->where('tbl_purchase_d.kode_purchase', $id);
+        return $this->db->get()->result_array();
     }
 
     function get_data_obat($id_klinik = null)

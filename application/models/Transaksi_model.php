@@ -311,30 +311,41 @@ class Transaksi_model extends CI_Model
         return $this->db->get()->result();
     }
     
-    function json_asuransi($filters){
-        $filter = explode("_", $filters);
-        $rekap_laporan = $filter[0]; // harian/bulanan/tahunan
-        $filter_data = $filter[1]; // data filter
-        $id_klinik = $filter[2]; //id klinik
+    function json_asuransi($filters,$idKlinik=""){
+        if($filters!=NULL){
+            $filter = explode("_", $filters);
+            $rekap_laporan = $filter[0]; // harian/bulanan/tahunan
+            $filter_data = $filter[1]; // data filter
+            $id_klinik = $filter[2]; //id klinik
+        }
         
         $this->datatables->select('ra.no_transaksi, ps.nama_lengkap as nama_pasien, ra.amount, ra.dtm_crt as tgl_pembayaran');
         $this->datatables->from('tbl_rekap_asuransi ra');
         $this->datatables->join('tbl_transaksi t','ra.no_transaksi=t.no_transaksi');
         $this->datatables->join('tbl_periksa p','t.no_transaksi=p.no_periksa');
         $this->datatables->join('tbl_pasien ps','p.no_rekam_medis=ps.no_rekam_medis');
+
+        if($filters!=NULL){
         
-        if ($rekap_laporan == 1)
-            $this->datatables->where('DATE(ra.dtm_crt)', $filter_data);
-        else if ($rekap_laporan == 2){
-            $filter2 = explode("-", $filter_data);
-            $this->datatables->where('MONTH(ra.dtm_crt)', $filter2[0]);
-            $this->datatables->where('YEAR(ra.dtm_crt)', $filter2[1]);
+            if ($rekap_laporan == 1)
+                $this->datatables->where('DATE(ra.dtm_crt)', $filter_data);
+            else if ($rekap_laporan == 2){
+                $filter2 = explode("-", $filter_data);
+                $this->datatables->where('MONTH(ra.dtm_crt)', $filter2[0]);
+                $this->datatables->where('YEAR(ra.dtm_crt)', $filter2[1]);
+            }
+            else if ($rekap_laporan == 3)
+                $this->datatables->where('YEAR(ra.dtm_crt)', $filter_data);
+            
+            if($id_klinik != null)
+                $this->datatables->where('t.id_klinik', $id_klinik);
         }
-        else if ($rekap_laporan == 3)
-            $this->datatables->where('YEAR(ra.dtm_crt)', $filter_data);
+        else{
+            if($idKlinik!=""){
+                $this->datatables->where('t.id_klinik', $idKlinik);
+            }
+        }
         
-        if($id_klinik != null)
-            $this->datatables->where('t.id_klinik', $id_klinik);
         return $this->datatables->generate();
     }
     

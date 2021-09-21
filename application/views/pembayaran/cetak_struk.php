@@ -11,28 +11,25 @@
   <!-- Load paper.css for happy printing -->
   <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">-->
    <!-- <link rel="stylesheet" href="<?php echo base_url() ?>assets/paper-css/paper.css"> -->
-  
-  <style>
-	.header img {
-	  margin-top: -10px;
-	  float: left;
-	  width: 50px;
-	  height: 50px;
-	}
+   <link rel="stylesheet" href="<?php echo base_url() ?>assets/paper-css/paper.css">
 
-	.header h2 {
-	  position: relative;
-	  top: -5px;
-	  left: 5px;
-	  font-size: 10px;
-	}
-  @media print {
-    /* style sheet for print goes here */
-    .noprint {
-      visibility: hidden;
+   <style>
+	  body{
+      font-family : "Arial";
+	  }
+	  .header, .header .left{
+		  display: flex;
+	  }
+    .header .left{
+      width:55%;
     }
-  }
+	  .header .right{
+		  width: 45%;
+      padding-left:40px;
+      padding-top:30px;
+	  }
   </style>
+  <style>@page { size: A5 }</style>
 
   <!-- Set page size here: A5, A4 or A3 -->
   <!-- Set also "landscape" if you need -->
@@ -45,79 +42,141 @@
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
 <!-- <body class="A5 landscape" onload="window.print()"> -->
-<body style="font-size:9px; padding-right:12px; padding-left:-15px">
+<body class="A5 landscape">
   <!-- Each sheet element should have the class "sheet" -->
   <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
   <section class="sheet padding-10mm">
 
-    <div class="header" style="background:#fffff;">
-	  <img src="<?php echo base_url()?>assets\images/logo_mitra_sehat_keluarga.png" alt="logo" />
-	  <h2 style="text-align: left;">MITRA SEHAT KELUARGA - PRAKTEK DOKTER UMUM
-		<br />
-		<span style="font-size:10px;">Ruko Atrani 24 - Sukorahayu - Wagir - Telp. (0341) 806305</span>
-	  </h2>
+	<div class="header">
+		<div class="left">
+      <div class="img">
+        <img src="<?php echo base_url()."assets/images/".getInfoRS('logo')?>" alt="logo" width="70" />
+      </div>
+      <div class="address" style="margin-left:15px">
+          <h2 style="font-family:times-new-roman;margin-top:0;margin-bottom:0px"><?= getInfoRS('nama_rumah_sakit') ?></h2>
+          <p style="margin-top:5px;margin-bottom:0px"><?= getInfoRS('alamat') ?></p>
+          <p style="margin-top:5px;margin-bottom:0px"><?= getInfoRS('no_telpon') ?></p>
+      </div>
+		</div>
+	  <div class="right">
+      <table>
+        <tr>
+          <td>Number</td>
+          <td>:</td>
+          <td><u><?php echo $transaksi[0]->no_transaksi;?></u></td>
+        </tr>
+        <tr>
+          <td>Date</td>
+          <td>:</td>
+          <td><u><?= date('d-m-Y') ?></u></td>
+        </tr>
+      </table>
+		</div>
 	  <!--<h4 style="text-align: left;">Ruko Atrani 24 - Sukorahayu - Wagir - Telp. (0341) 806305</h4>-->
 	</div>
-<div>
-<hr />
-<h3 style="text-align: center;"><span style="text-decoration: underline;">KWITANSI PEMBAYARAN</span></h3>
-<p>
-    Nama Pasien : <?php echo $transaksi[0]->atas_nama;?><br />
-    No Transaksi : <?php echo $transaksi[0]->no_transaksi;?></p>
-<h3 style="text-align: center;">RINCIAN PEMBAYARAN</h3>
-<table style="margin-right:15px; width:100% ">
-<?php
-$total_transaksi = 0;
-$i = 1;
-foreach($transaksi as $data){
-  // print_r($data);
-?>
-<tr>
-  <td><?php echo $i;?></td>
-  <td colspan="4"><?php echo $data->nama_barang;?></td>
-</tr>
-<tr>
-<!-- <td><?php echo $i;?></td>
-<td><?php echo $data->nama_barang;?></td> -->
-<td></td>
-<td align="left">x<?php echo $data->jumlah?></td>
-<td align="right"><?php echo number_format(($data->harga),2,',','.');?></td>
-<td align="right">Rp</td>
-<td align="right"><?php echo number_format(($data->harga*$data->jumlah),2,',','.');?></td>
-</tr>
-<?php 
-$total_transaksi+=($data->harga*$data->jumlah);
-$i++;
-}
-
-if ($getDiskon != null) {
-  $diskon=$total_transaksi*(($getDiskon != null ? $getDiskon->diskon : 0) / 100);
-?>
-<tr>
-<td><?php echo $i++;?></td>
-<td colspan="4">Subsidi Obat</td>
-</tr>
-<tr>
-<td align="right" colspan="4">-Rp</td>
-<td align="right"><?php echo number_format($diskon,2,',','.');?></td>
-</tr>
-<?php
-$total_transaksi-=$diskon;
-}
-?>
-<tr>
-    <td colspan="3"><b>Total Transaksi</b></td>
-    <!-- <td width="10%" align="right"><b>Rp</b></td> -->
-    <td align="right">Rp</td>
-    <td align="right"><b><?php echo number_format($total_transaksi,2,',','.');?></b></td>
-</tr>
-</table>
-<p style="text-align: right;">Malang, <?php echo date('d-m-Y');?></p>
-<!--<br />-->
-<p style="text-align: right;">( <?php echo $petugas; ?> )</p>
+<h3 style="text-align: center;margin-bottom:0px"><span style="text-decoration: underline;"><i>BILL</i></span></h3><p>
+<center>
+    <table width="90%">
+      <tr>
+        <td width="50%">
+          <h3 style="margin-bottom:5px"><u>IDENTITY</u></h3>
+          <table>
+            <tr>
+              <td>Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+              <td>:</td>
+              <td><?= $transaksi[0]->atas_nama ?></td>
+            </tr>
+            <tr>
+              <td>Age</td>
+              <td>:</td>
+              <td>...............</td>
+            </tr>
+            <tr>
+              <td>Address</td>
+              <td>:</td>
+              <td>...............</td>
+            </tr>
+          </table>
+        </td>
+        <td width="5%"></td>
+        <td width="45%">
+        <table>
+            <tr>
+              <td>Sex &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+              <td>:</td>
+              <td>...............</td>
+            </tr>
+            <tr>
+              <td>Nationality</td>
+              <td>:</td>
+              <td>...............</td>
+            </tr>
+            <tr>
+              <td>Room Number</td>
+              <td>:</td>
+              <td>...............</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <center>
+  <table width="90%">
+    <tr>
+      <td width="45%">
+        <h3 style="margin-bottom:5px"><u>FOR PAYMENT</u></h3>
+          <table width="100%">
+            <?php
+            $total_transaksi = 0;
+            $i = 1;
+            foreach($transaksi as $data){
+              $total_transaksi+=($data->harga*$data->jumlah);
+                  ?>
+            <tr>
+            <td><?php echo $data->nama_barang."(".$data->jumlah.")";?></td>
+            <td>:</td>
+            <td>Rp.<?php echo number_format(($data->harga*$data->jumlah),2,',','.')?></td>
+            </tr>
+            <?php 
+            }
+            if ($getDiskon != null) {
+              $diskon=$total_transaksi*(($getDiskon != null ? $getDiskon->diskon : 0) / 100);
+            ?>
+            <tr>
+              <td>Subsidy</td>
+              <td>:</td>
+              <td>Rp.<?php echo number_format($diskon,2,',','.')?></td>
+            </tr>
+            <?php } else{ $diskon = 0; } ?>
+            <tr>
+              <td colspan="3"><hr></td>
+            </tr>
+            <tr>
+                <td width="85%"><b>Amount</b></td>
+                <td width="10%"><b>Rp</b></td>
+                <td width="35%"><b><?php echo number_format($total_transaksi-$diskon,2,',','.');?></b></td>
+            </tr>
+          </table>
+      </td>
+      <td width="10%"></td>
+      <td width="45%">
+        <table width="100%">
+          <tr>
+            <td><span style="margin-left:50px"></span> Denpasar, <?php echo date('d-m-Y');?></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <br>
+</center>
+<div style="width:55%;margin-left:auto">
+  <span>(Guest Signature)</span>
+  <span style="margin-left:70px">(Attending Physician)</span>
+</div>
 </div>
   </section>
-<a href="<?=base_url('pembayaran/obat_tanpa_periksa')?>" class="noprint"><button>kembali</button></a>
+
 </body>
 <script type="text/javascript">
     window.print();

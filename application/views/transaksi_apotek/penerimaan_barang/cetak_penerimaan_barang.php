@@ -14,18 +14,12 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/paper-css/paper.css">
   
   <style>
-	.header img {
-	  float: left;
-	  width: 50px;
-	  height: 50px;
-	}
-
-	.header h2 {
-	  position: relative;
-	  top: 10px;
-	  left: 10px;
-	  font-size: 20px;
-	}
+	  .header{
+		  display: flex;
+	  }
+	  .header .right{
+		  width: 100%;
+	  }
   </style>
 
   <!-- Set page size here: A5, A4 or A3 -->
@@ -44,14 +38,17 @@
 
     <!-- Write HTML just like a web page -->
     <!--<article>This is an A5 document.</article>-->
-    <div class="header">
-	  <img src="<?php echo base_url()?>assets\images/logo_mitra_sehat_keluarga.png" alt="logo" />
-	  <h2 style="text-align: left;"><span style="color: #ff0000;">MITRA SEHAT KELUARGA</span>
-		<br />
-		PRAKTEK DOKTER UMUM
-		<br />
-		<span style="font-size:12px;">Ruko Atrani 24 - Sukorahayu - Wagir - Telp. (0341) 806305</span>
-	  </h2>
+	<div class="header">
+		<div class="left">
+			<img src="<?php echo base_url()."assets/images/".getInfoRS('logo')?>" alt="logo" width="100" />
+		</div>
+	  <div class="right">
+		  <center>
+			  <h2 style="margin-bottom:0"><?= getInfoRS('nama_rumah_sakit') ?></h2>
+			  <p style="margin-top:5px;margin-bottom:0"><?= getInfoRS('alamat') ?></p>
+			  <p style="margin-top:5px"><?= getInfoRS('no_telpon') ?></p>
+			</center>
+		</div>
 	  <!--<h4 style="text-align: left;">Ruko Atrani 24 - Sukorahayu - Wagir - Telp. (0341) 806305</h4>-->
 	</div>
 <br />

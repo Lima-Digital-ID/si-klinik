@@ -158,15 +158,15 @@
             url: "<?=base_url('transaksi_apotek/json_detail_po/')?>"+id, //json get site
             dataType : 'json',
             success: function(response){
-                arrData = response['data'];
+                arrData = response;
                 $('#title').html('Purchase Order Nomor : '+id)
                 for(i = 0; i < arrData.length; i++){
                     // t.row.add([
-                    var table=    '<tr><td><div class="text-center">'+arrData[i]['kode_barang']+'</div></td>'+
-                        '<td><div class="text-center">'+arrData[i]['nama_barang']+'</div></td>'+
-                        '<td><div class="text-left">Rp. '+formatRupiah(arrData[i]['harga'])+'</div></td>'+
-                        '<td><div class="text-left">'+arrData[i]['jumlah']+'</div></td>'+
-                        '<td><div class="text-left">'+arrData[i]['diskon']+'</div></td></tr>';
+                    var table=    '<tr><td><div class="text-center">'+arrData[i].kode_barang+'</div></td>'+
+                        '<td><div class="text-center">'+arrData[i].nama_barang+'</div></td>'+
+                        '<td><div class="text-left">Rp. '+formatRupiah(arrData[i].harga)+'</div></td>'+
+                        '<td><div class="text-left">'+arrData[i].jumlah+'</div></td>'+
+                        '<td><div class="text-left">'+arrData[i].diskon+'</div></td></tr>';
                     $('#detailObat').append(table);
                     // ]).draw(false);
                 }

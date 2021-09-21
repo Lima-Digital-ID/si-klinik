@@ -34,7 +34,7 @@ class Transaksi_apotek extends CI_Controller
     }
     public function json_detail_po($id){
         header('Content-Type: application/json');
-        echo $this->Transaksi_obat_model->json_detail_po($id);
+        echo json_encode($this->Transaksi_obat_model->json_detail_po($id));
     }
 
     public function create_po() 

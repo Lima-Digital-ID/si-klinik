@@ -475,7 +475,7 @@ class Pembayaran extends CI_Controller
     
     public function json_asuransi($filter = null) {
         header('Content-Type: application/json');
-        echo $this->Transaksi_model->json_asuransi($filter);
+        echo $this->Transaksi_model->json_asuransi($filter,$this->id_klinik);
     }
     
     public function _rules() 
