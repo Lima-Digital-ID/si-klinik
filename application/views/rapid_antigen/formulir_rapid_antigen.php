@@ -28,48 +28,37 @@
                         ?>
                         
                         <form action="" method="post">
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Nama <?php echo form_error('nama'); ?></div>
                                 <div class="col-sm-10">
                                     <input type="text" name="nama" class="form-control">
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Email <?php echo form_error('email'); ?></div>
                                 <div class="col-sm-10">
                                     <input type="email" name="email" class="form-control">
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">No Hp <?php echo form_error('no_hp'); ?></div>
                                 <div class="col-sm-10">
                                     <input type="text" name="no_hp" class="form-control">
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Nik / Passport <?php echo form_error('nik_or_passport'); ?></div>
                                 <div class="col-sm-10">
                                     <input type="text" name="nik_or_passport" class="form-control">
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Tanggal Lahir <?php echo form_error('tgl_lahir'); ?></div>
                                 <div class="col-sm-10">
-                                    <input type="text" name="tgl_lahir" class="form-control">
+                                    <input type="date" name="tgl_lahir" class="form-control">
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Jenis Kelamin <?php echo form_error('jenis_kelamin'); ?></div>
                                 <div class="col-sm-10">
                                     <input type="radio" id="lk" name="jenis_kelamin" value="L">
@@ -79,62 +68,43 @@
                                     <label for="pr">Perempuan</label>
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Alamat Domisili <?php echo form_error('alamat_domisili'); ?></div>
                                 <div class="col-sm-10">
                                     <textarea name="alamat_domisili" class="form-control"></textarea>
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Pekerjaan <?php echo form_error('pekerjaan'); ?></div>
                                 <div class="col-sm-10">
                                     <input type="text" name="pekerjaan" class="form-control">
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Alamat Tempat Bekerja <?php echo form_error('alamat_bekerja'); ?></div>
                                 <div class="col-sm-10">
                                     <textarea name="alamat_bekerja" class="form-control"></textarea>
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Keluhan <?php echo form_error('keluhan'); ?></div>
                                 <div class="col-sm-10">
                                     <textarea name="keluhan" class="form-control"></textarea>
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Penyakit Komorbid <?php echo form_error('komorbid'); ?></div>
                                 <div class="col-sm-10">
                                     <textarea name="komorbid" class="form-control"></textarea>
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Alasan SWAB <?php echo form_error('alasan'); ?></div>
                                 <div class="col-sm-10">
                                     <textarea name="alasan" class="form-control"></textarea>
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Riwayat Vaksin Covid-19</div>
                                 <div class="col-sm-10">
                                     <input type="radio" class="riwayatVaksin" name="riwayat_vaksin" id="sudah" value="Sudah">
@@ -144,9 +114,8 @@
                                     <label for="belum">Belum</label>
                                 </div>
                             </div>
-                            <br>
                             <div id="tanggalVaksin" style="display:none">
-                                <div class="form-group">
+                                <div class="form-group row">
                                     <div class="col-sm-2">Tanggal Vaksin</div>
                                     <div class="col-sm-10">
                                         <div class="row">
@@ -161,12 +130,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Riwayat Kontak Dengan Pasien Covid-19</div>
                                 <div class="col-sm-10">
                                     <input type="radio" class="riwayatKontak" name="riwayat_kontak" id="ya" value="Ya">
@@ -190,18 +155,13 @@
                                     </div>   
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Riwayat SWAB/RAPID Sebelumnya <?php echo form_error('riwayat_swab_rapid_sebelumnya'); ?></div>
                                 <div class="col-sm-10">
                                     <textarea name="riwayat_swab_rapid_sebelumnya" class="form-control"></textarea>
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <div class="col-sm-2">Pilih Dokter <?php echo form_error('id_dokter'); ?></div>
                                 <div class="col-sm-10">
                                     <select name="id_dokter" id="" class="form-control">
@@ -214,8 +174,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <br>
-                            <br>
                             <div class="pull-right">
                                 <button class="btn btn-default" type="reset"><span class="fa fa-times"></span> Reset</button>
                                 <button class="btn btn-success" type="submit"><span class="fa fa-save"></span> Simpan</button>
