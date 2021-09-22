@@ -257,7 +257,9 @@
                     "orderable": false
                 },{"data": "nomor"},{"data": "nama"},{"data": "status"},
                 {
-                    "data" : "action",
+                    "render" : function(data,type,row){
+                        return row.action+"&nbsp;"+row.cetak
+                    },
                     "orderable": false,
                     "className" : "text-center"
                 }
@@ -331,7 +333,9 @@
                     "orderable": false
                 },{"data": "no_sampel"},{"data": "nik_or_passport"},{"data": "nama"},{"data": "status"},
                 {
-                    "data" : "action",
+                    "render" : function(data,type,row){
+                        return row.action+"&nbsp;"+row.cetak
+                    },
                     "orderable": false,
                     "className" : "text-center"
                 }
@@ -369,7 +373,9 @@
                     "orderable": false
                 },{"data": "no_transaksi"},{"data": "nama_pasien"},{"data": "id_klinik"},{"data": "tgl_periksa"},{"data": "tgl_pembayaran"},{"data": "status_transaksi"},
                 {
-                    "data" : "action",
+                    "render" : function(data,type,row){
+                        return row.action+"&nbsp;"+row.cetak
+                    },
                     "orderable": false,
                     "className" : "text-center"
                 }

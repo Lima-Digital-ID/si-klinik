@@ -57,7 +57,7 @@
 <hr />
 <div style="display:inline-block;position:relative;left:50%;transform:translateX(-50%);-moz-transform:translateX(-50%);-webkit-transform:translateX(-50%)">
 		<h3 style="margin-bottom : 0px;margin-top:0"><span style="text-decoration: underline;">SURAT KETERANGAN SAKIT</span></h3>
-		<p style="margin-top : 5px;margin-bottom:0;margin-left:20"><b>No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</b></p>
+		<p style="margin-top : 5px;margin-bottom:0;text-align:center;letter-spacing:2px"><b>No. <?= $nomor ?></b></p>
 	</div>
 <div class="body">
 	<p style="margin-bottom:0px" >Yang bertanda tangan dibawah ini, Dokter yang bertugas di <?= ucwords(strtolower(getInfoRS('nama_rumah_sakit'))) ?> menerangkan dengan sebenarnya, mengingat sumpah jabatan bahwa  : </p>

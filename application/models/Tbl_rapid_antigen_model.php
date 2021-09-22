@@ -51,6 +51,7 @@ class Tbl_rapid_antigen_model extends CI_Model
         }
         else{
             $this->datatables->add_column('action',anchor(site_url('pembayaran/cetak_surat/$1?tab=rapid'),'Cetak Kwitansi','class="btn btn-warning btn-sm"'),'id_transaksi');
+            $this->datatables->add_column('cetak',anchor(site_url('rapid_antigen/preview?sampel=$1'),'Cetak Surat Rapid Antigen','class="btn btn-danger btn-sm"'),'no_sampel');
         }
         $this->datatables->add_column('status',$status=='0' ? 'Belum Membayar' : 'Lunas');
 

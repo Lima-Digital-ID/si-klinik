@@ -32,6 +32,7 @@ class Tbl_sksehat_model extends CI_Model
         }
         else{
             $this->datatables->add_column('action',anchor(site_url('pembayaran/cetak_surat/$1?tab=sks'),'Cetak Kwitansi','class="btn btn-warning btn-sm"'),'id_transaksi');
+            $this->datatables->add_column('cetak',anchor(site_url('pembayaran/cetak-sksehat?nomor=$1'),'Cetak SK Sehat','class="btn btn-danger btn-sm"'),'nomor');
         }
         $this->datatables->add_column('status',$status=='0' ? 'Belum Membayar' : 'Lunas');
 

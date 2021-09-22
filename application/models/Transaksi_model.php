@@ -124,7 +124,7 @@ class Transaksi_model extends CI_Model
     }
     
     function json2($id_klinik = null) {
-        $this->datatables->select('id_transaksi,kode_transaksi,tbl_klinik.nama as id_klinik,no_transaksi,tbl_periksa.dtm_crt as tgl_periksa,tbl_periksa.dtm_upd as tgl_pengambilan, (CASE status_transaksi WHEN 1 THEN "Lunas" ELSE "Belum Dibayar" END) as status_transaksi, tbl_transaksi.dtm_upd as tgl_pembayaran, tbl_pasien.nama_lengkap as nama_pasien');
+        $this->datatables->select('id_transaksi,kode_transaksi,tbl_klinik.nama as id_klinik,no_transaksi,tbl_periksa.no_periksa,tbl_periksa.dtm_crt as tgl_periksa,tbl_periksa.dtm_upd as tgl_pengambilan, (CASE status_transaksi WHEN 1 THEN "Lunas" ELSE "Belum Dibayar" END) as status_transaksi, tbl_transaksi.dtm_upd as tgl_pembayaran, tbl_pasien.nama_lengkap as nama_pasien');
         $this->datatables->from('tbl_periksa');
         $this->datatables->join('tbl_transaksi','tbl_periksa.no_periksa=tbl_transaksi.no_transaksi');
         $this->datatables->join('tbl_pasien','tbl_periksa.no_rekam_medis=tbl_pasien.no_rekam_medis');
@@ -133,6 +133,7 @@ class Transaksi_model extends CI_Model
         if($id_klinik != null)
             $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);
         $this->datatables->add_column('action',anchor(site_url('pembayaran/cetak_surat/$1'),'Cetak Kwitansi',array('class' => 'btn btn-warning btn-sm','target'=>'_blank')),'id_transaksi');
+        $this->datatables->add_column('cetak',anchor(site_url('pembayaran/cetak-sksakit?id=$1'),'Cetak SK Sakit','class="btn btn-danger btn-sm"'),'no_periksa');
             
         return $this->datatables->generate();
     }

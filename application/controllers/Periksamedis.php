@@ -786,7 +786,7 @@ class Periksamedis extends CI_Controller
     
     public function cetak_surat_ket_sakit(){
         $id = $_GET['id'];
-        $this->db->select('tbl_periksa.no_rekam_medis as nomor_rekam_medis,tbl_periksa.*,tbl_pasien.*,tbl_transaksi.*,tbl_periksa.dtm_crt as tgl_periksa,tbl_dokter.nama_dokter,tbl_klinik.nama as klinik,tbl_klinik.alamat as alamat_klinik');
+        $this->db->select('tbl_periksa.no_rekam_medis as nomor_rekam_medis,tbl_periksa.*,tbl_pasien.*,tbl_transaksi.*,tbl_periksa.nomor_skt,tbl_periksa.dtm_crt as tgl_periksa,tbl_dokter.nama_dokter,tbl_klinik.nama as klinik,tbl_klinik.alamat as alamat_klinik');
         $this->db->from('tbl_transaksi');
         $this->db->join('tbl_periksa', 'tbl_transaksi.no_transaksi=tbl_periksa.no_periksa', 'left');
         $this->db->join('tbl_pasien', 'tbl_periksa.no_rekam_medis=tbl_pasien.no_rekam_medis', 'left');
@@ -828,6 +828,7 @@ class Periksamedis extends CI_Controller
         $this->data['diagnosa'] = $data->diagnosa;
         $this->data['tgl_cetak'] = date("d M Y",  time());
         $this->data['dokter'] = $data->nama_dokter;
+        $this->data['nomor'] = $data->nomor_skt;
         $this->load->view('rekam_medis/cetak_surat_ket_sakit', $this->data);
     }
     
