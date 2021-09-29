@@ -74,7 +74,7 @@
                 </td>
                 <td width="25%" rowspan="2">
                     <?php 
-                        $tgl = date('d MM Y',strtotime($detail->tgl_pemeriksaan));
+                        $tgl = date('d M Y',strtotime($detail->tgl_pemeriksaan));
                         $waktu = date('H.i',strtotime($detail->tgl_pemeriksaan));
                     ?>
                     Tgl :  <?= $tgl ?>
@@ -83,7 +83,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3">No. ID Sampel : <?= $detail->no_sampel ?></td>
+                <td colspan="3">No. ID Sampel : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?=  substr($detail->no_sampel,1) ?></td>
             </tr>
             <tr>
                 <td colspan="3">
@@ -156,12 +156,9 @@
                         <tr>
                             <td>
                                 <center>
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <?= $detail->nama_dokter ?>
+                                <img src="<?= base_url()."assets/images/ttd.png" ?>" width="150px" alt="" srcset="">
+                                <br>
+                                    dr. Ni Nyoman Ermy Setiari, M.Kes
                                 </center>
                             </td>
                         </tr>

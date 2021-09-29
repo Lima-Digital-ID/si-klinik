@@ -115,7 +115,7 @@ class Transaksi_model extends CI_Model
         $this->datatables->join('tbl_pasien','tbl_periksa.no_rekam_medis=tbl_pasien.no_rekam_medis');
         $this->datatables->join('tbl_klinik','tbl_transaksi.id_klinik=tbl_klinik.id_klinik');
         $this->datatables->where('status_transaksi', 0);
-        $this->datatables->where('tbl_periksa.is_ambil_obat', 1);
+        $this->datatables->where('tbl_periksa.is_ambil_obat', 0);
         if($id_klinik != null)
             $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);
         $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1?tab=pemeriksaan'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
@@ -146,7 +146,7 @@ class Transaksi_model extends CI_Model
         $this->datatables->join('tbl_dokter','tbl_periksa.id_dokter=tbl_dokter.id_dokter');
         $this->datatables->join('tbl_pendaftaran','tbl_periksa.no_pendaftaran=tbl_pendaftaran.no_pendaftaran','left');
         $this->datatables->join('tbl_klinik','tbl_pendaftaran.id_klinik=tbl_klinik.id_klinik','left');
-        $this->datatables->where('tbl_transaksi.status_transaksi', 0);
+        $this->datatables->where('tbl_transaksi.status_transaksi', 1);
         $this->datatables->where('tbl_periksa.is_ambil_obat', 0);
         if($id_klinik != null)
             $this->datatables->where('tbl_pendaftaran.id_klinik', $id_klinik);
