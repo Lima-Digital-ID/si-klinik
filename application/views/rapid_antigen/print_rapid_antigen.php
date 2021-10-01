@@ -83,7 +83,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3">No. ID Sampel : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?=  substr($detail->no_sampel,1) ?></td>
+                <td colspan="3">No. ID Sampel : <?=  $detail->no_sampel ?></td>
             </tr>
             <tr>
                 <td colspan="3">
