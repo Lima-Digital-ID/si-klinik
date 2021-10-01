@@ -151,7 +151,7 @@
                                 <select name="id_diagnosa[]" class="form-control select2" multiple="multiple" id="">
                                     <?php
                                         foreach ($diagnosa_icd10 as $value) {
-                                            echo "<option value='".$value->id_diagnosa."'>".$value->diagnosa."</option>";
+                                            echo "<option value='".$value->id_diagnosa."'>".$value->code." - ".$value->diagnosa."</option>";
                                         }
                                     ?>
                                 </select>
