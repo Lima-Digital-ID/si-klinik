@@ -31,23 +31,68 @@
                     <div class="box-body">
                         <div style="padding-bottom: 10px;">
                         </div>
-                        <table class="table table-bordered table-striped" id="mytable">
-                            <thead>
-                                <tr>
-                                    <th width="30px">No</th>
-                                    <th>No Pendaftaran</th>
-                                    <th>No Rekam Medis</th>
-                                    <th>No ID Pasien</th>
-                                    <th>Nama Pasien</th>
-                                    <th>Klinik</th>
-                                    <th>Nama Dokter</th>
-                                    <th>Tgl Pendaftaran</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                        </table>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#medis">Periksa Medis</a></li>
+                            <li><a data-toggle="tab" href="#anak">Imunisasi Anak</a></li>
+                            <li><a data-toggle="tab" href="#hamil">Kontrol Kehamilan</a></li>
+                        </ul>
+                        <br>
+                        <div class="tab-content">
+                            <div id="medis" class="tab-pane fade in active">
+                                <table class="table table-bordered table-striped" id="mytable">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px">No</th>
+                                            <th>No Pendaftaran</th>
+                                            <th>No Rekam Medis</th>
+                                            <th>No ID Pasien</th>
+                                            <th>Nama Pasien</th>
+                                            <th>Klinik</th>
+                                            <th>Nama Dokter</th>
+                                            <th>Tgl Pendaftaran</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="anak" class="tab-pane fade in">
+                            <table class="table table-bordered table-striped" width="100%" id="tableAnak">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px">No</th>
+                                            <th>No Pendaftaran</th>
+                                            <th>No Rekam Medis</th>
+                                            <th>No ID Pasien</th>
+                                            <th>Nama Pasien</th>
+                                            <th>Klinik</th>
+                                            <th>Nama Dokter</th>
+                                            <th>Tgl Pendaftaran</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="hamil" class="tab-pane fade in">
+                            <table class="table table-bordered table-striped" width="100%" id="tableHamil">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px">No</th>
+                                            <th>No Pendaftaran</th>
+                                            <th>No Rekam Medis</th>
+                                            <th>No ID Pasien</th>
+                                            <th>Nama Pasien</th>
+                                            <th>Klinik</th>
+                                            <th>Nama Dokter</th>
+                                            <th>Tgl Pendaftaran</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,6 +133,80 @@
             processing: true,
             serverSide: true,
             ajax: {"url": "../periksamedis/json_antrian", "type": "POST"},
+            columns: [
+                {
+                    "data": "no_pendaftaran",
+                    "orderable": false
+                },{"data": "no_pendaftaran"},{"data": "no_rekam_medis"},{"data": "no_id_pasien"},{"data": "nama_pasien"},{"data": "klinik"},{"data": "nama_dokter"},{"data": "tgl_pendaftaran"},{"data": "status"},
+                {
+                    "data": "action",
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[1, 'asc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+        var t = $("#tableAnak").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "../periksamedis/json_antrian/2", "type": "POST"},
+            columns: [
+                {
+                    "data": "no_pendaftaran",
+                    "orderable": false
+                },{"data": "no_pendaftaran"},{"data": "no_rekam_medis"},{"data": "no_id_pasien"},{"data": "nama_pasien"},{"data": "klinik"},{"data": "nama_dokter"},{"data": "tgl_pendaftaran"},{"data": "status"},
+                {
+                    "data": "action",
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[1, 'asc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+        var t = $("#tableHamil").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "../periksamedis/json_antrian/3", "type": "POST"},
             columns: [
                 {
                     "data": "no_pendaftaran",

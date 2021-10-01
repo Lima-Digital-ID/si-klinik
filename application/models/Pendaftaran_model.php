@@ -107,8 +107,8 @@ class Pendaftaran_model extends CI_Model
         return $this->datatables->generate();
     }
     
-    function json_antrian($id_dokter){
-        $this->datatables->select('pd.no_pendaftaran,pd.no_rekam_medis,ps.no_id_pasien,ps.nama_lengkap as nama_pasien,k.nama as klinik,d.nama_dokter,pd.dtm_crt as tgl_pendaftaran,(CASE dd.no_pendaftaran WHEN pd.no_pendaftaran THEN "Dalam Proses" ELSE (CASE pd.is_periksa WHEN 0 THEN "Dalam Antrian" END) END) as status, (CASE dd.no_pendaftaran WHEN pd.no_pendaftaran THEN "disabled" END) as status_antrian');
+    function json_antrian($id_dokter,$tipe){
+        $this->datatables->select('pd.no_pendaftaran,pd.no_rekam_medis,ps.no_id_pasien,ps.nama_lengkap as nama_pasien,k.nama as klinik,d.nama_dokter,pd.dtm_crt as tgl_pendaftaran,(CASE dd.no_pendaftaran WHEN pd.no_pendaftaran THEN "Dalam Proses" ELSE (CASE pd.is_periksa WHEN 0 THEN "Dalam Antrian" END) END) as status, (CASE dd.no_pendaftaran WHEN pd.no_pendaftaran THEN "disabled" END) as status_antrian,tipe_periksa');
         $this->datatables->from('tbl_pendaftaran pd');
         $this->datatables->join('tbl_pasien ps','pd.no_rekam_medis=ps.no_rekam_medis');
         $this->datatables->join('tbl_dokter d','pd.id_dokter=d.id_dokter');
@@ -116,7 +116,8 @@ class Pendaftaran_model extends CI_Model
         $this->datatables->join('tbl_klinik k', 'pd.id_klinik = k.id_klinik');
         $this->datatables->where('pd.is_periksa', 0);
         $this->datatables->where('pd.id_dokter', $id_dokter);
-        $this->datatables->add_column('action',anchor(site_url('periksamedis/periksa/$1'),'Periksa','class="btn btn-warning btn-sm $2"'),'no_pendaftaran,status_antrian');
+        $this->datatables->where('pd.tipe_periksa', $tipe);
+        $this->datatables->add_column('action',anchor(site_url('periksamedis/periksa/$1?tipe=$3'),'Periksa','class="btn btn-warning btn-sm $2"'),'no_pendaftaran,status_antrian,tipe_periksa');
             
         return $this->datatables->generate();
     }

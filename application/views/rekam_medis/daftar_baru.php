@@ -121,6 +121,16 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <div class="col-sm-4">Tipe Pemeriksaan</div>
+                            <div class="col-sm-8">
+                                <select name="tipe_periksa" id="" class="form-control">
+                                    <option value="1">Periksa Medis</option>
+                                    <option value="2">Imunisasi Anak</option>
+                                    <option value="3">Kontrol Kehamilan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-12">
                                 <div align="right">
                                     <a href="<?php echo site_url('pendaftaran') ?>" class="btn btn-info"><i class="fa fa-sign-out"></i> Kembali</a>

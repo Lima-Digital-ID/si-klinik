@@ -55,6 +55,7 @@ class Pendaftaran extends CI_Controller
 				'no_rekam_medis' => $this->input->post('no_rekam_medis'),
 				'id_dokter' => $this->input->post('nama_dokter'),
 				'id_klinik' => $this->id_klinik,
+				'tipe_periksa' => $this->input->post('tipe_periksa'),
 	        );
 			
 			$row = $this->Tbl_pasien_model->get_by_id($this->input->post('no_rekam_medis'));
