@@ -27,6 +27,7 @@ class Rapid_antigen extends CI_Controller
     {
 
         $post = $this->input->post();
+        $this->form_validation->set_rules('nomor', 'Nomor', 'trim|required');
         $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
         $this->form_validation->set_rules('email', 'Email', 'trim|required');
         $this->form_validation->set_rules('no_hp', 'No HP', 'trim|required');
@@ -60,26 +61,41 @@ class Rapid_antigen extends CI_Controller
         $this->form_validation->set_rules('id_dokter', 'Dokter', 'trim|required');
 
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $data['array_bln'] = array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
+        $data['bln'] = $data['array_bln'][date('n')];
+        $getKode = $this->Tbl_rapid_antigen_model->getKode();
+        if(count($getKode)==0){
+            $data['number'] = 1;
+        }
+        else{
+            $pecah = explode('/', $getKode[0]->no_sampel);
+            $data['number'] = (int)$pecah[0]+1;
+        }
+        $data['errorNomor'] = '';
+        $errorCode = false;
+        if(isset($_POST['nomor'])){
+            $kode = $_POST['nomor']."/$data[bln]/COVID-19/KR/".date('Y');
+            $cekNomor = $this->db->get_where('tbl_rapid_antigen',['no_sampel'=> $kode])->num_rows();
 
+            if($cekNomor==1){
+                $errorCode = true;
+                $data['errorNomor'] = '<span class="text-danger"> Nomor Already Exists</span>';
+            }
+        }
         if ($this->form_validation->run()==true){
-
-            $getKode = $this->Tbl_rapid_antigen_model->getKode();
-            if(count($getKode)==0){
-                $number = 1;
+            if($errorCode==false){
+                $post['no_sampel'] = $kode;
+                $post['tgl_buat'] = date('Y-m-d');
+                unset($post['nomor']);
+                $this->Tbl_rapid_antigen_model->insert($post);
+                
+                $this->session->set_flashdata('success', 'Formulir Rapid Antigen Berhasil Dibuat. Pemeriksaan berlanjut ke Dokter yang dipilih');
+                redirect(base_url()."pendaftaran_rapid_antigen");
             }
             else{
-                $pecah = explode('/', $getKode[0]->no_sampel);
-                $number = (int)$pecah[0]+1;
+                $data['data_dokter'] = $this->Tbl_dokter_model->get_all();
+                $this->template->load('template','rapid_antigen/formulir_rapid_antigen',$data);
             }
-            $array_bln = array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
-            $bln = $array_bln[date('n')];
-            $kode = $number."/$bln/COVID-19/KR/".date('Y');
-            $post['no_sampel'] = $kode;
-            $post['tgl_buat'] = date('Y-m-d');
-            $this->Tbl_rapid_antigen_model->insert($post);
-
-            $this->session->set_flashdata('success', 'Formulir Rapid Antigen Berhasil Dibuat. Pemeriksaan berlanjut ke Dokter yang dipilih');
-            redirect(base_url()."pendaftaran_rapid_antigen");
         }
         else{
             $data['data_dokter'] = $this->Tbl_dokter_model->get_all();

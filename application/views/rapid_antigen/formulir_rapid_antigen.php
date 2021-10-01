@@ -29,6 +29,15 @@
                         
                         <form action="" method="post">
                             <div class="form-group row">
+                                <div class="col-sm-2">Nomor <?php echo $errorNomor.form_error('nomor'); ?></div>
+                                <div class="col-sm-1" style="padding-right:0px">
+                                    <input type="text" name="nomor" class="form-control" value="<?= isset($_POST['nomor']) ? $_POST['nomor'] :  $number ?>">
+                                </div>
+                                <div class="col-sm-9" style="padding-left:0px">
+                                    <h4 style="margin-top:8px">&nbsp; /<?= $bln."/COVID-19/KR/".date('Y') ?></h4>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <div class="col-sm-2">Nama <?php echo form_error('nama'); ?></div>
                                 <div class="col-sm-10">
                                     <input type="text" name="nama" class="form-control">
