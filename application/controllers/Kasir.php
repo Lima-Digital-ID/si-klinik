@@ -112,7 +112,7 @@ class Kasir extends CI_Controller
                     $insert=$this->Transaksi_obat_model->insert('tbl_inventory_detail',$data_detail);
             }
 
-            $this->jurnal_otomatis(39, $total_jual, count($getDiskon->diskon)==0 ? 0 : $getDiskon->diskon, $total_beli, $no_transaksi);//jurnal otomatis akuntansi untuk pendapatan penjualan obat
+            $this->jurnal_otomatis(39, $total_jual, count($getDiskon)==0 ? 0 : $getDiskon[0]['diskon'], $total_beli, $no_transaksi);//jurnal otomatis akuntansi untuk pendapatan penjualan obat
 
             $data_transaksi_d_obat = array();
             for($i = 0; $i < count($post_obat); $i++){
