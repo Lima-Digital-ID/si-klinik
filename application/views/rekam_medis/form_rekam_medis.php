@@ -536,7 +536,16 @@
 							<div class="col-sm-4">
 								<div class="input-group">
                                     <span class="input-group-addon" style="background-color: #fcffc4;">Tindakan</span>
-                                    <?php echo form_input(array('id'=>'biaya_tindakan','name'=>'biaya_tindakan','type'=>'number','value'=>'','class'=>'form-control','style'=>'text-align:right;', 'onchange'=>'hitung_biaya()','placeholder'=>'0'));?>
+                                    <input type="hidden" name="tindakan" id="nameTindakan">
+                                    <select name="biaya_tindakan" id="biaya_tindakan" style="width:100%" class="select2 form-control" onchange="hitung_biaya()">
+                                        <option value="0">---Pilih Tindakan---</option>
+                                        <?php 
+                                            foreach ($master_tindakan as $key => $value) {
+                                                echo "<option data-tindakan='".$value->tindakan."' value='".$value->biaya."'>".$value->kode_tindakan." - ".$value->tindakan." ".number_format($value->biaya,0,',','.')."</option>";
+                                            }
+                                        ?>
+                                    </select>
+                                    <?php //echo form_input(array('id'=>'biaya_tindakan','name'=>'biaya_tindakan','type'=>'number','value'=>'','class'=>'form-control','style'=>'text-align:right;', 'onchange'=>'hitung_biaya()','placeholder'=>'0'));?>
                                 </div>
 							</div>
 							<div class="col-sm-6">
@@ -617,6 +626,10 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        $("#biaya_tindakan").change(function(){
+            var tindakan = $(this).find(":selected").data('tindakan')
+            $("#nameTindakan").val(tindakan)
+        })
         $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
         {
             return {

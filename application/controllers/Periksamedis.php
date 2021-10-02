@@ -75,7 +75,7 @@ class Periksamedis extends CI_Controller
                     $nomor = 1;
                 } 
                 else{
-                    $getNomor = explode('/',$getLastNomor[0]->nomor);
+                    $getNomor = explode('/',$getLastNomor[0]->nomor_skt);
                     $nomor = (int)$getNomor[3]+1;
                 }
                 $sktNomor = "SKT/".date('y')."/".date('m')."/".$nomor;
@@ -266,8 +266,8 @@ class Periksamedis extends CI_Controller
                     ),
                     array(
                         'no_transaksi' => $this->input->post('no_periksa'),
-                        'deskripsi' => 'Biaya Tindakan',
-                        'amount_transaksi' => $this->input->post('biaya_tindakan') != '' ? $this->input->post('biaya_tindakan') : 0,
+                        'deskripsi' => 'Biaya Tindakan '.$this->input->post('tindakan'),
+                        'amount_transaksi' => $this->input->post('biaya_tindakan') != '' || $this->input->post('biaya_tindakan') != 0 ? $this->input->post('biaya_tindakan') : 0,
                         'dc' => 'd'
                     ),
                     // array(
@@ -377,7 +377,6 @@ class Periksamedis extends CI_Controller
         // 		$this->data['tindakan'] = $this->get_all_tindakan();
                 $this->data['tindakan'] = $this->get_master_ref($this->master_ref_code_tindakan);
                 $this->data['riwayat_alergi_obat'] = $data_pasien->riwayat_alergi_obat;
-                
                 $this->data['alkes_option'] = array();
                 $this->data['alkes_option'][''] = 'Pilih Alat Kesehatan';
                 $alkes_opt_js = array();
@@ -413,6 +412,7 @@ class Periksamedis extends CI_Controller
                 $this->data['obat'] = $this->get_all_obat();
     
                 $this->data['diagnosa_icd10'] = $this->Tbl_diagnosa_icd10_model->getAll();
+                $this->data['master_tindakan'] = $this->db->get('tbl_tindakan')->result();
                 //Set session error
                 if($this->input->post('no_periksa')){
                     $this->session->set_flashdata('message', 'Terdapat error input, silahkan cek ulang');
@@ -646,17 +646,17 @@ class Periksamedis extends CI_Controller
             redirect(site_url('periksamedis'));
         }
         else if($_GET['tipe']=='2'){
-            redirect(site_url('periksamedis/imunisasi/'.$no_pend));
+            redirect(site_url('periksamedis/imunisasi/'));
         }
         else{
-            redirect(site_url('periksamedis/kontrol_kehamilan/'.$no_pend));
+            redirect(site_url('periksamedis/kontrol_kehamilan/'));
         }
     }
     public function imunisasi(){
         $this->template->load('template','imunisasi-anak/periksa-imunisasi');
     }
     public function kontrol_kehamilan(){
-        $this->template->load('template','rekam_medis/sksehat_form');
+        $this->template->load('template','kontrol-kehamilan/periksa-kontrol-kehamilan');
     }
     
     function split_string($string, $delimiter){
