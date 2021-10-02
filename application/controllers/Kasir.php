@@ -70,7 +70,7 @@ class Kasir extends CI_Controller
                     'inv_type'      => 'TRX_STUFF',
                     'id_klinik'     => $this->id_klinik,
             );
-            $getDiskon=$this->db->where('bulan', date('Y-m'))->get('tbl_diskon_trx')->row();
+            $getDiskon=$this->db->where('bulan', date('Y-m'))->get('tbl_diskon_trx')->result_array();
             $insert=$this->Transaksi_obat_model->insert('tbl_inventory',$data);
             $dataobat = array();
             foreach ($this->Tbl_obat_alkes_bhp_model->get_all_obat($this->id_klinik) as $obat){
@@ -112,7 +112,7 @@ class Kasir extends CI_Controller
                     $insert=$this->Transaksi_obat_model->insert('tbl_inventory_detail',$data_detail);
             }
 
-            $this->jurnal_otomatis(39, $total_jual, $getDiskon->diskon, $total_beli, $no_transaksi);//jurnal otomatis akuntansi untuk pendapatan penjualan obat
+            $this->jurnal_otomatis(39, $total_jual, count($getDiskon->diskon)==0 ? 0 : $getDiskon->diskon, $total_beli, $no_transaksi);//jurnal otomatis akuntansi untuk pendapatan penjualan obat
 
             $data_transaksi_d_obat = array();
             for($i = 0; $i < count($post_obat); $i++){
