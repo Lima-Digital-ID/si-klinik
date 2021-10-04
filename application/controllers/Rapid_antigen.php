@@ -58,7 +58,6 @@ class Rapid_antigen extends CI_Controller
             $post['kontak_di'] = '';
         }
         $this->form_validation->set_rules('riwayat_swab_rapid_sebelumnya', 'Riwayat Swab Rapid Sebelumnya', 'trim|required');
-        $this->form_validation->set_rules('id_dokter', 'Dokter', 'trim|required');
 
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
         $data['array_bln'] = array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
@@ -89,16 +88,14 @@ class Rapid_antigen extends CI_Controller
                 unset($post['nomor']);
                 $this->Tbl_rapid_antigen_model->insert($post);
                 
-                $this->session->set_flashdata('success', 'Formulir Rapid Antigen Berhasil Dibuat. Pemeriksaan berlanjut ke Dokter yang dipilih');
+                $this->session->set_flashdata('success', 'Formulir Rapid Antigen Berhasil Dibuat.');
                 redirect(base_url()."pendaftaran_rapid_antigen");
             }
             else{
-                $data['data_dokter'] = $this->Tbl_dokter_model->get_all();
                 $this->template->load('template','rapid_antigen/formulir_rapid_antigen',$data);
             }
         }
         else{
-            $data['data_dokter'] = $this->Tbl_dokter_model->get_all();
             $this->template->load('template','rapid_antigen/formulir_rapid_antigen',$data);
        }
     }
@@ -106,7 +103,7 @@ class Rapid_antigen extends CI_Controller
     {
         header('Content-Type: application/json');
 
-        echo $this->Tbl_rapid_antigen_model->listPemeriksaanDokter($this->session->userdata()['id_dokter']);
+        echo $this->Tbl_rapid_antigen_model->listPemeriksaanDokter();
     }
     public function list_rapid_antigen()
     {
@@ -153,6 +150,7 @@ class Rapid_antigen extends CI_Controller
             $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
             $post['qr_code'] = $image_name;
             $post['status'] = '1';
+            $post['id_dokter'] = $this->session->userdata()['id_dokter'];
             $this->Tbl_rapid_antigen_model->update($post,$id);
             
             $getNama = $this->Tbl_rapid_antigen_model->detailRapid($id,'nama');

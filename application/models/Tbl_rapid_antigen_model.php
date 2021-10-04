@@ -29,11 +29,11 @@ class Tbl_rapid_antigen_model extends CI_Model
         $this->db->limit(1);
         return $this->db->get($this->table)->result();
     }
-    public function listPemeriksaanDokter($id_dokter)
+    public function listPemeriksaanDokter()
     {
         $this->datatables->select('id_rapid,no_sampel,nama,nik_or_passport');
         $this->datatables->from($this->table);
-        $this->datatables->where(['id_dokter' => $id_dokter,'status' => '0']);
+        $this->datatables->where(['status' => '0']);
         $this->db->order_by('id_rapid','asc');
         $this->datatables->add_column('Periksa', anchor(site_url('rapid_antigen/periksa/$1'),'<i class="fa fa-stethoscope"></i> Periksa','class="btn btn-success btn-sm"'),'id_rapid');
 
@@ -61,7 +61,7 @@ class Tbl_rapid_antigen_model extends CI_Model
     {
         $s = $select!="" ? $select : "tbl_dokter.nama_dokter,".$this->table.".*";
         $this->db->select($select);
-        $this->db->join('tbl_dokter',$this->table.".id_dokter = tbl_dokter.id_dokter");
+        $this->db->join('tbl_dokter',$this->table.".id_dokter = tbl_dokter.id_dokter",'left');
         $this->db->where(['id_rapid' => $id]);
         return $this->db->get($this->table)->result()[0];
     }

@@ -170,19 +170,6 @@
                                     <textarea name="riwayat_swab_rapid_sebelumnya" class="form-control"></textarea>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-2">Pilih Dokter <?php echo form_error('id_dokter'); ?></div>
-                                <div class="col-sm-10">
-                                    <select name="id_dokter" id="" class="form-control">
-                                        <option value="">--Pilih Dokter--</option>
-                                        <?php 
-                                            foreach ($data_dokter as $key => $value) {
-                                                echo "<option value='".$value->id_dokter."'>".$value->nama_dokter."</option>";
-                                            }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="pull-right">
                                 <button class="btn btn-default" type="reset"><span class="fa fa-times"></span> Reset</button>
                                 <button class="btn btn-success" type="submit"><span class="fa fa-save"></span> Simpan</button>

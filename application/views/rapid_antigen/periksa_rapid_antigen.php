@@ -154,7 +154,23 @@
                             <div class="form-group">
                                 <div class="col-sm-2">Saran <?php echo form_error('saran'); ?></div>
                                 <div class="col-sm-10">
-                                    <textarea name="saran" rows="8" id="" class="form-control"></textarea>
+                                    <div contenteditable="true" class="form-control" id="saran" style="min-height:150px">
+- Bila Pemeriksaan Rapid Antigen ini merupakan pemeriksaan yang ke I, ulani pemeriksaan 10 hari lagi.
+<br>
+- Bila pemeriksaan ini merupakan pemeriksaan yang ke II (ulangan) saat ini belum/tidak terdeteksi.
+<br>
+- Tetap lakukan Social/Phisycal Distancing
+<br>
+- Pertahankan perilaku hidup sehat; Cuci tangan, terapkan etika batuk, gunakan masker, dan jaga stamina.
+                                    </div>
+                                    <input type="hidden" id="saranHidden" name="saran" value='- Bila Pemeriksaan Rapid Antigen ini merupakan pemeriksaan yang ke I, ulani pemeriksaan 10 hari lagi.
+<br>
+- Bila pemeriksaan ini merupakan pemeriksaan yang ke II (ulangan) saat ini belum/tidak terdeteksi.
+<br>
+- Tetap lakukan Social/Phisycal Distancing
+<br>
+- Pertahankan perilaku hidup sehat; Cuci tangan, terapkan etika batuk, gunakan masker, dan jaga stamina.
+'>
                                 </div>
                             </div>
                             <div class="pull-right" style="margin-top :20px">
@@ -168,3 +184,12 @@
         </div>
     </section>
 </div>
+
+<script>
+    const saran = document.getElementById('saran')
+    const saranHidden = document.getElementById('saranHidden')
+
+    saran.addEventListener('input',function(){
+        saranHidden.value = saran.textContent
+    })
+</script>
