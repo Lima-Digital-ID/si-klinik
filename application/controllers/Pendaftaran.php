@@ -108,12 +108,13 @@ class Pendaftaran extends CI_Controller
 			$this->data['nomor_telepon'] = $pasien_existing != null ? $pasien_existing->nomer_telepon : set_value('nomor_telepon');
 			$this->data['nama_dokter'] = set_value('nama_dokter');	
 			
-			$this->data['option_dokter'] = array();
-			$this->data['option_dokter'][''] = 'Pilih Dokter';
-			foreach ($this->Tbl_dokter_model->get_all_jaga($this->id_klinik) as $dokter){
-				$this->data['option_dokter'][$dokter->id_dokter] = $dokter->nama_dokter;
-			}
-			
+			// $this->data['option_dokter'] = array();
+			// $this->data['option_dokter'][''] = 'Pilih Dokter';
+			// foreach ($this->Tbl_dokter_model->get_all_jaga($this->id_klinik) as $dokter){
+                // 	$this->data['option_dokter'][$dokter->id_dokter] = $dokter->nama_dokter;
+                // }
+            $this->data['dokter'] = $this->Tbl_dokter_model->get_all_jaga($this->id_klinik);
+                
 			//Set session error
             if($this->input->post('no_rekam_medis')){
                 $this->session->set_flashdata('message', 'Terdapat error input, silahkan cek ulang');

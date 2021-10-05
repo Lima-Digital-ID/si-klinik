@@ -22,9 +22,15 @@
                     <div class="box-body">
                         <div class="form-group">
                             <div class="col-sm-4">Nama Dokter <?php echo form_error('nama_dokter'); ?></div>
-                            <div class="col-sm-8"><?php 
-                                echo form_dropdown('nama_dokter',$option_dokter,$nama_dokter,array('id'=>'nama_dokter','class'=>'form-control'));
+                            <div class="col-sm-8">
+                                <select name="nama_dokter" id="nama_dokter" class="form-control select2 namaDokter">
+                                    <option value="">Pilih Dokter</option>
+                                <?php 
+                                    foreach ($dokter as $key => $value) {
+                                        echo "<option data-tipe='".$value->tipe_dokter."' value='".$value->id_dokter."'>".$value->nama_dokter."</option>";
+                                    }
                                 ?>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -123,10 +129,13 @@
                         <div class="form-group">
                             <div class="col-sm-4">Tipe Pemeriksaan</div>
                             <div class="col-sm-8">
-                                <select name="tipe_periksa" id="" class="form-control">
+                                <select name="tipe_periksa" id="tipe_dokter_umum" class="form-control">
                                     <option value="1">Periksa Medis</option>
                                     <option value="2">Imunisasi Anak</option>
                                     <option value="3">Kontrol Kehamilan</option>
+                                </select>
+                                <select name="tipe_periksa" id="tipe_dokter_gigi" class="form-control" style="display:none" readonly>
+                                    <option value="4">Pemeriksaan Gigi</option>
                                 </select>
                             </div>
                         </div>
@@ -194,6 +203,18 @@
 <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
 <script type="text/javascript">
     $(document).ready(function() {
+        $(".namaDokter").change(function(){
+            var tipe = $(this).find(":selected").attr('data-tipe')
+
+            if(tipe=='2'){
+                $("#tipe_dokter_gigi").show()
+                $("#tipe_dokter_umum").hide()
+            }
+            else{
+                $("#tipe_dokter_gigi").hide()
+                $("#tipe_dokter_umum").show()
+            }
+        })
         $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
         {
             return {

@@ -52,7 +52,7 @@ class Periksamedis extends CI_Controller
             
         $this->_rules();
         $data_pendaftaran = $this->Pendaftaran_model->get_by_id($this->no_pendaftaran);
-        if($data_pendaftaran->tipe_periksa=='1'){
+        if($data_pendaftaran->tipe_periksa=='1' ||$data_pendaftaran->tipe_periksa=='4'){
             $data_pasien = $this->Tbl_pasien_model->get_by_id($data_pendaftaran->no_rekam_medis);
             $date_now = date('Ymd', time());
             $data_antrian = $this->Pendaftaran_model->get_next_antrian($this->id_dokter);
@@ -412,7 +412,14 @@ class Periksamedis extends CI_Controller
                 $this->data['obat'] = $this->get_all_obat();
     
                 $this->data['diagnosa_icd10'] = $this->Tbl_diagnosa_icd10_model->getAll();
-                $this->data['master_tindakan'] = $this->db->get('tbl_tindakan')->result();
+                if($data_pendaftaran->tipe_periksa=='1'){
+                    $tipeTindakan = '1';
+                }
+                else{
+                    $tipeTindakan = '2';
+                }
+                $this->data['master_tindakan'] = $this->db->query('select * from tbl_tindakan where tipe = "'.$tipeTindakan.'" order by cast(kode_tindakan as SIGNED INTEGER) asc ')->result();
+                 
                 //Set session error
                 if($this->input->post('no_periksa')){
                     $this->session->set_flashdata('message', 'Terdapat error input, silahkan cek ulang');

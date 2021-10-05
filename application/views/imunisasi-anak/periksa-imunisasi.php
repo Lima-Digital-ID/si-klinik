@@ -9,11 +9,17 @@
                     <div class="box-body">
                         <div class="row col-md-12">
                             <div class="form-group row">
+                                <div class="col-md-2">JE <?php echo form_error('je'); ?></div>
+                                <div class="col-md-10">
+                                    <input type="text" name="je" id="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <div class="col-md-2">Macam Persalinan <?php echo form_error('macam_persalinan'); ?></div>
                                 <div class="col-md-10">
                                     <select name="macam_persalinan" id="" class="select2 form-control">
                                         <option value="1">Normal</option>
-                                        <option value="0">Tidak Normal</option>
+                                        <option value="2">SC</option>
                                     </select>
                                 </div>
                             </div>
@@ -53,9 +59,9 @@
                                     ASI <?= form_error('asi') ?>
                                 </div>
                                 <div class="col-md-10">
-                                    <label for="asi">ASI</label> <input type="radio" name="asi" id="asi"> 
+                                    <label for="asi">ASI</label> <input type="radio" value='1' name="asi" id="asi"> 
                                     &nbsp;
-                                    <label for="bukan-asi">Bukan ASI</label> <input type="radio" name="asi" id="bukan-asi"> 
+                                    <label for="sufor">SuFor</label> <input type="radio" value='2' name="asi" id="sufor"> 
                                 </div>
                             </div>
                             <div class="form-group row">

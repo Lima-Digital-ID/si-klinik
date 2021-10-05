@@ -45,6 +45,14 @@
                         <span class="input-group-addon" id="basic-addon2">%</span>
                         </div>
                 </td></tr>
+                    <tr><td width='200'>Tipe Dokter <?php echo form_error('tipe_dokter') ?></td><td><div class="input-group mb-3">
+                            <select name="tipe_dokter" id="" class="form-control">
+                                <option value="1" <?= $tipe_dokter=='1' ? 'selected' : '' ?>>Dokter Umum</option>
+                                <option value="2" <?= $tipe_dokter=='2' ? 'selected' : '' ?>>Dokter Gigi</option>
+                            </select>
+                        <span class="input-group-addon" id="basic-addon2">%</span>
+                        </div>
+                </td></tr>
                     <tr><td></td><td>
                             <!--<input type="hidden" name="kode_dokter" value="<?php echo $kode_dokter; ?>" /> -->
                             <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php echo $button ?></button> 
