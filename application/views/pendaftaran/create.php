@@ -208,11 +208,15 @@
 
             if(tipe=='2'){
                 $("#tipe_dokter_gigi").show()
+                $("#tipe_dokter_gigi").attr('disabled',false)
                 $("#tipe_dokter_umum").hide()
+                $("#tipe_dokter_umum").attr('disabled',true)
             }
             else{
                 $("#tipe_dokter_gigi").hide()
+                $("#tipe_dokter_gigi").attr('disabled',true)
                 $("#tipe_dokter_umum").show()
+                $("#tipe_dokter_umum").attr('disabled',false)
             }
         })
         $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
