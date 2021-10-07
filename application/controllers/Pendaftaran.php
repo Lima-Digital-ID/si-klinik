@@ -114,6 +114,9 @@ class Pendaftaran extends CI_Controller
                 // 	$this->data['option_dokter'][$dokter->id_dokter] = $dokter->nama_dokter;
                 // }
             $this->data['dokter'] = $this->Tbl_dokter_model->get_all_jaga($this->id_klinik);
+            $this->data['jasa_lainnya'] = $this->db->get('tbl_tipe_periksa_jasa')->result();
+            $this->db->select('id_tipe,item');
+            $this->data['periksa_lab'] = $this->db->get('tbl_tipe_periksa_lab')->result();
                 
 			//Set session error
             if($this->input->post('no_rekam_medis')){

@@ -129,10 +129,15 @@
                         <div class="form-group">
                             <div class="col-sm-4">Tipe Pemeriksaan</div>
                             <div class="col-sm-8">
-                                <select name="tipe_periksa" id="" class="form-control">
+                                <select name="tipe_periksa" id="tipe_dokter_umum" class="form-control">
                                     <option value="1">Periksa Medis</option>
                                     <option value="2">Imunisasi Anak</option>
                                     <option value="3">Kontrol Kehamilan</option>
+                                    <option value="5">Jasa Lainnya</option>
+                                    <option value="6">Pemeriksaan LAB</option>
+                                </select>
+                                <select name="tipe_periksa" id="tipe_dokter_gigi" class="form-control" style="display:none" readonly>
+                                    <option value="4">Pemeriksaan Gigi</option>
                                 </select>
                             </div>
                         </div>
