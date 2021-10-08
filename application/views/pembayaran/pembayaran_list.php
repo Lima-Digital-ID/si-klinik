@@ -27,6 +27,10 @@
                             <li class="active"><a data-toggle="tab" href="#menu1">Pemeriksaan</a></li>
                             <li><a data-toggle="tab" href="#menu2">Surat Keterangan Sehat</a></li>
                             <li><a data-toggle="tab" href="#menu3">Rapid Antigen</a></li>
+                            <li><a data-toggle="tab" href="#anak">Imunisasi Anak</a></li>
+                            <li><a data-toggle="tab" href="#hamil">Kontrol Kehamilan</a></li>
+                            <li><a data-toggle="tab" href="#jasa">Jasa Lainnya</a></li>
+                            <li><a data-toggle="tab" href="#lab">Periksa LAB</a></li>
                         </ul>
                         <br>
                         <div class="tab-content">
@@ -60,18 +64,48 @@
                             </table>
                         </div>
                         <div id="menu3" class="tab-pane fade">
-                        <table class="table table-bordered table-striped" width="100%" id="rapid">
-                            <thead>
-                                <tr>
-                                    <th width="30px">No</th>
-                                    <th>No Sampel</th>
-                                    <th>NIK / Passport</th>
-                                    <th>Nama</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                        </table>
+                            <table class="table table-bordered table-striped" width="100%" id="rapid">
+                                <thead>
+                                    <tr>
+                                        <th width="30px">No</th>
+                                        <th>No Sampel</th>
+                                        <th>NIK / Passport</th>
+                                        <th>Nama</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="jasa" class="tab-pane fade">
+                            <table class="table table-bordered table-striped" width="100%" id="tableJasa">
+                                <thead>
+                                    <tr>
+                                        <th width="30px">No</th>
+                                        <th>No Transaksi</th>
+                                        <th>Nama Pasien</th>
+                                        <th>Klinik Periksa</th>
+                                        <th>Tgl Periksa</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="lab" class="tab-pane fade">
+                            <table class="table table-bordered table-striped" width="100%" id="tableLab">
+                                <thead>
+                                    <tr>
+                                        <th width="30px">No</th>
+                                        <th>No Transaksi</th>
+                                        <th>Nama Pasien</th>
+                                        <th>Klinik Periksa</th>
+                                        <th>Tgl Periksa</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                         </div>                        
                     </div>
@@ -89,6 +123,11 @@
                             <li class="active"><a data-toggle="tab" href="#list1">Pemeriksaan</a></li>
                             <li><a data-toggle="tab" href="#list2">Surat Keterangan Sehat</a></li>
                             <li><a data-toggle="tab" href="#list3">Rapid Antigen</a></li>
+                            <li><a data-toggle="tab" href="#listAnak">Imunisasi Anak</a></li>
+                            <li><a data-toggle="tab" href="#listHamil">Kontrol Kehamilan</a></li>
+                            <li><a data-toggle="tab" href="#listJasa">Jasa Lainnya</a></li>
+                            <li><a data-toggle="tab" href="#listLab">Periksa LAB</a></li>
+
                         </ul>
                         <br>
                         <div class="tab-content">
@@ -135,6 +174,39 @@
                                     </thead>
                                 </table>
                             </div>
+                            <div id="listJasa" class="tab-pane fade">
+                                <table class="table table-bordered table-striped" width="100%" id="tableListJasa">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px">No</th>
+                                            <th>No Transaksi</th>
+                                            <th>Nama Pasien</th>
+                                            <th>Klinik Periksa</th>
+                                            <th>Tgl Periksa</th>
+                                            <th>Tgl Pembayaran</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="listLab" class="tab-pane fade">
+                                <table class="table table-bordered table-striped" width="100%" id="tableListLab">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px">No</th>
+                                            <th>No Transaksi</th>
+                                            <th>Nama Pasien</th>
+                                            <th>Klinik Periksa</th>
+                                            <th>Tgl Periksa</th>
+                                            <th>Tgl Pembayaran</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -234,6 +306,81 @@
                 $('td:eq(0)', row).html(index);
             }
         });
+        var t = $("#tableJasa").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "pembayaran/json/5", "type": "POST"},
+            columns: [
+                {
+                    "data": "id_transaksi",
+                    "orderable": false
+                },{"data": "no_transaksi"},{"data": "nama_pasien"},{"data": "id_klinik"},{"data": "tgl_periksa"},{"data": "status_transaksi"},
+                {
+                    "data" : "action",
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[4, 'asc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+        var t = $("#tableLab").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "pembayaran/json/6", "type": "POST"},
+            columns: [
+                {
+                    "data": "id_transaksi",
+                    "orderable": false
+                },{"data": "no_transaksi"},{"data": "nama_pasien"},{"data": "id_klinik"},{"data": "tgl_periksa"},{"data": "status_transaksi"},
+                {
+                    "data" : "action",
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[4, 'asc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+
         var t = $("#sksehat2").dataTable({
             initComplete: function() {
                 var api = this.api();
@@ -367,6 +514,86 @@
             processing: true,
             serverSide: true,
             ajax: {"url": "pembayaran/json2", "type": "POST"},
+            columns: [
+                {
+                    "data": "id_transaksi",
+                    "orderable": false
+                },{"data": "no_transaksi"},{"data": "nama_pasien"},{"data": "id_klinik"},{"data": "tgl_periksa"},{"data": "tgl_pembayaran"},{"data": "status_transaksi"},
+                {
+                    "render" : function(data,type,row){
+                        var cetak = row.is_surat_ket_sakit=='1' ? row.cetak : ''
+                        return row.action+"&nbsp;"+cetak
+                    },
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[5, 'desc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+        var t2 = $("#tableListJasa").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable2_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "pembayaran/json2/5", "type": "POST"},
+            columns: [
+                {
+                    "data": "id_transaksi",
+                    "orderable": false
+                },{"data": "no_transaksi"},{"data": "nama_pasien"},{"data": "id_klinik"},{"data": "tgl_periksa"},{"data": "tgl_pembayaran"},{"data": "status_transaksi"},
+                {
+                    "render" : function(data,type,row){
+                        var cetak = row.is_surat_ket_sakit=='1' ? row.cetak : ''
+                        return row.action+"&nbsp;"+cetak
+                    },
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[5, 'desc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+        var t2 = $("#tableListLab").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable2_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "pembayaran/json2/6", "type": "POST"},
             columns: [
                 {
                     "data": "id_transaksi",

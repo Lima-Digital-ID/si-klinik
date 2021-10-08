@@ -123,6 +123,7 @@ class Pendaftaran_model extends CI_Model
         else{
             $this->datatables->where('pd.tipe_periksa', $tipe);
         }
+
         $this->datatables->add_column('action',anchor(site_url('periksamedis/periksa/$1?tipe=$3'),'Periksa','class="btn btn-warning btn-sm $2"'),'no_pendaftaran,status_antrian,tipe_periksa');
             
         return $this->datatables->generate();

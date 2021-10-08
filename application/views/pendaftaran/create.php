@@ -141,10 +141,10 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group" id="jasa_lainnya" style="display:none">
+                        <!-- <div class="form-group" id="jasa_lainnya" style="display:none">
                             <div class="col-sm-4">Jasa Lainnya</div>
                             <div class="col-sm-8">
-                                <select name="jasa_lainnya[]" class="form-control select2" multiple="multiple" style="width:100%" disabled>
+                                <select name="periksa_jasa[]" class="form-control select2" multiple="multiple" style="width:100%" disabled>
                                     <?php 
                                         foreach ($jasa_lainnya as $key => $value) {
                                             echo "<option value='".$value->id_tipe."'>".$value->item."</option>";
@@ -156,7 +156,7 @@
                         <div class="form-group" id="pemeriksaan_lab" style="display:none">
                             <div class="col-sm-4">Pemeriksaan LAB</div>
                             <div class="col-sm-8">
-                                <select name="pemeriksaan_lab[]" class="form-control select2" multiple="multiple" style="width:100%" disabled>
+                                <select name="periksa_lab[]" class="form-control select2" multiple="multiple" style="width:100%" disabled>
                                     <?php 
                                         foreach ($periksa_lab as $key => $value) {
                                             echo "<option value='".$value->id_tipe."'>".$value->item."</option>";
@@ -164,7 +164,7 @@
                                     ?>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div align="right">
@@ -245,31 +245,31 @@
                 $("#tipe_dokter_umum").attr('disabled',false)
             }
         })
-        $("#tipe_dokter_umum").change(function(){
-            var thisVal = $(this).val()
+        // $("#tipe_dokter_umum").change(function(){
+        //     var thisVal = $(this).val()
 
-            if(thisVal=='5'){
-                $("#jasa_lainnya").show();
-                $("#jasa_lainnya select").attr('disabled',false);
+        //     if(thisVal=='5'){
+        //         $("#jasa_lainnya").show();
+        //         $("#jasa_lainnya select").attr('disabled',false);
 
-                $("#pemeriksaan_lab").hide();
-                $("#pemeriksaan_lab select").attr('disabled',true);
-            }
-            else if(thisVal=='6'){
-                $("#jasa_lainnya").hide();
-                $("#jasa_lainnya select").attr('disabled',true);
+        //         $("#pemeriksaan_lab").hide();
+        //         $("#pemeriksaan_lab select").attr('disabled',true);
+        //     }
+        //     else if(thisVal=='6'){
+        //         $("#jasa_lainnya").hide();
+        //         $("#jasa_lainnya select").attr('disabled',true);
 
-                $("#pemeriksaan_lab").show();
-                $("#pemeriksaan_lab select").attr('disabled',false);
-            }
-            else{
-                $("#jasa_lainnya").hide();
-                $("#jasa_lainnya select").attr('disabled',true);
+        //         $("#pemeriksaan_lab").show();
+        //         $("#pemeriksaan_lab select").attr('disabled',false);
+        //     }
+        //     else{
+        //         $("#jasa_lainnya").hide();
+        //         $("#jasa_lainnya select").attr('disabled',true);
 
-                $("#pemeriksaan_lab").hide();
-                $("#pemeriksaan_lab select").attr('disabled',true);
-            }
-        })
+        //         $("#pemeriksaan_lab").hide();
+        //         $("#pemeriksaan_lab select").attr('disabled',true);
+        //     }
+        // })
         $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
         {
             return {

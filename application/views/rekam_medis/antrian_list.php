@@ -35,6 +35,8 @@
                             <li class="active"><a data-toggle="tab" href="#medis">Periksa Medis</a></li>
                             <li><a data-toggle="tab" href="#anak">Imunisasi Anak</a></li>
                             <li><a data-toggle="tab" href="#hamil">Kontrol Kehamilan</a></li>
+                            <li><a data-toggle="tab" href="#jasa">Jasa Lainnya</a></li>
+                            <li><a data-toggle="tab" href="#lab">Periksa LAB</a></li>
                         </ul>
                         <br>
                         <div class="tab-content">
@@ -76,6 +78,42 @@
                             </div>
                             <div id="hamil" class="tab-pane fade in">
                             <table class="table table-bordered table-striped" width="100%" id="tableHamil">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px">No</th>
+                                            <th>No Pendaftaran</th>
+                                            <th>No Rekam Medis</th>
+                                            <th>No ID Pasien</th>
+                                            <th>Nama Pasien</th>
+                                            <th>Klinik</th>
+                                            <th>Nama Dokter</th>
+                                            <th>Tgl Pendaftaran</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="jasa" class="tab-pane fade in">
+                            <table class="table table-bordered table-striped" width="100%" id="tableJasa">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px">No</th>
+                                            <th>No Pendaftaran</th>
+                                            <th>No Rekam Medis</th>
+                                            <th>No ID Pasien</th>
+                                            <th>Nama Pasien</th>
+                                            <th>Klinik</th>
+                                            <th>Nama Dokter</th>
+                                            <th>Tgl Pendaftaran</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="lab" class="tab-pane fade in">
+                            <table class="table table-bordered table-striped" width="100%" id="tableLab">
                                     <thead>
                                         <tr>
                                             <th width="30px">No</th>
@@ -207,6 +245,80 @@
             processing: true,
             serverSide: true,
             ajax: {"url": "../periksamedis/json_antrian/3", "type": "POST"},
+            columns: [
+                {
+                    "data": "no_pendaftaran",
+                    "orderable": false
+                },{"data": "no_pendaftaran"},{"data": "no_rekam_medis"},{"data": "no_id_pasien"},{"data": "nama_pasien"},{"data": "klinik"},{"data": "nama_dokter"},{"data": "tgl_pendaftaran"},{"data": "status"},
+                {
+                    "data": "action",
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[1, 'asc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+        var t = $("#tableJasa").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "../periksamedis/json_antrian/5", "type": "POST"},
+            columns: [
+                {
+                    "data": "no_pendaftaran",
+                    "orderable": false
+                },{"data": "no_pendaftaran"},{"data": "no_rekam_medis"},{"data": "no_id_pasien"},{"data": "nama_pasien"},{"data": "klinik"},{"data": "nama_dokter"},{"data": "tgl_pendaftaran"},{"data": "status"},
+                {
+                    "data": "action",
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[1, 'asc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+        var t = $("#tableLab").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "../periksamedis/json_antrian/6", "type": "POST"},
             columns: [
                 {
                     "data": "no_pendaftaran",

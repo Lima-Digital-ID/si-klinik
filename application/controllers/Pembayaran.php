@@ -49,14 +49,14 @@ class Pembayaran extends CI_Controller
         header('Content-Type: application/json');
         echo $this->Tbl_rapid_antigen_model->jsonRapid($this->id_klinik,'1');
     }
-    public function json() {
+    public function json($tipe=1) {
         header('Content-Type: application/json');
-        echo $this->Transaksi_model->json($this->id_klinik);
+        echo $this->Transaksi_model->json($this->id_klinik,$tipe);
     }
     
-    public function json2() {
+    public function json2($tipe=1) {
         header('Content-Type: application/json');
-        echo $this->Transaksi_model->json2($this->id_klinik);
+        echo $this->Transaksi_model->json2($this->id_klinik,$tipe);
     }
     
     public function json_obat() {
