@@ -9,12 +9,6 @@
                     <div class="box-body">
                         <div class="row col-md-12">
                             <div class="form-group row">
-                                <div class="col-md-2">JE <?php echo form_error('je'); ?></div>
-                                <div class="col-md-10">
-                                    <input type="text" name="je" id="" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row">
                                 <div class="col-md-2">Macam Persalinan <?php echo form_error('macam_persalinan'); ?></div>
                                 <div class="col-md-10">
                                     <select name="macam_persalinan" id="" class="select2 form-control">
@@ -120,6 +114,10 @@
                                         <tr>
                                             <td>Campak (9-11 bln)</td>
                                             <td><input type="date" class="form-control" name="campak" id=""></td>
+                                        </tr>
+                                        <tr>
+                                            <td>JE</td>
+                                            <td><input type="date" class="form-control" name="je" id=""></td>
                                         </tr>
                                         <tr>
                                             <td>Pentabio Booster (18-35 bln)</td>
