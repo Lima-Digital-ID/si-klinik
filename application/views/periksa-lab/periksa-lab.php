@@ -8,6 +8,7 @@
                     </div>
                     <div class="box-body">
                         <div class="row col-md-12">
+                        <form action="<?= base_url()."periksamedis/save_periksa_lab" ?>" method="post">
                             <div class="form-group row">
                                 <div class="col-md-2">No Periksa </div>
                                 <div class="col-md-10">
@@ -26,16 +27,14 @@
                                     <textarea name="alamat" class="form-control" rows="6" readonly><?= $alamat ?></textarea>
                                 </div>
                             </div>
-                            <div class="form-group row" id="jasa_lainnya">
-                                <div class="col-md-2">Pilih Pemeriksaan LAB</div>
-                                <div class="col-md-10">
-                                    <select name="periksa_jasa[]" class="form-control select2" multiple="multiple" style="width:100%">
-                                    <?php 
-                                            foreach ($periksa_lab as $key => $value) {
-                                                echo "<option value='".$value->id_tipe."'>".$value->item."</option>";
-                                            }
-                                        ?>
-                                    </select>
+                            <div class="form-group" id="row-lab" data-row='0'>
+                                <?php 
+                                    $this->load->view('periksa-lab/loop-pilihan-lab',['no' => 0])
+                                ?>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <a href="" class="btn btn-info btn-sm" id="addItemLab"><span class="fa fa-plus"></span> Tambah Item</a>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -46,6 +45,7 @@
                                     </div>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -53,3 +53,30 @@
         </div>
     </section>
 </div>
+<script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
+<script>
+    $(document).ready(function(){
+        $("#addItemLab").click(function(e){
+            e.preventDefault();
+            var dataRow = parseInt($('#row-lab').attr('data-row'))
+            $.ajax({
+                type : 'get',
+                url : '<?= base_url().'periksamedis/newItemLab' ?>',
+                data : {no : dataRow+1},
+                success : function(data){
+                    $('#row-lab').append(data)
+                    $('#row-lab').attr('data-row',dataRow + 1)
+                    $(".select2").select2()
+
+                    $(".remove-lab").click(function(e){
+                        e.preventDefault();
+                        var dataNo = $(this).attr('data-no')
+                        var dataRow = parseInt($('#row-lab').attr('data-row'))
+                        $('.loop-lab[data-no="'+dataNo+'"]').remove()
+                        $('#row-lab').attr('data-row',dataRow-1)
+                    })
+                }
+            })
+        })
+    })
+</script>

@@ -757,6 +757,80 @@ class Periksamedis extends CI_Controller
 
         $this->template->load('template','periksa-lab/periksa-lab',$this->data);
     }
+    public function newItemLab()
+    {
+        $this->data['periksa_lab'] = $this->db->get('tbl_tipe_periksa_lab')->result();
+        $this->data['no'] = $_GET['no'];
+        $this->load->view('periksa-lab/loop-pilihan-lab',$this->data);
+    }
+    public function save_periksa_lab()
+    {
+        $data_pendaftaran = $this->Pendaftaran_model->get_by_id($this->no_pendaftaran);
+
+        $data_transaksi = array(
+            'kode_transaksi' => 'PRKSLAB',
+            'id_klinik' => $this->id_klinik,
+            'no_transaksi' => $this->input->post('no_periksa'),
+            'tgl_transaksi' => date('Y-m-d', time()),
+            'status_transaksi' => 0,
+        );
+
+        $data_transaksi_d = array();
+        $tindakan = "";
+        foreach ($this->input->post('periksa_lab') as $key => $value) {
+            $this->db->select('item,harga');
+            $lab = $this->db->get_where('tbl_tipe_periksa_lab',['id_tipe' => $value])->row();
+            $arr = array(
+                'no_transaksi' => $data_transaksi['no_transaksi'],
+                'deskripsi' => 'Biaya Tindakan '.$lab->item,
+                'amount_transaksi' => $lab->harga,
+                'dc' => 'd'
+            );
+            array_push($data_transaksi_d,$arr);
+            $tindakan.=$lab->item.";";
+
+            $periksaLab = array(
+                'no_periksa' => $data_transaksi['no_transaksi'],
+                'id_tipe' => $value,
+                'hasil' => $_POST['hasil'][$key],
+            );
+
+            $this->db->insert('tbl_periksa_lab',$periksaLab);
+        }
+
+        $periksa = array(
+            'no_periksa' => $this->input->post('no_periksa'),
+            'no_pendaftaran' => $this->no_pendaftaran,
+            'no_rekam_medis' => $data_pendaftaran->no_rekam_medis,
+            'tindakan' => $tindakan,
+            'is_surat_ket_sakit' => 0,
+            'id_dokter' => $this->id_dokter,
+            'is_ambil_obat' => 0,
+        );
+        $this->db->insert('tbl_periksa',$periksa);
+
+        $this->Transaksi_model->insert($data_transaksi,$data_transaksi_d);
+                
+        //Set status pendaftaran is_periksa = 1
+        $this->Pendaftaran_model->update($this->no_pendaftaran, array(
+            'is_periksa' => 1,
+            'dtm_upd' => date("Y-m-d H:i:s",  time())
+        ));
+
+        //Get Next Antrian
+        $data_antrian = $this->Pendaftaran_model->get_next_antrian($this->id_dokter);
+        $next_antrian = $data_antrian != null ? $data_antrian->no_pendaftaran : null;
+        $this->Tbl_dokter_model->update($this->id_dokter, array(
+            "no_pendaftaran" => $next_antrian,
+            "dtm_upd" => date("Y-m-d H:i:s",  time())
+        ));
+
+        //Set session sukses
+        $this->session->set_flashdata('message', 'Data pemeriksaan berhasil disimpan, No Pendaftaran ' . $this->no_pendaftaran);
+        $this->session->set_flashdata('message_type', 'success');
+        
+        redirect(site_url('periksamedis'));
+    }
     public function imunisasi(){
         $this->template->load('template','imunisasi-anak/periksa-imunisasi');
     }
