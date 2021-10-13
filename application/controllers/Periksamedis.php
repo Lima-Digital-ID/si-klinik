@@ -985,7 +985,31 @@ class Periksamedis extends CI_Controller
         
         $this->template->load('template','rekam_medis/periksamedis_detail', $this->data);
     }
-    
+    public function cetak_surat_ket_lab(){
+        $this->db->select('p.nama_lengkap,p.tanggal_lahir,p.alamat');
+        $this->db->join('tbl_pasien p','pr.no_rekam_medis = p.no_rekam_medis');
+        $data['pasien'] = $this->db->get_where('tbl_periksa pr',['no_periksa' => $_GET['id']])->row();
+
+        $this->db->select('l.hasil,t.item,t.nilai_normal,t.diet,p.dtm_crt');
+        $this->db->join('tbl_tipe_periksa_lab t','l.id_tipe = t.id_tipe');
+        $this->db->join('tbl_periksa p','l.no_periksa = p.no_periksa');
+        $data['lab'] =  $this->db->get_where('tbl_periksa_lab l',['l.no_periksa' => $_GET['id']])->result();
+        
+
+        // tanggal lahir
+        $tanggal = new DateTime($data['pasien']->tanggal_lahir);
+
+        // tanggal hari ini
+        $today = new DateTime('today');
+
+        // tahun
+        $y = $today->diff($tanggal)->y;
+
+        $data['umur'] = $y;
+
+        $this->load->view('rekam_medis/cetak_surat_ket_lab',$data);
+    }
+
     public function cetak_surat_ket_sakit(){
         $id = $_GET['id'];
         $this->db->select('tbl_periksa.no_rekam_medis as nomor_rekam_medis,tbl_periksa.*,tbl_pasien.*,tbl_transaksi.*,tbl_periksa.nomor_skt,tbl_periksa.dtm_crt as tgl_periksa,tbl_dokter.nama_dokter,tbl_klinik.nama as klinik,tbl_klinik.alamat as alamat_klinik');

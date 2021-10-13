@@ -57,3 +57,4 @@ $route['rapid_antigen'] = "rapid_antigen/list_rapid_antigen";
 $route['biayask'] = "periksamedis/biayask";
 $route['pembayaran/cetak-sksehat'] = "periksamedis/cetak_sksehat";
 $route['pembayaran/cetak-sksakit'] = "periksamedis/cetak_surat_ket_sakit";
+$route['pembayaran/cetak-sklab'] = "periksamedis/cetak_surat_ket_lab";

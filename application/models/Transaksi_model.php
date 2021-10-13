@@ -153,7 +153,7 @@ class Transaksi_model extends CI_Model
         }
         else{
             $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
-            $this->datatables->add_column('cetak', anchor(/* site_url('pembayaran/cetak-sklab?id=$1') */'','Cetak SK LAB','class="btn btn-danger btn-sm"'),'no_periksa');
+            $this->datatables->add_column('cetak', anchor(site_url('pembayaran/cetak-sklab?id=$1'),'Cetak SK LAB','class="btn btn-danger btn-sm"'),'no_periksa');
         }
     
 
