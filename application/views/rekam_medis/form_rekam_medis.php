@@ -346,7 +346,8 @@
                                     <?php echo form_dropdown('jml_obat[]', array(''=>'Pilih Jumlah'),'',array('id'=>'jml_obat[]','class'=>'form-control select2','onchange'=>'get_obat(this,true)'));?>
                                 </div>
     							<div class="col-sm-2">
-                                    <?php echo form_dropdown('anjuran_obat[]',array(''=>'Pilih Anjuran'),'',array('id'=>'anjuran_obat[]','class'=>'form-control'));?>
+                                    <input type="text" id="anjuran_obat[]" name="anjuran_obat[]" class="form-control">
+                                    <!-- <?php echo form_dropdown('anjuran_obat[]',array(''=>'Pilih Anjuran'),'',array('id'=>'anjuran_obat[]','class'=>'form-control'));?> -->
                                 </div>
                                 <div class="col-sm-2">
                                     <?php echo form_input(array('id'=>'kegunaan_obat[]','name'=>'kegunaan_obat[]','type'=>'text','value'=>'','class'=>'form-control'));?>
@@ -898,7 +899,8 @@ $(document).ready(function() {
 
         var input_alkes = '<select id="obat[]" name="obat[]" class="form-control select2" onchange="get_obat(this)" style="width:100%;">'+option_alkes+'</select>';
         var input_jml_obat = '<select id="jml_obat[]" name="jml_obat[]" class="form-control select2" onchange="get_obat(this, true)"><option value="">Pilih Jumlah</option></select>';
-        var input_anjuran_obat = '<select id="anjuran_obat[]" name="anjuran_obat[]" class="form-control"><option value="">Pilih Anjuran</option></select>';
+        // var input_anjuran_obat = '<select id="anjuran_obat[]" name="anjuran_obat[]" class="form-control"><option value="">Pilih Anjuran</option></select>';
+        var input_anjuran_obat = '<input type="text" id="anjuran_obat[]" name="anjuran_obat[]" class="form-control">';
         var input_ket_obat = '<select id="ket_obat[]" name="ket_obat[]" class="form-control"><option value="">Pilih Keterangan</option></select>';
         var input_harga_obat = '<input id="harga_obat[]" name="harga_obat[]" type="text" value="" class="form-control" readonly="readonly" style="text-align:right;" />';
         // var input_harga_obat_real = '<input id="harga_obat_real[]" name="harga_obat_real[]" type="text" value="" class="form-control" readonly="readonly" style="text-align:right;" />';
@@ -985,9 +987,8 @@ $(document).ready(function() {
         // var value = selectObject selectObject.value;  
         var obat_length = $("[id^=obat]").length;
         var obat = <?php echo $obat;?>;
-        var anjuran_obat = <?php echo $anjuran_obat;?>;
+        // var anjuran_obat = <?php echo $anjuran_obat;?>;
         var ket_terbesar = 0;
-        console.log(obat);
                
         //Cek value keterangan terbesar
         for(x = 0; x < obat_length; x++){
@@ -999,7 +1000,7 @@ $(document).ready(function() {
         for(x = 0; x < obat_length; x++){
             var kode_barang = $("[id^=obat]").eq(x).val();
             var temp_jml_selected = $("[id^=jml_obat]").eq(x).val();
-            var temp_anjuran_selected = $("[id^=anjuran_obat]").eq(x).val();
+            // var temp_anjuran_selected = $("[id^=anjuran_obat]").eq(x).val();
             var temp_ket_selected = $("[id^=ket_obat]").eq(x).val();
             
             // console.log($("[id^=anjuran_obat]").length);
@@ -1012,13 +1013,15 @@ $(document).ready(function() {
                     
                     if (!isCheckJml)
                         $("[id^=jml_obat]").eq(x).empty();
-                    $("[id^=anjuran_obat]").eq(x).empty();
+                    // $("[id^=anjuran_obat]").eq(x).empty();
                     $("[id^=ket_obat]").eq(x).empty();
                     
                     var option = '';
-                    var option_anjuran = '';
+                    // var option_anjuran = '';
                     var option_ket = '';
                     var harga = 0;
+                    console.log(obat[i].stok_barang);
+
                     if(obat[i].stok_barang > 0){
                         //Set Jumlah Option
                         if (!isCheckJml){
@@ -1027,7 +1030,7 @@ $(document).ready(function() {
                                     // option += '<option value="'+((y+1)/2)+'">'+(y) + ' 1/2' +'</option>';
                                     // option += '<option value="'+(y+1)+'" selected = "selected">'+(y+1)+'</option>';
                                     if(temp_ket_selected == 0){
-                                        if((y+1) % 5 == 0 || (y+1) % 6 == 0)
+                                        // if((y+1) % 5 == 0 || (y+1) % 6 == 0)
                                         option += '<option value="'+(y+1)+'" selected = "selected">'+(y+1)+'</option>';
                                     } else {
                                         if((y+0.5) == temp_jml_selected)
@@ -1037,7 +1040,7 @@ $(document).ready(function() {
                                     }
                                 else
                                     if(temp_ket_selected == 0){
-                                        if((y+1) % 5 == 0 || (y+1) % 6 == 0)
+                                        // if((y+1) % 5 == 0 || (y+1) % 6 == 0)
                                         option += '<option value="'+(y+1)+'">'+(y+1)+'</option>';
                                     } else {
                                         option += '<option value="'+(y+0.5)+'">'+(y) + ' + 1/2' +'</option>';
@@ -1045,13 +1048,13 @@ $(document).ready(function() {
                                     }
                             }
                         }
-                        //Set Anjuran Option
-                        for(j = 0; j < anjuran_obat.length; j++){
-                            if (anjuran_obat[j].value == temp_anjuran_selected)
-                                option_anjuran += '<option value="'+anjuran_obat[j].value+'" selected="selected">'+anjuran_obat[j].label+'</option>';
-                            else
-                                option_anjuran += '<option value="'+anjuran_obat[j].value+'">'+anjuran_obat[j].label+'</option>';
-                        }
+                        // //Set Anjuran Option
+                        // for(j = 0; j < anjuran_obat.length; j++){
+                        //     if (anjuran_obat[j].value == temp_anjuran_selected)
+                        //         option_anjuran += '<option value="'+anjuran_obat[j].value+'" selected="selected">'+anjuran_obat[j].label+'</option>';
+                        //     else
+                        //         option_anjuran += '<option value="'+anjuran_obat[j].value+'">'+anjuran_obat[j].label+'</option>';
+                        // }
                         //Set Keterangan Option
                         for(j = 0; j <= (parseInt(ket_terbesar) + 1); j++){
                             var nama_ket = j == 0 ? 'Non Puyer' : 'Puyer ' + j;
@@ -1065,14 +1068,14 @@ $(document).ready(function() {
                     }else{
                         if (!isCheckJml)
                             option += '<option value="">Habis</option>';
-                        option_anjuran += '<option value="">Pilih Anjuran</option>';
+                        // option_anjuran += '<option value="">Pilih Anjuran</option>';
                         option_ket += '<option value="">Pilih Keterangan</option>';
                         harga = 0;
                     }
                     
                     // if (!isCheckJml)
                         $("[id^=jml_obat]").eq(x).append(option);
-                        $("[id^=anjuran_obat]").eq(x).append(option_anjuran);
+                        // $("[id^=anjuran_obat]").eq(x).append(option_anjuran);
                         $("[id^=ket_obat]").eq(x).append(option_ket);
                         
                         var jml_barang = $("[id^=jml_obat]").eq(x).val() != '' ? parseInt(Math.ceil($("[id^=jml_obat]").eq(x).val())) : 0;
@@ -1086,13 +1089,13 @@ $(document).ready(function() {
                 $("[id^=harga_obat]").eq(x).val('');
                 // $("[id^=harga_obat_real]").eq(x).val('');
                 $("[id^=jml_obat]").eq(x).empty();
-                $("[id^=anjuran_obat]").eq(x).empty();
+                // $("[id^=anjuran_obat]").eq(x).empty();
                 $("[id^=ket_obat]").eq(x).empty();
                 var option = '<option value="">Pilih Jumlah</option>';
-                var option_anjuran = '<option value="">Pilih Anjuran</option>';
+                // var option_anjuran = '<option value="">Pilih Anjuran</option>';
                 var option_ket = '<option value="">Pilih Keterangan</option>';
                 $("[id^=jml_obat]").eq(x).append(option);
-                $("[id^=anjuran_obat]").eq(x).append(option_anjuran);
+                // $("[id^=anjuran_obat]").eq(x).append(option_anjuran);
                 $("[id^=ket_obat]").eq(x).append(option_ket);
             }
         }
