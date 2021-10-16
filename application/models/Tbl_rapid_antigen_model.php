@@ -59,12 +59,11 @@ class Tbl_rapid_antigen_model extends CI_Model
     }    
     public function detailRapid($id,$select="")
     {
-        $s = $select!="" ? $select : "d.nama_dokter,r.*,r.jenis_kelamin jk";
+        $s = $select!="" ? $select : "tbl_dokter.nama_dokter,".$this->table.".*";
         $this->db->select($s);
-        $this->db->from("tbl_rapid_antigen r");
-        $this->db->join('tbl_dokter d',"r.id_dokter = d.id_dokter",'left');
-        $this->db->where(['r.id_rapid' => $id]);
-        return $this->db->get()->row();
+        $this->db->join('tbl_dokter',$this->table.".id_dokter = tbl_dokter.id_dokter",'left');
+        $this->db->where(['id_rapid' => $id]);
+        return $this->db->get($this->table)->result()[0];
     }
     public function cekPeriksa($id)
     {
