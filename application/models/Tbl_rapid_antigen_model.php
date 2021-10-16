@@ -60,7 +60,7 @@ class Tbl_rapid_antigen_model extends CI_Model
     public function detailRapid($id,$select="")
     {
         $s = $select!="" ? $select : "d.nama_dokter,r.*,r.jenis_kelamin jk";
-        $this->db->select($select);
+        $this->db->select($s);
         $this->db->from("tbl_rapid_antigen r");
         $this->db->join('tbl_dokter d',"r.id_dokter = d.id_dokter",'left');
         $this->db->where(['r.id_rapid' => $id]);
