@@ -106,7 +106,7 @@
                         <tr>
                             <td>Jenis Kelamin</td>
                             <td>:</td>
-                            <td><?= $detail->jenis_kelamin=='P' ? 'Perempuan' : 'Laki Laki' ?></td>
+                            <td><?= $detail->jenis_kelamin ?><?= $detail->jenis_kelamin=='P' ? 'Perempuan' : 'Laki Laki' ?></td>
                         </tr>
                         <tr>
                             <td>Alamat</td>
