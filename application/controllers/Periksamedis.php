@@ -835,7 +835,82 @@ class Periksamedis extends CI_Controller
         $this->template->load('template','imunisasi-anak/periksa-imunisasi');
     }
     public function kontrol_kehamilan(){
-        $this->template->load('template','kontrol-kehamilan/periksa-kontrol-kehamilan');
+        $data_pendaftaran = $this->Pendaftaran_model->get_by_id($this->no_pendaftaran);
+        $data_pasien = $this->Tbl_pasien_model->get_by_id($data_pendaftaran->no_rekam_medis);
+        $date_now = date('Ymd', time());
+        $this->data['no_rekam_medis'] = $data_pendaftaran->no_rekam_medis;
+        $this->data['no_periksa'] = $data_pendaftaran->no_pendaftaran.'/'.$date_now.'/'.$data_pendaftaran->no_rekam_medis;
+        $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
+        $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
+        $this->data['obat'] = $this->get_all_obat($obatAda=true,$json=false);
+        $this->data['master_tindakan'] = $this->db->query('select * from tbl_tindakan where tipe = "1" order by cast(kode_tindakan as SIGNED INTEGER) asc ')->result();
+
+        $this->template->load('template','kontrol-kehamilan/periksa-kontrol-kehamilan',$this->data);
+    }
+    public function save_kontrol_kehamilan()
+    {
+        $data_pendaftaran = $this->Pendaftaran_model->get_by_id($this->no_pendaftaran);
+
+        $data_transaksi = array(
+            'kode_transaksi' => 'KNTRKEHAMILAN',
+            'id_klinik' => $this->id_klinik,
+            'no_transaksi' => $this->input->post('no_periksa'),
+            'tgl_transaksi' => date('Y-m-d', time()),
+            'status_transaksi' => 0,
+        );
+
+        $data_transaksi_d = array();
+        $tindakan = "";
+        foreach ($this->input->post('tindakan') as $key => $value) {
+            $this->db->select('tindakan,biaya');
+            $getTindakan = $this->db->get_where('tbl_tindakan',['kode_tindakan' => $value])->row();
+            $arr = array(
+                'no_transaksi' => $data_transaksi['no_transaksi'],
+                'deskripsi' => 'Biaya Tindakan '.$getTindakan->tindakan,
+                'amount_transaksi' => $getTindakan->biaya,
+                'dc' => 'd'
+            );
+            array_push($data_transaksi_d,$arr);
+            $tindakan.=$jasa->item.";";
+        }
+
+        $periksa = array(
+            'no_periksa' => $this->input->post('no_periksa'),
+            'no_pendaftaran' => $this->no_pendaftaran,
+            'no_rekam_medis' => $data_pendaftaran->no_rekam_medis,
+            'tindakan' => $tindakan,
+            'is_surat_ket_sakit' => 0,
+            'id_dokter' => $this->id_dokter,
+            'is_ambil_obat' => 0,
+        );
+        $this->db->insert('tbl_periksa',$periksa);
+
+        $this->Transaksi_model->insert($data_transaksi,$data_transaksi_d);
+        $post = $_POST;
+        unset($post['nama_lengkap']);
+        unset($post['alamat']);
+        unset($post['tindakan']);
+        $this->db->insert('tbl_kontrol_kehamilan',$post);
+                
+        //Set status pendaftaran is_periksa = 1
+        $this->Pendaftaran_model->update($this->no_pendaftaran, array(
+            'is_periksa' => 1,
+            'dtm_upd' => date("Y-m-d H:i:s",  time())
+        ));
+
+        //Get Next Antrian
+        $data_antrian = $this->Pendaftaran_model->get_next_antrian($this->id_dokter);
+        $next_antrian = $data_antrian != null ? $data_antrian->no_pendaftaran : null;
+        $this->Tbl_dokter_model->update($this->id_dokter, array(
+            "no_pendaftaran" => $next_antrian,
+            "dtm_upd" => date("Y-m-d H:i:s",  time())
+        ));
+
+        //Set session sukses
+        $this->session->set_flashdata('message', 'Data pemeriksaan berhasil disimpan, No Pendaftaran ' . $this->no_pendaftaran);
+        $this->session->set_flashdata('message_type', 'success');
+        
+        redirect(site_url('periksamedis'));
     }
     
     function split_string($string, $delimiter){
@@ -897,17 +972,31 @@ class Periksamedis extends CI_Controller
 		return json_encode($projects);
     }
     
-    function get_all_obat(){
+    function get_all_obat($obatAda=false,$json=true){
         $data_alkes = $this->Tbl_obat_alkes_bhp_model->get_all_obat();
 		$projects = array();
         foreach ($data_alkes as $alkes) {
-			$projects[] = array(
-				'kode_barang'   => $alkes->kode_barang,
-                'stok_barang'   => $alkes->stok_barang,
-                'harga'         => $alkes->harga_jual,
-			);
+            $add = true;
+            if($obatAda){
+                if($alkes->stok_barang==0){
+                    $add = false;
+                }
+            }
+
+            if($add){
+                $projects[] = array(
+                    'nama_barang'   => $alkes->nama_barang,
+                    'kode_barang'   => $alkes->kode_barang,
+                    'stok_barang'   => $alkes->stok_barang,
+                    'harga'         => $alkes->harga_jual,
+                );
+            }
         }
-		return json_encode($projects);
+        if(!$json){
+            return $projects;
+        }else{
+            return json_encode($projects);
+        }
     }
     
     function _rules() 

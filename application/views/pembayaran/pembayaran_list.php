@@ -77,6 +77,21 @@
                                 </thead>
                             </table>
                         </div>
+                        <div id="hamil" class="tab-pane fade">
+                            <table class="table table-bordered table-striped" width="100%" id="tableHamil">
+                                <thead>
+                                    <tr>
+                                        <th width="30px">No</th>
+                                        <th>No Transaksi</th>
+                                        <th>Nama Pasien</th>
+                                        <th>Klinik Periksa</th>
+                                        <th>Tgl Periksa</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                         <div id="jasa" class="tab-pane fade">
                             <table class="table table-bordered table-striped" width="100%" id="tableJasa">
                                 <thead>
@@ -168,6 +183,22 @@
                                             <th>No Sampel</th>
                                             <th>NIK / Passport</th>
                                             <th>Nama</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="listHamil" class="tab-pane fade">
+                                <table class="table table-bordered table-striped" width="100%" id="tableListHamil">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px">No</th>
+                                            <th>No Transaksi</th>
+                                            <th>Nama Pasien</th>
+                                            <th>Klinik Periksa</th>
+                                            <th>Tgl Periksa</th>
+                                            <th>Tgl Pembayaran</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -323,6 +354,43 @@
             processing: true,
             serverSide: true,
             ajax: {"url": "pembayaran/json/5", "type": "POST"},
+            columns: [
+                {
+                    "data": "id_transaksi",
+                    "orderable": false
+                },{"data": "no_transaksi"},{"data": "nama_pasien"},{"data": "id_klinik"},{"data": "tgl_periksa"},{"data": "status_transaksi"},
+                {
+                    "data" : "action",
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[4, 'asc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+        var t = $("#tableHamil").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "pembayaran/json/3", "type": "POST"},
             columns: [
                 {
                     "data": "id_transaksi",
@@ -514,6 +582,46 @@
             processing: true,
             serverSide: true,
             ajax: {"url": "pembayaran/json2", "type": "POST"},
+            columns: [
+                {
+                    "data": "id_transaksi",
+                    "orderable": false
+                },{"data": "no_transaksi"},{"data": "nama_pasien"},{"data": "id_klinik"},{"data": "tgl_periksa"},{"data": "tgl_pembayaran"},{"data": "status_transaksi"},
+                {
+                    "render" : function(data,type,row){
+                        var cetak = row.is_surat_ket_sakit=='1' ? row.cetak : ''
+                        return row.action+"&nbsp;"+cetak
+                    },
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[5, 'desc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+        var t2 = $("#tableListHamil").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable2_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "pembayaran/json2/3", "type": "POST"},
             columns: [
                 {
                     "data": "id_transaksi",
