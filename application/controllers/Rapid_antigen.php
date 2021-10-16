@@ -207,6 +207,7 @@ class Rapid_antigen extends CI_Controller
     public function print($id)
     {
         $data['detail'] = $this->Tbl_rapid_antigen_model->detailRapid($id);
+        echo "<pre>";
         print_r($data['detail']);
         // $this->load->view('rapid_antigen/print_rapid_antigen',$data);
     }
