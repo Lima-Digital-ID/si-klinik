@@ -114,6 +114,7 @@ class Apotek extends CI_Controller
             $this->data['no_rekam_medis'] = $data_pasien->no_rekam_medis;
             $this->data['no_id_pasien'] = $data_pasien->no_id_pasien;
             $this->data['nama_pasien'] = $data_pasien->nama_lengkap;
+            $this->data['note_apoteker'] = $data_periksa->note_apoteker;
             $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
             
             //Get Data Periksa D Fisik

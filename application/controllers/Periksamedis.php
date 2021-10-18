@@ -86,6 +86,7 @@ class Periksamedis extends CI_Controller
                     'lama_istirahat_surat' => $this->input->post('is_cetak_surat') == 1 ? $this->input->post('lama_istirahat_surat') : 0,
                     'id_dokter' => $this->id_dokter,
                     'note_dokter' => $this->input->post('note_dokter'),
+                    'note_apoteker' => $this->input->post('note_apoteker'),
                     'obat_detail' => rtrim($obat_detail_value,", "),
                 );
                 

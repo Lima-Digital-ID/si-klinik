@@ -24,6 +24,10 @@
 							<div class="col-sm-2">Alamat Pasien</div>
 							<div class="col-sm-4"><?php echo $alamat;?></div>
                         </div>
+                        <div class="form-group">
+							<div class="col-sm-2">Note Dokter</div>
+							<div class="col-sm-10"><?php echo $note_apoteker;?></div>
+                        </div>
                         <!--<hr />-->
        <!--                 <div class="form-group">-->
 							<!--<div class="col-sm-12"><label>DATA PERIKSA MEDIS</label></div>-->

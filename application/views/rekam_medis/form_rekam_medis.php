@@ -441,6 +441,13 @@
                                 </div>
     						</div> -->
     					</div>
+						<div class="form-group">
+							<div class="col-sm-2">Catatan Apoteker</div>
+							<div class="col-sm-10">
+								<?php echo form_textarea(array('id'=>'note_apoteker','name'=>'note_apoteker','type'=>'textarea','value'=>'','rows'=>'4','class'=>'form-control'));?>
+							</div>
+						</div>
+
     					<div class="form-group">
 							<div class="col-sm-12">
 								<div align="right">
@@ -520,7 +527,7 @@
 						<div class="form-group">
 							<div class="col-sm-2">Catatan Dokter</div>
 							<div class="col-sm-10">
-								<?php echo form_textarea(array('id'=>'notes_dokter','name'=>'notes_dokter','type'=>'textarea','value'=>'','rows'=>'4','class'=>'form-control'));?>
+								<?php echo form_textarea(array('id'=>'note_dokter','name'=>'note_dokter','type'=>'textarea','value'=>'','rows'=>'4','class'=>'form-control'));?>
 							</div>
 						</div>
 						<hr />
