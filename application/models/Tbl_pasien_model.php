@@ -50,7 +50,7 @@ class Tbl_pasien_model extends CI_Model
     }
     
     function json(){
-        $this->datatables->select('no_rekam_medis,no_id_pasien,nama_lengkap,golongan_darah,status_menikah,pekerjaan,alamat,kabupaten,nama_orang_tua_atau_istri,nomer_telepon,riwayat_alergi_obat');
+        $this->datatables->select('nik,no_rekam_medis,no_id_pasien,nama_lengkap,golongan_darah,status_menikah,pekerjaan,alamat,kabupaten,nama_orang_tua_atau_istri,nomer_telepon,riwayat_alergi_obat');
         $this->datatables->from('tbl_pasien');
         $this->datatables->add_column('action', anchor(site_url('pasien/update/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>','class="btn btn-success btn-sm"')." 
                 ".anchor(site_url('pasien/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'no_rekam_medis');

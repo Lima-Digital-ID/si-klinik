@@ -40,6 +40,7 @@
                                     <th width="30px">No</th>
                                     <th>No Rekam Medis</th>
                                     <th>No ID Pasien</th>
+                                    <th>NIK</th>
                                     <th>Nama Pasien</th>
                                     <th>Tanggal Lahir</th>
                                     <th>Nomor HP/Telepon</th>
@@ -92,7 +93,7 @@
                 {
                     "data": "no_rekam_medis",
                     "orderable": false
-                },{"data": "no_rekam_medis"},{"data": "no_id_pasien"},{"data": "nama_pasien"},{"data": "tanggal_lahir"},{"data": "no_hp"},
+                },{"data": "no_rekam_medis"},{"data": "no_id_pasien"},{"data": "nik"},{"data": "nama_pasien"},{"data": "tanggal_lahir"},{"data": "no_hp"},
                 {
                     "data" : "action",
                     "orderable": false,

@@ -46,6 +46,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <div class="col-sm-4">Nik <?php echo form_error('nik'); ?></div>
+                            <div class="col-sm-8">
+                                <?php echo form_input(array('id'=>'nik','name'=>'nik','type'=>'text','value'=>$nik,'class'=>'form-control'));?>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-4">Nama Lengkap <?php echo form_error('nama_lengkap'); ?></div>
                             <div class="col-sm-8">
                                 <?php echo form_input(array('id'=>'nama_lengkap','name'=>'nama_lengkap','type'=>'text','value'=>$nama_lengkap,'class'=>'form-control'));?>

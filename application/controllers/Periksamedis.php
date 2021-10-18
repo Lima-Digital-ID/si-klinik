@@ -1159,6 +1159,7 @@ class Periksamedis extends CI_Controller
 			$data_pasien = array(
 				'no_rekam_medis'    => $this->input->post('no_rekam_medis'),
 				'no_id_pasien'		=> $this->input->post('no_id'),
+				'nik'               => $this->input->post('nik'),
 				'nama_lengkap'      => $this->input->post('nama_lengkap'),
 				'tanggal_lahir'     => $this->input->post('tanggal_lahir'),
 				'golongan_darah'    => $this->input->post('golongan_darah'),
@@ -1217,6 +1218,7 @@ class Periksamedis extends CI_Controller
 			
 			$this->data['no_rekam_medis'] = $pasien_existing != null ? $pasien_existing->no_rekam_medis : ($dataPasien != null ? set_value('no_rekam_medis') : $this->data['no_rekam_medis_default']);
 			$this->data['no_id'] = $pasien_existing != null ? $pasien_existing->no_id_pasien : set_value('no_id');
+			$this->data['nik'] = $pasien_existing != null ? $pasien_existing->nik : set_value('nik');
 			$this->data['nama_lengkap'] = $pasien_existing != null ? $pasien_existing->nama_lengkap : set_value('nama_lengkap');
 			$this->data['tanggal_lahir'] = $pasien_existing != null ? $pasien_existing->tanggal_lahir : set_value('tanggal_lahir');
 			$this->data['golongan_darah'] = $pasien_existing != null ? $pasien_existing->golongan_darah : set_value('golongan_darah');
@@ -1268,6 +1270,7 @@ class Periksamedis extends CI_Controller
     {
         $this->form_validation->set_rules('no_rekam_medis', 'No Rekam Medis', 'trim|required');
     	$this->form_validation->set_rules('no_id', 'No ID Pasien', 'trim|required');
+    	$this->form_validation->set_rules('nik', 'NIK', 'trim|required');
     	$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
     	$this->form_validation->set_rules('tanggal_lahir', 'Tanggal Lahir', 'trim|required');
     // 	$this->form_validation->set_rules('golongan_darah', 'Golongan Darah', 'trim|required');
