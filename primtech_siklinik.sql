@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 07, 2021 at 10:13 AM
+-- Generation Time: Oct 18, 2021 at 05:09 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -3262,12 +3262,12 @@ CREATE TABLE `tbl_dokter` (
 
 INSERT INTO `tbl_dokter` (`id_dokter`, `nama_dokter`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `id_agama`, `alamat_tinggal`, `no_hp`, `id_status_menikah`, `id_spesialis`, `no_izin_praktek`, `golongan_darah`, `alumni`, `is_jaga`, `no_pendaftaran`, `komisi_biaya_pemeriksaan`, `komisi_biaya_tindakan`, `komisi_biaya_obat`, `tipe_dokter`, `dtm_crt`, `dtm_upd`) VALUES
 (1, 'dr.nanda@gmail.com', 'P', '', '2021-09-29', 1, '', '', 1, 4, '', '', '', 0, '000101', 0, 0, 0, '1', '2021-09-29 14:26:44', '2021-09-30 05:16:46'),
-(2, 'dr.sita@gmail.com', 'P', '', '2021-09-29', 1, '', '', 1, 4, '', '', '', 1, '000102', 0, 0, 0, '1', '2021-09-29 14:27:14', '2021-10-05 06:05:58'),
+(2, 'dr.sita@gmail.com', 'P', '', '2021-09-29', 1, '', '', 1, 4, '', '', '', 1, '000093', 0, 0, 0, '1', '2021-09-29 14:27:14', '2021-10-16 09:16:35'),
 (3, 'dr.shanty@gmail.com', 'P', '', '2021-09-29', 1, '', '', 1, 4, '', '', '', 0, NULL, 0, 0, 0, '1', '2021-09-29 14:27:43', '2021-09-29 14:27:43'),
 (4, 'dr.nova@gmail.com', 'P', '', '2021-09-29', 1, '', '', 1, 4, '', '', '', 1, '000104', 0, 0, 0, '2', '2021-09-29 14:28:07', '2021-10-05 06:28:25'),
 (5, 'rai@gmail.com', 'L', '', '2021-09-29', 1, '', '', 1, 4, '', '', '', 0, NULL, 0, 0, 0, '1', '2021-09-29 14:29:13', '2021-09-29 14:29:13'),
 (6, 'rika@gmail.com', 'P', '', '2021-09-29', 1, '', '', 1, 4, '', '', '', 0, NULL, 0, 0, 0, '1', '2021-09-29 14:29:47', '2021-09-29 14:29:47'),
-(7, 'lia@gmail.com', 'P', '', '2021-09-29', 1, '', '', 1, 4, '', '', '', 0, NULL, 0, 0, 0, '1', '2021-09-29 14:30:15', '2021-09-29 14:30:15'),
+(7, 'lia@gmail.com', 'P', '', '2021-09-29', 1, '', '', 1, 4, '', '', '', 0, '000105', 0, 0, 0, '1', '2021-09-29 14:30:15', '2021-10-13 14:34:09'),
 (8, 'puspita@gmail.com', 'P', '', '2021-09-29', 1, '', '', 1, 4, '', '', '', 0, NULL, 0, 0, 0, '1', '2021-09-29 14:30:53', '2021-09-29 14:30:53'),
 (9, 'ellis@gmail.com', 'P', '', '2021-09-29', 1, '', '', 1, 4, '', '', '', 0, NULL, 0, 0, 0, '1', '2021-09-29 14:30:53', '2021-09-29 14:30:53'),
 (10, 'darwin@gmail.com', 'P', '', '2021-09-29', 1, '', '', 1, 1, '', '', '', 0, NULL, 0, 0, 0, '1', '2021-09-29 14:31:15', '2021-09-29 14:31:15'),
@@ -3474,7 +3474,95 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`, `dtm_crt`, `dtm_u
 (230, 9, 62, '2019-12-17 11:20:16', '2019-12-17 11:20:16'),
 (231, 9, 40, '2018-04-19 10:35:23', '2018-04-19 10:35:23'),
 (232, 9, 41, '2018-04-19 10:35:23', '2018-04-19 10:35:23'),
-(233, 9, 39, '2021-09-14 20:44:09', '2021-09-14 20:44:09');
+(233, 9, 39, '2021-09-14 20:44:09', '2021-09-14 20:44:09'),
+(411, 10, 40, '2021-10-14 00:13:46', '2021-10-14 00:13:46'),
+(415, 10, 49, '2021-10-14 00:13:52', '2021-10-14 00:13:52'),
+(416, 10, 55, '2021-10-14 00:13:52', '2021-10-14 00:13:52'),
+(417, 10, 57, '2021-10-14 00:13:53', '2021-10-14 00:13:53'),
+(418, 10, 59, '2021-10-14 00:13:55', '2021-10-14 00:13:55'),
+(419, 10, 61, '2021-10-14 00:13:55', '2021-10-14 00:13:55'),
+(420, 10, 63, '2021-10-14 00:13:56', '2021-10-14 00:13:56'),
+(421, 10, 65, '2021-10-14 00:13:58', '2021-10-14 00:13:58'),
+(422, 10, 66, '2021-10-14 00:13:58', '2021-10-14 00:13:58'),
+(423, 10, 67, '2021-10-14 00:13:59', '2021-10-14 00:13:59'),
+(424, 10, 68, '2021-10-14 00:14:00', '2021-10-14 00:14:00'),
+(425, 10, 69, '2021-10-14 00:14:00', '2021-10-14 00:14:00'),
+(426, 10, 72, '2021-10-14 00:14:02', '2021-10-14 00:14:02'),
+(427, 10, 75, '2021-10-14 00:14:02', '2021-10-14 00:14:02'),
+(428, 10, 76, '2021-10-14 00:14:03', '2021-10-14 00:14:03'),
+(429, 10, 77, '2021-10-14 00:14:03', '2021-10-14 00:14:03'),
+(430, 10, 78, '2021-10-14 00:14:27', '2021-10-14 00:14:27'),
+(431, 10, 79, '2021-10-14 00:14:27', '2021-10-14 00:14:27'),
+(432, 10, 80, '2021-10-14 00:14:28', '2021-10-14 00:14:28'),
+(433, 10, 81, '2021-10-14 00:14:28', '2021-10-14 00:14:28'),
+(434, 10, 82, '2021-10-14 00:14:29', '2021-10-14 00:14:29'),
+(435, 10, 85, '2021-10-14 00:14:30', '2021-10-14 00:14:30'),
+(436, 10, 88, '2021-10-14 00:14:31', '2021-10-14 00:14:31'),
+(437, 10, 91, '2021-10-14 00:14:32', '2021-10-14 00:14:32'),
+(438, 10, 94, '2021-10-14 00:14:33', '2021-10-14 00:14:33'),
+(439, 10, 97, '2021-10-14 00:14:34', '2021-10-14 00:14:34'),
+(440, 10, 99, '2021-10-14 00:14:35', '2021-10-14 00:14:35'),
+(441, 10, 100, '2021-10-14 00:14:35', '2021-10-14 00:14:35'),
+(442, 10, 102, '2021-10-14 00:14:37', '2021-10-14 00:14:37'),
+(443, 10, 104, '2021-10-14 00:14:38', '2021-10-14 00:14:38'),
+(444, 10, 108, '2021-10-14 00:14:39', '2021-10-14 00:14:39'),
+(445, 10, 110, '2021-10-14 00:14:40', '2021-10-14 00:14:40'),
+(446, 10, 116, '2021-10-14 00:14:41', '2021-10-14 00:14:41'),
+(447, 10, 117, '2021-10-14 00:14:43', '2021-10-14 00:14:43'),
+(448, 10, 118, '2021-10-14 00:14:43', '2021-10-14 00:14:43'),
+(449, 10, 122, '2021-10-14 00:14:44', '2021-10-14 00:14:44'),
+(450, 10, 123, '2021-10-14 00:14:45', '2021-10-14 00:14:45'),
+(451, 10, 129, '2021-10-14 00:14:46', '2021-10-14 00:14:46'),
+(452, 10, 134, '2021-10-14 00:14:47', '2021-10-14 00:14:47'),
+(453, 10, 39, '2021-10-14 00:15:04', '2021-10-14 00:15:04'),
+(454, 10, 41, '2021-10-14 00:15:04', '2021-10-14 00:15:04'),
+(455, 10, 42, '2021-10-14 00:15:05', '2021-10-14 00:15:05'),
+(456, 10, 43, '2021-10-14 00:15:05', '2021-10-14 00:15:05'),
+(457, 10, 44, '2021-10-14 00:15:06', '2021-10-14 00:15:06'),
+(458, 10, 45, '2021-10-14 00:15:06', '2021-10-14 00:15:06'),
+(459, 10, 46, '2021-10-14 00:15:07', '2021-10-14 00:15:07'),
+(460, 10, 47, '2021-10-14 00:15:08', '2021-10-14 00:15:08'),
+(461, 10, 50, '2021-10-14 00:15:09', '2021-10-14 00:15:09'),
+(462, 10, 53, '2021-10-14 00:15:10', '2021-10-14 00:15:10'),
+(463, 10, 54, '2021-10-14 00:15:10', '2021-10-14 00:15:10'),
+(464, 10, 58, '2021-10-14 00:15:12', '2021-10-14 00:15:12'),
+(465, 10, 60, '2021-10-14 00:15:12', '2021-10-14 00:15:12'),
+(466, 10, 62, '2021-10-14 00:15:13', '2021-10-14 00:15:13'),
+(467, 10, 64, '2021-10-14 00:15:14', '2021-10-14 00:15:14'),
+(468, 10, 70, '2021-10-14 00:15:15', '2021-10-14 00:15:15'),
+(469, 10, 71, '2021-10-14 00:15:16', '2021-10-14 00:15:16'),
+(470, 10, 73, '2021-10-14 00:15:17', '2021-10-14 00:15:17'),
+(471, 10, 74, '2021-10-14 00:15:18', '2021-10-14 00:15:18'),
+(472, 10, 83, '2021-10-14 00:15:20', '2021-10-14 00:15:20'),
+(473, 10, 84, '2021-10-14 00:15:21', '2021-10-14 00:15:21'),
+(474, 10, 86, '2021-10-14 00:15:22', '2021-10-14 00:15:22'),
+(475, 10, 87, '2021-10-14 00:15:22', '2021-10-14 00:15:22'),
+(476, 10, 89, '2021-10-14 00:15:23', '2021-10-14 00:15:23'),
+(477, 10, 90, '2021-10-14 00:15:24', '2021-10-14 00:15:24'),
+(478, 10, 92, '2021-10-14 00:15:25', '2021-10-14 00:15:25'),
+(479, 10, 93, '2021-10-14 00:15:26', '2021-10-14 00:15:26'),
+(480, 10, 95, '2021-10-14 00:15:28', '2021-10-14 00:15:28'),
+(481, 10, 96, '2021-10-14 00:15:28', '2021-10-14 00:15:28'),
+(482, 10, 101, '2021-10-14 00:15:30', '2021-10-14 00:15:30'),
+(483, 10, 103, '2021-10-14 00:15:30', '2021-10-14 00:15:30'),
+(484, 10, 106, '2021-10-14 00:15:33', '2021-10-14 00:15:33'),
+(485, 10, 107, '2021-10-14 00:15:33', '2021-10-14 00:15:33'),
+(486, 10, 109, '2021-10-14 00:15:34', '2021-10-14 00:15:34'),
+(487, 10, 111, '2021-10-14 00:15:35', '2021-10-14 00:15:35'),
+(488, 10, 112, '2021-10-14 00:15:35', '2021-10-14 00:15:35'),
+(489, 10, 113, '2021-10-14 00:15:36', '2021-10-14 00:15:36'),
+(490, 10, 114, '2021-10-14 00:15:36', '2021-10-14 00:15:36'),
+(491, 10, 115, '2021-10-14 00:15:38', '2021-10-14 00:15:38'),
+(492, 10, 119, '2021-10-14 00:15:40', '2021-10-14 00:15:40'),
+(493, 10, 120, '2021-10-14 00:15:41', '2021-10-14 00:15:41'),
+(494, 10, 121, '2021-10-14 00:15:42', '2021-10-14 00:15:42'),
+(495, 10, 126, '2021-10-14 00:15:43', '2021-10-14 00:15:43'),
+(496, 10, 127, '2021-10-14 00:15:45', '2021-10-14 00:15:45'),
+(497, 10, 128, '2021-10-14 00:15:45', '2021-10-14 00:15:45'),
+(498, 10, 130, '2021-10-14 00:15:46', '2021-10-14 00:15:46'),
+(499, 10, 131, '2021-10-14 00:15:47', '2021-10-14 00:15:47'),
+(500, 10, 132, '2021-10-14 00:15:47', '2021-10-14 00:15:47'),
+(501, 10, 133, '2021-10-14 00:15:48', '2021-10-14 00:15:48');
 
 -- --------------------------------------------------------
 
@@ -3850,7 +3938,64 @@ INSERT INTO `tbl_komisi_dokter` (`id_komisi`, `tanggal`, `id_dokter`, `no_transa
 (23, '2021-09-22', 1, '000070/20200619/0000', 2500, 'Obat'),
 (24, '2021-09-23', 1, '000064/20200619/0000', 0, 'Pemeriksaan'),
 (25, '2021-09-23', 1, '000064/20200619/0000', 0, 'Tindakan'),
-(26, '2021-09-23', 1, '000064/20200619/0000', 2500, 'Obat');
+(26, '2021-09-23', 1, '000064/20200619/0000', 2500, 'Obat'),
+(27, '2021-10-08', 2, '000106/20211008/0000', 0, 'Pemeriksaan'),
+(28, '2021-10-08', 2, '000106/20211008/0000', 0, 'Tindakan'),
+(29, '2021-10-08', 2, '000106/20211008/0000', 0, 'Obat'),
+(30, '2021-10-16', 2, '000103/20211016/0000', 0, 'Pemeriksaan'),
+(31, '2021-10-16', 2, '000103/20211016/0000', 0, 'Tindakan'),
+(32, '2021-10-16', 2, '000103/20211016/0000', 0, 'Obat');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_kontrol_kehamilan`
+--
+
+CREATE TABLE `tbl_kontrol_kehamilan` (
+  `id_kontrol` int(5) NOT NULL,
+  `no_periksa` varchar(30) NOT NULL,
+  `no_rekam_medis` varchar(10) NOT NULL,
+  `tanggal` date NOT NULL,
+  `jamkeskmas` enum('0','1') NOT NULL DEFAULT '0',
+  `cara_masuk` varchar(255) NOT NULL,
+  `usia_klinis` varchar(100) NOT NULL,
+  `trimeter_ke` double NOT NULL,
+  `anamsesis` varchar(255) NOT NULL,
+  `bb` double NOT NULL,
+  `td` double NOT NULL,
+  `lila` double NOT NULL,
+  `status_gizi` varchar(100) NOT NULL,
+  `tfu` double NOT NULL,
+  `refleksi_patela` enum('0','1') NOT NULL DEFAULT '0',
+  `djj` double NOT NULL,
+  `kepala_thd` varchar(150) NOT NULL,
+  `tbj` double NOT NULL,
+  `presentasi` varchar(150) NOT NULL,
+  `jumlah_janin` double NOT NULL,
+  `status_imunisasi` varchar(150) NOT NULL,
+  `injeksi_tt` enum('0','1') NOT NULL DEFAULT '0',
+  `catatan_kia` enum('0','1') NOT NULL DEFAULT '0',
+  `fe` varchar(100) NOT NULL,
+  `hb_dilakukan` enum('0','1') NOT NULL DEFAULT '0',
+  `hb_hasil` double NOT NULL,
+  `hb_anemia` enum('0','1') NOT NULL DEFAULT '0',
+  `protein_uria` enum('0','1') NOT NULL DEFAULT '0',
+  `gula_darah` varchar(100) NOT NULL,
+  `sifilis` enum('0','1') NOT NULL DEFAULT '0',
+  `hbsag` enum('0','1') NOT NULL DEFAULT '0',
+  `vct` enum('0','1') NOT NULL DEFAULT '0',
+  `pmtct_periksa_darah` enum('0','1') NOT NULL DEFAULT '0',
+  `serologi` enum('0','1') NOT NULL DEFAULT '0',
+  `arv_profilaksis` varchar(15) NOT NULL COMMENT 'Kode Obat',
+  `malaria_periksa_darah` enum('0','1') NOT NULL DEFAULT '0',
+  `malaria` enum('0','1') NOT NULL DEFAULT '0',
+  `malaria_obat` varchar(15) NOT NULL COMMENT 'Kode Obat',
+  `kelambu_berinsektisida` enum('0','1') NOT NULL DEFAULT '0',
+  `periksa_dahak` enum('0','1') NOT NULL DEFAULT '0',
+  `tbc` enum('0','1') NOT NULL DEFAULT '0',
+  `tb_obat` varchar(15) NOT NULL COMMENT 'Kode Obat'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -4061,8 +4206,8 @@ CREATE TABLE `tbl_master_sequence` (
 
 INSERT INTO `tbl_master_sequence` (`id_master_sequence`, `master_seq_code`, `seq_name`, `seq_no`, `length_no`, `dtm_crt`, `dtm_upd`) VALUES
 (1, 'NOPERIKSA', 'No Periksa', 0, 6, '2018-02-28 22:01:47', '2018-02-28 22:01:47'),
-(2, 'NOREKAMMEDIS', 'No Rekam Medis', 51, 6, '2018-02-28 22:04:56', '2021-10-05 13:54:43'),
-(3, 'NOPENDAFTARAN', 'No Pendaftaran', 105, 6, '2018-03-03 01:32:21', '2021-10-05 13:54:43'),
+(2, 'NOREKAMMEDIS', 'No Rekam Medis', 52, 6, '2018-02-28 22:04:56', '2021-10-08 10:31:20'),
+(3, 'NOPENDAFTARAN', 'No Pendaftaran', 106, 6, '2018-03-03 01:32:21', '2021-10-08 10:31:20'),
 (4, 'NOTRANSAKSIOBAT', 'No Transaksi Obat', 86, 6, '2018-05-11 16:49:33', '2021-09-30 15:04:01');
 
 -- --------------------------------------------------------
@@ -4738,7 +4883,8 @@ INSERT INTO `tbl_pasien` (`no_rekam_medis`, `no_id_pasien`, `nama_lengkap`, `tan
 ('000048', '123453', 'David', '2021-10-01', 'A', 'Menikah', 'Swasta', 'Jember', 'Jember', '12', '12', 'Sabi', '082', '', NULL, '2021-09-30 12:16:46', '2021-09-30 12:16:46'),
 ('000049', '09865', 'Ny David', '2021-10-02', 'A', 'Menikah', 'Swasta', 'Jember', 'Jember', '12', '12', 'Fulan', '082', '', NULL, '2021-10-02 08:50:14', '2021-10-02 08:50:14'),
 ('000050', '08909898', 'David', '2021-10-05', 'B', 'Menikah', 'Swasta', 'asa', 'Jember', '12', '12', 'Sabi', '082', '', NULL, '2021-10-05 11:28:25', '2021-10-05 11:28:25'),
-('000051', '556565', 'testing', '2021-10-05', 'B', 'Belum Menikah', 'Swasta', 'asa', 'Jember', '12', '12', 'Sabi', '082', '', NULL, '2021-10-05 13:54:43', '2021-10-05 13:54:43');
+('000051', '556565', 'testing', '2021-10-05', 'B', 'Belum Menikah', 'Swasta', 'asa', 'Jember', '12', '12', 'Sabi', '082', '', NULL, '2021-10-05 13:54:43', '2021-10-05 13:54:43'),
+('000052', '45676', 'David Se', '2021-10-08', 'A', 'Menikah', 'Swasta', 'jember', 'Jember', '12', '12', 'Sabi', '082', '', NULL, '2021-10-08 10:31:20', '2021-10-08 10:31:20');
 
 -- --------------------------------------------------------
 
@@ -4792,9 +4938,10 @@ INSERT INTO `tbl_pendaftaran` (`no_pendaftaran`, `no_rekam_medis`, `id_klinik`, 
 ('0000100', '000047', 1, 2, '1', 1, '2021-09-29 18:37:43', '2021-10-02 07:50:03'),
 ('000101', '000048', 1, 1, '1', 0, '2021-09-30 12:16:46', '2021-09-30 12:16:46'),
 ('000102', '000048', 1, 2, '2', 0, '2021-10-01 13:19:21', '2021-10-05 06:05:58'),
-('000103', '000049', 1, 2, '3', 0, '2021-10-02 08:50:14', '2021-10-02 08:50:14'),
+('000103', '000049', 1, 2, '3', 1, '2021-10-02 08:50:14', '2021-10-16 09:16:35'),
 ('000104', '000050', 1, 4, '4', 0, '2021-10-05 11:28:25', '2021-10-05 11:28:25'),
-('000105', '000051', 1, 2, '4', 0, '2021-10-05 13:54:43', '2021-10-05 13:54:43');
+('000105', '000051', 1, 2, '4', 0, '2021-10-05 13:54:43', '2021-10-05 13:54:43'),
+('000106', '000052', 1, 2, '5', 1, '2021-10-08 10:31:20', '2021-10-08 10:29:05');
 
 -- --------------------------------------------------------
 
@@ -4831,7 +4978,9 @@ INSERT INTO `tbl_periksa` (`no_periksa`, `no_pendaftaran`, `no_rekam_medis`, `an
 ('000094/20210929/000041', '000094', '000041', 'GIGI BAWAH KIRI BE;ALAKANG SAKIT', 'GIGI 36 PULPITIS', 'MUMIFIKASI GIGI 36 (23.79)', 0, 'SKT/21/09/1', '', NULL, 0, 4, NULL, 1, '', '2021-09-29 18:43:28', '2021-09-29 11:58:18'),
 ('000097/20210929/000044', '000097', '000044', 'bintik merah di wajah, telapak tangan dan telapak kaki, nyeri telan', 'HFMD', 'cefadroxil 2x500mg\r\nparacetamol forte 3x650mg\r\ncetirizin 2x10mg k/p', 0, 'SKT/21/09/1', '', NULL, 0, 2, NULL, 0, '', '2021-09-29 19:18:38', '2021-09-29 19:18:38'),
 ('000095/20210929/000042', '000095', '000042', 'batuk', 'rfa', '-', 1, 'SKT/21/09/1', 'sofiani/swasta', '2021-09-29', 1, 2, NULL, 0, '', '2021-09-29 19:22:30', '2021-09-29 19:22:30'),
-('0000100/20211002/000047', '0000100', '000047', 'asa', 'sas', 'JASA MEDIS', 0, 'SKT/21/10/2', '', NULL, 0, 2, NULL, 0, 'Acyclovir tablet  200 mg', '2021-10-02 12:50:02', '2021-10-02 12:50:02');
+('0000100/20211002/000047', '0000100', '000047', 'asa', 'sas', 'JASA MEDIS', 0, 'SKT/21/10/2', '', NULL, 0, 2, NULL, 0, 'Acyclovir tablet  200 mg', '2021-10-02 12:50:02', '2021-10-02 12:50:02'),
+('000106/20211008/000052', '000106', '000052', '', '', 'Cuci Vagina;Baby spa;', 0, '', NULL, NULL, NULL, 2, NULL, 0, NULL, '2021-10-08 15:29:05', '2021-10-08 15:29:05'),
+('000103/20211016/000049', '000103', '000049', '', '', ';;', 0, '', NULL, NULL, NULL, 2, NULL, 0, NULL, '2021-10-16 14:16:35', '2021-10-16 14:16:35');
 
 -- --------------------------------------------------------
 
@@ -4981,7 +5130,7 @@ CREATE TABLE `tbl_profil_rumah_sakit` (
 --
 
 INSERT INTO `tbl_profil_rumah_sakit` (`id`, `nama_rumah_sakit`, `alamat`, `propinsi`, `kabupaten`, `no_telpon`, `logo`, `dtm_crt`, `dtm_upd`) VALUES
-(1, 'KLINIK RATIH', 'Jalan Raya Padonan, No 108, Br. Tibubeneng, Kuta Utara, 80363', 'Bali', 'Badung', '085737301424', 'logo.png', '2018-03-27 11:38:32', '2021-09-23 02:34:45');
+(1, 'KLINIK Pratama', 'Jalan Raya Padonan, No 108, Br. Tibubeneng, Kuta Utara, 80363', 'Bali', 'Badung', '085737301424', 'logo.png', '2018-03-27 11:38:32', '2021-10-13 17:47:07');
 
 -- --------------------------------------------------------
 
@@ -5663,6 +5812,13 @@ CREATE TABLE `tbl_sksehat` (
   `id_dokter` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tbl_sksehat`
+--
+
+INSERT INTO `tbl_sksehat` (`nomor`, `nama`, `umur`, `pekerjaan`, `jenis_kelamin`, `tinggi_badan`, `berat_badan`, `golongan_darah`, `alamat`, `buta_warna`, `keperluan`, `tgl_cetak`, `id_dokter`) VALUES
+('SKS/21/10/1', 'Voluptas sit volupta', 23, 'Qui non ut nulla ali', 'L', 97, 37, 'Ip', 'Et voluptate commodi', 'Similique excepturi', 'Vel harum sit aut il', '2021-10-14', 7);
+
 -- --------------------------------------------------------
 
 --
@@ -5757,6 +5913,7 @@ CREATE TABLE `tbl_tindakan` (
 --
 
 INSERT INTO `tbl_tindakan` (`kode_tindakan`, `tindakan`, `biaya`, `tipe`) VALUES
+('', 'Spooling', 150000, '2'),
 ('1', 'Check up (Batas Hrg Bawah)', 100000, '2'),
 ('10', 'Komposite (Batas Hrg Atas)', 500000, '2'),
 ('11', 'FSPR (Batas Hrg Bawah)', 100000, '2'),
@@ -5825,9 +5982,9 @@ INSERT INTO `tbl_tindakan` (`kode_tindakan`, `tindakan`, `biaya`, `tipe`) VALUES
 ('7', 'GIC (Batas Hrg Bawah)', 200000, '2'),
 ('8', 'GIC (Batas Hrg Atas)', 300000, '2'),
 ('9', 'Komposite (Batas Hrg Bawah)', 250000, '2'),
-('U01', 'JASA MEDIS', 40000, '1'),
+('U01', 'JASA MEDIS', 50000, '1'),
 ('U02', 'JM + INJEKSI', 50000, '1'),
-('U03', 'KB DEPO 3 BULAN', 30000, '1'),
+('U03', 'KB DEPO 3 BULAN', 40000, '1'),
 ('U04', 'KB 1 BULAN', 40000, '1'),
 ('U05', 'OBSERVASI @JAM', 50000, '1'),
 ('U06', '02/LITER/JAM', 30000, '1'),
@@ -5845,15 +6002,15 @@ INSERT INTO `tbl_tindakan` (`kode_tindakan`, `tindakan`, `biaya`, `tipe`) VALUES
 ('U18', 'WT <  5 CM', 40000, '1'),
 ('U19', 'WT 5-10 CM', 100000, '1'),
 ('U20', 'WT > 10 CM', 200000, '1'),
-('U21', 'JARIT 1 SIMPUL', 30000, '1'),
-('U22', 'BUKA JARITAN @SIMPUL', 10000, '1'),
-('U23', 'PERAWATAN LUKA < 5CM', 20000, '1'),
-('U24', 'PERAWATAN LUKA 5-10 CM', 40000, '1'),
-('U25', 'PERAWATAN LUKA > 10 CM', 100000, '1'),
+('U21', 'Buka jaritan @ simpul', 10000, '1'),
+('U22', 'Hecting 1 simpul', 30000, '1'),
+('U23', 'Hecting 1-5', 100000, '1'),
+('U24', 'Hecting 5-10\n', 150000, '1'),
+('U25', 'Hecting >10 keatas', 200000, '1'),
 ('U26', 'NEBULIZER', 100000, '1'),
 ('U27', 'PASANG INVUS', 100000, '1'),
 ('U28', 'DF ON CALL', 400000, '1'),
-('U29', 'CIRCUMSISI', 500000, '1');
+('U29', 'CIRCUMSISI', 600000, '1');
 
 -- --------------------------------------------------------
 
@@ -5933,7 +6090,10 @@ INSERT INTO `tbl_transaksi` (`id_transaksi`, `kode_transaksi`, `id_klinik`, `no_
 (5, 'PRKS', 1, '000095/20210929/000042', '2021-09-29', 0, NULL, '2021-09-29 19:22:30', '2021-09-29 19:22:30'),
 (6, 'TRXOBAT', 1, 'TRXOBAT000085', '2021-09-30', 1, 'dafvud', '2021-09-30 14:17:05', '2021-09-30 14:17:22'),
 (7, 'TRXOBAT', 1, 'TRXOBAT000086', '2021-09-30', 1, 'david', '2021-09-30 15:04:01', '2021-09-30 15:05:56'),
-(8, 'PRKS', 1, '0000100/20211002/000047', '2021-10-02', 0, NULL, '2021-10-02 12:50:03', '2021-10-02 12:50:03');
+(8, 'PRKS', 1, '0000100/20211002/000047', '2021-10-02', 0, NULL, '2021-10-02 12:50:03', '2021-10-02 12:50:03'),
+(10, 'PRKSJASA', 1, '000106/20211008/000052', '2021-10-08', 1, 'david', '2021-10-08 15:29:05', '2021-10-08 15:34:00'),
+(11, 'SKS', 1, 'SKS/21/10/1', '2021-10-14', 0, 'Voluptas sit volupta', '2021-10-14 16:52:22', '2021-10-14 16:52:22'),
+(13, 'KNTRKEHAMILAN', 1, '000103/20211016/000049', '2021-10-16', 1, 'David', '2021-10-16 14:16:35', '2021-10-16 15:12:41');
 
 -- --------------------------------------------------------
 
@@ -5982,7 +6142,16 @@ INSERT INTO `tbl_transaksi_d` (`id_transaksi_d`, `no_transaksi`, `deskripsi`, `a
 (24, '0000100/20211002/000047', 'Total Obat-obatan', 50000, 'd', '2021-10-02 12:50:03', '2021-10-02 12:50:03'),
 (25, '0000100/20211002/000047', 'Subsidi Obat-obatan', 0, 'c', '2021-10-02 12:50:03', '2021-10-02 12:50:03'),
 (26, '0000100/20211002/000047', 'Biaya Pemeriksaan', 10000, 'd', '2021-10-02 12:50:03', '2021-10-02 12:50:03'),
-(27, '0000100/20211002/000047', 'Biaya Tindakan JASA MEDIS', 40000, 'd', '2021-10-02 12:50:03', '2021-10-02 12:50:03');
+(27, '0000100/20211002/000047', 'Biaya Tindakan JASA MEDIS', 40000, 'd', '2021-10-02 12:50:03', '2021-10-02 12:50:03'),
+(31, '000106/20211008/000052', 'Biaya Tindakan Baby spa', 175000, 'd', '2021-10-08 15:29:05', '2021-10-08 15:29:05'),
+(30, '000106/20211008/000052', 'Biaya Tindakan Cuci Vagina', 200000, 'd', '2021-10-08 15:29:05', '2021-10-08 15:29:05'),
+(32, '000106/20211008/000052', 'Pembayaran Biaya Medis a/n david', 375000, 'c', '2021-10-08 15:34:00', '2021-10-08 15:34:00'),
+(33, '000106/20211008/000052', 'Biaya Administrasi', 0, 'd', '2021-10-08 15:34:00', '2021-10-08 15:34:00'),
+(34, 'SKS/21/10/1', 'Biaya Pemeriksaan', 50000, 'd', '2021-10-14 16:52:22', '2021-10-14 16:52:22'),
+(35, '000103/20211016/000049', 'Biaya Tindakan JASA MEDIS', 50000, 'd', '2021-10-16 14:16:35', '2021-10-16 14:16:35'),
+(36, '000103/20211016/000049', 'Biaya Tindakan WT <  5 CM', 40000, 'd', '2021-10-16 14:16:35', '2021-10-16 14:16:35'),
+(37, '000103/20211016/000049', 'Pembayaran Biaya Medis a/n David', 100000, 'c', '2021-10-16 15:12:41', '2021-10-16 15:12:41'),
+(38, '000103/20211016/000049', 'Biaya Administrasi', 10000, 'd', '2021-10-16 15:12:41', '2021-10-16 15:12:41');
 
 -- --------------------------------------------------------
 
@@ -6038,7 +6207,8 @@ INSERT INTO `tbl_trx_akuntansi` (`id_trx_akun`, `deskripsi`, `tanggal`, `dtm_crt
 (8, 'Pembelian Barang dengan Kode PO1632890028', '2021-09-30', '2021-09-30 12:42:05', '2021-09-30 12:42:05'),
 (9, 'Penjualan Obat dengan Kode Transaksi TRXOBAT000085', '2021-09-30', '2021-09-30 14:17:05', '2021-09-30 14:17:05'),
 (10, 'Penjualan Obat dengan Kode Transaksi TRXOBAT000086', '2021-09-30', '2021-09-30 15:04:01', '2021-09-30 15:04:01'),
-(11, 'Penjualan Obat dari Nomor Pemeriksaan 0000100/20211002/000047', '2021-10-02', '2021-10-02 12:50:02', '2021-10-02 12:50:02');
+(11, 'Penjualan Obat dari Nomor Pemeriksaan 0000100/20211002/000047', '2021-10-02', '2021-10-02 12:50:02', '2021-10-02 12:50:02'),
+(12, 'Biaya Pemeriksaan SKS/21/10/1', '2021-10-14', '2021-10-14 16:52:22', '2021-10-14 16:52:22');
 
 -- --------------------------------------------------------
 
@@ -6107,7 +6277,9 @@ INSERT INTO `tbl_trx_akuntansi_detail` (`id_trx_akun_detail`, `id_trx_akun`, `id
 (43, 11, 65, 40000, 'DEBIT', 'lawan', '2021-10-02 12:50:02', '2021-10-02 12:50:02'),
 (44, 11, 58, 40000, 'KREDIT', 'akun', '2021-10-02 12:50:02', '2021-10-02 12:50:02'),
 (45, 11, 39, 50000, 'KREDIT', 'akun', '2021-10-02 12:50:02', '2021-10-02 12:50:02'),
-(46, 11, 64, 0, 'DEBIT', 'akun', '2021-10-02 12:50:02', '2021-10-02 12:50:02');
+(46, 11, 64, 0, 'DEBIT', 'akun', '2021-10-02 12:50:02', '2021-10-02 12:50:02'),
+(47, 12, 62, 50000, 'KREDIT', 'akun', '2021-10-14 16:52:22', '2021-10-14 16:52:22'),
+(48, 12, 20, 50000, 'DEBIT', 'lawan', '2021-10-14 16:52:22', '2021-10-14 16:52:22');
 
 -- --------------------------------------------------------
 
@@ -6151,7 +6323,8 @@ INSERT INTO `tbl_user` (`id_users`, `full_name`, `email`, `password`, `images`, 
 (12, 'Kadek', 'kadek@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '-', 8, 'y', 0, 0, 0, 1, '2021-09-29 14:21:00', '2021-09-29 14:21:00', 'null'),
 (13, 'Dayu', 'dayu@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '-', 8, 'y', 0, 0, 0, 1, '2021-09-29 14:21:00', '2021-09-29 14:21:00', 'null'),
 (14, 'Lani', 'lani@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '-', 3, 'y', 0, 0, 2, 1, '2021-09-29 14:21:00', '2021-09-29 14:21:00', 'null'),
-(15, 'daftar', 'daftar@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '-', 4, 'y', 0, 0, 2, 1, '2021-09-29 14:21:00', '2021-09-29 14:21:00', 'null');
+(15, 'daftar', 'daftar@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '-', 4, 'y', 0, 0, 2, 1, '2021-09-29 14:21:00', '2021-09-29 14:21:00', 'null'),
+(16, 'Full Akses', 'fullakses@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '', 10, 'y', 0, 0, 0, 1, '2021-10-14 00:16:19', '2021-10-14 00:16:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -6178,7 +6351,8 @@ INSERT INTO `tbl_user_level` (`id_user_level`, `nama_level`, `dtm_crt`, `dtm_upd
 (6, 'HRD', '2019-11-26 09:25:50', '2019-11-26 09:25:50'),
 (7, 'Accounting', '2019-11-26 09:28:18', '2019-11-26 09:28:18'),
 (8, 'Kasir', '2019-12-13 09:14:04', '2019-12-13 09:14:04'),
-(9, 'Nakes', '2021-09-29 10:48:24', '2021-09-29 10:48:24');
+(9, 'Nakes', '2021-09-29 10:48:24', '2021-09-29 10:48:24'),
+(10, 'All Access', '2021-10-14 00:13:07', '2021-10-14 00:13:07');
 
 -- --------------------------------------------------------
 
@@ -15565,6 +15739,12 @@ ALTER TABLE `tbl_komisi_dokter`
   ADD PRIMARY KEY (`id_komisi`);
 
 --
+-- Indexes for table `tbl_kontrol_kehamilan`
+--
+ALTER TABLE `tbl_kontrol_kehamilan`
+  ADD PRIMARY KEY (`id_kontrol`);
+
+--
 -- Indexes for table `tbl_lokasi_barang`
 --
 ALTER TABLE `tbl_lokasi_barang`
@@ -15919,7 +16099,7 @@ ALTER TABLE `tbl_golongan_barang`
 -- AUTO_INCREMENT for table `tbl_hak_akses`
 --
 ALTER TABLE `tbl_hak_akses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=502;
 
 --
 -- AUTO_INCREMENT for table `tbl_inventory_detail`
@@ -15955,7 +16135,13 @@ ALTER TABLE `tbl_klinik`
 -- AUTO_INCREMENT for table `tbl_komisi_dokter`
 --
 ALTER TABLE `tbl_komisi_dokter`
-  MODIFY `id_komisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_komisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `tbl_kontrol_kehamilan`
+--
+ALTER TABLE `tbl_kontrol_kehamilan`
+  MODIFY `id_kontrol` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_lokasi_barang`
@@ -16105,7 +16291,7 @@ ALTER TABLE `tbl_status_menikah`
 -- AUTO_INCREMENT for table `tbl_tipe_periksa_jasa`
 --
 ALTER TABLE `tbl_tipe_periksa_jasa`
-  MODIFY `id_tipe` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_tipe` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_tipe_periksa_lab`
@@ -16117,13 +16303,13 @@ ALTER TABLE `tbl_tipe_periksa_lab`
 -- AUTO_INCREMENT for table `tbl_transaksi`
 --
 ALTER TABLE `tbl_transaksi`
-  MODIFY `id_transaksi` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_transaksi` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaksi_d`
 --
 ALTER TABLE `tbl_transaksi_d`
-  MODIFY `id_transaksi_d` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_transaksi_d` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaksi_d_obat`
@@ -16135,25 +16321,25 @@ ALTER TABLE `tbl_transaksi_d_obat`
 -- AUTO_INCREMENT for table `tbl_trx_akuntansi`
 --
 ALTER TABLE `tbl_trx_akuntansi`
-  MODIFY `id_trx_akun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_trx_akun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_trx_akuntansi_detail`
 --
 ALTER TABLE `tbl_trx_akuntansi_detail`
-  MODIFY `id_trx_akun_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id_trx_akun_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tbl_user_level`
 --
 ALTER TABLE `tbl_user_level`
-  MODIFY `id_user_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_user_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
