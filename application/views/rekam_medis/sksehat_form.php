@@ -33,6 +33,15 @@
                     </div>
                     <div class="box-body">
 						<div class="form-group">
+							<div class="col-sm-2">Nomor <?php echo form_error('nomor'); ?></div>
+							<div class="col-sm-1">
+                                    <?php echo form_input(array('id'=>'nomor','name'=>'nomor','type'=>'text','value'=> $nomor,'class'=>'form-control'));?>
+							</div>
+                            <div class="col-sm-9" style="padding-left:0px">
+                                <h4 style="margin-top:5px;"><?= "/".date('m')."/KR/SH/".date('y') ?></h4>
+                            </div>
+                        </div>
+						<div class="form-group">
 							<div class="col-sm-2">Nama <?php echo form_error('nama'); ?></div>
 							<div class="col-sm-10">
                                     <?php echo form_input(array('id'=>'nama','name'=>'nama','type'=>'text','value'=>'','class'=>'form-control'));?>

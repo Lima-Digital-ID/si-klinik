@@ -70,15 +70,7 @@ class Periksamedis extends CI_Controller
                         }
                     }
                 }
-                $getLastNomor = $this->Periksa_model->getLastNomor();
-                if(count($getLastNomor)==0){
-                    $nomor = 1;
-                } 
-                else{
-                    $getNomor = explode('/',$getLastNomor[0]->nomor_skt);
-                    $nomor = (int)$getNomor[3]+1;
-                }
-                $sktNomor = "SKT/".date('y')."/".date('m')."/".$nomor;
+                $sktNomor = $this->input->post('nomor_skt')."/".date('m')."/KR/SK/".date('y');;
     
                 $data_periksa = array(
                     'no_periksa' => $this->input->post('no_periksa'),
@@ -426,7 +418,16 @@ class Periksamedis extends CI_Controller
                     $this->session->set_flashdata('message_type', 'danger');
                 }
             }
-            
+            $nomor = 1;
+            $getLastNomorSK = $this->Periksa_model->getLastNomor();
+            if(count($getLastNomorSK)>0){
+                $getNomor = explode('/',$getLastNomorSK[0]->nomor_skt);
+                if(count($getNomor)==5){
+                    $nomor = (int)$getNomor[0]+1;
+                }
+            } 
+            $this->data['nomor_skt'] = sprintf("%04s",$nomor);
+
             $this->template->load('template','rekam_medis/form_rekam_medis', $this->data);
     
         }
@@ -576,18 +577,19 @@ class Periksamedis extends CI_Controller
         $this->form_validation->set_rules('buta_warna', 'Buta Warna', 'trim|required');
         $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->load->model('Tbl_sksehat_model');
+        $getLastNomor = $this->Tbl_sksehat_model->getLastNomor();
+        $nomor = 1;
+        if(count($getLastNomor)>0){
+            $getNomor = explode('/',$getLastNomor[0]->nomor);
+            if(count($getNomor)==5){ // if kode format baru
+                $nomor = (int)$getNomor[0]+1;
+            }
+        } 
+        $data['nomor'] = sprintf("%04s",$nomor);
         if ($this->form_validation->run() == TRUE) {
             $post = $this->input->post();
-            $this->load->model('Tbl_sksehat_model');
-            $getLastNomor = $this->Tbl_sksehat_model->getLastNomor();
-            if(count($getLastNomor)==0){
-                $nomor = 1;
-            } 
-            else{
-                $getNomor = explode('/',$getLastNomor[0]->nomor);
-                $nomor = (int)$getNomor[3]+1;
-            }
-            $post['nomor'] = "SKS/".date('y')."/".date('m')."/".$nomor;
+            $post['nomor'] = $this->input->post('nomor')."/".date('m')."/KR/SH/".date('y');
             $post['tgl_cetak'] = date('Y-m-d');
             $post['id_dokter'] = $this->id_dokter;
             $this->Tbl_sksehat_model->insert($post);
@@ -595,7 +597,7 @@ class Periksamedis extends CI_Controller
             //insert to transaksi
             //insert transaksi detail
             $tr = array(
-                'kode_transaksi' => "SKS",
+                'kode_transaksi' => "SH",
 				'id_klinik' => $this->id_klinik,
                 'no_transaksi' => $post['nomor'],
                 'tgl_transaksi' => date('Y-m-d'),
@@ -636,7 +638,7 @@ class Periksamedis extends CI_Controller
             
             redirect(base_url()."periksamedis/cetak_sksehat?nomor=".$post['nomor']);
         } else {
-            $this->template->load('template','rekam_medis/sksehat_form');
+            $this->template->load('template','rekam_medis/sksehat_form',$data);
         }
         
         // $this->load->view('rekam_medis/cetak_surat_ket_sehat');
