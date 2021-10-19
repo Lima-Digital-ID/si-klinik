@@ -63,15 +63,15 @@
                                     $setStokAwal = $stokAwal;
                                     foreach ($history as $key => $value) {
                                         $no++;
-                                        $stokNow = $value->inv_type=='TRX_STUFF' || $value->inv_type=='MANUFAKTUR_OUT' ?  $setStokAwal - $value->jumlah  : $setStokAwal+$value->jumlah;
+                                        $stokNow = $value->inv_type=='RETURN_STUFF' || $value->inv_type=='RETURN_MONEY' || $value->inv_type=='TRX_STUFF' || $value->inv_type=='MANUFAKTUR_OUT' ?  $setStokAwal - $value->jumlah  : $setStokAwal+$value->jumlah;
                                         $setStokAwal =  $stokNow;
                                 ?>
                                     <tr>
                                         <td><?= $no ?></td>
                                         <td><?= date('d-m-Y', strtotime($value->dtm_crt)); ?></td>
-                                        <td><?= $value->inv_type=='TRX_STUFF' || $value->inv_type=='MANUFAKTUR_OUT' ? $value->jumlah : '' ?></td>
+                                        <td><?= $value->inv_type=='RETURN_STUFF' || $value->inv_type=='RETURN_MONEY' || $value->inv_type=='TRX_STUFF' || $value->inv_type=='MANUFAKTUR_OUT' ? $value->jumlah : '' ?></td>
                                         <td><?= $value->inv_type=='RECEIPT_ORDER' || $value->inv_type=='MANUFAKTUR_IN' ? $value->jumlah : '' ?></td>
-                                        <td><?= $value->inv_type=='TRX_STUFF' || $value->inv_type=='MANUFAKTUR_OUT' ? 'Obat Keluar' : 'Obat Masuk' ?> dari <?= $value->id_inventory ?></td>
+                                        <td><?= $value->inv_type=='RETURN_STUFF' || $value->inv_type=='RETURN_MONEY' || $value->inv_type=='TRX_STUFF' || $value->inv_type=='MANUFAKTUR_OUT' ? 'Obat Keluar' : 'Obat Masuk' ?> dari <?= $value->id_inventory ?></td>
                                         <td><?= $stokNow ?></td>
                                     </tr>
                                 <?php
