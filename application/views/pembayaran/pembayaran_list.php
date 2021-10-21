@@ -92,6 +92,21 @@
                                 </thead>
                             </table>
                         </div>
+                        <div id="anak" class="tab-pane fade">
+                            <table class="table table-bordered table-striped" width="100%" id="tableAnak">
+                                <thead>
+                                    <tr>
+                                        <th width="30px">No</th>
+                                        <th>No Transaksi</th>
+                                        <th>Nama Pasien</th>
+                                        <th>Klinik Periksa</th>
+                                        <th>Tgl Periksa</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                         <div id="jasa" class="tab-pane fade">
                             <table class="table table-bordered table-striped" width="100%" id="tableJasa">
                                 <thead>
@@ -191,6 +206,22 @@
                             </div>
                             <div id="listHamil" class="tab-pane fade">
                                 <table class="table table-bordered table-striped" width="100%" id="tableListHamil">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px">No</th>
+                                            <th>No Transaksi</th>
+                                            <th>Nama Pasien</th>
+                                            <th>Klinik Periksa</th>
+                                            <th>Tgl Periksa</th>
+                                            <th>Tgl Pembayaran</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="listAnak" class="tab-pane fade">
+                                <table class="table table-bordered table-striped" width="100%" id="tableListAnak">
                                     <thead>
                                         <tr>
                                             <th width="30px">No</th>
@@ -340,7 +371,7 @@
         var t = $("#tableJasa").dataTable({
             initComplete: function() {
                 var api = this.api();
-                $('#mytable_filter input')
+                $('#tableJasa_filter input')
                 .off('.DT')
                 .on('keyup.DT', function(e) {
                     if (e.keyCode == 13) {
@@ -377,7 +408,7 @@
         var t = $("#tableHamil").dataTable({
             initComplete: function() {
                 var api = this.api();
-                $('#mytable_filter input')
+                $('#tableHamil_filter input')
                 .off('.DT')
                 .on('keyup.DT', function(e) {
                     if (e.keyCode == 13) {
@@ -411,10 +442,47 @@
                 $('td:eq(0)', row).html(index);
             }
         });
+        var t = $("#tableAnak").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#tableAnak_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "pembayaran/json/2", "type": "POST"},
+            columns: [
+                {
+                    "data": "id_transaksi",
+                    "orderable": false
+                },{"data": "no_transaksi"},{"data": "nama_pasien"},{"data": "id_klinik"},{"data": "tgl_periksa"},{"data": "status_transaksi"},
+                {
+                    "data" : "action",
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[4, 'asc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
         var t = $("#tableLab").dataTable({
             initComplete: function() {
                 var api = this.api();
-                $('#mytable_filter input')
+                $('#tableLab_filter input')
                 .off('.DT')
                 .on('keyup.DT', function(e) {
                     if (e.keyCode == 13) {
@@ -608,7 +676,7 @@
         var t2 = $("#tableListHamil").dataTable({
             initComplete: function() {
                 var api = this.api();
-                $('#mytable2_filter input')
+                $('#tableListHamil_filter input')
                 .off('.DT')
                 .on('keyup.DT', function(e) {
                     if (e.keyCode == 13) {
@@ -645,10 +713,50 @@
                 $('td:eq(0)', row).html(index);
             }
         });
+        var t2 = $("#tableListAnak").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#tableListAnak_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "pembayaran/json2/2", "type": "POST"},
+            columns: [
+                {
+                    "data": "id_transaksi",
+                    "orderable": false
+                },{"data": "no_transaksi"},{"data": "nama_pasien"},{"data": "id_klinik"},{"data": "tgl_periksa"},{"data": "tgl_pembayaran"},{"data": "status_transaksi"},
+                {
+                    "render" : function(data,type,row){
+                        var cetak = row.is_surat_ket_sakit=='1' ? row.cetak : ''
+                        return row.action+"&nbsp;"+cetak
+                    },
+                    "orderable": false,
+                    "className" : "text-center"
+                }
+            ],
+            order: [[5, 'desc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
         var t2 = $("#tableListJasa").dataTable({
             initComplete: function() {
                 var api = this.api();
-                $('#mytable2_filter input')
+                $('#tableListJasa_filter input')
                 .off('.DT')
                 .on('keyup.DT', function(e) {
                     if (e.keyCode == 13) {
@@ -688,7 +796,7 @@
         var t2 = $("#tableListLab").dataTable({
             initComplete: function() {
                 var api = this.api();
-                $('#mytable2_filter input')
+                $('#tableListLab_filter input')
                 .off('.DT')
                 .on('keyup.DT', function(e) {
                     if (e.keyCode == 13) {
