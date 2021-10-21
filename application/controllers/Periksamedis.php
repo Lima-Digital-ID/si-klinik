@@ -891,7 +891,7 @@ class Periksamedis extends CI_Controller
                 'dc' => 'd'
             );
             array_push($data_transaksi_d,$arr);
-            $tindakan.=$getTindakan->item.";";
+            $tindakan.=$getTindakan->tindakan.";";
         }
 
         $periksa = array(
@@ -975,7 +975,7 @@ class Periksamedis extends CI_Controller
                 'dc' => 'd'
             );
             array_push($data_transaksi_d,$arr);
-            $tindakan.=$getTindakan->item.";";
+            $tindakan.=$getTindakan->tindakan.";";
         }
 
         $periksa = array(
