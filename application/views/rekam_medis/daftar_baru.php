@@ -171,7 +171,6 @@
     $(document).ready(function(){
         $(".namaDokter").change(function(){
             var tipe = $(this).find(":selected").attr('data-tipe')
-
             if(tipe=='2'){
                 $("#tipe_dokter_gigi").show()
                 $("#tipe_dokter_gigi").attr('disabled',false)
@@ -184,6 +183,7 @@
                 $("#tipe_dokter_umum").show()
                 $("#tipe_dokter_umum").attr('disabled',false)
             }
+        })
         })
     //     $("#tipe_dokter_umum").change(function(){
     //         var thisVal = $(this).val()

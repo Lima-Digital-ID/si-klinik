@@ -119,14 +119,15 @@ class Transaksi_model extends CI_Model
         $this->datatables->where('tbl_periksa.is_ambil_obat', 0);
         if($id_klinik != null)
             $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);
-
-        if($tipe==1 || $tipe==4){
-            $this->datatables->where('tbl_pendaftaran.tipe_periksa', '1');
-            $this->datatables->or_where('tbl_pendaftaran.tipe_periksa', '4');
+            
+            if($tipe==1 || $tipe==4){
+                $this->datatables->where('tbl_pendaftaran.tipe_periksa', '1');
+                $this->datatables->or_where('tbl_pendaftaran.tipe_periksa', '4');
         }
         else{
             $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
         }
+        $this->datatables->group_by('tbl_transaksi.no_transaksi');
 
         $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1?tab=pemeriksaan'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
             
@@ -155,9 +156,7 @@ class Transaksi_model extends CI_Model
             $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
             $this->datatables->add_column('cetak', anchor(site_url('pembayaran/cetak-sklab?id=$1'),'Cetak SK LAB','class="btn btn-danger btn-sm"'),'no_periksa');
         }
-    
-
-        
+        $this->datatables->group_by('tbl_transaksi.no_transaksi');
             
         return $this->datatables->generate();
     }
