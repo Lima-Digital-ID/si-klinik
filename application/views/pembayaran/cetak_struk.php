@@ -35,12 +35,15 @@
 </head>
 <body>
   <center>
-    <p style="margin-bottom:0px">Nada Farma</p>
+    <p style="margin-bottom:0px">APOTIK</p>
+    <p style="margin-bottom:0px;margin-top:0px">NADA FARMA</p>
+    <p style="margin-bottom:0px;margin-top:0px">Tibuneneng</p>
+    -------------------------------------------
     <?php echo $transaksi[0]->no_transaksi;?>
     <br>        
     -------------------------------------------
   </center>
-  <table width="100%">
+<!--   <table width="100%">
     <tr>
       <td width="47.5%">
         <?= date('Y-m-d') ?>
@@ -52,7 +55,7 @@
     </tr>
   </table>
   -------------------------------------------
-  <table width="100%">
+ -->  <table width="100%">
     <?php
       $total_transaksi = 0;
       $i = 1;
