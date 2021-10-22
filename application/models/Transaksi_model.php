@@ -127,7 +127,7 @@ class Transaksi_model extends CI_Model
         else{
             $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
         }
-        $this->datatables->group_by('tbl_transaksi.no_transaksi');
+        $this->db->group_by('tbl_transaksi.no_transaksi');
 
         $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1?tab=pemeriksaan'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
             
@@ -156,7 +156,7 @@ class Transaksi_model extends CI_Model
             $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
             $this->datatables->add_column('cetak', anchor(site_url('pembayaran/cetak-sklab?id=$1'),'Cetak SK LAB','class="btn btn-danger btn-sm"'),'no_periksa');
         }
-        $this->datatables->group_by('tbl_transaksi.no_transaksi');
+        $this->db->group_by('tbl_transaksi.no_transaksi');
             
         return $this->datatables->generate();
     }
