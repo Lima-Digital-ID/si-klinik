@@ -115,18 +115,23 @@ class Transaksi_model extends CI_Model
         $this->datatables->join('tbl_pasien','tbl_periksa.no_rekam_medis=tbl_pasien.no_rekam_medis');
         $this->datatables->join('tbl_pendaftaran','tbl_pasien.no_rekam_medis=tbl_pendaftaran.no_rekam_medis');
         $this->datatables->join('tbl_klinik','tbl_transaksi.id_klinik=tbl_klinik.id_klinik');
-        $this->datatables->where('status_transaksi', 0);
-        $this->datatables->where('tbl_periksa.is_ambil_obat', 0);
+        // $this->datatables->where('status_transaksi', '0');
+        // $this->datatables->where('tbl_periksa.is_ambil_obat', '0');
+        $where = "status_transaksi = '0' and tbl_periksa.is_ambil_obat = '0' ";
         if($id_klinik != null)
-            $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);
+            $where.="and tbl_transaksi.id_klinik = '$id_klinik' ";
+            // $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);
             
-            if($tipe==1 || $tipe==4){
-                $this->datatables->where('tbl_pendaftaran.tipe_periksa', '1');
-                $this->datatables->or_where('tbl_pendaftaran.tipe_periksa', '4');
+        if($tipe==1 || $tipe==4){
+            $where.="and tbl_pendaftaran.tipe_periksa = '1' or $where and tbl_pendaftaran.tipe_periksa = '4'";
+            // $this->datatables->where('tbl_pendaftaran.tipe_periksa', '1');
+            // $this->datatables->or_where('tbl_pendaftaran.tipe_periksa', '4');
         }
         else{
-            $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
+            $where.=" and tbl_pendaftaran.tipe_periksa = '$tipe'";
+            // $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
         }
+        $this->datatables->where($where);
         // $this->db->group_by('tbl_transaksi.no_transaksi');
 
         $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1?tab=pemeriksaan'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
@@ -141,7 +146,7 @@ class Transaksi_model extends CI_Model
         $this->datatables->join('tbl_pasien','tbl_periksa.no_rekam_medis=tbl_pasien.no_rekam_medis');
         $this->datatables->join('tbl_pendaftaran','tbl_pasien.no_rekam_medis=tbl_pendaftaran.no_rekam_medis');
         $this->datatables->join('tbl_klinik','tbl_transaksi.id_klinik=tbl_klinik.id_klinik');
-        $this->datatables->where('status_transaksi', 1);
+        $this->datatables->where('status_transaksi', '1');
         if($id_klinik != null)
             $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);
 
