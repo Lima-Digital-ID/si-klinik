@@ -193,6 +193,34 @@ class Akuntansi_model extends CI_Model
       $db=$this->db->query('SELECT SUM(jumlah) as jumlah, MAX(trd.id_akun) as id_akun, MAX(trd.id_trx_akun) AS id_trx_akun, MAX(ta.nama_akun) as rincian, COALESCE((SELECT nama_akun FROM tbl_trx_akuntansi_detail JOIN tbl_akun ON tbl_akun.id_akun=tbl_trx_akuntansi_detail.id_akun WHERE tbl_trx_akuntansi_detail.id_trx_akun=trd.id_trx_akun AND tbl_trx_akuntansi_detail.tipe="KREDIT")) AS nama_akun FROM `tbl_trx_akuntansi` JOIN tbl_trx_akuntansi_detail trd ON trd.id_trx_akun=tbl_trx_akuntansi.id_trx_akun JOIN tbl_akun ta ON ta.id_akun=trd.id_akun WHERE tbl_trx_akuntansi.id_trx_akun in (SELECT id_trx_akun FROM tbl_trx_akuntansi_detail WHERE id_akun=35 OR id_akun=36 OR id_akun=66 OR id_akun=67) AND tipe="DEBIT" AND tanggal LIKE "'.$date.'%" AND trd.id_akun != 35 AND trd.id_akun != 36 GROUP BY trd.id_akun');
       return $db->result();
     }
+    public function rekap_pengeluaran($dari,$sampai)
+    {
+      $this->db->select('t.tanggal,t.deskripsi,sum(jumlah) as jumlah,t.id_trx_akun');
+      $this->db->from('tbl_trx_akuntansi t');
+      $this->db->join('tbl_trx_akuntansi_detail d','t.id_trx_akun = d.id_trx_akun');
+      $this->db->join('tbl_akun a','d.id_akun = a.id_akun');
+      $this->db->where('t.tanggal >=',$dari);
+      $this->db->where('t.tanggal <=',$sampai);
+      $this->db->where('tipe', 'DEBIT');
+      $this->db->where('d.keterangan', 'akun');
+      $this->db->like('a.no_akun', '5', 'after');
+      $this->db->order_by('a.nama_akun','asc');
+      $this->db->group_by('d.id_trx_akun');
+      return $this->db->get()->result();
+    }
+    public function rekap_pengeluaran_detail($dari,$sampai,$id_trx)
+    {
+      $this->db->select('jumlah,a.no_akun,a.nama_akun,d.id_trx_akun_detail');
+      $this->db->from('tbl_trx_akuntansi_detail d');
+      $this->db->join('tbl_trx_akuntansi t','d.id_trx_akun = t.id_trx_akun');
+      $this->db->join('tbl_akun a','d.id_akun = a.id_akun');
+      $this->db->where('d.id_trx_akun', $id_trx);
+      $this->db->where('t.tanggal >=',$dari);
+      $this->db->where('t.tanggal <=',$sampai);
+      $this->db->where('tipe', 'DEBIT');
+      $this->db->where('d.keterangan', 'akun');
+      return $this->db->get()->result();
+    }
     function get_laba_rugi($id, $date){
         $db=$this->db->query('SELECT COALESCE((SELECT SUM(trd.jumlah) FROM tbl_trx_akuntansi_detail trd 
           JOIN tbl_trx_akuntansi tra ON trd.id_trx_akun=tra.id_trx_akun 
