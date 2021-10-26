@@ -77,7 +77,7 @@ class Tindakan extends CI_Controller
             $this->template->load('template','master_data/tindakan/tbl_tindakan_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('spesialis'));
+            redirect(site_url('tindakan'));
         }
     }
     public function update() 

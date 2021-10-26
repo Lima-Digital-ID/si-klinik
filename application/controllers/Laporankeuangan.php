@@ -66,53 +66,54 @@ class Laporankeuangan extends CI_Controller
         $this->template->load('template','laporankeuangan/laporan_biaya_obat', $this->data);
     }
     public function biaya_tindakan(){
-        $this->_rules();
-        $this->data['option_tahun'] = array();
-        for($i = 2015;$i <= (int)date('Y');$i++){
-            $this->data['option_tahun'][$i] = $i;
-        }
+        // $this->_rules();
+        // $this->data['option_tahun'] = array();
+        // for($i = 2015;$i <= (int)date('Y');$i++){
+        //     $this->data['option_tahun'][$i] = $i;
+        // }
         
-        if ($this->form_validation->run() == TRUE) {
-            $this->data['rekap_laporan'] = $this->input->post('rekap_laporan');
-            $this->data['filter_tanggal'] =  $this->input->post('tanggal');
-            $this->data['filter_bulan'] =  $this->input->post('bulan');
-            $this->data['filter_tahun'] =  $this->input->post('tahun');
-            $this->data['id_klinik'] = $this->input->post('id_klinik');
-            $this->data['filters'] = '';
-        } else {
-            $this->data['rekap_laporan'] = set_value('rekap_laporan');
-            $this->data['filter_tanggal'] =  set_value('tanggal');
-            $this->data['filter_bulan'] =  set_value('bulan');$this->input->post('bulan');
-            $this->data['filter_tahun'] =  set_value('tahun');;
-            $this->data['id_klinik'] = set_value('id_klinik');;
-            $this->data['filters'] = '';
-        }
-        $this->template->load('template','laporankeuangan/laporan_biaya_tindakan', $this->data);
+        // if ($this->form_validation->run() == TRUE) {
+        //     $this->data['rekap_laporan'] = $this->input->post('rekap_laporan');
+        //     $this->data['filter_tanggal'] =  $this->input->post('tanggal');
+        //     $this->data['filter_bulan'] =  $this->input->post('bulan');
+        //     $this->data['filter_tahun'] =  $this->input->post('tahun');
+        //     $this->data['id_klinik'] = $this->input->post('id_klinik');
+        //     $this->data['filters'] = '';
+        // } else {
+        //     $this->data['rekap_laporan'] = set_value('rekap_laporan');
+        //     $this->data['filter_tanggal'] =  set_value('tanggal');
+        //     $this->data['filter_bulan'] =  set_value('bulan');$this->input->post('bulan');
+        //     $this->data['filter_tahun'] =  set_value('tahun');;
+        //     $this->data['filters'] = '';
+        //     $this->data['id_klinik'] = set_value('id_klinik');;
+        // }
+
+        $this->template->load('template','laporankeuangan/laporan_biaya_tindakan');
     }
 
     public function biaya_pemeriksaan(){
-        $this->_rules();
-        $this->data['option_tahun'] = array();
-        for($i = 2015;$i <= (int)date('Y');$i++){
-            $this->data['option_tahun'][$i] = $i;
-        }
+        // $this->_rules();
+        // $this->data['option_tahun'] = array();
+        // for($i = 2015;$i <= (int)date('Y');$i++){
+        //     $this->data['option_tahun'][$i] = $i;
+        // }
         
-        if ($this->form_validation->run() == TRUE) {
-            $this->data['rekap_laporan'] = $this->input->post('rekap_laporan');
-            $this->data['filter_tanggal'] =  $this->input->post('tanggal');
-            $this->data['filter_bulan'] =  $this->input->post('bulan');
-            $this->data['filter_tahun'] =  $this->input->post('tahun');
-            $this->data['id_klinik'] = $this->input->post('id_klinik');
-            $this->data['filters'] = '';
-        } else {
-            $this->data['rekap_laporan'] = set_value('rekap_laporan');
-            $this->data['filter_tanggal'] =  set_value('tanggal');
-            $this->data['filter_bulan'] =  set_value('bulan');$this->input->post('bulan');
-            $this->data['filter_tahun'] =  set_value('tahun');;
-            $this->data['id_klinik'] = set_value('id_klinik');;
-            $this->data['filters'] = '';
-        }
-        $this->template->load('template','laporankeuangan/laporan_biaya_pemeriksaan', $this->data);
+        // if ($this->form_validation->run() == TRUE) {
+        //     $this->data['rekap_laporan'] = $this->input->post('rekap_laporan');
+        //     $this->data['filter_tanggal'] =  $this->input->post('tanggal');
+        //     $this->data['filter_bulan'] =  $this->input->post('bulan');
+        //     $this->data['filter_tahun'] =  $this->input->post('tahun');
+        //     $this->data['id_klinik'] = $this->input->post('id_klinik');
+        //     $this->data['filters'] = '';
+        // } else {
+        //     $this->data['rekap_laporan'] = set_value('rekap_laporan');
+        //     $this->data['filter_tanggal'] =  set_value('tanggal');
+        //     $this->data['filter_bulan'] =  set_value('bulan');$this->input->post('bulan');
+        //     $this->data['filter_tahun'] =  set_value('tahun');;
+        //     $this->data['id_klinik'] = set_value('id_klinik');;
+        //     $this->data['filters'] = '';
+        // }
+        $this->template->load('template','laporankeuangan/laporan_biaya_pemeriksaan');
     }
     
     public function json($filter = null) {

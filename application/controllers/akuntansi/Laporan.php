@@ -133,9 +133,31 @@ class Laporan extends CI_Controller
         $this->template->load('template','akuntansi/laporan/rekap_petty_cash', $data);  
     }
     public function rekap_all(){
-        $data['date']=date('Y-m');
-        $data['bulan']=json_encode(explode('-', date('Y-m')));
+        // $data['date']=date('Y-m');
+        // $data['bulan']=json_encode(explode('-', date('Y-m')));
+
+        $data['akun_option']=array();
+        foreach ($this->Tbl_akun_model->get_all_beban() as $key => $value) {
+            if ($value->level != 0) {    
+                $arr = array(
+                    'value' => $value->id_akun,
+                    'label' => $value->no_akun. ' | '.$value->nama_akun,
+                );
+                array_push($data['akun_option'],$arr);
+            }
+        }
+        if(isset($_GET['dari'])){
+            $data['rekap'] = $this->Akuntansi_model->rekap_pengeluaran($_GET['dari'],$_GET['sampai']);
+        }
+    
         $this->template->load('template','akuntansi/laporan/rekap_all', $data);  
+    }
+    public function rekap_detail()
+    {
+        $detail = $this->Akuntansi_model->rekap_pengeluaran_detail($_GET['dari'],$_GET['sampai'],$_GET['id_trx']);
+        header('Content-Type: application/json');
+
+        echo json_encode($detail);
     }
 
 }
