@@ -204,7 +204,7 @@ class Akuntansi_model extends CI_Model
       $this->db->where('tipe', 'DEBIT');
       $this->db->where('d.keterangan', 'akun');
       $this->db->like('a.no_akun', '5', 'after');
-      $this->db->group_by('a.nama_akun');
+      $this->db->group_by('t.id_trx_akun');
       $this->db->order_by('a.nama_akun','asc');
       return $this->db->get()->result();
     }
