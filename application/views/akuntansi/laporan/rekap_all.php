@@ -139,7 +139,9 @@
                 {
                     "data": "id_trx_akun",
                     "orderable": false
-                },{"data": "tanggal"},{"data": "deskripsi"},{"data": "jumlah"},
+                },{"data": "tanggal"},{"data": "deskripsi"},{"render": function(data,type,row){
+                  return formatRupiah(row.jumlah)
+                }},
                 {
                     "data" : "action",
                     "orderable": false,
