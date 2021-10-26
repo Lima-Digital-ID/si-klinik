@@ -73,25 +73,25 @@
                         <div class="form-group">
 							<div class="col-sm-3">Biaya Administrasi</div>
     						<div class="col-sm-3">
-    							<?php echo form_input(array('id'=>'biaya_administrasi','name'=>'biaya_administrasi','type'=>'number','value'=>'','class'=>'form-control','style'=>'text-align:right;','placeholder'=>'0','onchange'=>'hitung_total()'));?>
+    							<?php echo form_input(array('id'=>'biaya_administrasi','name'=>'biaya_administrasi','type'=>'text','value'=>'','class'=>'form-control','style'=>'text-align:right;','placeholder'=>'0','onchange'=>'hitung_total()','onkeyup' => 'formatRupiah(this)'));?>
     						</div>
 						</div> 
                         <div class="form-group">
 							<div class="col-sm-3">Total Transaksi</div>
     						<div class="col-sm-3">
-    							<?php echo form_input(array('id'=>'total_transaksi','name'=>'total_transaksi','type'=>'number','value'=>$total_transaksi,'class'=>'form-control','readonly'=>'readonly','style'=>'text-align:right;','placeholder'=>'0'));?>
+    							<?php echo form_input(array('id'=>'total_transaksi','name'=>'total_transaksi','type'=>'text','value'=>number_format($total_transaksi,0,',','.'),'class'=>'form-control','readonly'=>'readonly','style'=>'text-align:right;','placeholder'=>'0'));?>
     						</div>
 						</div> 
 						<div class="form-group">
 							<div class="col-sm-3">Subsidi</div>
     						<div class="col-sm-3">
-    							<?php echo form_input(array('id'=>'subsidi_transaksi','name'=>'subsidi_transaksi','type'=>'number','value'=>'','class'=>'form-control','style'=>'text-align:right;','placeholder'=>'0','onchange'=>'hitung_bayar()'));?>
+    							<?php echo form_input(array('id'=>'subsidi_transaksi','name'=>'subsidi_transaksi','type'=>'text','value'=>'','class'=>'form-control','style'=>'text-align:right;','placeholder'=>'0','onchange'=>'hitung_bayar()','onkeyup' => 'formatRupiah(this)'));?>
     						</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-3">Total yang Harus Dibayar</div>
     						<div class="col-sm-3">
-    							<?php echo form_input(array('id'=>'total_pembayaran','name'=>'total_pembayaran','type'=>'number','value'=>$total_transaksi,'class'=>'form-control','readonly'=>'readonly','style'=>'text-align:right;','placeholder'=>'0'));?>
+    							<?php echo form_input(array('id'=>'total_pembayaran','name'=>'total_pembayaran','type'=>'text','value'=>number_format($total_transaksi,0,',','.'),'class'=>'form-control','readonly'=>'readonly','style'=>'text-align:right;','placeholder'=>'0'));?>
     						</div>
 						</div>
 						<!--<div class="form-group">-->
@@ -147,29 +147,46 @@
 <script type="text/javascript">
     
     function hitung_bayar(){
-        var total_transaksi = parseInt($('#total_transaksi').val());
-        var subsidi_transaksi = parseInt($('#subsidi_transaksi').val() != '' ? $('#subsidi_transaksi').val() : 0);
+        var total_transaksi = parseInt($('#total_transaksi').val().replace('.',''));
+        var subsidi_transaksi = parseInt($('#subsidi_transaksi').val().replace('.','') != '' ? $('#subsidi_transaksi').val().replace('.','') : 0);
         
         //menghitung subsidi
         if(subsidi_transaksi > total_transaksi){
             subsidi_transaksi = total_transaksi;
-            $('#subsidi_transaksi').val(total_transaksi);
+            $('#subsidi_transaksi').val(rupiah(total_transaksi));
         } else if (subsidi_transaksi < 0){
             subsidi_transaksi = 0;
             $('#subsidi_transaksi').val(0);
         }
         
-        $('#total_pembayaran').val(parseInt(total_transaksi) - parseInt(subsidi_transaksi));
+        $('#total_pembayaran').val(rupiah(parseInt(total_transaksi) - parseInt(subsidi_transaksi)));
     }
     
     function hitung_total(){
-        var biaya_administrasi = parseInt($('#biaya_administrasi').val());
+        var biaya_administrasi = parseInt($('#biaya_administrasi').val().replace('.',''));
         var total_sebelum = <?php echo $total_transaksi;?>;
         
         //menghitung total
-        $('#total_transaksi').val(parseInt(biaya_administrasi) + parseInt(total_sebelum));
+        $('#total_transaksi').val(rupiah(parseInt(biaya_administrasi) + parseInt(total_sebelum)));
         hitung_bayar();
     }
+    function rupiah(angka)
+    {
+        var reverse = angka.toString().split('').reverse().join(''),
+        ribuan = reverse.match(/\d{1,3}/g);
+        ribuan = ribuan.join('.').split('').reverse().join('');
+        return ribuan;
+      }
+    function formatRupiah(angka)
+    {
+        var value = angka.value.replace('.','')
 
+        var reverse = value.toString().split('').reverse().join(''),
+        ribuan = reverse.match(/\d{1,3}/g);
+        ribuan = ribuan.join('.').split('').reverse().join('');
+        // return ribuan;
+        document.getElementById(angka.id).value = ribuan
+        // console.log(angka)
+      }
 
 </script>

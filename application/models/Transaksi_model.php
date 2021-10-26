@@ -259,9 +259,11 @@ class Transaksi_model extends CI_Model
     function json_biaya_tindakan($filters){
         // $pizza  = "piece1 piece2 piece3 piece4 piece5 piece6";
         $filter = explode("_", $filters);
-        $rekap_laporan = $filter[0]; // harian/bulanan/tahunan
-        $filter_data = $filter[1]; // data filter
-        $id_klinik = $filter[2]; //id klinik
+        $dari = $filter[0];
+        $sampai = $filter[1];
+        // $rekap_laporan = $filter[0]; // harian/bulanan/tahunan
+        // $filter_data = $filter[1]; // data filter
+        // $id_klinik = $filter[2]; //id klinik
         
         $this->datatables->select('t.id_transaksi,td.dtm_crt as tgl_transaksi,t.no_transaksi,td.deskripsi,td.amount_transaksi,td.dc, (CASE td.dc WHEN "d" THEN td.amount_transaksi ELSE "-" END) as debit, (CASE td.dc WHEN "c" THEN td.amount_transaksi ELSE "-" END) as credit,k.nama as klinik');
         $this->datatables->from('tbl_transaksi t');
@@ -269,16 +271,18 @@ class Transaksi_model extends CI_Model
         $this->datatables->join('tbl_klinik k','t.id_klinik=k.id_klinik');
         $this->datatables->where('t.status_transaksi', 1);
         $this->datatables->where('td.amount_transaksi != ', 0);
-        $this->datatables->where('td.deskripsi', 'Biaya Tindakan');
+        $this->datatables->where('td.dtm_crt >=', $dari);
+        $this->datatables->where('td.dtm_crt <=', $sampai);
         
-        if ($rekap_laporan == 1)
-            $this->datatables->where('DATE(td.dtm_crt)', $filter_data);
-        else if ($rekap_laporan == 2)
-            $this->datatables->where('MONTH(t.tgl_transaksi)', $filter_data);
-        else if ($rekap_laporan == 3)
-            $this->datatables->where('YEAR(t.tgl_transaksi)', $filter_data);
+        // if ($rekap_laporan == 1)
+        // $this->datatables->where('DATE(td.dtm_crt)', $filter_data);
+        // else if ($rekap_laporan == 2)
+        // $this->datatables->where('MONTH(t.tgl_transaksi)', $filter_data);
+        // else if ($rekap_laporan == 3)
+        // $this->datatables->where('YEAR(t.tgl_transaksi)', $filter_data);
         
-        $this->datatables->where('t.id_klinik', $id_klinik);
+        // $this->datatables->where('t.id_klinik', $id_klinik);
+        $this->datatables->like('td.deskripsi', 'Biaya Tindakan');
         
         return $this->datatables->generate();
     }
@@ -286,9 +290,12 @@ class Transaksi_model extends CI_Model
     function json_biaya_pemeriksaan($filters){
         // $pizza  = "piece1 piece2 piece3 piece4 piece5 piece6";
         $filter = explode("_", $filters);
-        $rekap_laporan = $filter[0]; // harian/bulanan/tahunan
-        $filter_data = $filter[1]; // data filter
-        $id_klinik = $filter[2]; //id klinik
+        $dari = $filter[0];
+        $sampai = $filter[1];
+
+        // $rekap_laporan = $filter[0]; // harian/bulanan/tahunan
+        // $filter_data = $filter[1]; // data filter
+        // $id_klinik = $filter[2]; //id klinik
         
         $this->datatables->select('t.id_transaksi,td.dtm_crt as tgl_transaksi,t.no_transaksi,td.deskripsi,td.amount_transaksi,td.dc, (CASE td.dc WHEN "d" THEN td.amount_transaksi ELSE "-" END) as debit, (CASE td.dc WHEN "c" THEN td.amount_transaksi ELSE "-" END) as credit,k.nama as klinik');
         $this->datatables->from('tbl_transaksi t');
@@ -296,16 +303,19 @@ class Transaksi_model extends CI_Model
         $this->datatables->join('tbl_klinik k','t.id_klinik=k.id_klinik');
         $this->datatables->where('t.status_transaksi', 1);
         $this->datatables->where('td.amount_transaksi != ', 0);
-        $this->datatables->where('td.deskripsi', 'Biaya Pemeriksaan');
+
+        $this->datatables->where('td.dtm_crt >=', $dari);
+        $this->datatables->where('td.dtm_crt <=', $sampai);
         
-        if ($rekap_laporan == 1)
-            $this->datatables->where('DATE(td.dtm_crt)', $filter_data);
-        else if ($rekap_laporan == 2)
-            $this->datatables->where('MONTH(t.tgl_transaksi)', $filter_data);
-        else if ($rekap_laporan == 3)
-            $this->datatables->where('YEAR(t.tgl_transaksi)', $filter_data);
+        // if ($rekap_laporan == 1)
+        // $this->datatables->where('DATE(td.dtm_crt)', $filter_data);
+        // else if ($rekap_laporan == 2)
+        // $this->datatables->where('MONTH(t.tgl_transaksi)', $filter_data);
+        // else if ($rekap_laporan == 3)
+        // $this->datatables->where('YEAR(t.tgl_transaksi)', $filter_data);
         
-        $this->datatables->where('t.id_klinik', $id_klinik);
+        // $this->datatables->where('t.id_klinik', $id_klinik);
+        $this->datatables->like('td.deskripsi', 'Biaya Pemeriksaan');
         
         return $this->datatables->generate();
     }

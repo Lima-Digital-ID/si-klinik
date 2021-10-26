@@ -92,6 +92,12 @@ class Pembayaran extends CI_Controller
         } 
         
         if ($this->form_validation->run() == TRUE) {
+
+            $biaya_administrasi = str_replace('.','',$this->input->post('biaya_administrasi'));
+            $total_transaksi = str_replace('.','',$this->input->post('total_transaksi'));
+            $subsidi_transaksi = str_replace('.','',$this->input->post('subsidi_transaksi'));
+            $total_pembayaran = str_replace('.','',$this->input->post('total_pembayaran'));
+
             $data_trans = array(
                 'atas_nama' => $this->input->post('atas_nama'),
                 'status_transaksi' => 1,
@@ -115,7 +121,7 @@ class Pembayaran extends CI_Controller
                     // 'id_transaksi' => $id_transaksi,
                     'no_transaksi' => $data_transaksi->no_transaksi,
                     'deskripsi' => 'Subsidi dari Kasir' ,
-                    'amount_transaksi' => $this->input->post('subsidi_transaksi') != '' ? $this->input->post('subsidi_transaksi') : 0,
+                    'amount_transaksi' => $subsidi_transaksi != '' ? $subsidi_transaksi : 0,
                     'dc' => 'c'
                 );
             }
@@ -123,7 +129,7 @@ class Pembayaran extends CI_Controller
                 // 'id_transaksi' => $id_transaksi,
                 'no_transaksi' => $data_transaksi->no_transaksi,
                 'deskripsi' => 'Pembayaran Biaya Medis' . ($this->input->post('atas_nama') != '' ? ' a/n ' . $this->input->post('atas_nama') : '' ),
-                'amount_transaksi' => $this->input->post('total_pembayaran'),
+                'amount_transaksi' => $total_pembayaran,
                 'dc' => 'c'
             );
             
@@ -132,11 +138,11 @@ class Pembayaran extends CI_Controller
                 // 'id_transaksi' => $id_transaksi,
                 'no_transaksi' => $data_transaksi->no_transaksi,
                 'deskripsi' => 'Biaya Administrasi',
-                'amount_transaksi' => $this->input->post('biaya_administrasi') != '' ? $this->input->post('biaya_administrasi') : 0,
+                'amount_transaksi' => $biaya_administrasi != '' ? $biaya_administrasi : 0,
                 'dc' => 'd'
             );
-            $subsidi_transaksi=$this->input->post('subsidi_transaksi');
-            $biaya_administrasi=$this->input->post('biaya_administrasi');
+            // $subsidi_transaksi=$this->input->post('subsidi_transaksi');
+            // $biaya_administrasi=$this->input->post('biaya_administrasi');
 
             $biaya=array(
                 'biaya_tindakan'    => $biaya_tindakan,
@@ -230,7 +236,7 @@ class Pembayaran extends CI_Controller
             if($this->input->post('metode_pembayaran') == 1){
                 $data_asuransi = array(
                     'no_transaksi' => $data_transaksi->no_transaksi,
-                    'amount' => $this->input->post('total_pembayaran'),
+                    'amount' => $total_pembayaran,
                 );
                 $this->db->insert('tbl_rekap_asuransi', $data_asuransi);
             }
