@@ -42,6 +42,13 @@ class Tbl_pasien_model extends CI_Model
         $this->db->update($this->table, $data);
     }
 
+    function cekkodepasien(){
+        $query = $this->db->query("SELECT MAX(no_rekam_medis) as nrm from tbl_pasien");
+        $hasil = $query->row();
+        return $hasil->nrm;
+    }
+
+
     // delete data
     function delete($id)
     {
