@@ -195,18 +195,20 @@ class Akuntansi_model extends CI_Model
     }
     public function rekap_pengeluaran($dari,$sampai)
     {
-      $this->db->select('t.tanggal,t.deskripsi,sum(jumlah) as jumlah,t.id_trx_akun');
-      $this->db->from('tbl_trx_akuntansi t');
-      $this->db->join('tbl_trx_akuntansi_detail d','t.id_trx_akun = d.id_trx_akun');
-      $this->db->join('tbl_akun a','d.id_akun = a.id_akun');
-      $this->db->where('t.tanggal >=',$dari);
-      $this->db->where('t.tanggal <=',$sampai);
-      $this->db->where('tipe', 'DEBIT');
-      $this->db->where('d.keterangan', 'akun');
-      $this->db->like('a.no_akun', '5', 'after');
+      $this->datatables->select('t.tanggal,t.deskripsi,sum(jumlah) as jumlah,t.id_trx_akun');
+      $this->datatables->from('tbl_trx_akuntansi t');
+      $this->datatables->join('tbl_trx_akuntansi_detail d','t.id_trx_akun = d.id_trx_akun');
+      $this->datatables->join('tbl_akun a','d.id_akun = a.id_akun');
+      $this->datatables->where('t.tanggal >=',$dari);
+      $this->datatables->where('t.tanggal <=',$sampai);
+      $this->datatables->where('tipe', 'DEBIT');
+      $this->datatables->where('d.keterangan', 'akun');
+      $this->datatables->like('a.no_akun', '5', 'after');
       $this->db->group_by('t.id_trx_akun');
+      $this->datatables->add_column('action',anchor('','<span class="fa fa-table"></span> Detail','data-total="$1" data-id="$2" class="btn btn-default btn-detail btn-sm"'),'jumlah,id_trx_akun');
+
       // $this->db->order_by('a.nama_akun','asc');
-      return $this->db->get()->result();
+      return $this->datatables->generate();
     }
     public function rekap_pengeluaran_detail($dari,$sampai,$id_trx)
     {

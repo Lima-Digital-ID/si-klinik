@@ -33,7 +33,7 @@
                         ?>
                         <br>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover">
+                                <table class="table table-bordered table-striped table-hover" id="tableLaporan">
                                     <thead>
                                         <tr bgcolor="#3c8dbc" style="color:white">
                                             <td>#</td>
@@ -45,7 +45,7 @@
                                     </thead>
                                     <tbody>
 
-                                    <?php 
+                                    <!-- <?php 
                                         $no = 0;
                                         foreach ($rekap as $key => $value) {
                                             $no++;
@@ -59,7 +59,7 @@
                                         </tr>
                                     <?php
                                         }
-                                    ?>
+                                    ?> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -104,13 +104,57 @@
 <script src="<?php echo base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
 <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
 <script>
-    $(document).ready(function(){
-        <?php 
-            if(isset($_GET['id_akun'])){
-        ?>
-            var idAkun = "<?= implode(',',$_GET['id_akun']); ?>"
-            $(".select2").val(idAkun.split(','))
-        <?php } ?>
+    $(document).ready(function() {
+        $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
+        {
+            return {
+                "iStart": oSettings._iDisplayStart,
+                "iEnd": oSettings.fnDisplayEnd(),
+                "iLength": oSettings._iDisplayLength,
+                "iTotal": oSettings.fnRecordsTotal(),
+                "iFilteredTotal": oSettings.fnRecordsDisplay(),
+                "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+                "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+            };
+        };
+
+        var t = $("#tableLaporan").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#tableLaporan_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "json/<?php echo $_GET['dari'].'/'.$_GET['sampai'];?>", "type": "POST"},
+            columns: [
+                {
+                    "data": "id_trx_akun",
+                    "orderable": false
+                },{"data": "tanggal"},{"data": "deskripsi"},{"data": "jumlah"},
+                {
+                    "data" : "action",
+                    "orderable": false,
+                }
+
+            ],
+            order: [[1, 'asc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
         function rupiah(nominal){
             var	number_string = nominal.toString(),
                 sisa 	= number_string.length % 3,
@@ -123,10 +167,13 @@
             }            
             return rupiah
         }
-        $(".btn-detail").click(function(e){
-            e.preventDefault()
-            var id = $(this).data('id')
-            var total = $(this).data('total')
+        $('#tableLaporan').on('click', 'td .btn-detail', function (e) {
+            e.preventDefault();    
+            var table = $('#tableLaporan').DataTable();
+            var data = table.row($(this).closest('tr')).data()
+
+            var id = data.id_trx_akun
+            var total = data.jumlah
             var dari = $("input[name='dari']").val()
             var sampai = $("input[name='sampai']").val()
 
@@ -152,12 +199,14 @@
                     $("#myTable tbody").append(`
                         <tr>
                             <th colspan="3" align="center">Total</th>
-                            <td>${total}</td>
+                            <td>${rupiah(total)}</td>
                         </tr>
                     `);
 
                 }
             })
-        })
-    })
+
+        });
+        
+    });
 </script>

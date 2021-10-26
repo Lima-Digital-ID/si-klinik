@@ -146,11 +146,16 @@ class Laporan extends CI_Controller
                 array_push($data['akun_option'],$arr);
             }
         }
-        if(isset($_GET['dari'])){
-            $data['rekap'] = $this->Akuntansi_model->rekap_pengeluaran($_GET['dari'],$_GET['sampai']);
-        }
+        // if(isset($_GET['dari'])){
+        //     $data['rekap'] = $this->Akuntansi_model->rekap_pengeluaran($_GET['dari'],$_GET['sampai']);
+        // }
     
         $this->template->load('template','akuntansi/laporan/rekap_all', $data);  
+    }
+    public function json($dari,$sampai)
+    {
+        header('Content-Type: application/json');
+        echo $this->Akuntansi_model->rekap_pengeluaran($dari,$sampai);
     }
     public function rekap_detail()
     {
