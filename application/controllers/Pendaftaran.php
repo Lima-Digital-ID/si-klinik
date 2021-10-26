@@ -12,6 +12,7 @@ class Pendaftaran extends CI_Controller
         parent::__construct();
         is_login();
         $this->load->model('Pendaftaran_model');
+        $this->load->model('Pendaftaran_online_model');
 		$this->load->model('Master_sequence_model');
 		$this->load->model('Tbl_dokter_model');
 		$this->load->model('Tbl_pasien_model');
@@ -310,10 +311,13 @@ class Pendaftaran extends CI_Controller
         echo $this->Pendaftaran_model->json_status_dokter2();
     }
 
+    // pendaftaran pasien
     public function pendaftaran_pasien(){
         $this->_rules();
-				
-        if ($this->form_validation->run() == TRUE) {
+		$recaptcha = $this->input->post('g-recaptcha-response');
+        $response = $this->recaptcha->verifyResponse($recaptcha);	
+        if ($this->form_validation->run() == TRUE && isset($response['failed']) || $this->form_validation->run() == TRUE &&  $response['success'] == TRUE) {
+        // if ($this->form_validation->run() == TRUE){
             $no_pendaftaran = $this->Master_sequence_model->set_code_by_master_seq_code("NOPENDAFTARAN");
             
 			$data_pasien = array(
@@ -332,6 +336,7 @@ class Pendaftaran extends CI_Controller
 				'nama_orang_tua_atau_istri'      =>  $this->input->post('nama_orangtua_atau_istri'),
 				'nomer_telepon'     =>  $this->input->post('nomor_telepon'),
 			);
+			
             $data_pendaftaran = array(
 				'no_pendaftaran' => $this->Master_sequence_model->set_code_by_master_seq_code("NOPENDAFTARAN", true),
 				'no_rekam_medis' => $this->input->post('no_rekam_medis'),
@@ -390,6 +395,8 @@ class Pendaftaran extends CI_Controller
 			$this->data['nama_orangtua_atau_istri'] = $pasien_existing != null ? $pasien_existing->nama_orang_tua_atau_istri : set_value('nama_orangtua_atau_istri');
 			$this->data['nomor_telepon'] = $pasien_existing != null ? $pasien_existing->nomer_telepon : set_value('nomor_telepon');
 			$this->data['nama_dokter'] = set_value('nama_dokter');	
+            $this->data['captcha'] = $this->recaptcha->getWidget();
+            $this->data['script_captcha'] = $this->recaptcha->getScriptTag();
 			
 			// $this->data['option_dokter'] = array();
 			// $this->data['option_dokter'][''] = 'Pilih Dokter';
@@ -406,15 +413,94 @@ class Pendaftaran extends CI_Controller
 		}
         
         $this->load->view('pendaftaran/daftar', $this->data);
-        // $data = array(
-        //     'captcha' => $this->recaptcha->getWidget(),
-        //     'script_captcha' => $this->recaptcha->getScriptTag(),
-        // );
-        // $recaptcha = $this->input->post('g-recaptcha-response');
-        // $response = $this->recaptcha->VerifyResponse($recaptcha);
-        // $this->load->view('pendaftaran/daftar', $data);
+
 
     }
 
+    public function list_pendaftar_online(){
+        $this->template->load('template','pendaftaran/pendaftar_online_list');
+    }
 
+    public function json_pendaftaran() {
+        header('Content-Type: application/json');
+        echo $this->Pendaftaran_online_model->json();
+    }
+
+    public function read_pendaftar_online($id)
+    {
+        $row = $this->Pendaftaran_online_model->get_by_id($id);
+        if ($row){
+            $data = array(
+                'nama_lengkap' => $row->nama_lengkap,
+                'nik' => $row->nik,
+                'tanggal_lahir' => $row->tanggal_lahir,
+                'golongan_darah' => $row->golongan_darah,
+                'status_menikah' => $row->status_menikah,
+                'pekerjaan' => $row->pekerjaan,
+                'alamat' => $row->alamat,
+                'kabupaten' => $row->kabupaten,
+                'rt' => $row->rt,
+                'rw' => $row->rw,
+                'nama_orangtua_atau_istri' => $row->nama_orangtua_atau_istri,
+                'nomer_telepon' => $row->nomer_telepon,
+                'tipe_periksa' => $row->tipe_periksa,
+            );
+            $this->template->load('template','pendaftaran/pendaftar_online_list', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('pendaftaran'));
+        }
+        // $data = $this->db->get('tbl_pendaftaran_online')->row();
+        // $data["pasien"] = $this->pendaftaran_online_model->get_all();
+        // $this->template->load('template','pendaftaran/tbl_pasien_list', $this->data);
+        // $this->template->load('template','pendaftaran/pendaftar_online_list', $data);
+    }
+
+    public function delete_pendaftar_online($id) 
+    {
+        $row = $this->Pendaftaran_online_model->get_by_id($id);
+
+        if ($row) {
+            $this->Pendaftaran_online_model->delete($id);
+            $this->session->set_flashdata('message', 'Delete Record Success');
+            redirect(site_url('pendaftaran/list_pendaftar_online'));
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('pendaftaran/list_pendaftar_online'));
+        }
+    }
+
+    public function update_pendaftar_online($id){
+        $dariDB = $this->Tbl_pasien_model->cekkodepasien();
+        $nourut = substr($dariDB, 3);
+        $noRekamMedisSekarang = str_pad($nourut+1, 6, 0, STR_PAD_LEFT);
+        
+        $row = $this->Pendaftaran_online_model->get_by_id($id);
+        if ($row){
+            $data_pasien = array(
+                'no_rekam_medis'    => $noRekamMedisSekarang,
+                'no_id_pasien'		=> $row->nik,
+                'nama_lengkap'      => $row->nama_lengkap,
+                'nik'               => $row->nik,
+                'tanggal_lahir'     => $row->tanggal_lahir,
+                'golongan_darah'    => $row->golongan_darah,
+                'status_menikah'    => $row->status_menikah,
+                'pekerjaan'      	=> $row->pekerjaan,
+                'alamat'      		=> $row->alamat,
+                'kabupaten' 		=> $row->kabupaten,
+                'rt' 		=> $row->rt,
+                'rw' 		=> $row->rw,
+                'nama_orang_tua_atau_istri'      =>  $row->nama_orang_tua_atau_istri,
+                'nomer_telepon'     =>  $row->nomer_telepon,
+            );
+            $this->Tbl_pasien_model->insert($data_pasien);
+            $this->Pendaftaran_online_model->delete($row->id_pendaftaran);
+        }
+        // Set session sukses
+        $this->session->set_flashdata('message', 'Data pendaftaran berhasil didaftarkan');
+        $this->session->set_flashdata('message_type', 'success');
+        // $this->template->load('template','pendaftaran/list_pendaftar_online');
+        redirect(site_url('pendaftaran/list_pendaftar_online'));
+    }
+        
 }
