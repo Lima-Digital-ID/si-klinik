@@ -219,7 +219,6 @@ class Akuntansi_model extends CI_Model
       $this->db->where('t.tanggal <=',$sampai);
       $this->db->where('tipe', 'DEBIT');
       $this->db->where('d.keterangan', 'akun');
-      $this->db->group_by('d.id_trx_akun_detail');
       return $this->db->get()->result();
     }
     function get_laba_rugi($id, $date){

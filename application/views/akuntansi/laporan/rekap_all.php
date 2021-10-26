@@ -135,7 +135,8 @@
                 url : 'rekap_detail',
                 data : {dari : dari,sampai : sampai, id_trx : id},
                 success : function(data){
-                    $('#myModal').modal('show'); 
+                    $('#myModal').modal('show');
+                    $("#myTable tbody tr").remove() 
                     $.each(data,function(i,item){
                         i++
                         $("#myTable tbody").append(`
