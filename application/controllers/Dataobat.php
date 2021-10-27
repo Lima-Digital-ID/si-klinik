@@ -55,8 +55,12 @@ class Dataobat extends CI_Controller
                 'stok' => $getStok 
             );
         }
-        $view = $excel!="" && $excel=='excel'  ? '-excel' : '';
-        $this->template->load('template','dataobat/stok-barang'.$view, ['stok' => $stok]);
+        if($excel!="" && $excel=='excel'){
+            $this->load->view('dataobat/stok-barang-excel', ['stok' => $stok]);
+        }
+        else{
+            $this->template->load('template','dataobat/stok-barang', ['stok' => $stok]);
+        }
     }
     
     public function history()
