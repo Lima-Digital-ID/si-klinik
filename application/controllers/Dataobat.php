@@ -37,7 +37,7 @@ class Dataobat extends CI_Controller
         $this->template->load('template','dataobat/tbl_obat_alkes_bhp_list');
     }
     
-    public function stok()
+    public function stok($excel='')
     {
         $step1 = $this->Tbl_obat_alkes_bhp_model->getStokStep1();
         $stok = [];
@@ -55,7 +55,8 @@ class Dataobat extends CI_Controller
                 'stok' => $getStok 
             );
         }
-        $this->template->load('template','dataobat/stok-barang', ['stok' => $stok]);
+        $view = $excel!="" && $excel=='excel'  ? '-excel' : '';
+        $this->template->load('template','dataobat/stok-barang'.$view, ['stok' => $stok]);
     }
     
     public function history()

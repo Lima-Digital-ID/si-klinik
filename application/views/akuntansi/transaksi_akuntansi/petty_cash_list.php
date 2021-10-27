@@ -47,7 +47,7 @@
             return date_format($date, 'd-m-Y');
         }
         ?>
-                    <h4 id="titleJurnal">Jurnal Umum Bulan November 2019</h4>
+                    <h4>Jurnal Petty Cash Tanggal <?= date('d-m-Y', strtotime($date))  ?></h4>
                     <table class="table table-bordered table-striped" id="detailKas">
                         <thead>
                             <tr>

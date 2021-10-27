@@ -77,7 +77,7 @@
                                 <label>Kode Akun</label>    
                             </div>
                             <div class="col-sm-10">
-                                <input class="form-control" name="no_akun" id="no_akun" required readonly="">
+                                <input class="form-control" name="no_akun" id="no_akun" required>
                             </div>
                         </div> 
                         <div class="col-sm-12">

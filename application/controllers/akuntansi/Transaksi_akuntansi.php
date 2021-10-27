@@ -44,6 +44,7 @@ class Transaksi_akuntansi extends CI_Controller
         }
         $row=$this->db->where('nama_akun', 'petty cash')->get('tbl_akun')->row();
         $data['bulan']=json_encode(explode('-', $date));
+        $data['date'] = $date;
         $data['data']=$this->Transaksi_akuntansi_model->getJurnalPettyByDate($date, $row->id_akun);
         $this->template->load('template','akuntansi/transaksi_akuntansi/petty_cash_list', $data);
     } 
@@ -391,7 +392,7 @@ class Transaksi_akuntansi extends CI_Controller
             }
             $data=array(
                         'id_trx_akun'   => $id_last->id_trx_akun,
-                        'id_akun'       => 35,
+                        'id_akun'       => 20,
                         'jumlah'        => $total,
                         'tipe'          => 'KREDIT',
                         'keterangan'    => 'lawan',

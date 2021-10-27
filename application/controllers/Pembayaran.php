@@ -105,11 +105,11 @@ class Pembayaran extends CI_Controller
             );
             $biaya_tindakan=$biaya_pemeriksaan=$biaya_obat=0;
             foreach ($this->Transaksi_model->get_detail_by_h_id($data_transaksi->no_transaksi) as $key => $value) {
-                if ($value->deskripsi == 'Biaya Pemeriksaan') {
+                if (strpos($value->deskripsi,'Biaya Pemeriksaan')!==false) {
                     $biaya_pemeriksaan=$value->amount_transaksi;
                 }
-                if ($value->deskripsi == 'Biaya Tindakan') {
-                    $biaya_tindakan=$value->amount_transaksi;
+                if (strpos($value->deskripsi,'Biaya Tindakan')!==false) {
+                    $biaya_tindakan = $biaya_tindakan + $value->amount_transaksi;
                 }
                 if ($value->deskripsi == 'Total Obat-obatan') {
                     $biaya_obat=$value->amount_transaksi;
@@ -148,10 +148,10 @@ class Pembayaran extends CI_Controller
                 'biaya_tindakan'    => $biaya_tindakan,
                 'biaya_pemeriksaan' => $biaya_pemeriksaan,
                 'biaya_administrasi'=> $biaya_administrasi,
+                'komisi_dokter'     => 0,
                 'subsidi_transaksi' => $subsidi_transaksi,
                 'no_periksa' => $data_transaksi->no_transaksi,
             );
-
             switch ($_GET['tab']) {
                 case 'pemeriksaan':
                     $this->db->select('id_dokter');
@@ -167,6 +167,7 @@ class Pembayaran extends CI_Controller
                     //komisi obat
                     $biayaKomisi['Obat'] = $komisi->komisi_biaya_obat * $biaya_obat / 100;
 
+                    $ttl = 0;
                     foreach ($biayaKomisi as $key => $value) {
                         $arrKomisi = array(
                             'tanggal' => date('Y-m-d'),
@@ -175,10 +176,10 @@ class Pembayaran extends CI_Controller
                             'komisi' => $value,
                             'type' => $key
                         );
-
+                        $ttl = $ttl + $value;
                         $this->Tbl_komisi_dokter_model->insert($arrKomisi);
                     }
-                    //akuntansi masuk kemana?
+                    $biaya['komisi_dokter'] = $ttl; 
                 break;
                 case 'sks':
                     $getDokter = $this->Tbl_sksehat_model->getDetail($data_transaksi->no_transaksi,'sk.id_dokter');
@@ -195,7 +196,7 @@ class Pembayaran extends CI_Controller
                         'type' => 'Pemeriksaan'
                     );
                     $this->Tbl_komisi_dokter_model->insert($arrKomisi);
-                    //akuntansi masuk kemana?
+                    $biaya['komisi_dokter'] = $komisiPemeriksaan; 
 
                 break;
                 case 'rapid':
@@ -215,16 +216,14 @@ class Pembayaran extends CI_Controller
                         'type' => 'Pemeriksaan'
                     );
                     $this->Tbl_komisi_dokter_model->insert($arrKomisi);
-                    //akuntansi masuk kemana?
-
+                    $biaya['komisi_dokter'] = $komisiPemeriksaan; 
                 break;
                 default:
                     redirect(site_url('pembayaran'));
                 break;
             }
 
-
-            // $this->jurnal_otomatis_pemeriksaan($biaya);
+            $this->jurnal_otomatis_pemeriksaan($biaya);
 
             $this->Transaksi_model->update($id_transaksi, $data_trans);
             
@@ -272,8 +271,8 @@ class Pembayaran extends CI_Controller
         $this->template->load('template','pembayaran/bayar', $this->data);
     }
     private function jurnal_otomatis_pemeriksaan($biaya){
-        if ($biaya['biaya_pemeriksaan'] != 0 || $biaya['biaya_administrasi'] != 0 || $biaya['biaya_tindakan'] != 0) {
-            $total=($biaya['biaya_pemeriksaan'] + $biaya['biaya_tindakan'] + $biaya['biaya_administrasi']) - $biaya['subsidi_transaksi'];
+        if ($biaya['biaya_pemeriksaan'] != 0 || $biaya['biaya_administrasi'] != 0 || $biaya['biaya_tindakan'] != 0 || $biaya['komisi_dokter'] != 0) {
+            $total=($biaya['biaya_pemeriksaan'] + $biaya['biaya_tindakan'] + $biaya['biaya_administrasi']) - $biaya['subsidi_transaksi'] - $biaya['komisi_dokter'];
             $data_trx=array(
                 'deskripsi'     => 'Pendapatan dari Nomor Pemeriksaan '.$biaya['no_periksa'],
                 'tanggal'       => date('Y-m-d'),
@@ -316,6 +315,16 @@ class Pembayaran extends CI_Controller
                         'id_trx_akun'   => $id_last->id_trx_akun,
                         'id_akun'       => 69,
                         'jumlah'        => $biaya['subsidi_transaksi'],
+                        'tipe'          => 'DEBIT',
+                        'keterangan'    => 'akun',
+                    );
+                    $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
+                }
+                if ($biaya['komisi_dokter'] != 0) {
+                    $data=array(
+                        'id_trx_akun'   => $id_last->id_trx_akun,
+                        'id_akun'       => 70,
+                        'jumlah'        => $biaya['komisi_dokter'],
                         'tipe'          => 'DEBIT',
                         'keterangan'    => 'akun',
                     );
