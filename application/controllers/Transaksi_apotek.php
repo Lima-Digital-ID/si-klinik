@@ -216,12 +216,12 @@ class Transaksi_apotek extends CI_Controller
                 $data_detail=array(
                     'id_inventory' => $kode_receipt,
                     'kode_barang' => $barang[$i],
-                    'kode_gudang' => $gudang[$i],
-                    'id_lokasi_barang' => $lokasi[$i],
+                    'kode_gudang' => 'GUD1574152872'/* $gudang[$i] */,
+                    'id_lokasi_barang' => '2'/* $lokasi[$i] */,
                     'jumlah' => $jumlah[$i],
                     'harga' => $harga[$i],
                     'diskon' => $diskon[$i],
-                    'tgl_exp' => $tgl_exp[$i],
+                    'tgl_exp' => '2022-10-28'/* $tgl_exp[$i] */,
                 );
                 $insert=$this->Transaksi_obat_model->insert('tbl_inventory_detail',$data_detail);
                 $row=$this->db->where('kode_barang', $barang[$i])->get('tbl_obat_alkes_bhp')->row();
