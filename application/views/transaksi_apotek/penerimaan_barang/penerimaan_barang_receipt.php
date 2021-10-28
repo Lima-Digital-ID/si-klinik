@@ -58,7 +58,7 @@
                                 <td>
                                 <?php echo form_dropdown('lokasi[]',$lokasi_option,'',array('id'=>'lokasi[]','class'=>'form-control select2', /* 'required'=>'required' */));?>
                                 </td>
-                                <td><input type="date" class="form-control" name="tgl_exp[]" required/></td>
+                                <td><input type="date" class="form-control" name="tgl_exp[]" /></td>
                             </tr>
                                 <?php
                                     }
