@@ -682,9 +682,12 @@ class Periksamedis extends CI_Controller
         $data_pasien = $this->Tbl_pasien_model->get_by_id($data_pendaftaran->no_rekam_medis);
         $date_now = date('Ymd', time());
 
+        if(isset($data_pasien)) {
+            $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
+            $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
+        }
+
         $this->data['no_periksa'] = $data_pendaftaran->no_pendaftaran.'/'.$date_now.'/'.$data_pendaftaran->no_rekam_medis;
-        $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
-        $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
         $this->data['jasa_lainnya'] = $this->db->get('tbl_tipe_periksa_jasa')->result();
 
         $this->template->load('template','periksa-jasa/periksa-jasa',$this->data);
@@ -755,9 +758,12 @@ class Periksamedis extends CI_Controller
         $data_pasien = $this->Tbl_pasien_model->get_by_id($data_pendaftaran->no_rekam_medis);
         $date_now = date('Ymd', time());
 
+        if(isset($data_pasien)) {
+            $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
+            $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
+        }
+
         $this->data['no_periksa'] = $data_pendaftaran->no_pendaftaran.'/'.$date_now.'/'.$data_pendaftaran->no_rekam_medis;
-        $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
-        $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
 
         $this->data['periksa_lab'] = $this->db->get('tbl_tipe_periksa_lab')->result();
 
@@ -847,10 +853,15 @@ class Periksamedis extends CI_Controller
         for ($i=1; $i <= 5 ; $i++) { 
             array_push($fields,'obat_cacing'.$i);
         }
+        $data_pasien = null;
 
-        $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
+        if(isset($data_pasien)) {
+            $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
+            $this->data['no_id_pasien'] = $data_pasien->no_id_pasien;
+        }
+
         $this->data['no_rekam_medis'] = $data_pendaftaran->no_rekam_medis;
-        $this->data['no_id_pasien'] = $data_pasien->no_id_pasien;
+
         $this->data['cek_imunisasi'] = $this->Tbl_imunisasi_model->get_where(['no_rekam_medis' => $this->data['no_rekam_medis']]);
         if(count($this->data['cek_imunisasi'])==0){
             for ($i=0; $i < count($fields) ; $i++) { 
@@ -946,8 +957,11 @@ class Periksamedis extends CI_Controller
         $date_now = date('Ymd', time());
         $this->data['no_rekam_medis'] = $data_pendaftaran->no_rekam_medis;
         $this->data['no_periksa'] = $data_pendaftaran->no_pendaftaran.'/'.$date_now.'/'.$data_pendaftaran->no_rekam_medis;
-        $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
-        $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
+        $data_pasien = null;
+        if(isset($data_pasien)) {
+            $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
+            $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
+        }
         $this->data['obat'] = $this->get_all_obat($obatAda=true,$json=false);
         $this->data['master_tindakan'] = $this->db->query('select * from tbl_tindakan where tipe = "1" order by cast(kode_tindakan as SIGNED INTEGER) asc ')->result();
 
@@ -1125,7 +1139,8 @@ class Periksamedis extends CI_Controller
     
     public function json_antrian($tipe=1){
         header('Content-Type: application/json');
-        echo $this->Pendaftaran_model->json_antrian($this->id_dokter,$tipe);
+        // echo $this->Pendaftaran_model->json_antrian($this->id_dokter,$tipe);
+        echo $this->Pendaftaran_model->json_antrian(2,$tipe);
     }
     
     public function json_riwayat(){
@@ -1254,7 +1269,7 @@ class Periksamedis extends CI_Controller
     }
     
     public function daftar_baru(){
-        $this->_rules_daftar_baru();
+        // $this->_rules_daftar_baru();
         
         if ($this->form_validation->run() == TRUE) {
             $no_pendaftaran = $this->Master_sequence_model->set_code_by_master_seq_code("NOPENDAFTARAN");

@@ -23,13 +23,27 @@
                         <div class="form-group row">
 							<div class="col-sm-2">Nama Lengkap</div>
 							<div class="col-sm-10">
-                                <?php echo form_input(array('id'=>'nama_lengkap','name'=>'nama_lengkap','type'=>'text','value'=>$nama_lengkap,'class'=>'form-control','readonly'=>'readonly'));?>
+                                <?php
+                                    if(isset($nama_lengkap)) {
+                                        echo form_input(array('id'=>'nama_lengkap','name'=>'nama_lengkap','type'=>'text','value'=>$nama_lengkap,'class'=>'form-control','readonly'=>'readonly'));
+                                    }
+                                    else {
+                                        echo form_input(array('id'=>'nama_lengkap','name'=>'nama_lengkap','type'=>'text','value'=>'','class'=>'form-control','readonly'=>'readonly'));
+                                    }
+                                ?>
                             </div>
 						</div>
 						<div class="form-group row">
 							<div class="col-sm-2">Alamat</div>
 							<div class="col-sm-10">
-                                <?php echo form_textarea(array('id'=>'alamat','name'=>'alamat','type'=>'textarea','value'=>$alamat,'rows'=>'4','class'=>'form-control','readonly'=>'readonly'));?>
+                                <?php
+                                    if(isset($alamat)) {
+                                        echo form_textarea(array('id'=>'alamat','name'=>'alamat','type'=>'textarea','value'=>$alamat,'rows'=>'4','class'=>'form-control','readonly'=>'readonly'));
+                                    }
+                                    else {
+                                        echo form_textarea(array('id'=>'alamat','name'=>'alamat','type'=>'textarea','value'=>'','rows'=>'4','class'=>'form-control','readonly'=>'readonly'));
+                                    }
+                                ?>
                             </div>
 						</div>
                         <hr>

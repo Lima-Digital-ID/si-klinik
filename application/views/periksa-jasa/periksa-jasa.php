@@ -19,13 +19,13 @@
                             <div class="form-group row">
                                 <div class="col-md-2">Nama Lengkap</div>
                                 <div class="col-md-10">
-                                    <input type="text" name="nama_lengkap" value="<?= $nama_lengkap ?>" readonly id="" class="form-control">
+                                    <input type="text" name="nama_lengkap" value="<?= isset($nama_lengkap) ? $nama_lengkap : '' ?>" readonly id="" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-2">Alamat</div>
                                 <div class="col-md-10">
-                                    <textarea name="alamat" class="form-control" rows="6" readonly><?= $alamat ?></textarea>
+                                    <textarea name="alamat" class="form-control" rows="6" readonly><?= isset($alamat) ? $alamat : '' ?></textarea>
                                 </div>
                             </div>
                             <div class="form-group row" id="jasa_lainnya">

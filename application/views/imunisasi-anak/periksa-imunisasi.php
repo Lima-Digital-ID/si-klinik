@@ -12,19 +12,19 @@
                             <div class="form-group row">
                                 <div class="col-md-2">Nama Pasien Ke <?php echo form_error('nama'); ?></div>
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control" value="<?= $nama_lengkap ?>" readonly>
+                                    <input type="text" class="form-control" value="<?= isset($nama_lengkap) ? $nama_lengkap : '' ?>" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-2">No Rekam Medis <?php echo form_error('no_rekam_medis'); ?></div>
                                 <div class="col-md-10">
-                                    <input type="text" name="no_rekam_medis" class="form-control" value="<?= $no_rekam_medis ?>" readonly>
+                                    <input type="text" name="no_rekam_medis" class="form-control" value="<?= isset($no_rekam_medis) ? $no_rekam_medis : '' ?>" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-2">No ID<?php echo form_error('no_id_pasien'); ?></div>
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control" value="<?= $no_id_pasien ?>" readonly>
+                                    <input type="text" class="form-control" value="<?= isset($no_id_pasien) ? $no_id_pasien : '' ?>" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
