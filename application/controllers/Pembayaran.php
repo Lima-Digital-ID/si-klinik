@@ -323,7 +323,7 @@ class Pembayaran extends CI_Controller
                 if ($biaya['komisi_dokter'] != 0) {
                     $data=array(
                         'id_trx_akun'   => $id_last->id_trx_akun,
-                        'id_akun'       => 70,
+                        'id_akun'       => 72,
                         'jumlah'        => $biaya['komisi_dokter'],
                         'tipe'          => 'DEBIT',
                         'keterangan'    => 'akun',
