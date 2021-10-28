@@ -54,10 +54,7 @@ class Periksamedis extends CI_Controller
         $this->_rules();
         $data_pendaftaran = $this->Pendaftaran_model->get_by_id($this->no_pendaftaran);
         if($data_pendaftaran->tipe_periksa=='1' ||$data_pendaftaran->tipe_periksa=='4'){
-            // $data_pasien = $this->Tbl_pasien_model->get_by_id($data_pendaftaran->no_rekam_medis);
-            $data_pasien = NULL;
-            echo $data_pendaftaran->no_rekam_medis.'<br><br>';
-            var_dump($data_pasien);
+            $data_pasien = $this->Tbl_pasien_model->get_by_id($data_pendaftaran->no_rekam_medis);
             $date_now = date('Ymd', time());
             $data_antrian = $this->Pendaftaran_model->get_next_antrian($this->id_dokter);
             
