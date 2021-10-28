@@ -54,7 +54,10 @@ class Periksamedis extends CI_Controller
         $this->_rules();
         $data_pendaftaran = $this->Pendaftaran_model->get_by_id($this->no_pendaftaran);
         if($data_pendaftaran->tipe_periksa=='1' ||$data_pendaftaran->tipe_periksa=='4'){
-            $data_pasien = $this->Tbl_pasien_model->get_by_id($data_pendaftaran->no_rekam_medis);
+            // $data_pasien = $this->Tbl_pasien_model->get_by_id($data_pendaftaran->no_rekam_medis);
+            $data_pasien = NULL;
+            echo $data_pendaftaran->no_rekam_medis.'<br><br>';
+            var_dump($data_pasien);
             $date_now = date('Ymd', time());
             $data_antrian = $this->Pendaftaran_model->get_next_antrian($this->id_dokter);
             
@@ -363,14 +366,16 @@ class Periksamedis extends CI_Controller
                 redirect(site_url('periksamedis'));
             } else {
                 $this->data['no_periksa'] = $data_pendaftaran->no_pendaftaran.'/'.$date_now.'/'.$data_pendaftaran->no_rekam_medis;
-                $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
-                $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
+                if(isset($data_pasien)) {
+                    $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
+                    $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
+                    $this->data['riwayat_alergi_obat'] = $data_pasien->riwayat_alergi_obat;
+                }
                 $this->data['anamnesies'] = $this->get_master_ref($this->master_ref_code_anamnesi);
                 $this->data['alergi_obat'] = $this->get_master_ref($this->master_ref_code_alergiobat);
                 $this->data['diagnosa'] = $this->get_master_ref($this->master_ref_code_diagnosa);
         // 		$this->data['tindakan'] = $this->get_all_tindakan();
                 $this->data['tindakan'] = $this->get_master_ref($this->master_ref_code_tindakan);
-                $this->data['riwayat_alergi_obat'] = $data_pasien->riwayat_alergi_obat;
                 $this->data['alkes_option'] = array();
                 $this->data['alkes_option'][''] = 'Pilih Alat Kesehatan';
                 $alkes_opt_js = array();
@@ -413,7 +418,7 @@ class Periksamedis extends CI_Controller
                     $tipeTindakan = '2';
                 }
                 $this->data['master_tindakan'] = $this->db->query('select * from tbl_tindakan where tipe = "'.$tipeTindakan.'" order by cast(kode_tindakan as SIGNED INTEGER) asc ')->result();
-                 
+                
                 //Set session error
                 if($this->input->post('no_periksa')){
                     $this->session->set_flashdata('message', 'Terdapat error input, silahkan cek ulang');

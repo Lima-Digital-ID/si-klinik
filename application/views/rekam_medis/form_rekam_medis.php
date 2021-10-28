@@ -58,8 +58,10 @@
             </div>
             <div class="col-md-12">
             <?php
-            if(trim($riwayat_alergi_obat) != '')
-                echo alert('alert-info', 'Info', 'Pasien memiliki riwayat alergi obat : ' . '<b>' . $riwayat_alergi_obat . '</b>'); 
+            if(isset($riwayat_alergi_obat)) {
+                if(trim($riwayat_alergi_obat) != '')
+                echo alert('alert-info', 'Info', 'Pasien memiliki riwayat alergi obat : ' . '<b>' . $riwayat_alergi_obat . '</b>');
+            } 
             ?>
             </div>
             <div class="col-md-12">
@@ -71,19 +73,40 @@
 						<div class="form-group">
 							<div class="col-sm-2">No Periksa <?php echo form_error('no_periksa'); ?></div>
 							<div class="col-sm-10">
-                                    <?php echo form_input(array('id'=>'no_periksa','name'=>'no_periksa','type'=>'text','value'=>$no_periksa,'class'=>'form-control','readonly'=>'readonly'));?>
+                                <?php
+                                    if(isset($no_periksa)) {
+                                        echo form_input(array('id'=>'no_periksa','name'=>'no_periksa','type'=>'text','value'=>$no_periksa,'class'=>'form-control','readonly'=>'readonly'));
+                                    }
+                                    else {
+                                        echo form_input(array('id'=>'no_periksa','name'=>'no_periksa','type'=>'text','value'=>'','class'=>'form-control','readonly'=>'readonly'));
+                                    }
+                                ?>
 							</div>
                         </div>
                         <div class="form-group">
 							<div class="col-sm-2">Nama Lengkap</div>
 							<div class="col-sm-10">
-                                <?php echo form_input(array('id'=>'nama_lengkap','name'=>'nama_lengkap','type'=>'text','value'=>$nama_lengkap,'class'=>'form-control','readonly'=>'readonly'));?>
+                                <?php
+                                    if(isset($nama_lengkap)) {
+                                        echo form_input(array('id'=>'nama_lengkap','name'=>'nama_lengkap','type'=>'text','value'=>$nama_lengkap,'class'=>'form-control','readonly'=>'readonly'));
+                                    }
+                                    else {
+                                        echo form_input(array('id'=>'nama_lengkap','name'=>'nama_lengkap','type'=>'text','value'=>'','class'=>'form-control','readonly'=>'readonly'));
+                                    }
+                                ?>
                             </div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-2">Alamat</div>
 							<div class="col-sm-10">
-                                <?php echo form_textarea(array('id'=>'alamat','name'=>'alamat','type'=>'textarea','value'=>$alamat,'rows'=>'4','class'=>'form-control','readonly'=>'readonly'));?>
+                                <?php
+                                    if(isset($alamat)) {
+                                        echo form_textarea(array('id'=>'alamat','name'=>'alamat','type'=>'textarea','value'=>$alamat,'rows'=>'4','class'=>'form-control','readonly'=>'readonly'));
+                                    }
+                                    else {
+                                        echo form_textarea(array('id'=>'alamat','name'=>'alamat','type'=>'textarea','value'=>'','rows'=>'4','class'=>'form-control','readonly'=>'readonly'));
+                                    }
+                                ?>
                             </div>
 						</div>
 						<div class="form-group">
@@ -95,7 +118,14 @@
 						<div class="form-group">
 							<div class="col-sm-2">Riwayat Alergi Obat <?php echo form_error('riwayat_alergi_obat'); ?></div>
 							<div class="col-sm-10">
-                                <?php echo form_textarea(array('id'=>'riwayat_alergi_obat','name'=>'riwayat_alergi_obat','type'=>'textarea','value'=>$riwayat_alergi_obat,'rows'=>'4','class'=>'form-control','onchange'=>'riwayat_alergi()'));?>
+                                <?php
+                                    if(isset($riwayat_alergi_obat)) {
+                                        echo form_textarea(array('id'=>'riwayat_alergi_obat','name'=>'riwayat_alergi_obat','type'=>'textarea','value'=>$riwayat_alergi_obat,'rows'=>'4','class'=>'form-control','onchange'=>'riwayat_alergi()'));
+                                    }
+                                    else {
+                                        echo form_textarea(array('id'=>'riwayat_alergi_obat','name'=>'riwayat_alergi_obat','type'=>'textarea','value'=>'','rows'=>'4','class'=>'form-control','onchange'=>'riwayat_alergi()'));
+                                    }
+                                ?>
                             </div>
 						</div>
 						<hr />
