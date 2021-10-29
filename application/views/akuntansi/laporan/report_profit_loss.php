@@ -31,12 +31,18 @@
                                             <option value="11">November</option>
                                             <option value="12">Desember</option>
                                         </select>
-                                        <select class="form-control select2" name="tahun" required>
-                                            <option value="">--Pilih Tahun--</option>
-                                            <option value="2017">2017</option>
-                                            <option value="2018">2018</option>
-                                            <option value="2019">2019</option>
-                                        </select>
+                                        <?php 
+                                        $starting_year  = 2017;
+                                        $current_year = date("Y") * 1;
+                                        echo '<select class="form-control select2" name="tahun" required>';
+                                        echo '<option value="">--Pilih Tahun--</option>';
+                                        do {
+                                            echo '<option value="'.$starting_year.'">'.$starting_year.'</option>';
+                                            $starting_year++;
+                                        }
+                                        while ($current_year >= $starting_year);
+                                        echo '</select>';
+                                    ?>
                                         <button class="btn btn-primary"  onclick="cekAbsensiDate()"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
