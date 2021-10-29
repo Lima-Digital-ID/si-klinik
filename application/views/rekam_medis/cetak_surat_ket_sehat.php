@@ -25,12 +25,12 @@
 
   <!-- Set page size here: A5, A4 or A3 -->
   <!-- Set also "landscape" if you need -->
-  <style>@page { size: A5 }</style>
+  <style>@page { size: A4 }</style>
 </head>
 
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
-<body class="A5" onload="window.print()">
+<body class="A4" onload="window.print()">
 
   <!-- Each sheet element should have the class "sheet" -->
   <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
@@ -119,6 +119,9 @@
 </table>
 <p style="text-align: right;margin-bottom:5"><?= getInfoRS('kabupaten') ?>, <?php echo $tgl_cetak;?></p>
 <p style="text-align: right; margin-top:5;margin-bottom:70">Dokter yang memeriksa</p>
+<br>
+<br>
+<br>
 <p style="text-align: right;"><u> <?php echo $nama_dokter;?> </u></p>
   </section>
 
