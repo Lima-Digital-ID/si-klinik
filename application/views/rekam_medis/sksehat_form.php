@@ -24,6 +24,7 @@
                 else
                     echo alert('alert-info', 'Info', $this->session->flashdata('message')); 
             }
+            $romawi = array("","I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
             ?>
             </div>
             <div class="col-md-12">
@@ -38,7 +39,7 @@
                                     <?php echo form_input(array('id'=>'nomor','name'=>'nomor','type'=>'text','value'=> $nomor,'class'=>'form-control'));?>
 							</div>
                             <div class="col-sm-9" style="padding-left:0px">
-                                <h4 style="margin-top:5px;"><?= "/".date('m')."/KR/SH/".date('y') ?></h4>
+                                <h4 style="margin-top:5px;"><?= "/".$romawi[date('n')]."/KR/SH/".date('y') ?></h4>
                             </div>
                         </div>
 						<div class="form-group">

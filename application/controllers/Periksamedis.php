@@ -593,7 +593,8 @@ class Periksamedis extends CI_Controller
         $data['nomor'] = sprintf("%04s",$nomor);
         if ($this->form_validation->run() == TRUE) {
             $post = $this->input->post();
-            $post['nomor'] = $this->input->post('nomor')."/".date('m')."/KR/SH/".date('y');
+            $romawi = array("","I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
+            $post['nomor'] = $this->input->post('nomor')."/".$romawi[date('n')]."/KR/SH/".date('y');
             $post['tgl_cetak'] = date('Y-m-d');
             $post['id_dokter'] = $this->id_dokter;
             $this->Tbl_sksehat_model->insert($post);
