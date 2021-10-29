@@ -35,6 +35,14 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
+    public function get_detail_obat($kodeBarang)
+    {
+        $this->db->select('o.harga,max(d.diskon) diskon,max(d.tgl_exp) tgl_exp');
+        $this->db->from($this->table." o");
+        $this->db->join('tbl_inventory_detail d','o.kode_barang = d.kode_barang');
+        $this->db->where('o.kode_barang',$kodeBarang);
+        return $this->db->get()->row();
+    }
 	
 	function get_all_alkes($id_klinik = null)
     {

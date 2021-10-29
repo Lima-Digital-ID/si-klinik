@@ -321,7 +321,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-2">ARC Profilaksis <?php echo form_error('arv_profilaksis'); ?></div>
+                                    <div class="col-md-2">ARV Profilaksis <?php echo form_error('arv_profilaksis'); ?></div>
                                     <div class="col-md-10">
                                         <select style="width:100%" name="arv_profilaksis" id="" required class="form-control select2">
                                             <option value="">---Pilih Obat---</option>
@@ -329,8 +329,14 @@
                                                 foreach($obat as $item){
                                                     echo "<option value='$item[kode_barang]'>$item[nama_barang]</option>";
                                                 }
-                                            ?>
+                                                ?>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-2">Jumlah Obat <?php echo form_error('jml_arv_profilaksis'); ?></div>
+                                    <div class="col-md-10">
+                                        <input type="number" name="jml_arv_profilaksis" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row col-md-12">
@@ -368,6 +374,12 @@
                                                 }
                                             ?>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-2">Jumlah Obat <?php echo form_error('jml_malaria_obat'); ?></div>
+                                    <div class="col-md-10">
+                                        <input type="number" name="jml_malaria_obat" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -416,6 +428,12 @@
                                             ?>
 
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-2">Jumlah Obat <?php echo form_error('jml_tb_obat'); ?></div>
+                                    <div class="col-md-10">
+                                        <input type="number" name="jml_tb_obat" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row">
