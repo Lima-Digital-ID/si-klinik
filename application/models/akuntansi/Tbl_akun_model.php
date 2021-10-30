@@ -28,6 +28,14 @@ class Tbl_akun_model extends CI_Model
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
     }
+    function get_all_bank()
+    {   
+        $this->db->select('id_akun,no_akun,nama_akun');
+        $this->db->where('id_main_akun', 20);
+        $this->db->like('nama_akun', 'Bank', 'after');
+        $this->db->order_by('nama_akun','asc');
+        return $this->db->get($this->table)->result();
+    }
 
     // get data by id
     function get_by_id($id)

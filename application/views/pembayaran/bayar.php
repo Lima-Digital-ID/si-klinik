@@ -111,11 +111,42 @@
 						<div class="form-group">
 							<div class="col-sm-3">Metode Pembayaran <?php echo form_error('metode_pembayaran'); ?></div>
     						<div class="col-sm-3">
-    							  <input type="radio" name="metode_pembayaran" id="metode_pembayaran" value="1">
-                                  Asuransi
+    							  <input type="radio" name="metode_pembayaran" id="asuransi" value="1">
+                                  <label for="asuransi">
+                                      Asuransi
+                                  </label>
                                   &nbsp
-                                  <input type="radio" name="metode_pembayaran" id="metode_pembayaran" value="0" checked>
-                                  Non Asuransi
+                                  <input type="radio" name="metode_pembayaran" id="non-asuransi" value="0" checked>
+                                  <label for="non_asuransi">
+                                      Non Asuransi
+                                  </label>
+    						</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-3">Cara Pembayaran <?php echo form_error('cara_pembayaran'); ?></div>
+    						<div class="col-sm-3">
+    							  <input type="radio" name="cara_pembayaran" onchange="caraPembayaran(this)" id="tunai" value="1" checked>
+                                  <label for="tunai">
+                                      Tunai
+                                  </label>
+                                  &nbsp
+                                  <input type="radio" name="cara_pembayaran" onchange="caraPembayaran(this)" id="transfer" value="2">
+                                  <label for="transfer">
+                                      Transfer Bank
+                                  </label>
+    						</div>
+						</div>
+						<div class="form-group" id="daftar-bank" style="display:none">
+							<div class="col-sm-3">Daftar Bank <?php echo form_error('id_akun_bank'); ?></div>
+    						<div class="col-sm-3">
+                                <select name="id_akun_bank" class="form-control select2" id="" style="width:100%">
+                                    <option value="">---Pilih Bank---</option>
+                                    <?php 
+                                        foreach ($bank as $key => $value) {
+                                            echo "<option value='".$value->id_akun."'>".$value->no_akun." ".$value->nama_akun."</option>";
+                                        }
+                                    ?>
+                                </select>
     						</div>
 						</div>
 						<hr />
@@ -145,7 +176,15 @@
 <?php echo form_close();?>
 
 <script type="text/javascript">
-    
+    function caraPembayaran(e){
+        const daftarBank = document.getElementById('daftar-bank')
+        if(e.value=='2'){
+            daftarBank.style.display = 'block';
+        }
+        else{
+            daftarBank.style.display = 'none';
+        }
+    }
     function hitung_bayar(){
         var total_transaksi = parseInt($('#total_transaksi').val().replace('.',''));
         var subsidi_transaksi = parseInt($('#subsidi_transaksi').val().replace('.','') != '' ? $('#subsidi_transaksi').val().replace('.','') : 0);

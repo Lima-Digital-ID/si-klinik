@@ -22,6 +22,7 @@ class Pembayaran extends CI_Controller
         $this->load->library('form_validation');        
         $this->load->library('datatables');
         $this->load->model('akuntansi/Transaksi_akuntansi_model');     
+        $this->load->model('akuntansi/Tbl_akun_model');     
         $this->load->model('Tbl_sksehat_model');
         $this->load->model('Tbl_rapid_antigen_model');
         $this->id_klinik = $this->session->userdata('id_klinik');
@@ -101,6 +102,7 @@ class Pembayaran extends CI_Controller
             $data_trans = array(
                 'atas_nama' => $this->input->post('atas_nama'),
                 'status_transaksi' => 1,
+                'cara_pembayaran' => $this->input->post('cara_pembayaran'),
                 'dtm_upd' => date("Y-m-d H:i:s",  time())
             );
             $biaya_tindakan=$biaya_pemeriksaan=$biaya_obat=0;
@@ -222,8 +224,8 @@ class Pembayaran extends CI_Controller
                     redirect(site_url('pembayaran'));
                 break;
             }
-
-            $this->jurnal_otomatis_pemeriksaan($biaya);
+            $id_akun_bank = $this->input->post('cara_pembayaran')=='2' ? $this->input->post('id_akun_bank') : '20';
+            $this->jurnal_otomatis_pemeriksaan($biaya,$id_akun_bank);
 
             $this->Transaksi_model->update($id_transaksi, $data_trans);
             
@@ -253,7 +255,7 @@ class Pembayaran extends CI_Controller
             $this->data['tgl_transaksi'] = $data_transaksi->tgl_transaksi;
             $this->data['status_transaksi'] = $data_transaksi->status_transaksi;
             $this->data['total_transaksi'] = 0;
-            
+            $this->data['bank'] = $this->Tbl_akun_model->get_all_bank();
             $this->data['transaksi_d'] = $this->Transaksi_model->get_detail_by_h_id($data_transaksi->no_transaksi); //Ini array
             
             if($this->input->post('total_transaksi')){
@@ -270,7 +272,7 @@ class Pembayaran extends CI_Controller
         }
         $this->template->load('template','pembayaran/bayar', $this->data);
     }
-    private function jurnal_otomatis_pemeriksaan($biaya){
+    private function jurnal_otomatis_pemeriksaan($biaya,$id_akun_bank){
         if ($biaya['biaya_pemeriksaan'] != 0 || $biaya['biaya_administrasi'] != 0 || $biaya['biaya_tindakan'] != 0 || $biaya['komisi_dokter'] != 0) {
             $total=($biaya['biaya_pemeriksaan'] + $biaya['biaya_tindakan'] + $biaya['biaya_administrasi']) - $biaya['subsidi_transaksi'] - $biaya['komisi_dokter'];
             $data_trx=array(
@@ -332,7 +334,7 @@ class Pembayaran extends CI_Controller
                 }
                 $data=array(
                     'id_trx_akun'   => $id_last->id_trx_akun,
-                    'id_akun'       => 20,
+                    'id_akun'       => $id_akun_bank,
                     'jumlah'        => $total,
                     'tipe'          => 'DEBIT',
                     'keterangan'    => 'lawan',
@@ -357,7 +359,7 @@ class Pembayaran extends CI_Controller
                     $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
                     $data=array(
                         'id_trx_akun'   => $id_last->id_trx_akun,
-                        'id_akun'       => 20,
+                        'id_akun'       => $id_akun_bank,
                         'jumlah'        => $biaya['subsidi_transaksi'],
                         'tipe'          => 'KREDIT',
                         'keterangan'    => 'lawan',
