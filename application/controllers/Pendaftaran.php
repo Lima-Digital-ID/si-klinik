@@ -72,6 +72,7 @@ class Pendaftaran extends CI_Controller
 			
 			//Cek status dokter, jika kosong maka isi no_pendaftaran
 			$dokter = $this->Tbl_dokter_model->get_by_id($this->input->post('nama_dokter'));
+			$dokter = $this->Tbl_dokter_model->get_by_id($this->input->post('nama_dokter'));
 			if($dokter->no_pendaftaran == null || trim($dokter->no_pendaftaran) == '' ){
 			    $this->Tbl_dokter_model->update($this->input->post('nama_dokter'), array(
 			        'no_pendaftaran' => $no_pendaftaran,
@@ -470,29 +471,49 @@ class Pendaftaran extends CI_Controller
         }
     }
 
+    public function detail(){
+        $detail = $this->Pendaftaran_online_model->detail_pendaftar_online();
+        header('Content-Type: application/json');
+
+        echo json_encode($detail);
+    }
+
     public function update_pendaftar_online($id){
-        $dariDB = $this->Tbl_pasien_model->cekkodepasien();
-        $nourut = substr($dariDB, 3);
+        $daridbpasien = $this->Tbl_pasien_model->cekkodepasien();
+        $nourut = substr($daridbpasien, 3);
         $noRekamMedisSekarang = str_pad($nourut+1, 6, 0, STR_PAD_LEFT);
+        $daridbpendaftaran = $this->Pendaftaran_model->cekkodependaftaran();
+        $nourutpendaftaran = substr($daridbpendaftaran, 3);
+        $noPendaftaranSekarang = str_pad($nourutpendaftaran+1, 6, 0, STR_PAD_LEFT);
         
         $row = $this->Pendaftaran_online_model->get_by_id($id);
         if ($row){
             $data_pasien = array(
                 'no_rekam_medis'    => $noRekamMedisSekarang,
-                'no_id_pasien'		=> $row->nik,
-                'nama_lengkap'      => $row->nama_lengkap,
-                'nik'               => $row->nik,
-                'tanggal_lahir'     => $row->tanggal_lahir,
-                'golongan_darah'    => $row->golongan_darah,
-                'status_menikah'    => $row->status_menikah,
-                'pekerjaan'      	=> $row->pekerjaan,
-                'alamat'      		=> $row->alamat,
-                'kabupaten' 		=> $row->kabupaten,
-                'rt' 		=> $row->rt,
-                'rw' 		=> $row->rw,
-                'nama_orang_tua_atau_istri'      =>  $row->nama_orang_tua_atau_istri,
-                'nomer_telepon'     =>  $row->nomer_telepon,
+                'no_id_pasien'		=> $this->input->post('no_id'),
+                'nama_lengkap'      => $this->input->post('nama_lengkap'),
+                'nik'               => $this->input->post('nik'),
+                'tanggal_lahir'     => $this->input->post('tanggal_lahir'),
+                'golongan_darah'    => $this->input->post('golongan_darah'),
+                'status_menikah'    => $this->input->post('status_menikah'),
+                'pekerjaan'      	=> $this->input->post('pekerjaan'),
+                'alamat'      		=> $this->input->post('alamat'),
+                'kabupaten' 		=> $this->input->post('kabupaten'),
+                'rt' 		=> $this->input->post('rt'),
+                'rw' 		=> $this->input->post('rw'),
+                'nama_orang_tua_atau_istri'      =>  $this->input->post('nama_orangtua_atau_istri'),
+                'nomer_telepon'     =>  $this->input->post('nomor_telepon'),
             );
+    
+            $data_pendaftaran = array(
+                'no_pendaftaran' => $noPendaftaranSekarang,
+                'no_rekam_medis' => $noRekamMedisSekarang,
+                'id_dokter' => $this->input->post('nama_dokter'),
+                'id_klinik' => $this->id_klinik,
+                'tipe_periksa' => $this->input->post('tipe_periksa'),
+            );
+
+            $this->Pendaftaran_model->insert($data_pendaftaran);
             $this->Tbl_pasien_model->insert($data_pasien);
             $this->Pendaftaran_online_model->delete($row->id_pendaftaran);
         }
@@ -501,6 +522,58 @@ class Pendaftaran extends CI_Controller
         $this->session->set_flashdata('message_type', 'success');
         // $this->template->load('template','pendaftaran/list_pendaftar_online');
         redirect(site_url('pendaftaran/list_pendaftar_online'));
+    }
+
+    public function delete_data_online($id){
+        $row = $this->Pendaftaran_online_model->get_by_id($id);
+        
+    }
+
+    public function update_data_online($id){
+        $daridbpasien = $this->Tbl_pasien_model->cekkodepasien();
+        $nourut = substr($daridbpasien, 3);
+        $noRekamMedisSekarang = str_pad($nourut+1, 6, 0, STR_PAD_LEFT);
+        $daridbpendaftaran = $this->Pendaftaran_model->cekkodependaftaran();
+        $nourutpendaftaran = substr($daridbpendaftaran, 3);
+        $noPendaftaranSekarang = str_pad($nourutpendaftaran+1, 6, 0, STR_PAD_LEFT);
+        $dokter = $this->Tbl_dokter_model->get_by_id($this->input->post('nama_dokter'));
+        $id_pendaftaran = $this->Tbl_dokter_model->get_by_id($this->input->post('nama_dokter'));
+        // $idpendaftaran = $this->Pendaftaran_online_model->delete('tbl_pendaftaran_online', array('id' => $id_pendaftaran));
+        // $this->db->delete('mytable', array('id' => $id))
+        // $this->_rules();
+        $data_pasien = array(
+            'no_rekam_medis'    => $noRekamMedisSekarang,
+            'no_id_pasien'		=> $this->input->post('no_id'),
+            'nama_lengkap'      => $this->input->post('nama_lengkap'),
+            'nik'               => $this->input->post('nik'),
+            'tanggal_lahir'     => $this->input->post('tanggal_lahir'),
+            'golongan_darah'    => $this->input->post('golongan_darah'),
+            'status_menikah'    => $this->input->post('status_menikah'),
+            'pekerjaan'      	=> $this->input->post('pekerjaan'),
+            'alamat'      		=> $this->input->post('alamat'),
+            'kabupaten' 		=> $this->input->post('kabupaten'),
+            'rt' 		=> $this->input->post('rt'),
+            'rw' 		=> $this->input->post('rw'),
+            'nama_orang_tua_atau_istri'      =>  $this->input->post('nama_orang_tua_atau_istri'),
+            'nomer_telepon'     =>  $this->input->post('nomer_telepon'),
+        );
+
+        $data_pendaftaran = array(
+            'no_pendaftaran' => $noPendaftaranSekarang,
+            'no_rekam_medis' => $noRekamMedisSekarang,
+            'id_dokter' => $this->input->post('id_dokter'),
+            'id_klinik' => $this->id_klinik,
+            'tipe_periksa' => $this->input->post('tipe_periksa'),
+        );
+        $this->Pendaftaran_model->insert($data_pendaftaran);
+        $this->Tbl_pasien_model->insert($data_pasien);
+        $this->Pendaftaran_online_model->delete($id);
+
+         // Set session sukses
+         $this->session->set_flashdata('message', 'Data pendaftaran berhasil didaftarkan');
+         $this->session->set_flashdata('message_type', 'success');
+         // $this->template->load('template','pendaftaran/list_pendaftar_online');
+         redirect(site_url('pendaftaran/list_pendaftar_online'));
     }
         
 }

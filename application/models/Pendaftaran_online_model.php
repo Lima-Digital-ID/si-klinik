@@ -38,14 +38,26 @@ class Pendaftaran_online_model extends CI_Model
       $this->db->delete($this->table);
     }
   
-  function json(){
-    $this->datatables->select('po.id_pendaftaran, dr.nama_dokter, po.nama_lengkap,po.nik,po.tanggal_lahir,po.golongan_darah, po.status_menikah, po.pekerjaan, po.alamat, po.kabupaten, po.rt, po.rw, po.nama_orang_tua_atau_istri, po.nomer_telepon, po.tipe_periksa');
-    $this->datatables->from('tbl_pendaftaran_online po');
-    $this->datatables->join('tbl_dokter dr', 'po.id_dokter=dr.id_dokter');
-    // $this->datatables->where('pd.is_periksa=0 OR pd.is_periksa=3');
-    $this->datatables->add_column('action', anchor(site_url('pendaftaran/update_pendaftar_online/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>','class="btn btn-success btn-sm"')." 
-          ".anchor(site_url('pendaftaran/delete_pendaftar_online/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Apakah kamu yakin ?\')"'), 'id_pendaftaran');
-    
-    return $this->datatables->generate();
-  }
+    function json()
+    {
+      $this->datatables->select('po.id_pendaftaran, dr.nama_dokter, po.id_dokter, po.nama_lengkap,po.nik,po.tanggal_lahir,po.golongan_darah, po.status_menikah, po.pekerjaan, po.alamat, po.kabupaten, po.rt, po.rw, po.nama_orang_tua_atau_istri, po.nomer_telepon, po.tipe_periksa');
+      $this->datatables->from('tbl_pendaftaran_online po');
+      $this->datatables->join('tbl_dokter dr', 'po.id_dokter=dr.id_dokter');
+      // $this->datatables->where('pd.is_periksa=0 OR pd.is_periksa=3');
+      // $this->datatables->add_column('action', anchor(site_url('pendaftaran/update_pendaftar_online/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>','class="btn btn-success btn-sm"')." 
+      //       ".anchor(site_url('pendaftaran/delete_pendaftar_online/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Apakah kamu yakin ?\')"'), 'id_pendaftaran');
+      $this->datatables->add_column('action', anchor('', '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', 'class="btn btn-success btn-sm btn-detail"') . " 
+            " . anchor(site_url('pendaftaran/delete_pendaftar_online/$1'), '<i class="fa fa-trash-o" aria-hidden="true"></i>', 'data-total="$1" data-id="$2" class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Apakah kamu yakin ?\')"'), 'id_pendaftaran');
+  
+      return $this->datatables->generate();
+    }
+  
+    public function detail_pendaftar_online()
+    {
+      $this->db->select('dr.nama_dokter, po.id_dokter, po.nama_lengkap, po.nik, po.tanggal_lahir, po.golongan_darah, po.status_menikah, po.pekerjaan, po.alamat, po.kabupaten, po.rt, po.rw, po.nama_orang_tua_atau_istri, po.nomer_telepon, po.tipe_periksa');
+      $this->db->from('tbl_pendaftaran_online po');
+      $this->db->join('tbl_dokter dr', 'po.id_dokter = dr.id_dokter');
+      // $this->db->where('po.id_pendaftaran', $id);
+      return $this->db->get()->result();
+    }
 }

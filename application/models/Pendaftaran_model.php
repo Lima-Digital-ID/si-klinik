@@ -144,4 +144,10 @@ class Pendaftaran_model extends CI_Model
             
         return $this->datatables->generate();
     }
+
+    function cekkodependaftaran(){
+        $query = $this->db->query("SELECT MAX(no_pendaftaran) as np from tbl_pendaftaran");
+        $hasil = $query->row();
+        return $hasil->np;
+    }
 }
