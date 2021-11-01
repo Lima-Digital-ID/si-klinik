@@ -42,6 +42,9 @@ class PendaftaranOnline extends CI_Controller {
 
     public function index(){
       $this->_rules();
+      $daridbpendaftaran = $this->Pendaftaran_online_model->cekKodePendaftaran();
+      // $nourut = substr($daridbpendaftaran,2);
+      // $kodependaftaran = $nourut + 1;
       $recaptcha = $this->input->post('g-recaptcha-response');
       $response = $this->recaptcha->verifyResponse($recaptcha);	
       if ($this->form_validation->run() == TRUE && isset($response['failed']) || $this->form_validation->run() == TRUE &&  $response['success'] == TRUE) {
@@ -50,7 +53,7 @@ class PendaftaranOnline extends CI_Controller {
           
     $data_pasien = array(
       // 'no_rekam_medis'    => $this->input->post('no_rekam_medis'),
-      // 'no_id_pasien'		=> $this->input->post('no_id'),
+      // 'no_id_pasien'		=> $kodependaftaran,
       'nama_lengkap'      => $this->input->post('nama_lengkap'),
       'nik'               => $this->input->post('nik'),
       'tanggal_lahir'     => $this->input->post('tanggal_lahir'),
@@ -131,10 +134,11 @@ class PendaftaranOnline extends CI_Controller {
             $this->data['captcha'] = $this->recaptcha->getWidget();
             $this->data['script_captcha'] = $this->recaptcha->getScriptTag();
             $this->data['dokter'] = $this->Tbl_dokter_model->get_all_jaga($this->id_klinik);
-              
+            if($this->input->post('nik')){
+              $this->session->set_flashdata('message', 'Terdapat error input, silahkan cek ulang');
+              $this->session->set_flashdata('message_type', 'danger');
+            }
     //Set session error
-    $this->session->set_flashdata('message', 'Terdapat error input, silahkan cek ulang');
-    $this->session->set_flashdata('message_type', 'danger');
   }
       
       $this->load->view('pendaftaran/pendaftaran_online', $this->data);
