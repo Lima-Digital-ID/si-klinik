@@ -273,6 +273,11 @@ class Pembayaran extends CI_Controller
         $this->template->load('template','pembayaran/bayar', $this->data);
     }
     private function jurnal_otomatis_pemeriksaan($biaya,$id_akun_bank){
+        foreach ($biaya as $key => $value) {
+            if(!is_numeric($value)){
+                $biaya[$key] = 0;
+            }
+        }
         if ($biaya['biaya_pemeriksaan'] != 0 || $biaya['biaya_administrasi'] != 0 || $biaya['biaya_tindakan'] != 0 || $biaya['komisi_dokter'] != 0) {
             $total=($biaya['biaya_pemeriksaan'] + $biaya['biaya_tindakan'] + $biaya['biaya_administrasi']) - $biaya['subsidi_transaksi'] - $biaya['komisi_dokter'];
             $data_trx=array(
