@@ -515,7 +515,7 @@ class Pendaftaran extends CI_Controller
 
             $this->Pendaftaran_model->insert($data_pendaftaran);
             $this->Tbl_pasien_model->insert($data_pasien);
-            $this->Pendaftaran_online_model->delete($row->id_pendaftaran);
+            $this->Pendaftaran_online_model->delete($id);
         }
         // Set session sukses
         $this->session->set_flashdata('message', 'Data pendaftaran berhasil didaftarkan');
@@ -536,8 +536,8 @@ class Pendaftaran extends CI_Controller
         $daridbpendaftaran = $this->Pendaftaran_model->cekkodependaftaran();
         $nourutpendaftaran = substr($daridbpendaftaran, 3);
         $noPendaftaranSekarang = str_pad($nourutpendaftaran+1, 6, 0, STR_PAD_LEFT);
-        $dokter = $this->Tbl_dokter_model->get_by_id($this->input->post('nama_dokter'));
-        $id_pendaftaran = $this->Tbl_dokter_model->get_by_id($this->input->post('nama_dokter'));
+        // $dokter = $this->Tbl_dokter_model->get_by_id($this->input->post('nama_dokter'));
+        // $id_pendaftaran = $this->Tbl_dokter_model->get_by_id($this->input->post('nama_dokter'));
         // $idpendaftaran = $this->Pendaftaran_online_model->delete('tbl_pendaftaran_online', array('id' => $id_pendaftaran));
         // $this->db->delete('mytable', array('id' => $id))
         // $this->_rules();
