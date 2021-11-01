@@ -65,7 +65,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="update_data_online" method="post" enctype="multipart/form-data"class="form-horizontal" id="form-create_pendaftaran form-online">
+                <form action="update_pendaftar_online" method="post" enctype="multipart/form-data"class="form-horizontal" id="form-create_pendaftaran form-online">
                     <div class="box-body">
                         <input type="hidden" class="form-control" id="id_dokter" name="id_dokter" readonly>
                         <input type="hidden" class="form-control" id="tanggal_lahir" name="tanggal_lahir" readonly>
