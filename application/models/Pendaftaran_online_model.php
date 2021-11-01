@@ -61,9 +61,15 @@ class Pendaftaran_online_model extends CI_Model
       return $this->db->get()->result();
     }
 
-    function cekKodePendaftaran(){
+    public function cekKodePendaftaran(){
       $query = $this->db->query("SELECT MAX(id_pendaftaran) as id from tbl_pendaftaran_online");
       $hasil = $query->row();
       return $hasil->id;
+    }
+
+    public function cekNikPendaftaran(){
+      $query = $this->db->query("SELECT nik FROM tbl_pasien WHERE  nik = '351108'");
+      $hasil = $query->row();
+      return $hasil->nik;
     }
 }

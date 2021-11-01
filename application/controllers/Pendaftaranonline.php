@@ -41,8 +41,23 @@ class PendaftaranOnline extends CI_Controller {
     }
 
     function index(){
+      // CEK NIK
+      // $nik = $this->input->post('nik');
+      // $this->db->where('nik', $nik);
+      // $pasien = $this->db->get('tbl_pasien');
+      // $sql = "SELECT nik FROM tbl_pasien WHERE nik = 'nik'";
+      // return $nik;
+      // $this->load->view('pendaftaran/home_pendaftaran_online');
+      // $cek = $this->Pendaftaran_online_model->cekNikPendaftaran();
+      // $sql = "SELECT nik FROM tbl_pasien WHERE nik=input->post('nik')";
+      // $cek = $sql;
+      // if($cek==0){
+      //   echo "Tidak ada data";
+      // } else{
+      //   echo $cek ;
+      // }
       $this->load->view('pendaftaran/home_pendaftaran_online');
-  }
+    }
 
     public function pendaftaran(){
       $this->_rules();

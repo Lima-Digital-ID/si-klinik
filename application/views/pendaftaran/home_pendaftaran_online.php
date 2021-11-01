@@ -35,6 +35,7 @@
             <!-- /.login-logo -->
             <div class="login-box-body">
                 <form action="pendaftaranonline/pendaftaran" method="get">
+                <!-- <form action="" method=""> -->
                 <div class="row">
                   <h3 class="judul text-center">Pendaftaran Online</h3>
                 </div>
@@ -43,7 +44,7 @@
                       <span class="glyphicon glyphicon-credit-card form-control-feedback"></span>
                   </div>
                   <div class="row">
-                      <div class="col-xs-4 text-center">
+                      <div class="col-xs-4">
                           <button type="submit" class="btn btn-success btn-block btn-flat"><i class="fa fa-sign-in" aria-hidden="true"></i> Daftar</button>
                       </div>
                   </div>
