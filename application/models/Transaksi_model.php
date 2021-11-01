@@ -109,6 +109,8 @@ class Transaksi_model extends CI_Model
     }
     
     function json($id_klinik = null,$tipe) {
+        $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));");        
+
         $this->datatables->select('id_transaksi,kode_transaksi,tbl_klinik.nama as id_klinik,tbl_transaksi.no_transaksi,tbl_periksa.dtm_crt as tgl_periksa,tbl_periksa.dtm_upd as tgl_pengambilan, (CASE status_transaksi WHEN 1 THEN "Lunas" ELSE "Belum Dibayar" END) as status_transaksi, tbl_pasien.nama_lengkap as nama_pasien');
         $this->datatables->from('tbl_periksa');
         $this->datatables->join('tbl_transaksi','tbl_periksa.no_periksa=tbl_transaksi.no_transaksi');
@@ -132,7 +134,8 @@ class Transaksi_model extends CI_Model
             // $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
         }
         $this->datatables->where($where);
-        // $this->db->group_by('tbl_transaksi.no_transaksi');
+        $this->db->order_by('tbl_transaksi.no_transaksi','asc');
+        $this->db->group_by('tbl_transaksi.no_transaksi');
 
         $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1?tab=pemeriksaan'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
             
@@ -140,6 +143,7 @@ class Transaksi_model extends CI_Model
     }
     
     function json2($id_klinik = null,$tipe) {
+        $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));");        
         $this->datatables->select('id_transaksi,kode_transaksi,tbl_klinik.nama as id_klinik,tbl_transaksi.no_transaksi,tbl_periksa.is_surat_ket_sakit,tbl_periksa.no_periksa,tbl_periksa.dtm_crt as tgl_periksa,tbl_periksa.dtm_upd as tgl_pengambilan, (CASE status_transaksi WHEN 1 THEN "Lunas" ELSE "Belum Dibayar" END) as status_transaksi, tbl_transaksi.dtm_upd as tgl_pembayaran, tbl_pasien.nama_lengkap as nama_pasien');
         $this->datatables->from('tbl_periksa');
         $this->datatables->join('tbl_transaksi','tbl_periksa.no_periksa=tbl_transaksi.no_transaksi');
@@ -161,7 +165,8 @@ class Transaksi_model extends CI_Model
             $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
             $this->datatables->add_column('cetak', anchor(site_url('pembayaran/cetak-sklab?id=$1'),'Cetak SK LAB','class="btn btn-danger btn-sm"'),'no_periksa');
         }
-        // $this->db->group_by('tbl_transaksi.no_transaksi');
+        $this->db->order_by('tbl_transaksi.no_transaksi','asc');
+        $this->db->group_by('tbl_transaksi.no_transaksi');
             
         return $this->datatables->generate();
     }
