@@ -854,7 +854,7 @@ class Periksamedis extends CI_Controller
         for ($i=1; $i <= 5 ; $i++) { 
             array_push($fields,'obat_cacing'.$i);
         }
-        $data_pasien = null;
+        // $data_pasien = null;
 
         if(isset($data_pasien)) {
             $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
@@ -958,7 +958,7 @@ class Periksamedis extends CI_Controller
         $date_now = date('Ymd', time());
         $this->data['no_rekam_medis'] = $data_pendaftaran->no_rekam_medis;
         $this->data['no_periksa'] = $data_pendaftaran->no_pendaftaran.'/'.$date_now.'/'.$data_pendaftaran->no_rekam_medis;
-        $data_pasien = null;
+        // $data_pasien = null;
         if(isset($data_pasien)) {
             $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
             $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
@@ -1247,7 +1247,7 @@ class Periksamedis extends CI_Controller
     public function json_antrian($tipe=1){
         header('Content-Type: application/json');
         // echo $this->Pendaftaran_model->json_antrian($this->id_dokter,$tipe);
-        echo $this->Pendaftaran_model->json_antrian(2,$tipe);
+        echo $this->Pendaftaran_model->json_antrian($this->id_dokter,$tipe);
     }
     
     public function json_riwayat(){

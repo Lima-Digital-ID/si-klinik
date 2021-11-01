@@ -114,15 +114,19 @@ class Pendaftaran_model extends CI_Model
         $this->datatables->join('tbl_dokter d','pd.id_dokter=d.id_dokter');
         $this->datatables->join('tbl_dokter dd','pd.no_pendaftaran=dd.no_pendaftaran', 'left');
         $this->datatables->join('tbl_klinik k', 'pd.id_klinik = k.id_klinik');
-        $this->datatables->where('pd.is_periksa', 0);
-        $this->datatables->where('pd.id_dokter', $id_dokter);
+        $where = "pd.is_periksa = '0' and pd.id_dokter = '$id_dokter' ";
+        // $this->datatables->where('pd.is_periksa', 0);
+        // $this->datatables->where('pd.id_dokter', $id_dokter);
         if($tipe==1 || $tipe==4){
-            $this->datatables->where('pd.tipe_periksa', '1');
-            $this->datatables->or_where('pd.tipe_periksa', '4');
+            $where.="and pd.tipe_periksa = '1' or $where and pd.tipe_periksa = '4' ";
+            // $this->datatables->where('pd.tipe_periksa', '1');
+            // $this->datatables->or_where('pd.tipe_periksa', '4');
         }
         else{
-            $this->datatables->where('pd.tipe_periksa', $tipe);
+            $where.="and pd.tipe_periksa = '$tipe'";
+            // $this->datatables->where('pd.tipe_periksa', $tipe);
         }
+        $this->datatables->where($where);
 
         $this->datatables->add_column('action',anchor(site_url('periksamedis/periksa/$1?tipe=$3'),'Periksa','class="btn btn-warning btn-sm $2"'),'no_pendaftaran,status_antrian,tipe_periksa');
             
