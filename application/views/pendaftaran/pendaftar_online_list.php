@@ -30,7 +30,7 @@
                                         <th>Nama Lengkap</th>
                                         <th>NIK</th>
                                         <th>Nama Dokter</th>
-                                        <th>ID Dokter</th>
+                                        <!-- <th>ID Dokter</th> -->
                                         <th>Tanggal Lahir</th>
                                         <th>Golongan Darah</th>
                                         <th>Status Menikah</th>
@@ -65,8 +65,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="update_pendaftar_online" method="post" enctype="multipart/form-data"class="form-horizontal" id="form-create_pendaftaran form-online">
+                <form action="update_data_online" method="post" enctype="multipart/form-data"class="form-horizontal" id="form-create_pendaftaran form-online">
                     <div class="box-body">
+                        <input type="hidden" class="form-control" id="id_pendaftaran" name="id_pendaftaran" readonly>
                         <input type="hidden" class="form-control" id="id_dokter" name="id_dokter" readonly>
                         <input type="hidden" class="form-control" id="tanggal_lahir" name="tanggal_lahir" readonly>
                         <input type="hidden" class="form-control" id="golongan_darah" name="golongan_darah" readonly>
@@ -155,9 +156,11 @@
                     "data": "nik"
                 }, {
                     "data": "nama_dokter"
-                },{
-                    "data": "id_dokter"
-                },{
+                },
+                // {
+                //     "data": "id_dokter"
+                // },
+                {
                     "data": "tanggal_lahir"
                 }, {
                     "data": "golongan_darah"
@@ -248,6 +251,7 @@
                 },
                 success: function(data) {
                     $('#myModal').modal('show');
+                    $('#id_pendaftaran').val(id);
                     $('#nama').val(nama);
                     $('#nik').val(nik_pasien);
                     $('#id_dokter').val(cr);
