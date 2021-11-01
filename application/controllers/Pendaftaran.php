@@ -478,51 +478,51 @@ class Pendaftaran extends CI_Controller
         echo json_encode($detail);
     }
 
-    public function update_pendaftar_online(){
-        $daridbpasien = $this->Tbl_pasien_model->cekkodepasien();
-        $nourut = substr($daridbpasien, 3);
-        $noRekamMedisSekarang = str_pad($nourut+1, 6, 0, STR_PAD_LEFT);
-        $daridbpendaftaran = $this->Pendaftaran_model->cekkodependaftaran();
-        $nourutpendaftaran = substr($daridbpendaftaran, 3);
-        $noPendaftaranSekarang = str_pad($nourutpendaftaran+1, 6, 0, STR_PAD_LEFT);
+    // public function update_pendaftar_online($id){
+    //     $daridbpasien = $this->Tbl_pasien_model->cekkodepasien();
+    //     $nourut = substr($daridbpasien, 3);
+    //     $noRekamMedisSekarang = str_pad($nourut+1, 6, 0, STR_PAD_LEFT);
+    //     $daridbpendaftaran = $this->Pendaftaran_model->cekkodependaftaran();
+    //     $nourutpendaftaran = substr($daridbpendaftaran, 3);
+    //     $noPendaftaranSekarang = str_pad($nourutpendaftaran+1, 6, 0, STR_PAD_LEFT);
         
-        $row = $this->Pendaftaran_online_model->get_by_id($id);
-        if ($row){
-            $data_pasien = array(
-                'no_rekam_medis'    => $noRekamMedisSekarang,
-                'no_id_pasien'		=> $row->nik,
-                'nama_lengkap'      => $row->nama_lengkap,
-                'nik'               => $row->nik,
-                'tanggal_lahir'     => $row->tanggal_lahir,
-                'golongan_darah'    => $row->golongan_darah,
-                'status_menikah'    => $row->status_menikah,
-                'pekerjaan'      	=> $row->pekerjaan,
-                'alamat'      		=> $row->alamat,
-                'kabupaten' 		=> $row->kabupaten,
-                'rt' 		=> $row->rt,
-                'rw' 		=> $row->rw,
-                'nama_orang_tua_atau_istri'      =>  $row->nama_orang_tua_atau_istri,
-                'nomer_telepon'     =>  $row->nomer_telepon,
-            );
+    //     $row = $this->Pendaftaran_online_model->get_by_id($id);
+    //     if ($row){
+    //         $data_pasien = array(
+    //             'no_rekam_medis'    => $noRekamMedisSekarang,
+    //             'no_id_pasien'		=> $row->nik,
+    //             'nama_lengkap'      => $row->nama_lengkap,
+    //             'nik'               => $row->nik,
+    //             'tanggal_lahir'     => $row->tanggal_lahir,
+    //             'golongan_darah'    => $row->golongan_darah,
+    //             'status_menikah'    => $row->status_menikah,
+    //             'pekerjaan'      	=> $row->pekerjaan,
+    //             'alamat'      		=> $row->alamat,
+    //             'kabupaten' 		=> $row->kabupaten,
+    //             'rt' 		=> $row->rt,
+    //             'rw' 		=> $row->rw,
+    //             'nama_orang_tua_atau_istri'      =>  $row->nama_orang_tua_atau_istri,
+    //             'nomer_telepon'     =>  $row->nomer_telepon,
+    //         );
     
-            $data_pendaftaran = array(
-                'no_pendaftaran' => $noPendaftaranSekarang,
-                'no_rekam_medis' => $noRekamMedisSekarang,
-                'id_dokter' => $row->id_dokter,
-                'id_klinik' => $this->id_klinik,
-                'tipe_periksa' => $row->tipe_periksa,
-            );
+    //         $data_pendaftaran = array(
+    //             'no_pendaftaran' => $noPendaftaranSekarang,
+    //             'no_rekam_medis' => $noRekamMedisSekarang,
+    //             'id_dokter' => $row->id_dokter,
+    //             'id_klinik' => $this->id_klinik,
+    //             'tipe_periksa' => $row->tipe_periksa,
+    //         );
 
-            $this->Pendaftaran_model->insert($data_pendaftaran);
-            $this->Tbl_pasien_model->insert($data_pasien);
-            $this->Pendaftaran_online_model->delete($id);
-        }
-        // Set session sukses
-        $this->session->set_flashdata('message', 'Data pendaftaran berhasil didaftarkan');
-        $this->session->set_flashdata('message_type', 'success');
-        // $this->template->load('template','pendaftaran/list_pendaftar_online');
-        redirect(site_url('pendaftaran/list_pendaftar_online'));
-    }
+    //         $this->Pendaftaran_model->insert($data_pendaftaran);
+    //         $this->Tbl_pasien_model->insert($data_pasien);
+    //         $this->Pendaftaran_online_model->delete($id);
+    //     }
+    //     // Set session sukses
+    //     $this->session->set_flashdata('message', 'Data pendaftaran berhasil didaftarkan');
+    //     $this->session->set_flashdata('message_type', 'success');
+    //     // $this->template->load('template','pendaftaran/list_pendaftar_online');
+    //     redirect(site_url('pendaftaran/list_pendaftar_online'));
+    // }
 
     public function delete_data_online($id){
         $row = $this->Pendaftaran_online_model->get_by_id($id);

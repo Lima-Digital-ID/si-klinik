@@ -40,9 +40,13 @@ class PendaftaranOnline extends CI_Controller {
     	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
-    public function index(){
+    function index(){
+      $this->load->view('pendaftaran/home_pendaftaran_online');
+  }
+
+    public function pendaftaran(){
       $this->_rules();
-      $daridbpendaftaran = $this->Pendaftaran_online_model->cekKodePendaftaran();
+      // $daridbpendaftaran = $this->Pendaftaran_online_model->cekKodePendaftaran();
       // $nourut = substr($daridbpendaftaran,2);
       // $kodependaftaran = $nourut + 1;
       $recaptcha = $this->input->post('g-recaptcha-response');

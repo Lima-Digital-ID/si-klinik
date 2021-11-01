@@ -146,7 +146,8 @@
             <div class="form-group">
               <div class="col-sm-12">
                 <div align="right">
-                  <?php echo $captcha ?>
+                  <?php echo $captcha  ?>
+                  <?php echo form_error($captcha); ?>
                   <br>
                   <a href=""<?php echo site_url('pendaftaran') ?>" class="btn btn-info"><i class="fa fa-sign-out">Kembali</i></a>
                   <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"> Simpan Pendaftaran</i></button>
