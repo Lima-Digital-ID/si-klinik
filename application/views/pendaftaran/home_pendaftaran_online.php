@@ -34,7 +34,7 @@
             </div>
             <!-- /.login-logo -->
             <div class="login-box-body">
-                <form action="pendaftaranonline/pendaftaran" method="get">
+                <form action="cekNik" method="get">
                 <!-- <form action="" method=""> -->
                 <div class="row">
                   <h3 class="judul text-center">Pendaftaran Online</h3>

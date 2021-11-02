@@ -15,7 +15,7 @@ class PendaftaranOnline extends CI_Controller {
 		  $this->load->model('User_model');
 		  $this->load->model('Tbl_wilayah_model');
 		  $this->load->library('form_validation');
-		  $this->load->library('datatables');
+		  $this->load->library('session');
 		
 		  // $this->id_klinik = $this->session->userdata('id_klinik');
     }
@@ -41,25 +41,56 @@ class PendaftaranOnline extends CI_Controller {
     }
 
     function index(){
-      // CEK NIK
-      // $nik = $this->input->post('nik');
-      // $this->db->where('nik', $nik);
-      // $pasien = $this->db->get('tbl_pasien');
-      // $sql = "SELECT nik FROM tbl_pasien WHERE nik = 'nik'";
-      // return $nik;
-      // $this->load->view('pendaftaran/home_pendaftaran_online');
-      // $cek = $this->Pendaftaran_online_model->cekNikPendaftaran();
-      // $sql = "SELECT nik FROM tbl_pasien WHERE nik=input->post('nik')";
-      // $cek = $sql;
-      // if($cek==0){
-      //   echo "Tidak ada data";
-      // } else{
-      //   echo $cek ;
-      // }
       $this->load->view('pendaftaran/home_pendaftaran_online');
     }
 
-    public function pendaftaran(){
+    public function cekNik(){     
+      $nik = $this->input->get('nik');
+      $cek = $this->Pendaftaran_online_model->cekNikPendaftaran($nik);
+      if(count($cek)==0){
+        $nikdaftar = array(
+          'nik'                   => $this->input->get('nik'),
+          'nama_lengkap'          => '',
+          'tanggal_lahir'         => '',
+          'golongan_darah'        => '',
+          'status_menikah'        => '',
+          'pekerjaan'             => '',
+          'alamat'                => '',
+          'kabupaten'             => '',
+          'rt'                    => '',      
+          'rw'                    => '',      
+          'nama_orang_tua_atau_istri'  => '',
+          'nomer_telepon'         => '',
+        );
+        // redirect(site_url('pendaftaranonline/pendaftaran/').$nik);
+        // $this->load->view('pendaftaran/pendaftaran_online');
+      } else{
+        $row = $cek[0];
+        // print_r($row);
+        // echo $nik;
+        // $row = $this->Pendaftaran_online_model->get_by_id($this->input->get('id'));
+        //   if($row == )
+        $nikdaftar = array(
+          'nik'                   => $row['nik'],
+          'nama_lengkap'          => $row['nama_lengkap'],
+          'tanggal_lahir'         => $row['tanggal_lahir'],
+          'golongan_darah'        => $row['golongan_darah'],
+          'status_menikah'        => $row['status_menikah'],
+          'pekerjaan'             => $row['pekerjaan'],
+          'alamat'                => $row['alamat'],
+          'kabupaten'             => $row['kabupaten'],
+          'rt'                    => $row['rt'],      
+          'rw'                    => $row['rw'],      
+          'nama_orang_tua_atau_istri'  => $row['nama_orang_tua_atau_istri'],
+          'nomer_telepon'         => $row['nomer_telepon'],
+        );
+        // $this->Pendaftaran_online_model->insert($nikdaftar);
+        // redirect(site_url('pendaftaranonline/pendaftaran/').$nik);
+      }
+      $this->pendaftaran($nikdaftar);
+    }
+
+    public function pendaftaran($nikdaftar){
       $this->_rules();
       // $daridbpendaftaran = $this->Pendaftaran_online_model->cekKodePendaftaran();
       // $nourut = substr($daridbpendaftaran,2);
@@ -124,8 +155,8 @@ class PendaftaranOnline extends CI_Controller {
     redirect(site_url('pendaftaranonline'));
       } else {	
           $pasien_existing = null;
-          if($this->session->flashdata('id_pendaftaran') != null)
-              $pasien_existing = $this->Pendaftaran_online_model->get_by_id($this->session->flashdata('id_pendaftaran'));
+          // if($this->session->flashdata('id_pendaftaran') != null)
+          //     $pasien_existing = $this->Pendaftaran_online_model->get_by_id($this->session->flashdata('id_pendaftaran'));
     
             $this->data['message'] = $this->session->flashdata('message');
             
@@ -136,20 +167,20 @@ class PendaftaranOnline extends CI_Controller {
             
             // $this->data['no_rekam_medis'] = $pasien_existing != null ? $pasien_existing->no_rekam_medis : ($dataPasien != null ? set_value('no_rekam_medis') : $this->data['no_rekam_medis_default']);
             // $this->data['no_id'] = $pasien_existing != null ? $pasien_existing->no_id_pasien : set_value('no_id');
-            $this->data['id_pendaftaran'] = $pasien_existing != null ? $pasien_existing->id_pendaftaran : set_value('id_pendaftaran');
-            $this->data['nama_lengkap'] = $pasien_existing != null ? $pasien_existing->nama_lengkap : set_value('nama_lengkap');
-            $this->data['nik'] = $pasien_existing != null ? $pasien_existing->nik : set_value('nik');
-            $this->data['tanggal_lahir'] = $pasien_existing != null ? $pasien_existing->tanggal_lahir : set_value('tanggal_lahir');
-            $this->data['golongan_darah'] = $pasien_existing != null ? $pasien_existing->golongan_darah : set_value('golongan_darah');
-            $this->data['status_menikah'] = $pasien_existing != null ? $pasien_existing->status_menikah : set_value('status_menikah');
-            $this->data['pekerjaan'] = $pasien_existing != null ? $pasien_existing->pekerjaan : set_value('pekerjaan');
-            $this->data['alamat'] = $pasien_existing != null ? $pasien_existing->alamat : set_value('alamat');
-            $this->data['kabupaten'] = $pasien_existing != null ? $pasien_existing->kabupaten : set_value('kabupaten');
-            $this->data['rt'] = $pasien_existing != null ? $pasien_existing->rt : set_value('rt');
-            $this->data['rw'] = $pasien_existing != null ? $pasien_existing->rw : set_value('rw');
-            $this->data['nama_orangtua_atau_istri'] = $pasien_existing != null ? $pasien_existing->nama_orang_tua_atau_istri : set_value('nama_orangtua_atau_istri');
-            $this->data['nomor_telepon'] = $pasien_existing != null ? $pasien_existing->nomer_telepon : set_value('nomor_telepon');
-            $this->data['nama_dokter'] = set_value('nama_dokter');	
+            // $this->data['id_pendaftaran'] = $pasien_existing != null ? $pasien_existing->id_pendaftaran : set_value('id_pendaftaran');
+            // $this->data['nama_lengkap'] = $pasien_existing != null ? $pasien_existing->nama_lengkap : set_value('nama_lengkap');
+            // $this->data['nik'] = $pasien_existing != null ? $pasien_existing->nik : set_value('nik');
+            // $this->data['tanggal_lahir'] = $pasien_existing != null ? $pasien_existing->tanggal_lahir : set_value('tanggal_lahir');
+            // $this->data['golongan_darah'] = $pasien_existing != null ? $pasien_existing->golongan_darah : set_value('golongan_darah');
+            // $this->data['status_menikah'] = $pasien_existing != null ? $pasien_existing->status_menikah : set_value('status_menikah');
+            // $this->data['pekerjaan'] = $pasien_existing != null ? $pasien_existing->pekerjaan : set_value('pekerjaan');
+            // $this->data['alamat'] = $pasien_existing != null ? $pasien_existing->alamat : set_value('alamat');
+            // $this->data['kabupaten'] = $pasien_existing != null ? $pasien_existing->kabupaten : set_value('kabupaten');
+            // $this->data['rt'] = $pasien_existing != null ? $pasien_existing->rt : set_value('rt');
+            // $this->data['rw'] = $pasien_existing != null ? $pasien_existing->rw : set_value('rw');
+            // $this->data['nama_orangtua_atau_istri'] = $pasien_existing != null ? $pasien_existing->nama_orang_tua_atau_istri : set_value('nama_orangtua_atau_istri');
+            // $this->data['nomor_telepon'] = $pasien_existing != null ? $pasien_existing->nomer_telepon : set_value('nomor_telepon');
+            // $this->data['nama_dokter'] = set_value('nama_dokter');	
             $this->data['captcha'] = $this->recaptcha->getWidget();
             $this->data['script_captcha'] = $this->recaptcha->getScriptTag();
             $this->data['dokter'] = $this->Tbl_dokter_model->get_all_jaga($this->id_klinik);
@@ -157,6 +188,7 @@ class PendaftaranOnline extends CI_Controller {
               $this->session->set_flashdata('message', 'Terdapat error input, silahkan cek ulang');
               $this->session->set_flashdata('message_type', 'danger');
             }
+            $this->data['data'] = $nikdaftar;
     //Set session error
   }
       

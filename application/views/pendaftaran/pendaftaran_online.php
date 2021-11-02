@@ -62,73 +62,140 @@
             <div class="form-group">
               <div class="col-sm-2">Nik <?php echo form_error('nik'); ?></div>
               <div class="col-sm-10">
-                <?php echo form_input(array('id'=>'nik','name'=>'nik','type'=>'text','value'=>$nik,'class'=>'form-control'));?>
+                <?php 
+                echo form_input(array('id'=>'nik','name'=>'nik','type'=>'text','value'=>$data['nik'],'class'=>'form-control', 'readonly'=>'true'));?>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-2">Nama Lengkap <?php echo form_error('nama_lengkap'); ?></div>
               <div class="col-sm-10">
-                <?php echo form_input(array('id'=>'nama_lengkap','name'=>'nama_lengkap','type'=>'text','value'=>$nama_lengkap,'class'=>'form-control'));?>
+                <?php 
+                $inputNamaLengkap = array('id'=>'nama_lengkap','name'=>'nama_lengkap','type'=>'text','value'=>$data['nama_lengkap'],'class'=>'form-control');
+                if($data['nama_lengkap']!='') {
+                  $inputNamaLengkap['readonly'] = 'true';
+                }
+                echo form_input($inputNamaLengkap);
+                ?>
               </div>
             </div>
             <div class="form-group">
 							<div class="col-sm-2">Tanggal Lahir <?php echo form_error('tanggal_lahir'); ?></div>
 							<div class="col-sm-10">
-							    <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value="<?php echo $tanggal_lahir;?>" />
+                <?php
+                $inputTanggalLahir = array('id'=>'tanggal_lahir','name'=>'tanggal_lahir','type'=>'date','value'=>$data['tanggal_lahir'],'class'=>'form-control');
+                if($data['tanggal_lahir']!=''){
+                  $inputTanggalLahir['readonly'] = 'true';
+                }
+                echo form_input($inputTanggalLahir);
+							  ?>
 							</div>
             </div>
             <div class="form-group">
               <div class="col-sm-2">Golongan Darah <?php echo form_error('golongan_darah'); ?></div>
               <div class="col-sm-10">
-                <?php echo form_dropdown('golongan_darah', array(''=>'Pilih Golongan Darah','A'=>'A','B'=>'B','AB'=>'AB','O'=>'O'),$golongan_darah,array('id'=>'golongan_darah','class'=>'form-control'));?>
+                <?php
+                $inputGolonganDarah = array(''=>'Pilih Golongan Darah','A'=>'A','B'=>'B','AB'=>'AB','O'=>'O',$golongan_darah,array('id'=>'golongan_darah','class'=>'form-control'));
+                if($data['golongan_darah']!=''){
+                  $inputGolonganDarah['readonly'] = 'true';
+                }
+                echo form_dropdown($inputGolonganDarah);
+                ?>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-2">Status Menikah <?php echo form_error('status_menikah'); ?></div>
               <div class="col-sm-10">
-                <?php echo form_dropdown('status_menikah', array(''=>'Pilih Status Menikah','Menikah'=>'Menikah','Belum Menikah'=>'Belum Menikah'),$status_menikah,array('id'=>'status_menikah','class'=>'form-control'));?>
+              <?php 
+                $inputStatusMenikah = array(''=>'Pilih Status Menikah','Menikah' => 'Menikah','Belum Menikah'=>'Belum Menikah',$status_menikah,array('id'=>'status_menikah','value' =>$data['status_menikah'],'class'=>'form-control'));
+                if($data['status_menikah']!='') {
+                  $inputStatusMenikah['readonly'] = 'true';
+                }
+                echo form_input($inputStatusMenikah);
+                ?>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-2">Pekerjaan <?php echo form_error('pekerjaan'); ?></div>
               <div class="col-sm-10">
-                <?php echo form_input(array('id'=>'pekerjaan','name'=>'pekerjaan','type'=>'text','value'=>$pekerjaan,'class'=>'form-control'));?>
+              <?php 
+                $inputPekerjaan = array('id'=>'pekerjaan','name'=>'pekerjaan','type'=>'text','value'=>$data['pekerjaan'],'class'=>'form-control');
+                if($data['pekerjaan']!='') {
+                  $inputPekerjaan['readonly'] = 'true';
+                }
+                echo form_input($inputPekerjaan);
+                ?>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-2">Kabupaten/Kota <?php echo form_error('kabupaten') ?></div>
               <div class="col-sm-10">
-                <?php echo form_input(array('id'=>'kabupaten','name'=>'kabupaten','type'=>'text','value'=>$kabupaten,'class'=>'form-control'));?>
+              <?php 
+                $inputKabupaten = array('id'=>'kabupaten','name'=>'kabupaten','type'=>'text','value'=>$data['kabupaten'],'class'=>'form-control');
+                if($data['kabupaten']!='') {
+                  $inputKabupaten['readonly'] = 'true';
+                }
+                echo form_input($inputKabupaten);
+                ?>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-2">Alamat <?php echo form_error('alamat'); ?></div>
               <div class="col-sm-10">
-                <?php echo form_textarea(array('id'=>'alamat','name'=>'alamat','type'=>'textarea','value'=>$alamat,'rows'=>'2','class'=>'form-control'));?>
-              </div>
+              <?php 
+                $inputAlamat = array('id'=>'alamat','name'=>'alamat','type'=>'textarea','value'=>$data['alamat'],'class'=>'form-control');
+                if($data['alamat']!='') {
+                  $inputAlamat['readonly'] = 'true';
+                }
+                echo form_textarea($inputAlamat);
+                ?>
+                </div>
             </div>
             <div class="form-group">
               <div class="col-sm-2">RT <?php echo form_error('rt') ?></div>
               <div class="col-sm-10">
-                <?php echo form_input(array('id'=>'rt','name'=>'rt','type'=>'text','value'=>$rt,'class'=>'form-control'));?>
+              <?php 
+                $inputRT = array('id'=>'rt','name'=>'rt','type'=>'text','value'=>$data['rt'],'class'=>'form-control');
+                if($data['rt']!='') {
+                  $inputRT['readonly'] = 'true';
+                }
+                echo form_input($inputRT);
+                ?>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-2">RW <?php echo form_error('rw') ?></div>
               <div class="col-sm-10">
-                <?php echo form_input(array('id'=>'rw','name'=>'rw','type'=>'text','value'=>$rw,'class'=>'form-control'));?>
+              <?php 
+                $inputRW = array('id'=>'rw','name'=>'rw','type'=>'text','value'=>$data['rw'],'class'=>'form-control');
+                if($data['rw']!='') {
+                  $inputRW['readonly'] = 'true';
+                }
+                echo form_input($inputRW);
+                ?>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-2">Nama Orang Tua / Istri <?php echo form_error('nama_orangtua_atau_istri'); ?></div>
               <div class="col-sm-10">
-                <?php echo form_input(array('id'=>'nama_orangtua_atau_istri','name'=>'nama_orangtua_atau_istri','type'=>'text','value'=>$nama_orangtua_atau_istri,'class'=>'form-control'));?>
+              <?php 
+                $inputNamaOrangTuaAtauIstri = array('id'=>'nama_orang_tua_atau_istri','name'=>'nama_orang_tua_atau_istri','type'=>'text','value'=>$data['nama_orang_tua_atau_istri'],'class'=>'form-control');
+                if($data['nama_orang_tua_atau_istri']!='') {
+                  $inputNamaOrangTuaAtauIstri['readonly'] = 'true';
+                }
+                echo form_input($inputNamaOrangTuaAtauIstri);
+                ?>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-2">Nomor Telepon <?php echo form_error('nomor_telepon'); ?></div>
               <div class="col-sm-10">
-                <?php echo form_input(array('id'=>'nomor_telepon','name'=>'nomor_telepon','type'=>'text','value'=>$nomor_telepon,'class'=>'form-control'));?>
+              <?php 
+                $inputNoTelepon = array('id'=>'nomer_telepon','name'=>'nomer_telepon','type'=>'text','value'=>$data['nomer_telepon'],'class'=>'form-control');
+                if($data['nomer_telepon']!='') {
+                  $inputNoTelepon['readonly'] = 'true';
+                }
+                echo form_input($inputNoTelepon);
+                ?>
               </div>
             </div>
             <div class="form-group">

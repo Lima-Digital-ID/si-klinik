@@ -67,9 +67,8 @@ class Pendaftaran_online_model extends CI_Model
       return $hasil->id;
     }
 
-    public function cekNikPendaftaran(){
-      $query = $this->db->query("SELECT nik FROM tbl_pasien WHERE  nik = '351108'");
-      $hasil = $query->row();
-      return $hasil->nik;
+    public function cekNikPendaftaran($nik){
+      $query = $this->db->query("SELECT nik, nama_lengkap, tanggal_lahir, golongan_darah, status_menikah, pekerjaan, alamat, kabupaten, rt, rw, nama_orang_tua_atau_istri, nomer_telepon FROM tbl_pasien WHERE  nik = '$nik'");
+      return $query->result_array();
     }
 }
