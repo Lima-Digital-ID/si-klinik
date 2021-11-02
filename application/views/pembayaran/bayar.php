@@ -186,8 +186,8 @@
         }
     }
     function hitung_bayar(){
-        var total_transaksi = parseInt($('#total_transaksi').val().replace('.',''));
-        var subsidi_transaksi = parseInt($('#subsidi_transaksi').val().replace('.','') != '' ? $('#subsidi_transaksi').val().replace('.','') : 0);
+        var total_transaksi = parseInt(replaceAll($('#total_transaksi').val(),'.',''));
+        var subsidi_transaksi = parseInt(replaceAll($('#subsidi_transaksi').val(),'.','') != '' ? replaceAll($('#subsidi_transaksi').val(),'.','') : 0);
         
         //menghitung subsidi
         if(subsidi_transaksi > total_transaksi){
@@ -200,9 +200,11 @@
         
         $('#total_pembayaran').val(rupiah(parseInt(total_transaksi) - parseInt(subsidi_transaksi)));
     }
-    
+    function replaceAll(string, search, replace) {
+        return string.split(search).join(replace);
+    }
     function hitung_total(){
-        var biaya_administrasi = parseInt($('#biaya_administrasi').val().replace('.',''));
+        var biaya_administrasi = parseInt(replaceAll($('#biaya_administrasi').val(),'.',''));
         var total_sebelum = <?php echo $total_transaksi;?>;
         
         //menghitung total
@@ -218,7 +220,7 @@
       }
     function formatRupiah(angka)
     {
-        var value = angka.value.replace('.','')
+        var value = replaceAll(angka.value,'.','')
 
         var reverse = value.toString().split('').reverse().join(''),
         ribuan = reverse.match(/\d{1,3}/g);
