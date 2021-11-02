@@ -35,9 +35,9 @@
 </head>
 <body>
   <center>
-    <p style="margin-bottom:0px">APOTIK</p>
     <p style="margin-bottom:0px;margin-top:0px">NADA FARMA</p>
-    <p style="margin-bottom:0px;margin-top:0px">Tibuneneng</p>
+    <p style="margin-bottom:0px;margin-top:0px">Jln Raya Padonan 108, Tibuneneng</p>
+    <p style="margin-bottom:0px;margin-top:0px">Kuta Utara</p>
     -------------------------------------------
     <?php echo $transaksi[0]->no_transaksi;?>
     <br>        
