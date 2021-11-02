@@ -10,14 +10,15 @@
                         <table class="table table-bordered table-striped" id="mytable">
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Kode Barang</th>
                             		<th>Nama Barang</th>
                             		<th>Stok</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                    foreach ($stok as $key => $value) {
+<!--                                 <?php 
+                                    // foreach ($stok as $key => $value) {
                                 ?>
                                 <tr>
                                     <td><?= $value['kode_barang'] ?></td>
@@ -25,9 +26,9 @@
                                     <td><?= $value['stok'] ?></td>
                                 </tr>
                                 <?php
-                                    }
+                                    // }
                                 ?>
-                            </tbody>
+ -->                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -40,54 +41,29 @@
 <script src="<?php echo base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
 <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
 <script type="text/javascript">
-/*     $(document).ready(function() {
-        $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
-        {
-            return {
-                "iStart": oSettings._iDisplayStart,
-                "iEnd": oSettings.fnDisplayEnd(),
-                "iLength": oSettings._iDisplayLength,
-                "iTotal": oSettings.fnRecordsTotal(),
-                "iFilteredTotal": oSettings.fnRecordsDisplay(),
-                "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
-                "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
-            };
-        };
-
-        var t = $("#mytable").dataTable({
-            initComplete: function() {
-                var api = this.api();
-                $('#mytable_filter input')
-                .off('.DT')
-                .on('keyup.DT', function(e) {
-                    if (e.keyCode == 13) {
-                        api.search(this.value).draw();
+     $(document).ready(function() {
+        t = $('#mytable').DataTable();
+                t.clear().draw(false);
+                $.ajax({
+                    type: "GET",
+                    url: "getStokJson", //json get site
+                    dataType : 'json',
+                    success: function(response){
+                        // console.log(response['data']);
+                        arrData = response['data'];
+                        var j=0;
+                        for(i = 0; i < arrData.length; i++){
+                            j+=1;
+                            t.row.add([
+                                '<div class="text-center">'+j+'</div>',
+                                '<div class="text-left">'+arrData[i]['kode_barang']+'</div>',
+                                '<div class="text-left">'+arrData[i]['nama_barang']+'</div>',
+                                '<div class="text-left">'+arrData[i]['stok']+'</div>',
+                            ]).draw(false);
+                        }
                     }
                 });
-            },
-            oLanguage: {
-                sProcessing: "loading..."
-            },
-            processing: true,
-            serverSide: true,
-            ajax: {"url": "jsonStok", "type": "POST"},
-            columns: [
-                {"data": "kode_barang"},{"data" : "stok_barang"},
-                {
-                    "data" : "action",
-                    "orderable": false,
-                    "className" : "text-center"
-                }
-            ],
-            order: [[0, 'asc']],
-            rowCallback: function(row, data, iDisplayIndex) {
-                var info = this.fnPagingInfo();
-                var page = info.iPage;
-                var length = info.iLength;
-                var index = page * length + (iDisplayIndex + 1);
-                $('t:eq(0)', row).html(index);
-            }
-        });
         
-    }); */
+        
+    }); 
 </script>

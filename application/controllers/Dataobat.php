@@ -39,6 +39,15 @@ class Dataobat extends CI_Controller
     
     public function stok($excel='')
     {
+        // if($excel!="" && $excel=='excel'){
+        //     $this->load->view('dataobat/stok-barang-excel', ['stok' => $stok]);
+        // }
+        // else{
+            $this->template->load('template','dataobat/stok-barang'/* , ['stok' => $stok] */);
+        // }
+    }
+    public function getStokJson()
+    {
         $step1 = $this->Tbl_obat_alkes_bhp_model->getStokStep1();
         $stok = [];
         foreach ($step1 as $key => $value) {
@@ -49,18 +58,22 @@ class Dataobat extends CI_Controller
             else{
                 $getStok = $this->Tbl_obat_alkes_bhp_model->getStokStep3($value->kode_barang);
             }
-            $stok[$key] = array(
+            $row = array(
                 'kode_barang' => $value->kode_barang,
                 'nama_barang' => $value->nama_barang,
                 'stok' => $getStok 
             );
+            $stok[] = $row;
         }
-        if($excel!="" && $excel=='excel'){
-            $this->load->view('dataobat/stok-barang-excel', ['stok' => $stok]);
-        }
-        else{
-            $this->template->load('template','dataobat/stok-barang', ['stok' => $stok]);
-        }
+        $output = array(
+            "draw" => 0,
+            "recordsTotal" => count($stok),
+            "recordsFiltered" => count($stok),
+            "data" => $stok,
+        );
+
+        header('Content-Type: application/json');
+        echo json_encode($output);
     }
     
     public function history()
