@@ -43,8 +43,7 @@
           <div class="box-header with-border">
             <h3 class="box-tittle">FORM PENDAFTARAN</h3>
           </div>
-          <?php echo form_open(current_url(), array('class' => 'form-horizontal', 'id' => 'form-create_pendaftaran')); ?>
-
+          <?php echo form_open(current_url()."?nik=$_GET[nik]"."/daftar", array('class' => 'form-horizontal', 'id' => 'form-create_pendaftaran')); ?>
           <div class="box-body">
           <div class="form-group">
             <div class="col-sm-2">Nama Dokter <?php echo form_error('nama_dokter'); ?></div>
@@ -82,11 +81,11 @@
 							<div class="col-sm-2">Tanggal Lahir <?php echo form_error('tanggal_lahir'); ?></div>
 							<div class="col-sm-10">
                 <?php
-                $inputTanggalLahir = array('id'=>'tanggal_lahir','name'=>'tanggal_lahir','type'=>'date','value'=>$data['tanggal_lahir'],'class'=>'form-control');
+                $inputTgl = array('id'=>'tanggal_lahir','name'=>'tanggal_lahir','type'=>'date','value'=>$data['tanggal_lahir'],'class'=>'form-control');
                 if($data['tanggal_lahir']!=''){
-                  $inputTanggalLahir['readonly'] = 'true';
+                  $inputTgl['readonly'] = 'true';
                 }
-                echo form_input($inputTanggalLahir);
+                echo form_input($inputTgl);
 							  ?>
 							</div>
             </div>
@@ -94,23 +93,35 @@
               <div class="col-sm-2">Golongan Darah <?php echo form_error('golongan_darah'); ?></div>
               <div class="col-sm-10">
                 <?php
-                $inputGolonganDarah = array(''=>'Pilih Golongan Darah','A'=>'A','B'=>'B','AB'=>'AB','O'=>'O',$golongan_darah,array('id'=>'golongan_darah','class'=>'form-control'));
-                if($data['golongan_darah']!=''){
-                  $inputGolonganDarah['readonly'] = 'true';
-                }
-                echo form_dropdown($inputGolonganDarah);
+                  if($data['golongan_darah'] != ''){
+                    $cekStatus = array( 'name'=>'golongan_darah', 'value'=>$data['golongan_darah'], 'class'=>'form-control', 'type'=>'text', 'readonly'=>'true');
+                    echo form_input($cekStatus);
+                  }else{
+                    echo "<select name='golongan_darah' class='form-control' id='golongan_darah'>
+                            <option value=''>Pilih Golongan Darah</option>
+                            <option value='A'>A</option>
+                            <option value='B'>B</option>
+                            <option value='AB'>AB</option>
+                            <option value='O'>O</option>
+                          </select>"; 
+                  }
                 ?>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-2">Status Menikah <?php echo form_error('status_menikah'); ?></div>
               <div class="col-sm-10">
-              <?php 
-                $inputStatusMenikah = array(''=>'Pilih Status Menikah','Menikah' => 'Menikah','Belum Menikah'=>'Belum Menikah',$status_menikah,array('id'=>'status_menikah','value' =>$data['status_menikah'],'class'=>'form-control'));
-                if($data['status_menikah']!='') {
-                  $inputStatusMenikah['readonly'] = 'true';
+                <?php
+                if($data['status_menikah'] != ''){
+                  $cekStatus = array( 'name'=>'status_menikah', 'value'=>$data['status_menikah'], 'class'=>'form-control', 'type'=>'text', 'readonly'=>'true');
+                  echo form_input($cekStatus);
+                }else{
+                  echo "<select name='status_menikah' class='form-control' id='status_menikah'>
+                          <option value=''>Pilih Status Menikah</option>
+                          <option value='Menikah'>Menikah</option>
+                          <option value='Belum Menikah'>Belum Menikah</option>
+                        </select>"; 
                 }
-                echo form_input($inputStatusMenikah);
                 ?>
               </div>
             </div>
@@ -175,7 +186,7 @@
               </div>
             </div>
             <div class="form-group">
-              <div class="col-sm-2">Nama Orang Tua / Istri <?php echo form_error('nama_orangtua_atau_istri'); ?></div>
+              <div class="col-sm-2">Nama Orang Tua / Istri <?php echo form_error('nama_orang_tua_atau_istri'); ?></div>
               <div class="col-sm-10">
               <?php 
                 $inputNamaOrangTuaAtauIstri = array('id'=>'nama_orang_tua_atau_istri','name'=>'nama_orang_tua_atau_istri','type'=>'text','value'=>$data['nama_orang_tua_atau_istri'],'class'=>'form-control');
@@ -187,7 +198,7 @@
               </div>
             </div>
             <div class="form-group">
-              <div class="col-sm-2">Nomor Telepon <?php echo form_error('nomor_telepon'); ?></div>
+              <div class="col-sm-2">Nomor Telepon <?php echo form_error('nomer_telepon'); ?></div>
               <div class="col-sm-10">
               <?php 
                 $inputNoTelepon = array('id'=>'nomer_telepon','name'=>'nomer_telepon','type'=>'text','value'=>$data['nomer_telepon'],'class'=>'form-control');
