@@ -9,6 +9,7 @@ class Tbl_diagnosa_icd10_model extends CI_Model
 
     public function getAll()
     {
+        $this->db->order_by('code','asc');
         return $this->db->get($this->table)->result();
     }
 }

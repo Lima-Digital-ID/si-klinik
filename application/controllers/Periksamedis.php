@@ -448,6 +448,12 @@ class Periksamedis extends CI_Controller
             redirect(site_url('periksamedis/periksa_lab/'));
         }
     }
+    public function addICD()
+    {
+        $this->db->insert('tbl_diagnosa_icd10',['code' => $_POST['code'],'diagnosa' => $_POST['diagnosa']]);
+        $insert_id = $this->db->insert_id();
+        echo $insert_id;
+    }
     private function jurnal_otomatis_obat($total_jual_obat, $subsidi_obat, $grand, $no_periksa, $total_jual){
         $data_trx=array(
             'deskripsi'     => 'Penjualan Obat dari Nomor Pemeriksaan '.$no_periksa,
