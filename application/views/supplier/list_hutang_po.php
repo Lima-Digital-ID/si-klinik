@@ -21,6 +21,7 @@
                                 ?>
                             </select>
                             <br>
+                            <br>
                             <button class="btn btn-info" type="submit"><span class="fa fa-filter"></span> Filter</button>
                             <button class="btn btn-warning" type="reset"><span class="fa fa-times"></span> Reset</button>
                         </form>
