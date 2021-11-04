@@ -14,17 +14,9 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/paper-css/paper.css">
   
   <style>
-	  .header, .header .left{
-		  display: flex;
-	  }
-    .header .left{
-      width:55%;
-    }
-	  .header .right{
-		  width: 45%;
-      padding-left:40px;
-      padding-top:30px;
-	  }
+      body{
+          width : 273.6px;
+      }
   </style>
 
   <!-- Set page size here: A5, A4 or A3 -->
@@ -34,27 +26,30 @@
 
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
-<body class="A4">
+<body>
 <!-- <body style="font-size:9px"> -->
 
   <!-- Each sheet element should have the class "sheet" -->
   <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
-  <section class="sheet padding-10mm">
+  <section class="sheet" style="padding : 20px">
 
     <!-- Write HTML just like a web page -->
     <!--<article>This is an A5 document.</article>-->
 	<div class="header">
 		<div class="left">
       <div class="img">
-        <img src="<?php echo base_url()."assets/images/".getInfoRS('logo')?>" alt="logo" width="70" />
+          <center>
+              <img src="<?php echo base_url()."assets/images/".getInfoRS('logo')?>" alt="logo" width="50px" />
+            </center>
       </div>
-      <div class="address" style="margin-left:15px">
+      <div class="address" style="margin-left:15px;text-align:center;margin-top:10px">
           <h2 style="font-family:times-new-roman;margin-top:0;margin-bottom:0px"><?= getInfoRS('nama_rumah_sakit') ?></h2>
           <p style="margin-top:5px;margin-bottom:0px"><?= getInfoRS('alamat') ?></p>
           <p style="margin-top:5px;margin-bottom:0px"><?= getInfoRS('no_telpon') ?></p>
+          <p style="margin-top:5px;margin-bottom:0px"><b><?= $id_transaksi ?></b></p>
       </div>
 		</div>
-	  <div class="right">
+	  <!-- <div class="right">
       <table>
         <tr>
           <td>Number</td>
@@ -64,23 +59,20 @@
         <tr>
           <td>Date</td>
           <td>:</td>
-          <td><u><?= date('d-m-Y') ?></u></td>
+          <td><u><?= date('d--Y') ?></u></td>
         </tr>
       </table>
-		</div>
+		</div> -->
 	  <!--<h4 style="text-align: left;">Ruko Atrani 24 - Sukorahayu - Wagir - Telp. (0341) 806305</h4>-->
 	</div>
-<br />
 <hr />
 <table width="100%" style="padding:0px 0px">
 	<thead>
 		<tr>
-			<td align="left">Nomor : <?= $id_transaksi ?></td>
-			<td align="right" style="text-align:left">Name : <?= $nama_pasien ?> </td>
+			<td align="left"><?= date('d F Y') ?></td>
 		</tr>
 		<tr>
-			<td align="left">Tanggal : <?=date('d-m-Y')?></td>
-			<td align="right" style="text-align:left">Sex : <?= $jk=='P' ? 'Perempuan' : 'Laki-Laki' ?></td>
+             <td align="left" style="text-align:left"><?= $nama_pasien ?> </td>
 		</tr>
 	</thead>
 </table>
@@ -123,11 +115,10 @@
 	</tr>
 </table>
 <br>
-<table width="100%">
+<!-- <table width="100%">
 <thead>
 	<tr>
-		<td align="left"></td>
-		<td align="right">Denpasar, <?php echo date('d-m-Y');?></td>
+		<td align="right" colspan="2">Denpasar, <?php echo date('d-m-Y');?><br><br></td>
 	</tr>
 	<tr>
 		<td align="left">Guest Signature<br><br><br><br><br></td>
@@ -139,7 +130,7 @@
 	</tr>
 </thead>
 </table>
-  </section>
+ -->  </section>
 
 </body>
 
