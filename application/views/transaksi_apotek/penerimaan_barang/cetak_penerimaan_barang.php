@@ -121,7 +121,7 @@
 <thead>
 	<tr>
 		<td align="left"></td>
-		<td align="right">Surabaya, <?php echo date('d-m-Y');?></td>
+		<td align="right">Denpasar, <?php echo date('d-m-Y');?></td>
 	</tr>
 	<tr>
 		<td align="left">Pengirim<br><br><br><br></td>

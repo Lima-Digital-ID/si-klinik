@@ -31,6 +31,7 @@ class Tbl_sksehat_model extends CI_Model
             $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1?tab=sks'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
         }
         else{
+            $this->datatables->add_column('cetak_struk',anchor(site_url('pembayaran/cetak_surat/$1?view=cetak_struk_periksa&tab=sks'),'Cetak Struk',array('class' => 'btn btn-info btn-sm','target'=>'_blank')),'id_transaksi');
             $this->datatables->add_column('action',anchor(site_url('pembayaran/cetak_surat/$1?tab=sks'),'Cetak Kwitansi','class="btn btn-warning btn-sm"'),'id_transaksi');
             $this->datatables->add_column('cetak',anchor(site_url('pembayaran/cetak-sksehat?nomor=$1'),'Cetak SK Sehat','class="btn btn-danger btn-sm"'),'nomor');
         }

@@ -541,7 +541,7 @@
                 },{"data": "nomor"},{"data": "nama"},{"data": "status"},
                 {
                     "render" : function(data,type,row){
-                        return row.action+"&nbsp;"+row.cetak
+                        return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+row.cetak
                     },
                     "orderable": false,
                     "className" : "text-center"
@@ -617,7 +617,7 @@
                 },{"data": "no_sampel"},{"data": "nik_or_passport"},{"data": "nama"},{"data": "status"},
                 {
                     "render" : function(data,type,row){
-                        return row.action+"&nbsp;"+row.cetak
+                        return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+row.cetak
                     },
                     "orderable": false,
                     "className" : "text-center"
@@ -658,7 +658,7 @@
                 {
                     "render" : function(data,type,row){
                         var cetak = row.is_surat_ket_sakit=='1' ? row.cetak : ''
-                        return row.action+"&nbsp;"+cetak
+                        return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+cetak
                     },
                     "orderable": false,
                     "className" : "text-center"
@@ -698,7 +698,7 @@
                 {
                     "render" : function(data,type,row){
                         var cetak = row.is_surat_ket_sakit=='1' ? row.cetak : ''
-                        return row.action+"&nbsp;"+cetak
+                        return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+cetak
                     },
                     "orderable": false,
                     "className" : "text-center"
@@ -738,7 +738,7 @@
                 {
                     "render" : function(data,type,row){
                         var cetak = row.is_surat_ket_sakit=='1' ? row.cetak : ''
-                        return row.action+"&nbsp;"+cetak
+                        return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+cetak
                     },
                     "orderable": false,
                     "className" : "text-center"
@@ -778,7 +778,7 @@
                 {
                     "render" : function(data,type,row){
                         var cetak = row.is_surat_ket_sakit=='1' ? row.cetak : ''
-                        return row.action+"&nbsp;"+cetak
+                        return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+cetak
                     },
                     "orderable": false,
                     "className" : "text-center"
@@ -817,7 +817,7 @@
                 },{"data": "no_transaksi"},{"data": "nama_pasien"},{"data": "id_klinik"},{"data": "tgl_periksa"},{"data": "tgl_pembayaran"},{"data": "status_transaksi"},
                 {
                     "render" : function(data,type,row){
-                        return row.action+"&nbsp;"+row.cetak
+                        return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+row.cetak
                     },
                     "orderable": false,
                     "className" : "text-center"

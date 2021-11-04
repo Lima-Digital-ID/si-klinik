@@ -154,6 +154,7 @@ class Transaksi_model extends CI_Model
         if($id_klinik != null)
             $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);
 
+        $this->datatables->add_column('cetak_struk',anchor(site_url('pembayaran/cetak_surat/$1?view=cetak_struk_periksa'),'Cetak Struk',array('class' => 'btn btn-info btn-sm','target'=>'_blank')),'id_transaksi');
         $this->datatables->add_column('action',anchor(site_url('pembayaran/cetak_surat/$1'),'Cetak Kwitansi',array('class' => 'btn btn-warning btn-sm','target'=>'_blank')),'id_transaksi');
 
         if($tipe==1 || $tipe==4){
@@ -162,8 +163,8 @@ class Transaksi_model extends CI_Model
             $this->datatables->add_column('cetak', anchor(site_url('pembayaran/cetak-sksakit?id=$1'),'Cetak SK Sakit','class="btn btn-danger btn-sm"'),'no_periksa');
         }
         else{
-            $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
             $this->datatables->add_column('cetak', anchor(site_url('pembayaran/cetak-sklab?id=$1'),'Cetak SK LAB','class="btn btn-danger btn-sm"'),'no_periksa');
+            $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
         }
         $this->db->order_by('tbl_transaksi.no_transaksi','asc');
         $this->db->group_by('tbl_transaksi.no_transaksi');

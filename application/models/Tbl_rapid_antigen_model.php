@@ -50,6 +50,7 @@ class Tbl_rapid_antigen_model extends CI_Model
             $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1?tab=rapid'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
         }
         else{
+            $this->datatables->add_column('cetak_struk',anchor(site_url('pembayaran/cetak_surat/$1?view=cetak_struk_periksa&tab=rapid'),'Cetak Struk',array('class' => 'btn btn-info btn-sm','target'=>'_blank')),'id_transaksi');
             $this->datatables->add_column('action',anchor(site_url('pembayaran/cetak_surat/$1?tab=rapid'),'Cetak Kwitansi','class="btn btn-warning btn-sm"'),'id_transaksi');
             $this->datatables->add_column('cetak',anchor(site_url('rapid_antigen/preview?sampel=$1'),'Cetak Surat Rapid Antigen','class="btn btn-danger btn-sm"'),'no_sampel');
         }
