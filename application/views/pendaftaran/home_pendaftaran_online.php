@@ -34,7 +34,18 @@
             </div>
             <!-- /.login-logo -->
             <div class="login-box-body">
-                <form action="cekNik" method="get">
+            <?php 
+            if($this->session->flashdata('message')){
+                if($this->session->flashdata('message_type') == 'danger')
+                    echo alert('alert-danger', 'Perhatian', $this->session->flashdata('message'));
+                else if($this->session->flashdata('message_type') == 'success')
+                    echo alert('alert-success', 'Sukses', $this->session->flashdata('message')); 
+                else
+                    echo alert('alert-info', 'Info', $this->session->flashdata('message')); 
+            }
+            ?>
+                <form action="pendaftaranonline/cekNik" method="get">
+                <!-- <form action="pendaftaranonline/cekNik" method="get"> -->
                 <!-- <form action="" method=""> -->
                 <div class="row">
                   <h3 class="judul text-center">Pendaftaran Online</h3>
