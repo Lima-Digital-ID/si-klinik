@@ -107,6 +107,12 @@ class Transaksi_obat_model extends CI_Model
         if ($id_klinik != null) {
             $this->datatables->where('tbl_purchases.id_klinik', $id_klinik);
         }
+        if(isset($_GET['supplier'])){
+            $this->datatables->where('tbl_purchases.kode_supplier', $_GET['supplier']);
+        }
+        if(isset($_GET['jenis_bayar'])){
+            $this->datatables->where('jenis_pembayaran', $_GET['jenis_bayar']);
+        }
         // $this->datatables->add_column('action', anchor(site_url('transaksi_apotek/update/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>','class="btn btn-success btn-sm"')." 
             // anchor(site_url('transaksi_apotek/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"')."
         $this->datatables->add_column('action', anchor('#','<i class="fa fa-eye" aria-hidden="true"></i>',"class='btn btn-info btn-sm' data-toggle='modal' data-target='#myModal' onClick='javasciprt: cekDetail(\"$1\")'")."

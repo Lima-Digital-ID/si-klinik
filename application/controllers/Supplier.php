@@ -18,6 +18,13 @@ class Supplier extends CI_Controller
     {
         $this->template->load('template','supplier/tbl_supplier_list');
     }
+    public function hutang()
+    {
+        $data['supplier'] = $this->Tbl_supplier_model->get_all();
+        if(isset($_GET['supplier'])){
+        }
+        $this->template->load('template','supplier/list_hutang_po',$data);
+    }
     
     public function json(){
         header('Content-Type: application/json');
