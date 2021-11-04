@@ -43,7 +43,7 @@
           <div class="box-header with-border">
             <h3 class="box-tittle">FORM PENDAFTARAN</h3>
           </div>
-          <?php echo form_open(current_url()."?nik=$_GET[nik]"."/daftar", array('class' => 'form-horizontal', 'id' => 'form-create_pendaftaran')); ?>
+          <?php echo form_open(current_url()."?nik=$_GET[nik]", array('class' => 'form-horizontal', 'id' => 'form-create_pendaftaran')); ?>
           <div class="box-body">
           <div class="form-group">
             <div class="col-sm-2">Nama Dokter <?php echo form_error('nama_dokter'); ?></div>
