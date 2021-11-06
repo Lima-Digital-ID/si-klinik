@@ -51,10 +51,10 @@
                             <ul class="nav nav-tabs">
                                 <li class="active"><a data-toggle="tab" href="#register">Register</a></li>
                                 <li><a data-toggle="tab" href="#pemeriksaan">Pemeriksaan</a></li>
-                                <li><a data-toggle="tab" href="#imunisasi">Status Imunisasi</a></li>
+                                <!-- <li><a data-toggle="tab" href="#imunisasi">Status Imunisasi</a></li> -->
                                 <li><a data-toggle="tab" href="#pelayanan">Pelayanan</a></li>
                                 <li><a data-toggle="tab" href="#laboratorium">Laboratorium</a></li>
-                                <li><a data-toggle="tab" href="#integrasi">Integrasi Program</a></li>
+                                <!-- <li><a data-toggle="tab" href="#integrasi">Integrasi Program</a></li> -->
                             </ul>
                             <br>
                             <div class="tab-content  col-md-12">
@@ -180,14 +180,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="imunisasi" class="tab-pane fade in">
-                                <div class="form-group row">
-                                    <div class="col-md-2">Status Imunisasi <?php echo form_error('status_imunisasi'); ?></div>
-                                    <div class="col-md-10">
-                                        <input type="text" name="status_imunisasi" id="" required class="form-control">
-                                    </div>
-                                </div>
-                            </div>
                             <div id="pelayanan" class="tab-pane fade in">
                                 <div class="form-group row">
                                     <div class="col-md-2">Injeksi TT <?php echo form_error('injeksi_tt'); ?></div>
@@ -197,6 +189,12 @@
                                         &nbsp;
                                         <input type="radio" value="0" name="injeksi_tt" id="injeksiTidak">
                                         <label for="injeksiTidak">Tidak</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-2">Status Imunisasi <?php echo form_error('status_imunisasi'); ?></div>
+                                    <div class="col-md-10">
+                                        <input type="text" name="status_imunisasi" id="" required class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -212,7 +210,33 @@
                                 <div class="form-group row">
                                     <div class="col-md-2">Fe (tab/botol) <?php echo form_error('fe'); ?></div>
                                     <div class="col-md-10">
-                                        <input type="text" name="fe" id="" required class="form-control">
+                                    <select style="width:100%" name="fe" id="" required class="form-control select2">
+                                            <option value="">---Pilih Obat---</option>
+                                            <?php 
+                                                foreach($obat as $item){
+                                                    echo "<option value='$item[kode_barang]'>$item[nama_barang]</option>";
+                                                }
+                                                ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-2">Jumlah Fe<?php echo form_error('jml_fe'); ?></div>
+                                    <div class="col-md-10">
+                                        <input type="text" name="jml_fe" id="" required class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-2">Tindakan <?php echo form_error('tindakan'); ?></div>
+                                    <div class="col-md-10">
+                                    <select name="tindakan[]" multiple="multiple" id="biaya_tindakan" style="width:100%" class="select2 form-control" required>
+                                        <option value="">---Pilih Tindakan---</option>
+                                        <?php 
+                                            foreach ($master_tindakan as $key => $value) {
+                                                echo "<option value='".$value->kode_tindakan."'>".$value->kode_tindakan." - ".$value->tindakan." ".number_format($value->biaya,0,',','.')."</option>";
+                                            }
+                                        ?>
+                                    </select>
                                     </div>
                                 </div>
                             </div>
@@ -284,8 +308,16 @@
                                         <label for="hbsagMin">-</label>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <button type="reset" class="btn btn-default">Reset</button>
+                                            <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Simpan</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div id="integrasi" class="tab-pane fade in">
+                            <!-- <div id="integrasi" class="tab-pane fade in">
                                 <div class="row col-md-12">
                                     <h4><b>PMTCT</b></h4>
                                     <hr>
@@ -437,19 +469,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-2">Tindakan <?php echo form_error('tindakan'); ?></div>
-                                    <div class="col-md-10">
-                                    <select name="tindakan[]" multiple="multiple" id="biaya_tindakan" style="width:100%" class="select2 form-control" required>
-                                        <option value="">---Pilih Tindakan---</option>
-                                        <?php 
-                                            foreach ($master_tindakan as $key => $value) {
-                                                echo "<option value='".$value->kode_tindakan."'>".$value->kode_tindakan." - ".$value->tindakan." ".number_format($value->biaya,0,',','.')."</option>";
-                                            }
-                                        ?>
-                                    </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
                                     <div class="col-md-12">
                                         <div class="pull-right">
                                             <button type="reset" class="btn btn-default">Reset</button>
@@ -457,7 +476,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         </form>
                     </div>

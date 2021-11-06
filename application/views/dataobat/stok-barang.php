@@ -13,6 +13,7 @@
                                     <th>#</th>
                                     <th>Kode Barang</th>
                             		<th>Nama Barang</th>
+                            		<th>Minimum Stok</th>
                             		<th>Stok</th>
                                 </tr>
                             </thead>
@@ -46,8 +47,11 @@
                 t.clear().draw(false);
                 $.ajax({
                     type: "GET",
-                    url: "getStokJson", //json get site
+                    url: "<?= isset($jsonURL) ? $jsonURL : 'getStokJson' ?>", //json get site
                     dataType : 'json',
+                    beforeSend : function(){
+                        $(".dataTables_empty").html('Loading...')
+                    },
                     success: function(response){
                         // console.log(response['data']);
                         arrData = response['data'];
@@ -58,6 +62,7 @@
                                 '<div class="text-center">'+j+'</div>',
                                 '<div class="text-left">'+arrData[i]['kode_barang']+'</div>',
                                 '<div class="text-left">'+arrData[i]['nama_barang']+'</div>',
+                                '<div class="text-left">'+arrData[i]['minimum_stok']+'</div>',
                                 '<div class="text-left">'+arrData[i]['stok']+'</div>',
                             ]).draw(false);
                         }

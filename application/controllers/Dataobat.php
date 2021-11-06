@@ -61,7 +61,8 @@ class Dataobat extends CI_Controller
             $row = array(
                 'kode_barang' => $value->kode_barang,
                 'nama_barang' => $value->nama_barang,
-                'stok' => $getStok 
+                'stok' => $getStok,
+                'minimum_stok' => $value->minimal_stok 
             );
             $stok[] = $row;
         }
@@ -806,6 +807,43 @@ class Dataobat extends CI_Controller
         $data=explode('.', $val);
         $new=implode('', $data);
         return $new;
+    }
+    public function obat_hampir_habis()
+    {
+        $this->template->load('template','dataobat/stok-barang',['jsonURL' => 'obat_hampir_habis/json']/* , ['stok' => $stok] */);
+    }
+    public function json_obat_hampir_habis()
+    {
+        $step1 = $this->Tbl_obat_alkes_bhp_model->getStokStep1();
+        $stok = [];
+        foreach ($step1 as $key => $value) {
+            $cek = $this->Tbl_obat_alkes_bhp_model->getStokStep2($value->kode_barang);
+            if($cek==0){
+                $getStok = 0;
+            }
+            else{
+                $getStok = $this->Tbl_obat_alkes_bhp_model->getStokStep3($value->kode_barang) ;
+            }
+            if($getStok<=$value->minimal_stok){
+                $row = array(
+                    'kode_barang' => $value->kode_barang,
+                    'nama_barang' => $value->nama_barang,
+                    'stok' => $getStok, 
+                    'minimum_stok' => $value->minimal_stok 
+                );
+                $stok[] = $row;
+            }
+        }
+        $output = array(
+            "draw" => 0,
+            "recordsTotal" => count($stok),
+            "recordsFiltered" => count($stok),
+            "data" => $stok,
+        );
+
+        header('Content-Type: application/json');
+        echo json_encode($output);
+
     }
 
 }
