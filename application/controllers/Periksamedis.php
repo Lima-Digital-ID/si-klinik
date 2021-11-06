@@ -1019,7 +1019,7 @@ class Periksamedis extends CI_Controller
         $this->db->insert('tbl_kontrol_kehamilan',$post);
 
 
-        //input inventory barang jml_arv_profilaksis
+        //input inventory barang FE
         $kode_receipt1='RCP'.time();
         $tb_inv1 = array(
                 'id_inventory'  => $kode_receipt1,
@@ -1028,86 +1028,114 @@ class Periksamedis extends CI_Controller
         );
         $this->Transaksi_obat_model->insert('tbl_inventory',$tb_inv1);
         
-        $getObat1 = $this->Tbl_obat_alkes_bhp_model->get_detail_obat($post['arv_profilaksis']);
+        $getObat1 = $this->Tbl_obat_alkes_bhp_model->get_detail_obat($post['fe']);
         $det_inv1=array(
             'id_inventory' => $kode_receipt1,
-            'kode_barang' => $post['arv_profilaksis'],
-            'jumlah' => $post['jml_arv_profilaksis'],
+            'kode_barang' => $post['fe'],
+            'jumlah' => $post['jml_fe'],
             'harga' => $getObat1->harga,
             'diskon' => $getObat1->diskon,
             'tgl_exp' => $getObat1->tgl_exp,
         );
         $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv1);
 
-        //input inventory barang jml_malaria_obat
-        $kode_receipt2='RCP'.strtotime(date('Y-m-d H:i:s',time() + 1));
-        $tb_inv2 = array(
-                'id_inventory'  => $kode_receipt2,
-                'inv_type'      => 'TRX_STUFF',
-                'id_klinik'     => $this->id_klinik,
-        );
-        $this->Transaksi_obat_model->insert('tbl_inventory',$tb_inv2);
+        // //input inventory barang jml_arv_profilaksis
+        // $kode_receipt1='RCP'.time();
+        // $tb_inv1 = array(
+        //         'id_inventory'  => $kode_receipt1,
+        //         'inv_type'      => 'TRX_STUFF',
+        //         'id_klinik'     => $this->id_klinik,
+        // );
+        // $this->Transaksi_obat_model->insert('tbl_inventory',$tb_inv1);
+        
+        // $getObat1 = $this->Tbl_obat_alkes_bhp_model->get_detail_obat($post['arv_profilaksis']);
+        // $det_inv1=array(
+        //     'id_inventory' => $kode_receipt1,
+        //     'kode_barang' => $post['arv_profilaksis'],
+        //     'jumlah' => $post['jml_arv_profilaksis'],
+        //     'harga' => $getObat1->harga,
+        //     'diskon' => $getObat1->diskon,
+        //     'tgl_exp' => $getObat1->tgl_exp,
+        // );
+        // $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv1);
 
-        $getObat2 = $this->Tbl_obat_alkes_bhp_model->get_detail_obat($post['malaria_obat']);
-        $det_inv2=array(
-            'id_inventory' => $kode_receipt2,
-            'kode_barang' => $post['malaria_obat'],
-            'jumlah' => $post['jml_malaria_obat'],
-            'harga' => $getObat2->harga,
-            'diskon' => $getObat2->diskon,
-            'tgl_exp' => $getObat2->tgl_exp,
-        );
-        $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv2);
+        // //input inventory barang jml_malaria_obat
+        // $kode_receipt2='RCP'.strtotime(date('Y-m-d H:i:s',time() + 1));
+        // $tb_inv2 = array(
+        //         'id_inventory'  => $kode_receipt2,
+        //         'inv_type'      => 'TRX_STUFF',
+        //         'id_klinik'     => $this->id_klinik,
+        // );
+        // $this->Transaksi_obat_model->insert('tbl_inventory',$tb_inv2);
 
-        //input inventory barang jml_tb_obat
-        $kode_receipt3='RCP'.strtotime(date('Y-m-d H:i:s',time() + 2));
-        $tb_inv3 = array(
-                'id_inventory'  => $kode_receipt3,
-                'inv_type'      => 'TRX_STUFF',
-                'id_klinik'     => $this->id_klinik,
-        );
-        $this->Transaksi_obat_model->insert('tbl_inventory',$tb_inv3);
+        // $getObat2 = $this->Tbl_obat_alkes_bhp_model->get_detail_obat($post['malaria_obat']);
+        // $det_inv2=array(
+        //     'id_inventory' => $kode_receipt2,
+        //     'kode_barang' => $post['malaria_obat'],
+        //     'jumlah' => $post['jml_malaria_obat'],
+        //     'harga' => $getObat2->harga,
+        //     'diskon' => $getObat2->diskon,
+        //     'tgl_exp' => $getObat2->tgl_exp,
+        // );
+        // $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv2);
 
-        $getObat3 = $this->Tbl_obat_alkes_bhp_model->get_detail_obat($post['tb_obat']);
-        $det_inv3=array(
-            'id_inventory' => $kode_receipt3,
-            'kode_barang' => $post['tb_obat'],
-            'jumlah' => $post['jml_tb_obat'],
-            'harga' => $getObat3->harga,
-            'diskon' => $getObat3->diskon,
-            'tgl_exp' => $getObat3->tgl_exp,
-        );
-        $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv3);
+        // //input inventory barang jml_tb_obat
+        // $kode_receipt3='RCP'.strtotime(date('Y-m-d H:i:s',time() + 2));
+        // $tb_inv3 = array(
+        //         'id_inventory'  => $kode_receipt3,
+        //         'inv_type'      => 'TRX_STUFF',
+        //         'id_klinik'     => $this->id_klinik,
+        // );
+        // $this->Transaksi_obat_model->insert('tbl_inventory',$tb_inv3);
 
-        $totalBiayaObat = ($getObat1->harga - $getObat1->diskon) + ($getObat2->harga - $getObat2->diskon) + ($getObat3->harga - $getObat3->diskon);
+        // $getObat3 = $this->Tbl_obat_alkes_bhp_model->get_detail_obat($post['tb_obat']);
+        // $det_inv3=array(
+        //     'id_inventory' => $kode_receipt3,
+        //     'kode_barang' => $post['tb_obat'],
+        //     'jumlah' => $post['jml_tb_obat'],
+        //     'harga' => $getObat3->harga,
+        //     'diskon' => $getObat3->diskon,
+        //     'tgl_exp' => $getObat3->tgl_exp,
+        // );
+        // $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv3);
+
+        $totalBiayaObat = ($getObat1->harga * $post['jml_fe']) - $getObat1->diskon;
 
         $this->jurnal_otomatis_obat($totalBiayaObat, 0, $totalBiayaObat, $periksa['no_periksa'], $totalBiayaObat);//jurnal otomatis         
 
         $data_periksa_d_obat = array(
             array(
                 'no_periksa' => $periksa['no_periksa'],
-                'kode_barang' => $post['arv_profilaksis'],
-                'jumlah' => $post['jml_arv_profilaksis'],
+                'kode_barang' => $post['fe'],
+                'jumlah' => $post['jml_fe'],
                 'anjuran' => '',
                 'keterangan' => '',
                 'penggunaan_obat' => ''
             ),
-            array(
-                'no_periksa' => $periksa['no_periksa'],
-                'kode_barang' => $post['malaria_obat'],
-                'jumlah' => $post['jml_malaria_obat'],
-                'anjuran' => '',
-                'keterangan' => '',
-                'penggunaan_obat' => ''
-            ),
-            array(
-                'no_periksa' => $periksa['no_periksa'],
-                'kode_barang' => $post['tb_obat'],
-                'jumlah' => $post['jml_tb_obat'],
-                'anjuran' => '',
-                'keterangan' => '',
-                'penggunaan_obat' => ''
-            ),
+            // array(
+            //     'no_periksa' => $periksa['no_periksa'],
+            //     'kode_barang' => $post['arv_profilaksis'],
+            //     'jumlah' => $post['jml_arv_profilaksis'],
+            //     'anjuran' => '',
+            //     'keterangan' => '',
+            //     'penggunaan_obat' => ''
+            // ),
+            // array(
+            //     'no_periksa' => $periksa['no_periksa'],
+            //     'kode_barang' => $post['malaria_obat'],
+            //     'jumlah' => $post['jml_malaria_obat'],
+            //     'anjuran' => '',
+            //     'keterangan' => '',
+            //     'penggunaan_obat' => ''
+            // ),
+            // array(
+            //     'no_periksa' => $periksa['no_periksa'],
+            //     'kode_barang' => $post['tb_obat'],
+            //     'jumlah' => $post['jml_tb_obat'],
+            //     'anjuran' => '',
+            //     'keterangan' => '',
+            //     'penggunaan_obat' => ''
+            // ),
         );
 
         foreach ($data_periksa_d_obat as $key => $value) {
