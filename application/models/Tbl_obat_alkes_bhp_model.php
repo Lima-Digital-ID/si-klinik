@@ -86,7 +86,7 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
 
     public function getStokStep1()
     {
-        $this->db->select('kode_barang, nama_barang');
+        $this->db->select('kode_barang, nama_barang,minimal_stok');
         $this->db->from("tbl_obat_alkes_bhp");
         $query = $this->db->get();
         return $query->result();
