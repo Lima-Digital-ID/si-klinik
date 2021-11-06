@@ -541,34 +541,48 @@ class Pendaftaran extends CI_Controller
         // $idpendaftaran = $this->Pendaftaran_online_model->delete('tbl_pendaftaran_online', array('id' => $id_pendaftaran));
         // $this->db->delete('mytable', array('id' => $id))
         // $this->_rules();
-        $data_pasien = array(
-            'no_rekam_medis'    => $noRekamMedisSekarang,
-            'no_id_pasien'		=> $this->input->post('no_id'),
-            'nama_lengkap'      => $this->input->post('nama_lengkap'),
-            'nik'               => $this->input->post('nik'),
-            'tanggal_lahir'     => $this->input->post('tanggal_lahir'),
-            'golongan_darah'    => $this->input->post('golongan_darah'),
-            'status_menikah'    => $this->input->post('status_menikah'),
-            'pekerjaan'      	=> $this->input->post('pekerjaan'),
-            'alamat'      		=> $this->input->post('alamat'),
-            'kabupaten' 		=> $this->input->post('kabupaten'),
-            'rt' 		=> $this->input->post('rt'),
-            'rw' 		=> $this->input->post('rw'),
-            'nama_orang_tua_atau_istri'      =>  $this->input->post('nama_orang_tua_atau_istri'),
-            'nomer_telepon'     =>  $this->input->post('nomer_telepon'),
-        );
+        // $pasien = $this->Tbl_pasien_model->get_by_id($this->input->post('no_id'));
+        if($this->input->post('is_pasien') == ''){
+            $data_pasien = array(
+                'no_rekam_medis'    => $noRekamMedisSekarang,
+                'no_id_pasien'		=> $this->input->post('no_id'),
+                'nama_lengkap'      => $this->input->post('nama_lengkap'),
+                'nik'               => $this->input->post('nik'),
+                'tanggal_lahir'     => $this->input->post('tanggal_lahir'),
+                'golongan_darah'    => $this->input->post('golongan_darah'),
+                'status_menikah'    => $this->input->post('status_menikah'),
+                'pekerjaan'      	=> $this->input->post('pekerjaan'),
+                'alamat'      		=> $this->input->post('alamat'),
+                'kabupaten' 		=> $this->input->post('kabupaten'),
+                'rt' 		=> $this->input->post('rt'),
+                'rw' 		=> $this->input->post('rw'),
+                'nama_orang_tua_atau_istri'      =>  $this->input->post('nama_orang_tua_atau_istri'),
+                'nomer_telepon'     =>  $this->input->post('nomer_telepon'),
+            );
 
-        $data_pendaftaran = array(
-            'no_pendaftaran' => $noPendaftaranSekarang,
-            'no_rekam_medis' => $noRekamMedisSekarang,
-            'id_dokter' => $this->input->post('id_dokter'),
-            'id_klinik' => $this->id_klinik,
-            'tipe_periksa' => $this->input->post('tipe_periksa'),
-        );
-        $this->Pendaftaran_model->insert($data_pendaftaran);
-        $this->Tbl_pasien_model->insert($data_pasien);
+            $data_pendaftaran = array(
+                'no_pendaftaran' => $noPendaftaranSekarang,
+                'no_rekam_medis' => $noRekamMedisSekarang,
+                'id_dokter' => $this->input->post('id_dokter'),
+                'id_klinik' => $this->id_klinik,
+                'tipe_periksa' => $this->input->post('tipe_periksa'),
+            );
+            $this->Pendaftaran_model->insert($data_pendaftaran);
+            $this->Tbl_pasien_model->insert($data_pasien);
+        }else{
+            $daridbpasien = $this->Tbl_pasien_model->cekkodepasien();
+            $nourut = substr($daridbpasien, 3);
+            $norm = str_pad($nourut, 6, 0, STR_PAD_LEFT);
+            $data_pendaftaran = array(
+                'no_pendaftaran' => $noPendaftaranSekarang,
+                'no_rekam_medis' => $norm,
+                'id_dokter' => $this->input->post('id_dokter'),
+                'id_klinik' => $this->id_klinik,
+                'tipe_periksa' => $this->input->post('tipe_periksa'),
+            );
+            $this->Pendaftaran_model->insert($data_pendaftaran);
+        }
         $this->Pendaftaran_online_model->delete($this->input->post('id_pendaftaran'));
-
          // Set session sukses
          $this->session->set_flashdata('message', 'Data pendaftaran berhasil didaftarkan');
          $this->session->set_flashdata('message_type', 'success');

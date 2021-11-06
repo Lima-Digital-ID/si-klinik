@@ -42,6 +42,7 @@
                                         <th>Nama Orang Tua atau Istri</th>
                                         <th>Nomer Telepon</th>
                                         <th>Tipe Periksa</th>
+                                        <th>No ID Pasien</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -80,6 +81,7 @@
                         <input type="hidden" class="form-control" id="nama_orang_tua_atau_istri" name="nama_orang_tua_atau_istri" readonly>
                         <input type="hidden" class="form-control" id="nomer_telepon" name="nomer_telepon" readonly>
                         <input type="hidden" class="form-control" id="tipe_periksa" name="tipe_periksa" readonly>
+                        <input type="hidden" class="form-control" id="is_pasien" name="is_pasien" readonly>
                         <div class="form-group">
                             <div class="col-sm-2">Nama Lengkap</div>
                             <div class="col-sm-10">
@@ -184,6 +186,9 @@
                     "data": "tipe_periksa"
                 },
                 {
+                    "data" : "no_id_pasien"
+                },
+                {
                     "data": "action",
                     "orderable": false,
                     "className": "text-center"
@@ -225,6 +230,11 @@
             var nama_orang_tua_atau_istri = data.nama_orang_tua_atau_istri
             var nomer_telepon = data.nomer_telepon
             var tipe_periksa = data.tipe_periksa
+            console.log(tipe_periksa);
+            var is_pasien = data.no_id_pasien
+            console.log(is_pasien)
+            // var nama_pasien = data.nama_lengkap
+            // console.log(nama_pasien)
             // $('#formmodalnamadokter').val(nama_dokter);
             // $('#myModal').modal('show');
 
@@ -247,7 +257,9 @@
                     data: rw,
                     data: nama_orang_tua_atau_istri,
                     data: nomer_telepon,
-                    data: tipe_periksa
+                    data: tipe_periksa,
+                    data: id_pasien,
+                    // data: nama_pasien
                 },
                 success: function(data) {
                     $('#myModal').modal('show');
@@ -266,6 +278,9 @@
                     $('#nama_orang_tua_atau_istri').val(nama_orang_tua_atau_istri);
                     $('#nomer_telepon').val(nomer_telepon);
                     $('#tipe_periksa').val(tipe_periksa);
+                    $('#id_pasien').val(is_pasien);
+                    $('#is_pasien').val(is_pasien);
+                    // $('#nama_pasien').val(nama_pasien);
 
                 }
 
