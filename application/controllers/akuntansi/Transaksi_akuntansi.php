@@ -36,17 +36,18 @@ class Transaksi_akuntansi extends CI_Controller
 
     public function petty()
     {
-        $date=0;
-        if ($this->input->post('date')) {
-            $date=$this->input->post('date');
-        }else{
-            $date=date('Y-m-d');
-        }
-        $row=$this->db->where('nama_akun', 'petty cash')->get('tbl_akun')->row();
-        $data['bulan']=json_encode(explode('-', $date));
-        $data['date'] = $date;
-        $data['data']=$this->Transaksi_akuntansi_model->getJurnalPettyByDate($date, $row->id_akun);
-        $this->template->load('template','akuntansi/transaksi_akuntansi/petty_cash_list', $data);
+        // $date=0;
+        // if ($this->input->post('date')) {
+        //     $date=$this->input->post('date');
+        // }else{
+        //     $date=date('Y-m-d');
+        // }
+        // $row=$this->db->where('nama_akun', 'petty cash')->get('tbl_akun')->row();
+        // $data['bulan']=json_encode(explode('-', $date));
+        // $data['date'] = $date;
+        // $data['data']=$this->Transaksi_akuntansi_model->getJurnalPettyByDate($date, $row->id_akun);
+        // $this->template->load('template','akuntansi/transaksi_akuntansi/petty_cash_list', $data);
+        $this->create_pc();
     } 
     public function rt()
     {
