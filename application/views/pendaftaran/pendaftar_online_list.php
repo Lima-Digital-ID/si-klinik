@@ -42,7 +42,6 @@
                                         <th>Nama Orang Tua atau Istri</th>
                                         <th>Nomer Telepon</th>
                                         <th>Tipe Periksa</th>
-                                        <th>No ID Pasien</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -81,6 +80,7 @@
                         <input type="hidden" class="form-control" id="nama_orang_tua_atau_istri" name="nama_orang_tua_atau_istri" readonly>
                         <input type="hidden" class="form-control" id="nomer_telepon" name="nomer_telepon" readonly>
                         <input type="hidden" class="form-control" id="tipe_periksa" name="tipe_periksa" readonly>
+                        <input type="hidden" class="form-control" id="no_rekam_medis" name="no_rekam_medis" readonly>
                         <input type="hidden" class="form-control" id="is_pasien" name="is_pasien" readonly>
                         <div class="form-group">
                             <div class="col-sm-2">Nama Lengkap</div>
@@ -185,9 +185,9 @@
                 }, {
                     "data": "tipe_periksa"
                 },
-                {
-                    "data" : "no_id_pasien"
-                },
+                // {
+                //     "data" : "no_id_pasien"
+                // },
                 {
                     "data": "action",
                     "orderable": false,
@@ -233,6 +233,8 @@
             console.log(tipe_periksa);
             var is_pasien = data.no_id_pasien
             console.log(is_pasien)
+            var nrm = data.no_rekam_medis
+            console.log(nrm)
             // var nama_pasien = data.nama_lengkap
             // console.log(nama_pasien)
             // $('#formmodalnamadokter').val(nama_dokter);
@@ -259,6 +261,7 @@
                     data: nomer_telepon,
                     data: tipe_periksa,
                     data: id_pasien,
+                    data: nrm,
                     // data: nama_pasien
                 },
                 success: function(data) {
@@ -280,7 +283,7 @@
                     $('#tipe_periksa').val(tipe_periksa);
                     $('#id_pasien').val(is_pasien);
                     $('#is_pasien').val(is_pasien);
-                    // $('#nama_pasien').val(nama_pasien);
+                    $('#no_rekam_medis').val(nrm);
 
                 }
 

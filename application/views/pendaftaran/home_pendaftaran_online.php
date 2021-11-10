@@ -44,7 +44,7 @@
                     echo alert('alert-info', 'Info', $this->session->flashdata('message')); 
             }
             ?>
-                <form action="pendaftaranonline/cekNik" method="get">
+                <form action="<?php echo base_url("pendaftaranonline/cekNik");?>" method="get">
                 <!-- <form action="pendaftaranonline/cekNik" method="get"> -->
                 <!-- <form action="" method=""> -->
                 <div class="row">
