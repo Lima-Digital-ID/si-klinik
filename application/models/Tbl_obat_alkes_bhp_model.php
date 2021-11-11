@@ -197,7 +197,7 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
     }
     
     function json(){
-        $this->datatables->select('kode_barang,nama_barang,nama_kategori as kategori_barang,nama_satuan as satuan_barang, barcode ,(CASE jenis_barang WHEN 1 THEN "Obat" WHEN 2 THEN "Alat Kesehatan" ELSE "BHP" END) as jenis_barang,harga,tbl_klinik.nama as klinik,(SELECT avg(pod.harga) AS hpp FROM tbl_purchase_d pod WHERE pod.kode_barang = tbl_obat_alkes_bhp.kode_barang) AS hpp');
+        $this->datatables->select('kode_barang,nama_barang,nama_kategori as kategori_barang,nama_satuan as satuan_barang,barcode,(CASE jenis_barang WHEN 1 THEN "Obat" WHEN 2 THEN "Alat Kesehatan" ELSE "BHP" END) as jenis_barang,harga,tbl_klinik.nama as klinik,(SELECT avg(pod.harga) AS hpp FROM tbl_purchase_d pod WHERE pod.kode_barang = tbl_obat_alkes_bhp.kode_barang) AS hpp');
         $this->datatables->from('tbl_obat_alkes_bhp');
         $this->datatables->join('tbl_kategori_barang', 'tbl_obat_alkes_bhp.id_kategori_barang=tbl_kategori_barang.id_kategori_barang','left');
         $this->datatables->join('tbl_satuan_barang', 'tbl_obat_alkes_bhp.id_satuan_barang=tbl_satuan_barang.id_satuan','left');

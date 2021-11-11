@@ -95,12 +95,13 @@
             },
             processing: true,
             serverSide: true,
-            ajax: {"url": "dataobat/json", "type": "POST", /* "success" : function(data){console.log(data)} */},
+            ajax: {
+                "url": "dataobat/json", "type": "POST"},
             columns: [
                 {
                     "data": "kode_barang",
                     "orderable": false
-                },{"data": "kode_barang"},{"data": "nama_barang"},{"data": "kategori_barang"},{"data": "satuan_barang"},{"data": "jenis_barang"},{"data": "barcode"},{"render": function(data,type,row){
+                },{"data": "kode_barang"},{"data": "nama_barang"},{"data": "kategori_barang"},{"data": "satuan_barang"},{"data": "jenis_barang"},{"data": "barcode"},{"data":"hpp","render": function(data,type,row){
                     const hpp = !row.hpp ? 0 : JSON.parse(row.hpp).toFixed(2)
                     
                     var	reverse = hpp.toString().split('').reverse().join(''),
