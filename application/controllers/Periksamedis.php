@@ -773,6 +773,8 @@ class Periksamedis extends CI_Controller
         $this->data['no_periksa'] = $data_pendaftaran->no_pendaftaran.'/'.$date_now.'/'.$data_pendaftaran->no_rekam_medis;
 
         $this->data['periksa_lab'] = $this->db->get('tbl_tipe_periksa_lab')->result();
+        // $this->data['alkes'] = $this->db->get('tbl_obat_alkes_bhp')->where('jenis_barang','2')->result();
+        $this->data['alkes'] = $this->Tbl_obat_alkes_bhp_model->get_alkes();
 
         $this->template->load('template','periksa-lab/periksa-lab',$this->data);
     }
@@ -780,6 +782,8 @@ class Periksamedis extends CI_Controller
     {
         $this->data['periksa_lab'] = $this->db->get('tbl_tipe_periksa_lab')->result();
         $this->data['no'] = $_GET['no'];
+        // $this->data['alkes'] = $this->db->get('tbl_obat_alkes_bhp')->result();
+        // $this->data['alkes'] = $this->Tbl_obat_alkes_bhp_model->get_alkes();
         $this->load->view('periksa-lab/loop-pilihan-lab',$this->data);
     }
     public function save_periksa_lab()

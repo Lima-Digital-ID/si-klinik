@@ -44,9 +44,6 @@ class Pendaftaran_online_model extends CI_Model
       $this->datatables->from('tbl_pendaftaran_online po');
       $this->datatables->join('tbl_dokter dr', 'po.id_dokter=dr.id_dokter');
       $this->db->join('tbl_pasien ps', 'po.nik = ps.nik', 'left');
-      // $this->datatables->where('pd.is_periksa=0 OR pd.is_periksa=3');
-      // $this->datatables->add_column('action', anchor(site_url('pendaftaran/update_pendaftar_online/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>','class="btn btn-success btn-sm"')." 
-      //       ".anchor(site_url('pendaftaran/delete_pendaftar_online/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Apakah kamu yakin ?\')"'), 'id_pendaftaran');
       $this->datatables->add_column('action', anchor('', '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', 'class="btn btn-success btn-sm btn-detail"') . " 
             " . anchor(site_url('pendaftaran/delete_pendaftar_online/$1'), '<i class="fa fa-trash-o" aria-hidden="true"></i>', 'data-total="$1" data-id="$2" class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Apakah kamu yakin ?\')"'), 'id_pendaftaran');
   

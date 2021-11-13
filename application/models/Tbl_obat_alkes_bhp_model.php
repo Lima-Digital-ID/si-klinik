@@ -229,6 +229,14 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_alkes(){
+        $this->db->select('kode_barang, nama_barang');
+        // $this->db->from('tbl_obat_alkes_bhp');
+        $this->db->where('jenis_barang', '2');
+        
+        return $this->db->get($this->table)->result();
+    }
+
 }
 
 /* End of file Tbl_obat_alkes_bhp_model.php */

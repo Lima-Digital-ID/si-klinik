@@ -30,7 +30,6 @@
                                         <th>Nama Lengkap</th>
                                         <th>NIK</th>
                                         <th>Nama Dokter</th>
-                                        <!-- <th>ID Dokter</th> -->
                                         <th>Tanggal Lahir</th>
                                         <th>Golongan Darah</th>
                                         <th>Status Menikah</th>
@@ -159,9 +158,6 @@
                 }, {
                     "data": "nama_dokter"
                 },
-                // {
-                //     "data": "id_dokter"
-                // },
                 {
                     "data": "tanggal_lahir"
                 }, {
@@ -185,9 +181,6 @@
                 }, {
                     "data": "tipe_periksa"
                 },
-                // {
-                //     "data" : "no_id_pasien"
-                // },
                 {
                     "data": "action",
                     "orderable": false,
@@ -210,13 +203,10 @@
             e.preventDefault();
             var table = $('#mytable').DataTable();
             var data = table.row($(this).closest('tr')).data()
-            // console.log(data);
             var id = data.id_pendaftaran
             var dr = data.nama_dokter
-            console.log(dr)
             var cr = data.id_dokter
             var nama = data.nama_lengkap
-            console.log(cr)
             var id_pasien = $("input[name='id_pasien']").val()
             var nik_pasien = data.nik
             var tanggal_lahir = data.tanggal_lahir
@@ -230,15 +220,8 @@
             var nama_orang_tua_atau_istri = data.nama_orang_tua_atau_istri
             var nomer_telepon = data.nomer_telepon
             var tipe_periksa = data.tipe_periksa
-            console.log(tipe_periksa);
             var is_pasien = data.no_id_pasien
-            console.log(is_pasien)
             var nrm = data.no_rekam_medis
-            console.log(nrm)
-            // var nama_pasien = data.nama_lengkap
-            // console.log(nama_pasien)
-            // $('#formmodalnamadokter').val(nama_dokter);
-            // $('#myModal').modal('show');
 
 
             $.ajax({
@@ -262,7 +245,6 @@
                     data: tipe_periksa,
                     data: id_pasien,
                     data: nrm,
-                    // data: nama_pasien
                 },
                 success: function(data) {
                     $('#myModal').modal('show');
@@ -284,7 +266,6 @@
                     $('#id_pasien').val(is_pasien);
                     $('#is_pasien').val(is_pasien);
                     $('#no_rekam_medis').val(nrm);
-
                 }
 
             })
