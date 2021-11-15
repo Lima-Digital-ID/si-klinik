@@ -56,6 +56,26 @@
 <script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
 <script>
     $(document).ready(function(){
+        function selectAlkes(thisAttr){
+            var stok = thisAttr.find(':selected').data('stok')
+            var dataId = thisAttr.closest('.loop-lab').attr('data-no')
+            $(".loop-lab[data-no='"+dataId+"'] .stokAlkes option").remove();
+            var option = "";
+            if(stok==0){
+                option = "<option value=''>Habis</option>";
+            }
+            else{
+                for (let s = 1; s <= stok; s++) {
+                    option+="<option>"+s+"</option>";
+                }
+            }
+            $(".loop-lab[data-no='"+dataId+"'] .stokAlkes").append(option);
+        }
+
+        $(".selectAlkes").change(function(){
+            selectAlkes($(this))            
+        })
+
         $("#addItemLab").click(function(e){
             e.preventDefault();
             var dataRow = parseInt($('#row-lab').attr('data-row'))
@@ -66,7 +86,10 @@
                 success : function(data){
                     $('#row-lab').append(data)
                     $('#row-lab').attr('data-row',dataRow + 1)
-                    $(".select2").select2()
+                    // $(".select2").select2()
+                    $(".selectAlkes").change(function(){
+                        selectAlkes($(this))
+                    })
 
                     $(".remove-lab").click(function(e){
                         e.preventDefault();
