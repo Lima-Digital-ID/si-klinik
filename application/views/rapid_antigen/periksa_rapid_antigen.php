@@ -231,7 +231,9 @@
                         
                         var dataId = $(this).attr("data-id")
                         $(".loop-alkes[data-id='"+dataId+"']").remove()
-                    })                    
+                    })       
+                    $(".select2").select2()
+
                 }
             })
 

@@ -98,6 +98,7 @@
                         $('.loop-lab[data-no="'+dataNo+'"]').remove()
                         $('#row-lab').attr('data-row',dataRow-1)
                     })
+                    $(".select2").select2()
                 }
             })
         })

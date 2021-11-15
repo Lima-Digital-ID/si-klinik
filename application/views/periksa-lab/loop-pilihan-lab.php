@@ -9,38 +9,31 @@
                 }
                 ?>
         </select>
-        <br>
+    </div>
+    <div class="<?= $no!=0 ? 'col-md-5' : 'col-md-6' ?>">
+        <input type="text" name="hasil[]" class="form-control" placeholder="Hasil" id="" style="<?php echo ($no!=0) ? 'margin-right:10px' : '' ?>">
+    </div>
+    <?php 
+        if($no!=0){
+    ?>
+        <div class="col-md-1">
+            <a href="" class="btn btn-danger btn-sm remove-lab" data-no="<?= $no ?>"><span class="fa fa-trash"></span></a>
+        </div>
+    <?php } ?>
+    <div class="col-md-6">
+    <br>
         <select name="kode_barang[]" class="form-control select2 selectAlkes">
             <option value="">---Pilih Alkes---</option>
             <?php
                 foreach ($alkes as $key => $value) {
                     echo "<option data-stok='".$value->stok_barang."' value='".$value->kode_barang."'>".$value->nama_barang."</option>";
                 }
-            ?>
+                ?>
         </select>
     </div>
-    <div class="col-md-6" style="display:flex">
-        <input type="text" name="hasil[]" class="form-control" placeholder="Hasil" id="" style="<?php echo ($no!=0) ? 'margin-right:10px' : '' ?>">
-        <?php 
-            if($no!=0){
-        ?>
-        <a href="" class="btn btn-danger btn-sm remove-lab" data-no="<?= $no ?>"><span class="fa fa-trash"></span></a>
-        <?php } ?>
-    </div>
-    <br>
-    <br>
-    <div class="<?= $no==1 ? 'col-md-6' : 'col-md-6' ?>">
+    <div class='col-md-6'">
+        <br>
         <select name="jml_barang[]" class="form-control stokAlkes">
         </select>
     </div>
-    <?php 
-        if($no>1){
-    ?>
-        <div class="col-md-1">
-        <br>
-            <a href="" class="btn btn-danger removeField" data-id="<?= $no ?>">Hapus</a>
-        </div>
-    <?php
-        }
-    ?>
 </div>
