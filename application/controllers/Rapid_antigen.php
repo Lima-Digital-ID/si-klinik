@@ -198,6 +198,7 @@ class Rapid_antigen extends CI_Controller
                     'tgl_exp' => $getObat1->tgl_exp,
                 );
                 $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv1);
+                $this->db->insert('alkes_periksa_rapid',['no_sampel' => $getNoSampel->no_sampel,'kode_barang' => $value,'jml_barang' => $det_inv1['jumlah']]);
                 $totalBiayaObat+=($getObat1->harga * $_POST['jml_barang'][$key]) - $getObat1->diskon;
             }
 
@@ -234,13 +235,13 @@ class Rapid_antigen extends CI_Controller
                     'keterangan'    => 'lawan',
                 ],
                 [//persediaan obat berkurang
-                    'id_akun'       => 58,
+                    'id_akun'       => 59,
                     'jumlah'        => $totalBiayaObat,
                     'tipe'          => 'KREDIT',
                     'keterangan'    => 'akun',
                 ],
                 [//pendapatan dari penjualan obat
-                    'id_akun'       => 39,
+                    'id_akun'       => 41,
                     'jumlah'        => $totalBiayaObat,
                     'tipe'          => 'KREDIT',
                     'keterangan'    => 'akun',
