@@ -1033,7 +1033,17 @@ class Periksamedis extends CI_Controller
         $this->data['obat'] = $this->get_all_obat($obatAda=true,$json=false);
         $this->data['master_tindakan'] = $this->db->query('select * from tbl_tindakan where tipe = "1" order by cast(kode_tindakan as SIGNED INTEGER) asc ')->result();
 
+        $this->data['alkes'] = $this->Tbl_obat_alkes_bhp_model->get_all_obat($this->id_klinik,false,2);
+
         $this->template->load('template','kontrol-kehamilan/periksa-kontrol-kehamilan',$this->data);
+    }
+    public function newItemAlkes()
+    {
+        $this->data['periksa_kehamilan'] = $this->db->get('tbl_kontrol_kehamilan')->result();
+        $this->data['alkes'] = $this->Tbl_obat_alkes_bhp_model->get_all_obat($this->id_klinik,false,2);
+        $this->data['no'] = $_GET['no'];
+        // $this->data['alkes'] = $this->db->get('tbl_obat_alkes_bhp')->result();
+        $this->load->view('kontrol-kehamilan/input-field-alkes',$this->data);
     }
     public function save_kontrol_kehamilan()
     {
