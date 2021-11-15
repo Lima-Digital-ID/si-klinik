@@ -53,7 +53,13 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 	
-	function get_all_obat($id_klinik = null,$json=false)
+    function queryGetStok($inv_type){
+        $getStok = "COALESCE((SELECT SUM(tid2.jumlah) as jumlah_stok FROM `tbl_inventory_detail` tid2 JOIN tbl_inventory ti2 ON tid2.id_inventory=ti2.id_inventory WHERE ti2.inv_type='$inv_type' AND ti2.id_klinik=MAX(ti.id_klinik) AND tid2.kode_barang=tid1.kode_barang), 0) ";
+
+        return $getStok;
+    }
+
+	function get_all_obat($id_klinik = null,$json=false,$jenis_barang=1)
     {
         // $this->db->where('jenis_barang', '1'); //Get jenis barang = obat
         // if($id_klinik != null)
@@ -64,12 +70,19 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         // $query=$tipeGetData->query("SELECT SUM(tid1.jumlah) - COALESCE((SELECT SUM(tid2.jumlah) as jumlah_stok FROM `tbl_inventory_detail` tid2 JOIN tbl_inventory ti2 ON tid2.id_inventory=ti2.id_inventory WHERE ti2.inv_type='TRX_STUFF' AND ti2.id_klinik=MAX(ti.id_klinik) AND tid2.kode_barang=tid1.kode_barang), 0) - COALESCE((SELECT SUM(tid2.jumlah) as jumlah_stok FROM `tbl_inventory_detail` tid2 JOIN tbl_inventory ti2 ON tid2.id_inventory=ti2.id_inventory WHERE ti2.inv_type='RETURN_MONEY' AND ti2.id_klinik=MAX(ti.id_klinik) AND tid2.kode_barang=tid1.kode_barang), 0) as stok_barang, MAX(tid1.kode_barang) AS kode_barang, MAX(tid1.harga) AS harga, MAX(toa.harga) AS harga_jual, MAX(tid1.diskon) AS diskon, MAX(tid1.tgl_exp) AS tgl_exp, MAX(toa.nama_barang) AS nama_barang FROM `tbl_inventory_detail` tid1 JOIN tbl_inventory ti ON tid1.id_inventory=ti.id_inventory JOIN tbl_obat_alkes_bhp toa ON tid1.kode_barang=toa.kode_barang WHERE ti.inv_type='RECEIPT_ORDER' OR ti.inv_type='RETURN_STUFF' AND ti.id_klinik=1 AND toa.jenis_barang=1 GROUP BY tid1.kode_barang");
 
         $tipeGetData = $json ? $this->datatables : $this->db;
+        // $jumlah = "SUM(tid1.jumlah)";
+        // $penjualan = "COALESCE((SELECT SUM(tid2.jumlah) as jumlah_stok FROM `tbl_inventory_detail` tid2 JOIN tbl_inventory ti2 ON tid2.id_inventory=ti2.id_inventory WHERE ti2.inv_type='TRX_STUFF' AND ti2.id_klinik=MAX(ti.id_klinik) AND tid2.kode_barang=tid1.kode_barang), 0)";
+        // $retur = "COALESCE((SELECT SUM(tid2.jumlah) as jumlah_stok FROM `tbl_inventory_detail` tid2 JOIN tbl_inventory ti2 ON tid2.id_inventory=ti2.id_inventory WHERE ti2.inv_type='RETURN_MONEY' AND ti2.id_klinik=MAX(ti.id_klinik) AND tid2.kode_barang=tid1.kode_barang), 0)";
 
-        $tipeGetData->select("SUM(tid1.jumlah) - COALESCE((SELECT SUM(tid2.jumlah) as jumlah_stok FROM `tbl_inventory_detail` tid2 JOIN tbl_inventory ti2 ON tid2.id_inventory=ti2.id_inventory WHERE ti2.inv_type='TRX_STUFF' AND ti2.id_klinik=MAX(ti.id_klinik) AND tid2.kode_barang=tid1.kode_barang), 0) - COALESCE((SELECT SUM(tid2.jumlah) as jumlah_stok FROM `tbl_inventory_detail` tid2 JOIN tbl_inventory ti2 ON tid2.id_inventory=ti2.id_inventory WHERE ti2.inv_type='RETURN_MONEY' AND ti2.id_klinik=MAX(ti.id_klinik) AND tid2.kode_barang=tid1.kode_barang), 0) as stok_barang, MAX(tid1.kode_barang) AS kode_barang, MAX(tid1.harga) AS harga, MAX(toa.harga) AS harga_jual, MAX(tid1.diskon) AS diskon, MAX(tid1.tgl_exp) AS tgl_exp, MAX(toa.nama_barang) AS nama_barang");
+        
+        // $stok = $this->queryGetStok('RECEIPT_ORDER') - $this->queryGetStok('RETURN_STUFF') - $this->queryGetStok('RETURN_MONEY') - $this->queryGetStok('TRX_STUFF') - $this->queryGetStok('MANUFAKTUR_OUT') + $this->queryGetStok('MANUFAKTUR_IN');
+
+        $tipeGetData->select($this->queryGetStok('RECEIPT_ORDER')." - ".$this->queryGetStok('RETURN_STUFF')." - ".$this->queryGetStok('RETURN_MONEY')." - ".$this->queryGetStok('TRX_STUFF')." - ".$this->queryGetStok('MANUFAKTUR_OUT')." + ".$this->queryGetStok('MANUFAKTUR_IN')." as stok_barang, MAX(tid1.kode_barang) AS kode_barang, MAX(tid1.harga) AS harga, MAX(toa.harga) AS harga_jual, MAX(tid1.diskon) AS diskon, MAX(tid1.tgl_exp) AS tgl_exp, MAX(toa.nama_barang) AS nama_barang");
         $tipeGetData->from("tbl_inventory_detail tid1");
         $tipeGetData->join('tbl_inventory ti','tid1.id_inventory=ti.id_inventory');
         $tipeGetData->join('tbl_obat_alkes_bhp toa','tid1.kode_barang=toa.kode_barang');
-        $tipeGetData->where("ti.inv_type='RECEIPT_ORDER' OR ti.inv_type='RETURN_STUFF' AND ti.id_klinik=1 AND toa.jenis_barang=1");
+        // $tipeGetData->where("ti.inv_type='RECEIPT_ORDER' OR ti.inv_type='RETURN_STUFF' AND ti.id_klinik=1 AND toa.jenis_barang=1");
+        $tipeGetData->where("ti.id_klinik=1 AND toa.jenis_barang=$jenis_barang");
         $tipeGetData->group_by("tid1.kode_barang");
 
         if($json){

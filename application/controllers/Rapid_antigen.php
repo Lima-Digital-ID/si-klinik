@@ -15,6 +15,7 @@ class Rapid_antigen extends CI_Controller
 		$this->load->model('Tbl_rapid_antigen_model');
 		$this->load->model('Transaksi_model');
 		$this->load->model('akuntansi/Transaksi_akuntansi_model');
+        $this->load->model('Tbl_obat_alkes_bhp_model');
         $this->load->library('datatables');
         $this->load->library('form_validation');
         $this->id_klinik = $this->session->userdata('id_klinik');
@@ -199,6 +200,7 @@ class Rapid_antigen extends CI_Controller
             redirect(base_url()."rapid_antigen/print/$id");
         }
         else{
+            $data['alkes'] = $this->Tbl_obat_alkes_bhp_model->get_all_obat($this->id_klinik,false,2);
             $data['detail'] = $this->Tbl_rapid_antigen_model->detailRapid($id);
             $this->template->load('template','rapid_antigen/periksa_rapid_antigen',$data);
         }

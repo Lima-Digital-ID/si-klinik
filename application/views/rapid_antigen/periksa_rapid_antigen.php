@@ -118,16 +118,13 @@
                         </div>
                         <hr>
                         <form action="" method="post">
-                            <div class="form-group">
+                            <div class="row form-group">
                                 <div class="col-sm-2">Parameter Pemeriksaan <?php echo form_error('parameter_pemeriksaan'); ?></div>
                                 <div class="col-sm-10">
                                     <input type="text" name="parameter_pemeriksaan" class="form-control">
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="row form-group">
                                 <div class="col-sm-2">Hasil</div>
                                 <div class="col-sm-10">
                                     <select name="hasil" class="form-control">
@@ -136,10 +133,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                            <div class="row form-group">
                                 <div class="col-sm-2">Nilai Rujukan</div>
                                 <div class="col-sm-10">
                                     <select name="nilai_rujukan" class="form-control">
@@ -148,10 +142,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="form-group">
+                           <div class="row form-group">
                                 <div class="col-sm-2">Saran <?php echo form_error('saran'); ?></div>
                                 <div class="col-sm-10">
                                     <div contenteditable="true" class="form-control" id="saran" style="min-height:150px">
@@ -164,14 +155,25 @@
 - Pertahankan perilaku hidup sehat; Cuci tangan, terapkan etika batuk, gunakan masker, dan jaga stamina.
                                     </div>
                                     <input type="hidden" id="saranHidden" name="saran" value='- Bila Pemeriksaan Rapid Antigen ini merupakan pemeriksaan yang ke I, ulani pemeriksaan 10 hari lagi.
-<br>
-- Bila pemeriksaan ini merupakan pemeriksaan yang ke II (ulangan) saat ini belum/tidak terdeteksi.
-<br>
-- Tetap lakukan Social/Phisycal Distancing
-<br>
-- Pertahankan perilaku hidup sehat; Cuci tangan, terapkan etika batuk, gunakan masker, dan jaga stamina.
-'>
+                                    <br>
+                                    - Bila pemeriksaan ini merupakan pemeriksaan yang ke II (ulangan) saat ini belum/tidak terdeteksi.
+                                    <br>
+                                    - Tetap lakukan Social/Phisycal Distancing
+                                    <br>
+                                    - Pertahankan perilaku hidup sehat; Cuci tangan, terapkan etika batuk, gunakan masker, dan jaga stamina.
+                                    '>
                                 </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12" id="row-alkes">
+                                    <?php 
+                                        $this->load->view('rapid_antigen/input_field_alkes',['no' => 1])
+                                    ?>
+                                </div>
+                                    <div class="col-md-6">
+                                    <br>
+                                        <a href="" class="btn btn-info add-more">Tambah Input Alkes</a>
+                                    </div>
                             </div>
                             <div class="pull-right" style="margin-top :20px">
                                 <button class="btn btn-default" type="reset"><span class="fa fa-times"></span> Reset</button>
@@ -184,12 +186,27 @@
         </div>
     </section>
 </div>
+<script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
 
 <script>
+    $(document).ready(function(){
+        $(".selectAlkes").change(function(){
+            var stok = $(this).find(':selected').data('stok')
+            var dataId = $(this).closest('.loop-alkes').attr('data-id')
+            $(".loop-alkes[data-id='"+dataId+"'] .stokAlkes option").remove();
+
+            var option = "";
+            for (let s = 1; s <= stok; s++) {
+                option+="<option>"+s+"</option>";
+            }
+            $(".loop-alkes[data-id='"+dataId+"'] .stokAlkes").append(option);
+        })
+    })
     const saran = document.getElementById('saran')
     const saranHidden = document.getElementById('saranHidden')
 
     saran.addEventListener('input',function(){
         saranHidden.value = saran.textContent
     })
+
 </script>
