@@ -165,15 +165,15 @@
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <div class="col-md-12" id="row-alkes">
+                                <div class="col-md-12" id="row-alkes" data-count="1">
                                     <?php 
                                         $this->load->view('rapid_antigen/input_field_alkes',['no' => 1])
                                     ?>
                                 </div>
-                                    <div class="col-md-6">
+                                <div class="col-md-6">
                                     <br>
-                                        <a href="" class="btn btn-info add-more">Tambah Input Alkes</a>
-                                    </div>
+                                    <a href="" class="btn btn-info add-more">Tambah Input Alkes</a>
+                                </div>
                             </div>
                             <div class="pull-right" style="margin-top :20px">
                                 <button class="btn btn-default" type="reset"><span class="fa fa-times"></span> Reset</button>
@@ -190,9 +190,10 @@
 
 <script>
     $(document).ready(function(){
-        $(".selectAlkes").change(function(){
-            var stok = $(this).find(':selected').data('stok')
-            var dataId = $(this).closest('.loop-alkes').attr('data-id')
+
+        function selectAlkes(thisAttr){
+            var stok = thisAttr.find(':selected').data('stok')
+            var dataId = thisAttr.closest('.loop-alkes').attr('data-id')
             $(".loop-alkes[data-id='"+dataId+"'] .stokAlkes option").remove();
 
             var option = "";
@@ -200,6 +201,35 @@
                 option+="<option>"+s+"</option>";
             }
             $(".loop-alkes[data-id='"+dataId+"'] .stokAlkes").append(option);
+        }
+
+        $(".selectAlkes").change(function(){
+            selectAlkes($(this))            
+        })
+
+        $(".add-more").click(function(e){
+            e.preventDefault();
+            var nextId = parseInt($("#row-alkes").attr('data-count')) + 1
+            $.ajax({
+                url : "<?= base_url()."rapid_antigen/getInputFieldAlkes" ?>",
+                type : 'get',
+                data : {no : nextId},
+                success : function(res){
+                    $("#row-alkes").append(res)
+                    $("#row-alkes").attr('data-count',nextId)
+                    $(".selectAlkes").change(function(){
+                        selectAlkes($(this))            
+                    })
+
+                    $(".removeField").click(function(e){
+                        e.preventDefault();
+                        
+                        var dataId = $(this).attr("data-id")
+                        $(".loop-alkes[data-id='"+dataId+"']").remove()
+                    })                    
+                }
+            })
+
         })
     })
     const saran = document.getElementById('saran')

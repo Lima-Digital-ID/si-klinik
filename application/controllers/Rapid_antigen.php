@@ -206,6 +206,11 @@ class Rapid_antigen extends CI_Controller
         }
         
     }
+    function getInputFieldAlkes(){
+        $data['alkes'] = $this->Tbl_obat_alkes_bhp_model->get_all_obat($this->id_klinik,false,2);
+        $data['no'] = $_GET['no'];
+        $this->load->view('rapid_antigen/input_field_alkes',$data);
+    }
     public function print($id)
     {
         $data['detail'] = $this->Tbl_rapid_antigen_model->detailRapid($id);

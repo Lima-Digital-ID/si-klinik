@@ -1,4 +1,4 @@
-<div class="row loop-alkes" data-id="<?= $no ?>">
+<div class="row loop-alkes" data-id="<?= $no ?>" style="margin-top:20px">
     <div class="col-sm-6">
         Alat Kesehatan Sekali Pakai
         <br>
@@ -11,9 +11,19 @@
             ?>
         </select>
     </div>
-    <div class="col-sm-6">
+    <div class="<?= $no==1 ? 'col-sm-6' : 'col-sm-5' ?>">
         Jumlah Yang Dipakai
         <select name="jml_barang[]" class="form-control stokAlkes">
         </select>
     </div>
+    <?php 
+        if($no>1){
+    ?>
+        <div class="col-md-1">
+        <br>
+            <a href="" class="btn btn-danger removeField" data-id="<?= $no ?>">Hapus</a>
+        </div>
+    <?php
+        }
+    ?>
 </div>
