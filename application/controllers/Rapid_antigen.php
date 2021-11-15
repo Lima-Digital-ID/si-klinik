@@ -16,6 +16,7 @@ class Rapid_antigen extends CI_Controller
 		$this->load->model('Transaksi_model');
 		$this->load->model('akuntansi/Transaksi_akuntansi_model');
         $this->load->model('Tbl_obat_alkes_bhp_model');
+        $this->load->model('Transaksi_obat_model');
         $this->load->library('datatables');
         $this->load->library('form_validation');
         $this->id_klinik = $this->session->userdata('id_klinik');
@@ -127,6 +128,8 @@ class Rapid_antigen extends CI_Controller
 
         if ($this->form_validation->run()==TRUE){
             $post = $_POST;
+            unset($post['kode_barang']);
+            unset($post['jml_barang']);
             $post['tgl_pemeriksaan'] = date('Y-m-d H:i:s');
 
             $this->load->library('ciqrcode'); //pemanggilan library QR CODE
@@ -173,6 +176,31 @@ class Rapid_antigen extends CI_Controller
                 'dc' => 'd']
             );
             $this->Transaksi_model->insert($tr,$trDetail);
+
+            //input inventory barang 
+            $kode_receipt1='RCP'.time();
+            $tb_inv1 = array(
+                    'id_inventory'  => $kode_receipt1,
+                    'inv_type'      => 'TRX_STUFF',
+                    'id_klinik'     => $this->id_klinik,
+            );
+            $this->Transaksi_obat_model->insert('tbl_inventory',$tb_inv1);
+        
+            $totalBiayaObat = 0;
+            foreach ($_POST['kode_barang'] as $key => $value) {
+                $getObat1 = $this->Tbl_obat_alkes_bhp_model->get_detail_obat($value);
+                $det_inv1=array(
+                    'id_inventory' => $kode_receipt1,
+                    'kode_barang' => $value,
+                    'jumlah' => $_POST['jml_barang'][$key],
+                    'harga' => $getObat1->harga,
+                    'diskon' => $getObat1->diskon,
+                    'tgl_exp' => $getObat1->tgl_exp,
+                );
+                $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv1);
+                $totalBiayaObat+=($getObat1->harga * $_POST['jml_barang'][$key]) - $getObat1->diskon;
+            }
+
             //insert akuntansi
             //insert detail akuntansi
             $trAkuntansi = array(
@@ -193,6 +221,30 @@ class Rapid_antigen extends CI_Controller
                     'tipe' => 'DEBIT',
                     'keterangan' => 'lawan'
                 ],
+                [//kas bertambah
+                    'id_akun'       => 20,
+                    'jumlah'        => $totalBiayaObat,
+                    'tipe'          => 'DEBIT',
+                    'keterangan'    => 'lawan',
+                ],
+                [//hpp
+                    'id_akun'       => 65,
+                    'jumlah'        => $totalBiayaObat,
+                    'tipe'          => 'DEBIT',
+                    'keterangan'    => 'lawan',
+                ],
+                [//persediaan obat berkurang
+                    'id_akun'       => 58,
+                    'jumlah'        => $totalBiayaObat,
+                    'tipe'          => 'KREDIT',
+                    'keterangan'    => 'akun',
+                ],
+                [//pendapatan dari penjualan obat
+                    'id_akun'       => 39,
+                    'jumlah'        => $totalBiayaObat,
+                    'tipe'          => 'KREDIT',
+                    'keterangan'    => 'akun',
+                ]
             );
             $this->Transaksi_akuntansi_model->insertWithDetail($trAkuntansi,$trAkuntansiDetail);
 
