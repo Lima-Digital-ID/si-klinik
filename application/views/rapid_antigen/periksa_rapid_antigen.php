@@ -195,10 +195,15 @@
             var stok = thisAttr.find(':selected').data('stok')
             var dataId = thisAttr.closest('.loop-alkes').attr('data-id')
             $(".loop-alkes[data-id='"+dataId+"'] .stokAlkes option").remove();
-
+            
             var option = "";
-            for (let s = 1; s <= stok; s++) {
-                option+="<option>"+s+"</option>";
+            if(stok==0){
+                option = "<option value=''>Habis</option>";
+            }
+            else{
+                for (let s = 1; s <= stok; s++) {
+                    option+="<option>"+s+"</option>";
+                }
             }
             $(".loop-alkes[data-id='"+dataId+"'] .stokAlkes").append(option);
         }
