@@ -274,7 +274,7 @@ class Pembayaran extends CI_Controller
     }
     private function jurnal_otomatis_pemeriksaan($biaya,$id_akun_bank){
         foreach ($biaya as $key => $value) {
-            if(!is_numeric($value)){
+            if(!is_numeric($value) && $key!='no_periksa'){
                 $biaya[$key] = 0;
             }
         }

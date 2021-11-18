@@ -1030,7 +1030,8 @@ class Periksamedis extends CI_Controller
             $this->data['nama_lengkap'] = $data_pasien->nama_lengkap;
             $this->data['alamat'] = $data_pasien->alamat.' '.$data_pasien->kabupaten.' '.'RT '.$data_pasien->rt.' '.'RW '.$data_pasien->rw;
         }
-        $this->data['obat'] = $this->get_all_obat($obatAda=true,$json=false);
+        $this->data['periksa_lab'] = $this->db->get('tbl_tipe_periksa_lab')->result();
+        $this->data['obat'] = $this->Tbl_obat_alkes_bhp_model->get_all_obat($this->id_klinik,false);
         $this->data['master_tindakan'] = $this->db->query('select * from tbl_tindakan where tipe = "1" order by cast(kode_tindakan as SIGNED INTEGER) asc ')->result();
 
         $this->template->load('template','kontrol-kehamilan/periksa-kontrol-kehamilan',$this->data);
@@ -1061,6 +1062,20 @@ class Periksamedis extends CI_Controller
             array_push($data_transaksi_d,$arr);
             $tindakan.=$getTindakan->tindakan.";";
         }
+        
+        foreach ($this->input->post('periksa_lab') as $key => $value) {
+            $this->db->select('item,harga');
+            $getLab = $this->db->get_where('tbl_tipe_periksa_lab',['id_tipe' => $value])->row();
+            
+            $arr = array(
+                'no_transaksi' => $data_transaksi['no_transaksi'],
+                'deskripsi' => 'Biaya Tindakan '.$getLab->item,
+                'amount_transaksi' => $getLab->harga,
+                'dc' => 'd'
+            );
+            array_push($data_transaksi_d,$arr);
+            $tindakan.=$getTindakan->tindakan.";";
+        }
 
         $periksa = array(
             'no_periksa' => $this->input->post('no_periksa'),
@@ -1077,6 +1092,7 @@ class Periksamedis extends CI_Controller
         unset($post['nama_lengkap']);
         unset($post['alamat']);
         unset($post['tindakan']);
+        unset($post['periksa_lab']);
         $this->db->insert('tbl_kontrol_kehamilan',$post);
 
 

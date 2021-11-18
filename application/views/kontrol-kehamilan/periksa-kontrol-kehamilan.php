@@ -210,11 +210,11 @@
                                 <div class="form-group row">
                                     <div class="col-md-2">Fe (tab/botol) <?php echo form_error('fe'); ?></div>
                                     <div class="col-md-10">
-                                    <select style="width:100%" name="fe" id="" required class="form-control select2">
+                                    <select style="width:100%" name="fe" id="" required class="form-control select2 selectObat">
                                             <option value="">---Pilih Obat---</option>
                                             <?php 
-                                                foreach($obat as $item){
-                                                    echo "<option value='$item[kode_barang]'>$item[nama_barang]</option>";
+                                                foreach($obat as $value){
+                                                    echo "<option data-stok='".$value->stok_barang."' value='".$value->kode_barang."'>".$value->nama_barang."</option>";
                                                 }
                                                 ?>
                                         </select>
@@ -223,7 +223,8 @@
                                 <div class="form-group row">
                                     <div class="col-md-2">Jumlah Fe<?php echo form_error('jml_fe'); ?></div>
                                     <div class="col-md-10">
-                                        <input type="text" name="jml_fe" id="" required class="form-control">
+                                        <select name="jml_fe" class="form-control stokObat" required>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -309,163 +310,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <div class="pull-right">
-                                            <button type="reset" class="btn btn-default">Reset</button>
-                                            <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Simpan</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div id="integrasi" class="tab-pane fade in">
-                                <div class="row col-md-12">
-                                    <h4><b>PMTCT</b></h4>
-                                    <hr>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">VCT <?php echo form_error('vct'); ?></div>
+                                    <div class="col-md-2">Periksa Lab Terpilih <?php echo form_error('periksa_lab'); ?></div>
                                     <div class="col-md-10">
-                                        <input type="radio" value="1" name="vct" id="vctYa">
-                                        <label for="vctYa">Ya</label>
-                                        &nbsp;
-                                        <input type="radio" value="0" name="vct" id="vctTidak">
-                                        <label for="vctTidak">Tidak</label>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">Periksa Darah <?php echo form_error('pmtct_periksa_darah'); ?></div>
-                                    <div class="col-md-10">
-                                        <input type="radio" value="1" name="pmtct_periksa_darah" id="pmtct_periksa_darahYa">
-                                        <label for="pmtct_periksa_darahYa">Ya</label>
-                                        &nbsp;
-                                        <input type="radio" value="0" name="pmtct_periksa_darah" id="pmtct_periksa_darahTidak">
-                                        <label for="pmtct_periksa_darahTidak">Tidak</label>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">Serologi <?php echo form_error('serologi'); ?></div>
-                                    <div class="col-md-10">
-                                        <input type="radio" value="1" name="serologi" id="serologiPlus">
-                                        <label for="serologiPlus">+</label>
-                                        &nbsp;
-                                        <input type="radio" value="0" name="serologi" id="serologiMin">
-                                        <label for="serologiMin">-</label>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">ARV Profilaksis <?php echo form_error('arv_profilaksis'); ?></div>
-                                    <div class="col-md-10">
-                                        <select style="width:100%" name="arv_profilaksis" id="" required class="form-control select2">
-                                            <option value="">---Pilih Obat---</option>
+                                        <select name="periksa_lab[]" id="" class="form-control select2" multiple="multiple" style="width:100%" required>
+                                            <option value="">---Periksa Lab---</option>
                                             <?php 
-                                                foreach($obat as $item){
-                                                    echo "<option value='$item[kode_barang]'>$item[nama_barang]</option>";
-                                                }
-                                                ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">Jumlah Obat <?php echo form_error('jml_arv_profilaksis'); ?></div>
-                                    <div class="col-md-10">
-                                        <input type="number" name="jml_arv_profilaksis" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row col-md-12">
-                                    <h4><b>MALARIA</b></h4>
-                                    <hr>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">Periksa Darah <?php echo form_error('malaria_periksa_darah'); ?></div>
-                                    <div class="col-md-10">
-                                        <input type="radio" value="1" name="malaria_periksa_darah" id="malaria_periksa_darahYa">
-                                        <label for="malaria_periksa_darahYa">Ya</label>
-                                        &nbsp;
-                                        <input type="radio" value="0" name="malaria_periksa_darah" id="malaria_periksa_darahTidak">
-                                        <label for="malaria_periksa_darahTidak">Tidak</label>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">Malaria <?php echo form_error('malaria'); ?></div>
-                                    <div class="col-md-10">
-                                        <input type="radio" value="1" name="malaria" id="malariaPlus">
-                                        <label for="malariaPlus">+</label>
-                                        &nbsp;
-                                        <input type="radio" value="0" name="malaria" id="malariaMin">
-                                        <label for="malariaMin">-</label>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">Obat <?php echo form_error('malaria_obat'); ?></div>
-                                    <div class="col-md-10">
-                                        <select style="width:100%" name="malaria_obat" id="" required class="form-control select2">
-                                            <option value="">---Pilih Obat---</option>
-                                            <?php 
-                                                foreach($obat as $item){
-                                                    echo "<option value='$item[kode_barang]'>$item[nama_barang]</option>";
+                                                foreach ($periksa_lab as $key => $value) {
+                                                    echo "<option value='".$value->id_tipe."'>".$value->item."</option>";
                                                 }
                                             ?>
                                         </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">Jumlah Obat <?php echo form_error('jml_malaria_obat'); ?></div>
-                                    <div class="col-md-10">
-                                        <input type="number" name="jml_malaria_obat" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">Kelambu Berinsektisida <?php echo form_error('kelambu_berinsektisida'); ?></div>
-                                    <div class="col-md-10">
-                                        <input type="radio" value="1" name="kelambu_berinsektisida" id="kelambu_berinsektisidaYa">
-                                        <label for="kelambu_berinsektisidaYa">Ya</label>
-                                        &nbsp;
-                                        <input type="radio" value="0" name="kelambu_berinsektisida" id="kelambu_berinsektisidaTidak">
-                                        <label for="kelambu_berinsektisidaTidak">Tidak</label>
-                                    </div>
-                                </div>
-                                <div class="row col-md-12">
-                                    <h4><b>TB</b></h4>
-                                    <hr>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">Periksa Dahak <?php echo form_error('periksa_dahak'); ?></div>
-                                    <div class="col-md-10">
-                                        <input type="radio" value="1" name="periksa_dahak" id="periksa_dahakYa">
-                                        <label for="periksa_dahakYa">Ya</label>
-                                        &nbsp;
-                                        <input type="radio" value="0" name="periksa_dahak" id="periksa_dahakTidak">
-                                        <label for="periksa_dahakTidak">Tidak</label>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">TBC <?php echo form_error('tbc'); ?></div>
-                                    <div class="col-md-10">
-                                        <input type="radio" value="1" name="tbc" id="tbcPlus">
-                                        <label for="tbcPlus">+</label>
-                                        &nbsp;
-                                        <input type="radio" value="0" name="tbc" id="tbcMin">
-                                        <label for="tbcMin">-</label>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">Obat <?php echo form_error('tb_obat'); ?></div>
-                                    <div class="col-md-10">
-                                        <select style="width:100%" name="tb_obat" id="" required class="form-control select2">
-                                            <option value="">---Pilih Obat---</option>
-                                            <?php 
-                                                foreach($obat as $item){
-                                                    echo "<option value='$item[kode_barang]'>$item[nama_barang]</option>";
-                                                }
-                                            ?>
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-2">Jumlah Obat <?php echo form_error('jml_tb_obat'); ?></div>
-                                    <div class="col-md-10">
-                                        <input type="number" name="jml_tb_obat" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -476,7 +330,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                         </form>
                     </div>
@@ -485,3 +339,26 @@
         </div>
     </section>
 </div>
+<script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
+
+<script>
+    $(document).ready(function(){
+        function selectAlkes(thisAttr){
+        }
+
+        $(".selectObat").change(function(){
+            var stok = $(this).find(':selected').data('stok')
+            $(".stokObat option").remove()
+            var option = "";
+            if(stok==0){
+                option = "<option value=''>Habis</option>";
+            }
+            else{
+                for (let s = 1; s <= stok; s++) {
+                    option+="<option>"+s+"</option>";
+                }
+            }
+            $(".stokObat").append(option);
+        })
+    })
+</script>
