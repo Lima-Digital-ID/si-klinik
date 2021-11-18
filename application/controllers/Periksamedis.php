@@ -1103,6 +1103,8 @@ class Periksamedis extends CI_Controller
         unset($post['alamat']);
         unset($post['tindakan']);
         unset($post['periksa_lab']);
+        unset($post['kode_alkes']);
+        unset($post['jml_alkes']);
         $this->db->insert('tbl_kontrol_kehamilan',$post);
 
 
@@ -1126,6 +1128,66 @@ class Periksamedis extends CI_Controller
         );
         $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv1);
 
+        //input inventory barang alkes
+        $kode_receipt2='RCP'.strtotime(date('Y-m-d H:i:s',time() + 1));
+        $tb_inv2 = array(
+                'id_inventory'  => $kode_receipt2,
+                'inv_type'      => 'TRX_STUFF',
+                'id_klinik'     => $this->id_klinik,
+        );
+        $this->Transaksi_obat_model->insert('tbl_inventory',$tb_inv2);
+    
+        $totalBiayaAlkes = 0;
+        foreach ($_POST['kode_alkes'] as $key => $value) {
+            $getObat2 = $this->Tbl_obat_alkes_bhp_model->get_detail_obat($value);
+            $det_inv2=array(
+                'id_inventory' => $kode_receipt2,
+                'kode_barang' => $value,
+                'jumlah' => $_POST['jml_alkes'][$key],
+                'harga' => $getObat2->harga,
+                'diskon' => $getObat2->diskon,
+                'tgl_exp' => $getObat2->tgl_exp,
+            );
+            $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv2);
+            $this->db->insert('alkes_kontrol_kehamilan',['no_periksa' => $periksa['no_periksa'],'kode_barang' => $value,'jml_barang' => $det_inv2['jumlah']]);
+            $totalBiayaAlkes+=($getObat2->harga * $_POST['jml_alkes'][$key]) - $getObat2->diskon;
+        }
+        //insert akuntansi
+            //insert detail akuntansi
+            $trAkuntansi = array(
+                'deskripsi' => 'Biaya Pemeriksaan '.$periksa['no_periksa'],
+                'tanggal' => date('Y-m-d'),
+            );
+
+            $trAkuntansiDetail = array(
+                [//kas bertambah
+                    'id_akun'       => 20,
+                    'jumlah'        => $totalBiayaAlkes,
+                    'tipe'          => 'DEBIT',
+                    'keterangan'    => 'lawan',
+                ],
+                [//hpp
+                    'id_akun'       => 65,
+                    'jumlah'        => $totalBiayaAlkes,
+                    'tipe'          => 'DEBIT',
+                    'keterangan'    => 'lawan',
+                ],
+                [//persediaan obat berkurang
+                    'id_akun'       => 59,
+                    'jumlah'        => $totalBiayaAlkes,
+                    'tipe'          => 'KREDIT',
+                    'keterangan'    => 'akun',
+                ],
+                [//pendapatan dari penjualan obat
+                    'id_akun'       => 41,
+                    'jumlah'        => $totalBiayaAlkes,
+                    'tipe'          => 'KREDIT',
+                    'keterangan'    => 'akun',
+                ]
+            );
+            $this->Transaksi_akuntansi_model->insertWithDetail($trAkuntansi,$trAkuntansiDetail);
+
+        
         // //input inventory barang jml_arv_profilaksis
         // $kode_receipt1='RCP'.time();
         // $tb_inv1 = array(
