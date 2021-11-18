@@ -322,6 +322,17 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="form-group" id="row-kontrol-kehamilan" data-row='0'>
+                                    <?php 
+                                        $this->load->view('kontrol-kehamilan/input-field-alkes',['no' => 0])
+                                    ?>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <a href="" class="btn btn-info btn-sm" id="addItemAlkes"><span class="fa fa-plus"></span> Tambah Item</a>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <div class="pull-right">
@@ -340,12 +351,8 @@
     </section>
 </div>
 <script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
-
 <script>
     $(document).ready(function(){
-        function selectAlkes(thisAttr){
-        }
-
         $(".selectObat").change(function(){
             var stok = $(this).find(':selected').data('stok')
             $(".stokObat option").remove()
@@ -359,6 +366,55 @@
                 }
             }
             $(".stokObat").append(option);
+        })
+
+        function selectAlkes(thisAttr){
+            var stok = thisAttr.find(':selected').data('stok')
+            console.log(stok)
+            var dataId = thisAttr.closest('.loop-alkes').attr('data-no')
+            $(".loop-alkes[data-no='"+dataId+"'] .stokAlkes option").remove();
+            var option = "";
+            if(stok==0){
+                option = "<option value=''>Habis</option>";
+            }
+            else{
+                for (let s = 1; s <= stok; s++) {
+                    option+="<option>"+s+"</option>";
+                }
+            }
+            $(".loop-alkes[data-no='"+dataId+"'] .stokAlkes").append(option);
+        }
+
+        $(".selectAlkes").change(function(){
+            selectAlkes($(this))            
+        })
+
+        $("#addItemAlkes").click(function(e){
+            e.preventDefault();
+            var dataRow = parseInt($('#row-kontrol-kehamilan').attr('data-row'))
+            $.ajax({
+                type : 'get',
+                url : '<?= base_url().'periksamedis/newItemAlkes' ?>',
+                data : {no : dataRow+1},
+                success : function(data){
+                    $('#row-kontrol-kehamilan').append(data)
+                    $('#row-kontrol-kehamilan').attr('data-row',dataRow + 1)
+                    // $(".select2").select2()
+                    $(".selectAlkes").change(function(){
+                        selectAlkes($(this))
+                    })
+
+                    $(".remove-lab").click(function(e){
+                        e.preventDefault();
+                        var dataNo = $(this).attr('data-no')
+                        var dataRow = parseInt($('#row-kontrol-kehamilan').attr('data-row'))
+                        $('.loop-alkes[data-no="'+dataNo+'"]').remove()
+                        $('#row-kontrol-kehamilan').attr('data-row',dataRow-1)
+                    })
+
+                    $(".select2").select2();
+                }
+            })
         })
     })
 </script>
