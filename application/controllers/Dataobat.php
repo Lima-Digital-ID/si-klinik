@@ -12,6 +12,7 @@ class Dataobat extends CI_Controller
         $this->load->model('Tbl_obat_alkes_bhp_model');
         $this->load->model('Tbl_kategori_barang_model');
         $this->load->model('Tbl_satuan_barang_model');
+        $this->load->model('Tbl_inventory_model');
         $this->load->model('Transaksi_model');
         $this->load->library('form_validation');
         $this->load->library('datatables');
@@ -846,6 +847,50 @@ class Dataobat extends CI_Controller
 
     }
 
+    public function stok_adjustment(){
+        $this->template->load('template','dataobat/penyesuaian_stok');
+    }
+
+    public function json_adjustment(){
+        header('Content-Type: application/json');
+        echo $this->Tbl_inventory_model->json();
+    }
+
+    public function edit_stok_adjustment()
+    {
+        $this->template->load('template','dataobat/edit_penyesuaian_stok');
+    }
+
+    public function json_detail_adjusment($id){
+        header('Content-Type: application/json');
+        echo json_encode($this->Tbl_inventory_model->json_detail($id));
+    }
+    
+    public function create_adjustment()
+    {
+        $this->template->load('template','dataobat/create_penyesuaian_stok');
+    }
+
+    public function insert_adjustment()
+    {
+        $inventory = array(
+            'id_inventory' => $this->input->post('id_inventory'),
+            'kode_purchase' => $this->input->post('id_inventory'),
+            'inv_type' => 'STOCK_ADJ',
+            'id_klinik'     => $this->id_klinik,
+        );
+        $this->db->insert("tbl_inventory",$inventory);
+
+        $detailInventory = array(
+            'id_inventory' => $this->input->post('id_inventory'),
+            'kode_barang' => $this->input->post('kode_barang'),
+            'kode_gudang' => $this->input->post('kode_gudang'),
+            'jumlah' => $this->input->post('jumlah'),
+        );
+        $this->db->insert("tbl_inventory_detail",$detailInventory);
+
+        redirect(base_url()."dataobat/stok_adjustment/");
+    }
 }
 
 /* End of file Dataobat.php */
