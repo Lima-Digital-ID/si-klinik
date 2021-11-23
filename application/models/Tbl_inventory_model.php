@@ -20,7 +20,7 @@ class Tbl_inventory_model extends CI_Model
     function json(){
         $this->datatables->select('id_inventory, kode_purchase');
         $this->datatables->from('tbl_inventory');
-        // $this->datatables->where('STOCK_ADJ = inv_type');
+        $this->datatables->where('inv_type','STOCK_ADJ');
         $this->datatables->add_column('action', anchor(site_url('dataobat/edit_stok_adjustment/$1'),'<i class="fa fa-eye" aria-hidden="true"></i>',"class='btn btn-info btn-sm'"));
         return $this->datatables->generate();
     }

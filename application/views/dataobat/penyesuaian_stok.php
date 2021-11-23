@@ -14,12 +14,12 @@
                 ?>
             </div>
             <div class="col-xs-12">
-                
                 <div class="box box-warning box-solid">
                     <div class="box-header">
                         <h3 class="box-title">PENYESUAIAN STOK BARANG</h3>
                     </div>
                     <div class="box-body">
+                    <?php echo anchor(site_url('dataobat/create_adjustment/'), '<i class="fa fa-wpforms" aria-hidden="true"></i> Tambah Data', 'class="btn btn-success btn-sm"'); ?>
                         <div style="padding-bottom: 10px;">
                         </div>
                         <div class="table-responsive">

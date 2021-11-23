@@ -873,23 +873,26 @@ class Dataobat extends CI_Controller
 
     public function insert_adjustment()
     {
+        $newTime = (int)time() + 1;
+        $kode_trx_ajd='RCP'.$newTime;
+        $kode_trx_po = 'PO'.$newTime;
         $inventory = array(
-            'id_inventory' => $this->input->post('id_inventory'),
-            'kode_purchase' => $this->input->post('id_inventory'),
+            'id_inventory' => $kode_trx_ajd,
+            'kode_purchase' => $kode_trx_po,
             'inv_type' => 'STOCK_ADJ',
             'id_klinik'     => $this->id_klinik,
         );
         $this->db->insert("tbl_inventory",$inventory);
 
         $detailInventory = array(
-            'id_inventory' => $this->input->post('id_inventory'),
+            'id_inventory' => $kode_trx_ajd,
             'kode_barang' => $this->input->post('kode_barang'),
             'kode_gudang' => $this->input->post('kode_gudang'),
             'jumlah' => $this->input->post('jumlah'),
         );
         $this->db->insert("tbl_inventory_detail",$detailInventory);
 
-        redirect(base_url()."dataobat/stok_adjustment/");
+        redirect(base_url()."dataobat/stok_adjustment");
     }
 }
 
