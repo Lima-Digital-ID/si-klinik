@@ -847,7 +847,14 @@ class Dataobat extends CI_Controller
 
     }
 
+    public function stok_adj(){
+        $data["adj"] = $this->Tbl_inventory_model->get_adj()->result();
+        // $data["stok"] = $this->Tbl_inventory_model->get_adj_detail()->result();
+        $this->template->load('template','dataobat/stok_adj', $data);
+    }
+
     public function stok_adjustment(){
+        // $data["adj"] = $this->Tbl_inventory_model->get_adj();
         $this->template->load('template','dataobat/penyesuaian_stok');
     }
 
@@ -856,19 +863,42 @@ class Dataobat extends CI_Controller
         echo $this->Tbl_inventory_model->json();
     }
 
+    public function d_json_adjustment(){
+        header('Content-Type: application/json');
+        echo $this->Tbl_inventory_model->json_detail();
+    }
+
     public function edit_stok_adjustment()
     {
         $this->template->load('template','dataobat/edit_penyesuaian_stok');
     }
 
-    public function json_detail_adjusment($id){
+    public function json_detail_adjusment(){
+        $detail = $this->Tbl_inventory_model->json_detail();
         header('Content-Type: application/json');
-        echo json_encode($this->Tbl_inventory_model->json_detail($id));
+        echo json_encode($detail);
     }
+    // public function detail(){
+    //     $detail = $this->Pendaftaran_online_model->detail_pendaftar_online();
+    //     header('Content-Type: application/json');
+    //     echo json_encode($detail);
+    // }
     
     public function create_adjustment()
     {
-        $this->template->load('template','dataobat/create_penyesuaian_stok');
+        $this->data['stok'] = $this->db->get('tbl_obat_alkes_bhp')->result();
+        $this->data['gudang'] = $this->db->get('tbl_gudang')->result();
+        $this->data['lokasi'] = $this->db->get('tbl_lokasi_barang')->result();
+        $this->template->load('template','dataobat/create_penyesuaian_stok', $this->data);
+    }
+
+    public function newItemAdj()
+    {
+        $this->data['stok'] = $this->db->get('tbl_obat_alkes_bhp')->result();
+        $this->data['gudang'] = $this->db->get('tbl_gudang')->result();
+        $this->data['lokasi'] = $this->db->get('tbl_lokasi_barang')->result();
+        $this->data['no'] = $_GET['no'];
+        $this->load->view('dataobat/loop_penyesuaian_stok',$this->data);
     }
 
     public function insert_adjustment()
@@ -876,23 +906,40 @@ class Dataobat extends CI_Controller
         $newTime = (int)time() + 1;
         $kode_trx_ajd='RCP'.$newTime;
         $kode_trx_po = 'PO'.$newTime;
-        $inventory = array(
-            'id_inventory' => $kode_trx_ajd,
-            'kode_purchase' => $kode_trx_po,
-            'inv_type' => 'STOCK_ADJ',
-            'id_klinik'     => $this->id_klinik,
-        );
-        $this->db->insert("tbl_inventory",$inventory);
+        // foreach ($_POST[$kode_trx_ajd] as $key => $value){
+            // $inventory = array(
+            //     'id_inventory' => $value,
+            //     'kode_purchase' => $kode_trx_po,
+            //     'inv_type' => 'STOCK_ADJ',
+            //     'id_klinik'     => $this->id_klinik,
+            // );
+            // $this->db->insert("tbl_inventory",$inventory);
+        // }
+        // var
+        // foreach ($_POST[$kode_trx_ajd] as $key => $value){
+            // $detailInventory = array(
+            //     'id_inventory' => [$kode_trx_ajd],
+            //     'kode_barang' => $this->input->post('kode_barang'),
+            //     'kode_gudang' => $this->input->post('kode_gudang'),
+            //     'id_lokasi_barang' => $this->input->post('id_lokasi_barang'),
+            //     'jumlah' => $this->input->post('jumlah'),
+            //     'harga' => $this->input->post('harga'),
+            //     'diskon' => $this->input->post('diskon'),
+            //     'tgl_exp' => $this->input->post('tgl_exp'),
+            //     'notes' => $this->input->post('notes'),]
+            // );
+            // $this->db->insert("tbl_inventory_detail",$detailInventory);
+        // }
+        // $this->db->insert('tbl_inventory_detail',['id_inventory' => $kode_trx_ajd,'kode_barang' => $value,'jml_barang' => $det_inv1['jumlah']]);
 
-        $detailInventory = array(
-            'id_inventory' => $kode_trx_ajd,
-            'kode_barang' => $this->input->post('kode_barang'),
-            'kode_gudang' => $this->input->post('kode_gudang'),
-            'jumlah' => $this->input->post('jumlah'),
-        );
-        $this->db->insert("tbl_inventory_detail",$detailInventory);
+        // redirect(base_url()."dataobat/stok_adjustment");
+    }
 
-        redirect(base_url()."dataobat/stok_adjustment");
+    
+        public function detail(){
+        $detail = $this->Pendaftaran_online_model->detail_pendaftar_online();
+        header('Content-Type: application/json');
+        echo json_encode($detail);
     }
 }
 
