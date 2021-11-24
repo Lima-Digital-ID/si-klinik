@@ -1,5 +1,13 @@
+<?php
+        $newTime = (int)time() + 1;
+        $kode_trx_ajd='RCP'.$newTime;
+        $kode_trx_po = 'PO'.$newTime;
+?>
 <div class="row loop_penyesuaian_stok box-body" data-no="<?= $no ?>">
 <!-- <br> -->
+            <input type="hidden" class="form-control" name=id_inventory[] value="<?php echo $kode_trx_ajd ?>" readonly>
+            <input type="hidden" class="form-control" name=inv_type[] value="STOCK_ADJ" readonly>
+            <input type="hidden" class="form-control" name=id_klinik[] value="1" readonly>
 <div class="form-group">
                         <div class="col-sm-2">Nama Barang</div>
                         <div class="col-sm-10">

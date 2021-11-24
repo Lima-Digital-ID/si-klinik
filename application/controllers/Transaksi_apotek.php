@@ -112,6 +112,15 @@ class Transaksi_apotek extends CI_Controller
                     $insert=$this->Transaksi_obat_model->insert('tbl_purchase_d',$data_detail);
                 }
             }
+
+            $kartuHutang = array(
+                'kode_supplier' => $data['kode_supplier'],
+                'kode_purchase' => $data['kode_purchase'],
+                'nominal' => $data['total_harga'],
+                'tipe' => '0',
+                'tanggal' => date('Y-m-d H:i:s'),
+            );
+            $this->db->insert('tbl_kartu_hutang',$kartuHutang);
             // print_r(count($_POST['obat']));
             $this->session->set_flashdata('message', 'Create Record Success 2');
             redirect(site_url('transaksi_apotek/po'));
@@ -150,7 +159,7 @@ class Transaksi_apotek extends CI_Controller
             $row['total_harga']  = $value->total_harga;
             $row['keterangan']   = $value->keterangan;
             $row['status']   = ($value->is_closed != TRUE ? 'Open' : 'Closed');
-            $row['action']       = ($value->is_closed != TRUE ? anchor(site_url('transaksi_apotek/receipt_order/').$value->kode_purchase ,'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>','class="btn btn-success btn-sm"')
+            $row['action']       = ($value->is_receive != TRUE ? anchor(site_url('transaksi_apotek/receipt_order/').$value->kode_purchase ,'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>','class="btn btn-success btn-sm"')
                                     : anchor(site_url('transaksi_apotek/print_receipt/').$value->kode_purchase,'<i class="fa fa-print" aria-hidden="true"></i>', array('target'=>'_blank' , 'class'=>'btn btn-primary btn-sm')));
                 // ." ".anchor(site_url('dataobat/delete/').$value->kode_purchase,'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"')
             $data1[]=$row;
@@ -192,6 +201,8 @@ class Transaksi_apotek extends CI_Controller
         $tgl_exp=$this->input->post('tgl_exp',TRUE);
         $kode_purchase=$this->input->post('no_po',TRUE);
         $kode_receipt='RCP'.time();
+        $this->db->select('jenis_pembayaran'); 
+        $getJenisBayar = $this->db->get_where('tbl_purchases',['kode_purchase' => $kode_purchase])->row();
         $data = array(
                 'id_inventory'  => $kode_receipt,
                 'kode_purchase' => $kode_purchase,
@@ -204,9 +215,11 @@ class Transaksi_apotek extends CI_Controller
             //update po -> close
             $data_update=array(
                 'pengirim'      => $this->input->post('pengirim',TRUE),
-                'is_closed'     => TRUE, 
                 'is_receive'    => TRUE
             );
+            if($getJenisBayar->jenis_pembayaran==0){
+                $data_update['is_closed']     = TRUE;
+            }
             $where=array('kode_purchase'=>$kode_purchase);
             $update_po=$this->Transaksi_obat_model->update($where, 'tbl_purchases', $data_update);
             $total_bersih=$total=$total_diskon=0;
@@ -248,6 +261,7 @@ class Transaksi_apotek extends CI_Controller
                 'total_diskon_alkes'         => $total_diskon_alkes,
                 'total_bersih_alkes'         => $total_bersih_alkes,
                 'kode_purchase'         => $kode_purchase,
+                'jenis_pembayaran' => $getJenisBayar->jenis_pembayaran,
             );
 
             $this->jurnal_otomatis($data_akun);//jurnal otomatis akuntansi untuk modal persediaan obat
@@ -274,51 +288,90 @@ class Transaksi_apotek extends CI_Controller
         $insert=$this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi', $data_trx);
         if ($insert) {
             $id_last=$this->db->select_max('id_trx_akun')->from('tbl_trx_akuntansi')->get()->row();
-            if ($data_akun['total'] != 0) {
+            if ($data_akun['total'] != 0) { 
                 $data=array(
                             'id_trx_akun'   => $id_last->id_trx_akun,
-                            'id_akun'       => 58,
+                            'id_akun'       => 58, //persediaan obat
                             'jumlah'        => $data_akun['total'],
                             'tipe'          => 'DEBIT',
                             'keterangan'    => 'akun',
                         );
                 $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
-                $data=array(
-                            'id_trx_akun'   => $id_last->id_trx_akun,
-                            'id_akun'       => 45,
-                            'jumlah'        => $data_akun['total_diskon'],
-                            'tipe'          => 'KREDIT',
-                            'keterangan'    => 'akun',
-                        );
-                $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
+                if($data_akun['total_diskon']!=0){
+                    $data=array(
+                        'id_trx_akun'   => $id_last->id_trx_akun,
+                        'id_akun'       => 45, 
+                        'jumlah'        => $data_akun['total_diskon'],
+                        'tipe'          => 'KREDIT',
+                        'keterangan'    => 'akun',
+                    );
+                    $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
+                }
             }
             if ($data_akun['total_alkes'] != 0) {
                 $data=array(
                             'id_trx_akun'   => $id_last->id_trx_akun,
-                            'id_akun'       => 59,
+                            'id_akun'       => 59, //persediaan alkes
                             'jumlah'        => $data_akun['total_alkes'],
                             'tipe'          => 'DEBIT',
                             'keterangan'    => 'akun',
                         );
                 $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
-                $data=array(
-                            'id_trx_akun'   => $id_last->id_trx_akun,
-                            'id_akun'       => 47,
-                            'jumlah'        => $data_akun['total_diskon_alkes'],
-                            'tipe'          => 'KREDIT',
-                            'keterangan'    => 'akun',
-                        );
-                $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
+                if($data_akun['total_diskon_alkes']!=0){
+                    $data=array(
+                        'id_trx_akun'   => $id_last->id_trx_akun,
+                        'id_akun'       => 47,
+                        'jumlah'        => $data_akun['total_diskon_alkes'],
+                        'tipe'          => 'KREDIT',
+                        'keterangan'    => 'akun',
+                    );
+                    $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
+                }
             }
             $kredit_kas=($data_akun['total_bersih']+$data_akun['total_bersih_alkes']);
-            $data=array(
+
+            $hpp=array(
                 'id_trx_akun'   => $id_last->id_trx_akun,
-                'id_akun'       => 20,
+                'id_akun'       => 65,
                 'jumlah'        => $kredit_kas,
-                'tipe'          => 'KREDIT',
+                'tipe'          => 'DEBIT',
                 'keterangan'    => 'lawan',
             );
-            $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
+            $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $hpp);
+
+            if($data_akun['jenis_pembayaran']==0){
+                $data=array(
+                    'id_trx_akun'   => $id_last->id_trx_akun,
+                    'id_akun'       => 20, //kas
+                    'jumlah'        => $kredit_kas,
+                    'tipe'          => 'KREDIT',
+                    'keterangan'    => 'lawan',
+                );
+                $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
+            }
+            else{
+                if($data_akun['total_bersih']!=0){
+                    $data=array(
+                        'id_trx_akun'   => $id_last->id_trx_akun,
+                        'id_akun'       => 109, //hutang obat
+                        'jumlah'        => $data_akun['total_bersih'],
+                        'tipe'          => 'KREDIT',
+                        'keterangan'    => 'lawan',
+                    );
+                    $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
+                }
+                if($data_akun['total_bersih_alkes']!=0){
+                    $data=array(
+                        'id_trx_akun'   => $id_last->id_trx_akun,
+                        'id_akun'       => 110, //hutang alkes
+                        'jumlah'        => $data_akun['total_bersih_alkes'],
+                        'tipe'          => 'KREDIT',
+                        'keterangan'    => 'lawan',
+                    );
+                    $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
+                }
+            }
+
         }
     }
     private function getIdAkun($jenis_barang){

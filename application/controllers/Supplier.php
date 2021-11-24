@@ -21,9 +21,11 @@ class Supplier extends CI_Controller
     public function hutang()
     {
         $data['supplier'] = $this->Tbl_supplier_model->get_all();
-        if(isset($_GET['supplier'])){
-        }
         $this->template->load('template','supplier/list_hutang_po',$data);
+    }
+    public function bayar_hutang()
+    {
+        echo str_replace('.','',$_POST['bayar']);
     }
     
     public function json(){

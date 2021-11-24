@@ -100,7 +100,10 @@ class Transaksi_obat_model extends CI_Model
     }
     
     function json($id_klinik){
-        $this->datatables->select('*, kode_purchase');
+        if(isset($_GET['is_closed']) && $_GET['is_closed']=='0'){
+            $select = ", tbl_purchases.total_harga - coalesce((select sum(nominal) ttlBayar from tbl_kartu_hutang where tbl_kartu_hutang.kode_purchase = tbl_purchases.kode_purchase and tipe = '1'),0) as sisa_hutang";            
+        }
+        $this->datatables->select("tbl_purchases.*,tbl_apoteker.*,tbl_supplier.*, kode_purchase $select");
         $this->datatables->from('tbl_purchases');
         $this->datatables->join('tbl_apoteker','tbl_apoteker.id_apoteker=tbl_purchases.id_apoteker');
         $this->datatables->join('tbl_supplier','tbl_supplier.kode_supplier=tbl_purchases.kode_supplier');
@@ -113,10 +116,17 @@ class Transaksi_obat_model extends CI_Model
         if(isset($_GET['jenis_bayar'])){
             $this->datatables->where('jenis_pembayaran', $_GET['jenis_bayar']);
         }
+        if(isset($_GET['is_closed'])){
+            $action2 = anchor('#','<i class="fa fa-money" aria-hidden="true"></i>',"class='btn btn-success btn-sm'  data-toggle='modal' data-target='#modalBayar' onClick='javasciprt: modalBayar(\"$1\",\"$2\")'");
+            $this->datatables->where('is_closed', $_GET['is_closed']);
+        }
+        else{
+            $action2 = anchor(site_url('transaksi_apotek/delete_po/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
+        }
         // $this->datatables->add_column('action', anchor(site_url('transaksi_apotek/update/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>','class="btn btn-success btn-sm"')." 
             // anchor(site_url('transaksi_apotek/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"')."
         $this->datatables->add_column('action', anchor('#','<i class="fa fa-eye" aria-hidden="true"></i>',"class='btn btn-info btn-sm' data-toggle='modal' data-target='#myModal' onClick='javasciprt: cekDetail(\"$1\")'")."
-            ".anchor(site_url('transaksi_apotek/delete_po/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'kode_purchase');
+            ".$action2, 'kode_purchase,sisa_hutang');
             
         return $this->datatables->generate();
     }
@@ -129,6 +139,7 @@ class Transaksi_obat_model extends CI_Model
         if ($id_klinik != null) {
             $this->db->where('tbl_purchases.id_klinik', $id_klinik);
         }
+        $this->db->order_by('kode_purchase','desc');
         // $this->datatables->add_column('action', anchor(site_url('transaksi_apotek/receipt_order/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>','class="btn btn-success btn-sm"')." 
         //         ".anchor(site_url('dataobat/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'kode_purchase');
             

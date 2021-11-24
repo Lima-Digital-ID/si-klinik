@@ -906,33 +906,52 @@ class Dataobat extends CI_Controller
         $newTime = (int)time() + 1;
         $kode_trx_ajd='RCP'.$newTime;
         $kode_trx_po = 'PO'.$newTime;
-        // foreach ($_POST[$kode_trx_ajd] as $key => $value){
-            // $inventory = array(
-            //     'id_inventory' => $value,
-            //     'kode_purchase' => $kode_trx_po,
-            //     'inv_type' => 'STOCK_ADJ',
-            //     'id_klinik'     => $this->id_klinik,
-            // );
-            // $this->db->insert("tbl_inventory",$inventory);
-        // }
-        // var
-        // foreach ($_POST[$kode_trx_ajd] as $key => $value){
-            // $detailInventory = array(
-            //     'id_inventory' => [$kode_trx_ajd],
-            //     'kode_barang' => $this->input->post('kode_barang'),
-            //     'kode_gudang' => $this->input->post('kode_gudang'),
-            //     'id_lokasi_barang' => $this->input->post('id_lokasi_barang'),
-            //     'jumlah' => $this->input->post('jumlah'),
-            //     'harga' => $this->input->post('harga'),
-            //     'diskon' => $this->input->post('diskon'),
-            //     'tgl_exp' => $this->input->post('tgl_exp'),
-            //     'notes' => $this->input->post('notes'),]
-            // );
-            // $this->db->insert("tbl_inventory_detail",$detailInventory);
-        // }
-        // $this->db->insert('tbl_inventory_detail',['id_inventory' => $kode_trx_ajd,'kode_barang' => $value,'jml_barang' => $det_inv1['jumlah']]);
+        var_dump($this->input->post('id_inventory'));
+        var_dump($this->input->post('kode_purchase'));
+        var_dump($this->input->post('inv_type'));
+        // var_dump($this->input);
+        foreach ($_POST['id_inventory'] as $key => $value){
+            $inventory = array(
+                'id_inventory' => $_POST['id_inventory'][$key],
+                // 'kode_purchase' => $_POST['kode_purchase'][$key],
+                'inv_type' => $_POST['inv_type'][$key],
+                'id_klinik'     => $_POST['id_klinik'][$key],
+            );
+            
+            // var_dump($inventory);
+            // $this->db->insert('tbl_inventory',$inventory);
+            // $this->db->insert('tbl_inventory',['id_inventory' => $this->input->post('')];
+            // $this->db->insert('tbl_inventory',['id_inventory' => $inventory['id_inventory']];
+            $this->db->insert('tbl_inventory',['id_inventory' => $inventory['id_inventory'], 'inv_type' => $inventory['inv_type'], 'id_klinik' => $inventory['id_klinik']]);
+        }
 
-        // redirect(base_url()."dataobat/stok_adjustment");
+        // echo "<pre>";
+        // print_r($inventory);
+        // echo "</pre>";
+        
+        foreach ($_POST['id_inventory'] as $key => $value){
+            $detailInventory = array(
+                'id_inventory' => $_POST['id_inventory'][$key],
+                'kode_barang' => $_POST['kode_barang'][$key],
+                'kode_gudang' => $_POST['kode_gudang'][$key],
+                'id_lokasi_barang' => $_POST['id_lokasi_barang'][$key],
+                'jumlah' => $value,
+                'harga' => $_POST['harga'][$key],
+                'diskon' => $_POST['diskon'][$key],
+                'tgl_exp' => $_POST['tgl_exp'][$key],
+                'notes' => $_POST['notes'][$key],
+            );
+            // var_dump($detailInventory);
+            // var_dump($this->input->post('id_inventory'));
+            // $this->db->insert("tbl_inventory_detail",$detailInventory);
+            $this->db->insert('tbl_inventory_detail',['id_inventory' => $detailInventory['id_inventory'],'kode_gudang' => $detailInventory['kode_gudang'], 'id_lokasi_barang' => $detailInventory['id_lokasi_barang'], 'jumlah' => $value, 'harga' => $detailInventory['harga'], 'diskon' => $detailInventory['diskon'], 'tgl_exp' => $detailInventory['tgl_exp'], 'notes' => $detailInventory['notes'], ]);
+        }
+        // $this->db->insert('tbl_inventory_detail',['id_inventory' => $kode_trx_ajd,'kode_barang' => $value,'jml_barang' => $det_inv1['jumlah']]);
+        // echo "<pre>";
+        // print_r($detailInventory);
+        // echo "</pre>";
+
+        redirect(base_url()."dataobat/stok_adjustment");
     }
 
     
