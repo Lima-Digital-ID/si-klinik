@@ -77,7 +77,7 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         
         // $stok = $this->queryGetStok('RECEIPT_ORDER') - $this->queryGetStok('RETURN_STUFF') - $this->queryGetStok('RETURN_MONEY') - $this->queryGetStok('TRX_STUFF') - $this->queryGetStok('MANUFAKTUR_OUT') + $this->queryGetStok('MANUFAKTUR_IN');
 
-        $tipeGetData->select($this->queryGetStok('RECEIPT_ORDER')." - ".$this->queryGetStok('RETURN_STUFF')." - ".$this->queryGetStok('RETURN_MONEY')." - ".$this->queryGetStok('TRX_STUFF')." - ".$this->queryGetStok('MANUFAKTUR_OUT')." + ".$this->queryGetStok('MANUFAKTUR_IN')." as stok_barang, MAX(tid1.kode_barang) AS kode_barang, MAX(tid1.harga) AS harga, MAX(toa.harga) AS harga_jual, MAX(tid1.diskon) AS diskon, MAX(tid1.tgl_exp) AS tgl_exp, MAX(toa.nama_barang) AS nama_barang");
+        $tipeGetData->select($this->queryGetStok('RECEIPT_ORDER')." - ".$this->queryGetStok('RETURN_STUFF')." - ".$this->queryGetStok('RETURN_MONEY')." - ".$this->queryGetStok('TRX_STUFF')." - ".$this->queryGetStok('MANUFAKTUR_OUT')." + ".$this->queryGetStok('MANUFAKTUR_IN')." - ".$this->queryGetStok('STOCK_ADJ')." as stok_barang, MAX(tid1.kode_barang) AS kode_barang, MAX(tid1.harga) AS harga, MAX(toa.harga) AS harga_jual, MAX(tid1.diskon) AS diskon, MAX(tid1.tgl_exp) AS tgl_exp, MAX(toa.nama_barang) AS nama_barang");
         $tipeGetData->from("tbl_inventory_detail tid1");
         $tipeGetData->join('tbl_inventory ti','tid1.id_inventory=ti.id_inventory');
         $tipeGetData->join('tbl_obat_alkes_bhp toa','tid1.kode_barang=toa.kode_barang');
@@ -133,8 +133,9 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         $penjualan = $this->getStokByInvType($kodeBarang,'TRX_STUFF',$tglDari)[0]->ttl;
         $manufaktur_out = $this->getStokByInvType($kodeBarang,'MANUFAKTUR_OUT',$tglDari)[0]->ttl;
         $manufaktur_in = $this->getStokByInvType($kodeBarang,'MANUFAKTUR_IN',$tglDari)[0]->ttl;
+        $stock_adj = $this->getStokByInvType($kodeBarang,'STOCK_ADJ',$tglDari)[0]->ttl;
 
-        $stok = $pembelian - $retur - $retur2 - $penjualan - $manufaktur_out + $manufaktur_in;
+        $stok = $pembelian - $retur - $retur2 - $penjualan - $manufaktur_out + $manufaktur_in - $stock_adj;
 
 
        return $stok;
@@ -157,7 +158,7 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         $this->db->select('tid.dtm_crt,tid.jumlah,ti.inv_type,tid.id_inventory,ti.kode_purchase');
         $this->db->from('tbl_inventory_detail tid');
         $this->db->join('tbl_inventory ti','tid.id_inventory=ti.id_inventory');
-        $this->db->where("tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'RECEIPT_ORDER' or tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'TRX_STUFF' or tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'MANUFAKTUR_IN' or tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'MANUFAKTUR_OUT' or tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'RETURN_STUFF' or tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'RETURN_MONEY' ");
+        $this->db->where("tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'RECEIPT_ORDER' or tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'TRX_STUFF' or tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'MANUFAKTUR_IN' or tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'MANUFAKTUR_OUT' or tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'RETURN_STUFF' or tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'RETURN_MONEY' or tid.kode_barang = '$kodeBarang' and ti.dtm_crt between '$dari 00:00' and '$sampai 23:59' and ti.inv_type = 'STOCK_ADJ' ");
         // $this->db->where(['tid.kode_barang' => $kodeBarang, 'tia.dtm_crt >=' => $dari." 00:00", "ti.dtm_crt <=" => $sampai." 23:59", "ti.inv_type" => 'RECEIPT_ORDER']);
         // $this->db->or_where(['tid.kode_barang' => $kodeBarang, 'ti.dtm_crt >=' => $dari." 00:00", "ti.dtm_crt <=" => $sampai." 23:59", "ti.inv_type" => 'TRX_STUFF']);
         $query = $this->db->get();
