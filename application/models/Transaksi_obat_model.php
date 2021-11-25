@@ -103,6 +103,9 @@ class Transaksi_obat_model extends CI_Model
         if(isset($_GET['is_closed']) && $_GET['is_closed']=='0'){
             $select = ", tbl_purchases.total_harga - coalesce((select sum(nominal) ttlBayar from tbl_kartu_hutang where tbl_kartu_hutang.kode_purchase = tbl_purchases.kode_purchase and tipe = '1'),0) as sisa_hutang";            
         }
+        else{
+            $select = "";
+        }
         $this->datatables->select("tbl_purchases.*,tbl_apoteker.*,tbl_supplier.*, kode_purchase $select");
         $this->datatables->from('tbl_purchases');
         $this->datatables->join('tbl_apoteker','tbl_apoteker.id_apoteker=tbl_purchases.id_apoteker');
@@ -118,7 +121,12 @@ class Transaksi_obat_model extends CI_Model
         }
         if(isset($_GET['is_closed'])){
             $action2 = anchor('#','<i class="fa fa-money" aria-hidden="true"></i>',"class='btn btn-success btn-sm'  data-toggle='modal' data-target='#modalBayar' onClick='javasciprt: modalBayar(\"$1\",\"$2\")'");
-            $this->datatables->where('is_closed', $_GET['is_closed']);
+            if($_GET['is_closed']==0){
+                $this->datatables->where(['is_closed' => $_GET['is_closed'],'is_receive' => '1']);
+            }
+            else{
+                $this->datatables->where('is_closed', $_GET['is_closed']);
+            }
         }
         else{
             $action2 = anchor(site_url('transaksi_apotek/delete_po/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"');

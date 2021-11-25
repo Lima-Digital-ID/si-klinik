@@ -1,7 +1,15 @@
 <div class="content-wrapper">
     <section class="content">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-md-12">
+            <?php 
+            if($this->session->flashdata('message')){
+                echo alert('alert-success', 'Sukses', $this->session->flashdata('message')); 
+            }
+            ?>
+
+            </div>
+             <div class="col-xs-12">
                 <div class="box box-warning box-solid">
     
                     <div class="box-header">

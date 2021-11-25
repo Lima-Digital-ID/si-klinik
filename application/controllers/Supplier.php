@@ -10,6 +10,8 @@ class Supplier extends CI_Controller
         parent::__construct();
         is_login();
         $this->load->model('Tbl_supplier_model');
+        $this->load->model('Tbl_kartu_hutang_model');
+        $this->load->model('akuntansi/Transaksi_akuntansi_model');
         $this->load->library('form_validation');
         $this->load->library('datatables');
     }
@@ -25,7 +27,51 @@ class Supplier extends CI_Controller
     }
     public function bayar_hutang()
     {
-        echo str_replace('.','',$_POST['bayar']);
+        $bayar = str_replace('.','',$_POST['bayar']);
+        //kartu hutang
+        $kartuHutang = array(
+            'kode_supplier' => $_POST['kode_supplier'],
+            'kode_purchase' => $_POST['kode_purchase'],
+            'nominal' => $bayar,
+            'tipe' => '1',
+            'tanggal' => date('Y-m-d H:i:s'),
+        );
+        $this->db->insert('tbl_kartu_hutang',$kartuHutang);
+
+        //cek apakah sudah lunas
+        if($this->Tbl_kartu_hutang_model->cekLunas($_POST['kode_purchase'])=='Lunas'){
+            $this->db->update('tbl_purchases',['is_closed' => 1],['kode_purchase' => $_POST['kode_purchase']]);
+        }
+        //akuntansi
+        $data_trx=array(
+            'deskripsi'     => 'Pembayaran Hutang dengan Kode '. $_POST['kode_purchase'],
+            'tanggal'       => date('Y-m-d'),
+        );
+        $insert=$this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi', $data_trx);
+        $id_last=$this->db->select_max('id_trx_akun')->from('tbl_trx_akuntansi')->get()->row();
+
+        $kas=array(
+            'id_trx_akun'   => $id_last->id_trx_akun,
+            'id_akun'       => 20, //kas
+            'jumlah'        => $bayar,
+            'tipe'          => 'KREDIT',
+            'keterangan'    => 'akun',
+        );
+        $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $kas);
+
+        $hutang=array(
+            'id_trx_akun'   => $id_last->id_trx_akun,
+            'id_akun'       => 109, //hutang PO
+            'jumlah'        => $bayar,
+            'tipe'          => 'DEBIT',
+            'keterangan'    => 'lawan',
+        );
+        $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $hutang);
+
+        $this->session->set_flashdata('message', 'Create Record Success 2');
+        redirect(site_url('supplier/hutang?supplier='.$_POST['kode_supplier']));
+
+
     }
     
     public function json(){
