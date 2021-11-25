@@ -1,3 +1,8 @@
+<?php
+        $newTime = (int)time() + 1;
+        $kode_trx_ajd='RCP'.$newTime;
+        $kode_trx_po = 'PO'.$newTime;
+?>
 <div class="content-wrapper">
     <section class="content">
         <div class="box box-info box-solid">
@@ -8,16 +13,19 @@
                 <div class="box-body">
                     <div class="" id="row-stok" data-row='0'>
                                 <?php 
-                                    $this->load->view('dataobat/loop_penyesuaian_stok',['no' => 0])
+                                    $this->load->view('dataobat/loop-penyesuaian-stok',['no' => 0])
                                 ?>
                             </div>
-                    <div class="col-sm-16">
-                        <a href="" class="btn btn-info btn-sm" id="addItemLab">Tambah Item</a>
-                    </div>
+                    <input type="hidden" class="form-control" name=id_inventory value="<?php echo $kode_trx_ajd ?>" readonly>
+            <input type="hidden" class="form-control" name=inv_type value="STOCK_ADJ" readonly>
+            <input type="hidden" class="form-control" name=id_klinik value="1" readonly>
                         <div class="form-group row">
                             <div class="col-md-12">
+                                <div class="pull-left">
+                                    <a href="" class="btn btn-info btn-sm" id="addItemLab">Tambah Item</a>
+                                </div>
                                 <div class="pull-right">
-                                    <a href=""<?php echo site_url('dataobat/stok_adjustment') ?>" class="btn btn-warning"><i class="fa fa-sign-out">Kembali</i></a>
+                                    <a href="<?php echo site_url('dataobat/stok_adjustment') ?>" class="btn btn-warning"><i class="fa fa-sign-out">Kembali</i></a>
                                     <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"> Simpan Adjustmen</i></button>
                                 </div>
                             </div>
