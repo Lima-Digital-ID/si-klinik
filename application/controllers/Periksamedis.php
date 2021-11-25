@@ -96,7 +96,7 @@ class Periksamedis extends CI_Controller
                 $data_periksa_d_alkes = array();
                 
                 if($post_alkes != null){
-                    for($i = 0; $i < count; $i++){
+                    for($i = 0; $i < count($post_alkes); $i++){
                         if($post_alkes[$i] != null || $post_alkes[$i] != ''){
                             $data_periksa_d_alkes[] = array(
                                 'no_periksa' => $this->input->post('no_periksa'),

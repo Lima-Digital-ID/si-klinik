@@ -246,7 +246,7 @@ class Pembayaran extends CI_Controller
             $this->session->set_flashdata('message', 'Data pembayaran berhasil disimpan, No Periksa ' . $data_transaksi->no_transaksi);
             $this->session->set_flashdata('message_type', 'success');
             
-            redirect(site_url('pembayaran'));
+            redirect(site_url('pembayaran/cetak_surat/'.$id_transaksi.'?view=cetak_struk_periksa'));
         } else {
             $this->data['id_transaksi'] = $data_transaksi->id_transaksi;
             $this->data['kode_transaksi'] = $data_transaksi->kode_transaksi;
@@ -354,6 +354,7 @@ class Pembayaran extends CI_Controller
                 );
                 $insert=$this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi', $data_trx);
                 if ($insert) {
+                    $id_last=$this->db->select_max('id_trx_akun')->from('tbl_trx_akuntansi')->get()->row();
                     $data=array(
                         'id_trx_akun'   => $id_last->id_trx_akun,
                         'id_akun'       => 69,
