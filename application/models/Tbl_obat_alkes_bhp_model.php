@@ -106,6 +106,24 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         // SELECT SUM(tid1.jumlah) - COALESCE((SELECT SUM(tid2.jumlah) as jumlah_stok FROM `tbl_inventory_detail` tid2 JOIN tbl_inventory ti2 ON tid2.id_inventory=ti2.id_inventory JOIN tbl_obat_alkes_bhp toa1 ON tid2.kode_barang=toa1.kode_barang WHERE ti2.inv_type='TRX_STUFF' OR ti2.inv_type='RETURN_MONEY' AND ti2.id_klinik=1 AND tid2.kode_barang=tid1.kode_barang), 0) as jumlah_stok, tid1.kode_barang, toa.nama_barang FROM `tbl_inventory_detail` tid1 JOIN tbl_inventory ti ON tid1.id_inventory=ti.id_inventory JOIN tbl_obat_alkes_bhp toa ON tid1.kode_barang=toa.kode_barang WHERE ti.inv_type='RECEIPT_ORDER' OR ti.inv_type='RETURN_STUFF' AND ti.id_klinik=1 AND toa.jenis_barang=1 GROUP BY tid1.kode_barang
     }
 
+	function get_all_obat_alkes($id_klinik = null,$json=false)
+    {
+        $tipeGetData = $json ? $this->datatables : $this->db;
+        $tipeGetData->select($this->queryGetStok('RECEIPT_ORDER')." - ".$this->queryGetStok('RETURN_STUFF')." - ".$this->queryGetStok('RETURN_MONEY')." - ".$this->queryGetStok('TRX_STUFF')." - ".$this->queryGetStok('MANUFAKTUR_OUT')." + ".$this->queryGetStok('MANUFAKTUR_IN')." - ".$this->queryGetStok('STOCK_ADJ')." as stok_barang, MAX(tid1.kode_barang) AS kode_barang, MAX(tid1.harga) AS harga, MAX(toa.harga) AS harga_jual, MAX(tid1.diskon) AS diskon, MAX(tid1.tgl_exp) AS tgl_exp, MAX(toa.nama_barang) AS nama_barang");
+        $tipeGetData->from("tbl_inventory_detail tid1");
+        $tipeGetData->join('tbl_inventory ti','tid1.id_inventory=ti.id_inventory');
+        $tipeGetData->join('tbl_obat_alkes_bhp toa','tid1.kode_barang=toa.kode_barang');
+        $tipeGetData->where("ti.id_klinik=1");
+        $tipeGetData->group_by("tid1.kode_barang");
+        if($json){
+            $this->datatables->generate();
+        }
+        else{
+            $query = $this->db->get();
+            return $query->result();
+        }
+    }
+
     public function getStokStep1()
     {
         $this->db->select('kode_barang, nama_barang,minimal_stok');

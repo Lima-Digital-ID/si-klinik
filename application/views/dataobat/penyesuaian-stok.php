@@ -27,7 +27,7 @@
                                 <thead>
                                     <tr>
                                         <th width="30px">No</th>
-                                        <th>Id Inventory</th>
+                                        <th>Tanggal</th>
                                         <!-- <th>Kode Purchase</th> -->
                                         <!-- <th>Jumlah</th> -->
                                         <th width="20%">Aksi</th>
@@ -132,7 +132,7 @@
                             "data": "id_inventory"
                         },
                         {
-                            "data": "id_inventory"
+                            "data": "dtm_crt"
                         },
                         {
                             "data" : "action",

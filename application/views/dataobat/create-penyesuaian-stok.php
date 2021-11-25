@@ -22,7 +22,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <div class="pull-left">
-                                    <a href="" class="btn btn-info btn-sm" id="addItemLab">Tambah Item</a>
+                                    <a href="" class="btn btn-info btn-sm" id="addStok">Tambah Item</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="<?php echo site_url('dataobat/stok_adjustment') ?>" class="btn btn-warning"><i class="fa fa-sign-out">Kembali</i></a>
@@ -38,8 +38,26 @@
 
 <script>
      $(document).ready(function(){
+        function selectStok(thisAttr){
+            var stok = thisAttr.find(':selected').data('stok')
+            var dataId = thisAttr.closest('.loop-penyesuaian-stok').attr('data-no')
+            $(".loop-penyesuaian-stok[data-no='"+dataId+"'] .stokBarang option").remove();
+            var option = "";
+            if(stok==0){
+                option = "<option value=''>Habis</option>";
+            }
+            else{
+                for (let s = 1; s <= stok; s++) {
+                    option+="<option>"+s+"</option>";
+                }
+            }
+            $(".loop-penyesuaian-stok[data-no='"+dataId+"'] .stokBarang").append(option);
+        }
 
-        $("#addItemLab").click(function(e){
+        $(".selectStock").change(function(){
+            selectStock($(this))            
+        })
+        $("#addStok").click(function(e){
             e.preventDefault();
             var dataRow = parseInt($('#row-stok').attr('data-row'))
             $.ajax({
@@ -49,6 +67,9 @@
                 success : function(data){
                     $('#row-stok').append(data)
                     $('#row-stok').attr('data-row',dataRow + 1)
+                    $(".selectStock").change(function(){
+                        selectStock($(this))
+                    })
 
                     $(".remove-stok").click(function(e){
                         e.preventDefault();

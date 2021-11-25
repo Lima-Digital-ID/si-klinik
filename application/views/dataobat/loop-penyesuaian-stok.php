@@ -11,16 +11,19 @@
                                 <option value="">---Pilih Obat---</option>
                                 <?php 
                                     foreach ($stok as $key => $value) {
-                                        echo "<option value='".$value->kode_barang."'>".$value->nama_barang."</option>";
+                                        echo "<option data-stok='".$value->jumlah."' value='".$value->kode_barang."'>".$value->nama_barang."</option>";
                                     }
                                 ?>
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <div class="col-sm-2">Jumlah Barang</div>
+                        <div class="col-sm-2">Jumlah Barang Adjust</div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="jumlah[]">
+                            <!-- <select name="jumlah[]" class="form-control select2 stockBarang">
+                            </select> -->
+                            <input type="text" name="jumlah[]" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">

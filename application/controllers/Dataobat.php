@@ -869,10 +869,11 @@ class Dataobat extends CI_Controller
         echo $this->Tbl_inventory_model->json_detail();
     }
 
-    public function edit_stok_adjustment($id)
+    public function detail_stok_adjustment($id)
     {
-        $row = $this->Tbl_inventory_model->get_by_id($id);
-        $this->template->load('template','dataobat/edit_penyesuaian_stok');
+        // $row = $this->Tbl_inventory_model->get_by_id($id);
+        $data['detail'] = $this->Tbl_inventory_model->get_by_id($id);
+        $this->template->load('template','dataobat/detail-penyesuaian-stok', $data);
     }
 
     public function json_detail_adjusment(){
@@ -895,7 +896,8 @@ class Dataobat extends CI_Controller
     
     public function create_adjustment()
     {
-        $this->data['stok'] = $this->db->get('tbl_obat_alkes_bhp')->result();
+        // $this->data['stok'] = $this->db->get('tbl_obat_alkes_bhp')->result();
+        // $this->data['stok'] = $this->Tbl_inventory_model->get_stok();
         $this->data['gudang'] = $this->db->get('tbl_gudang')->result();
         $this->data['lokasi'] = $this->db->get('tbl_lokasi_barang')->result();
         $this->template->load('template','dataobat/create-penyesuaian-stok', $this->data);
@@ -903,7 +905,8 @@ class Dataobat extends CI_Controller
 
     public function newItemAdj()
     {
-        $this->data['stok'] = $this->db->get('tbl_obat_alkes_bhp')->result();
+        // $this->data['stok'] = $this->db->get('tbl_obat_alkes_bhp')->result();
+        $this->data['stok'] = $this->Tbl_inventory_model->get_stok();
         $this->data['gudang'] = $this->db->get('tbl_gudang')->result();
         $this->data['lokasi'] = $this->db->get('tbl_lokasi_barang')->result();
         $this->data['no'] = $_GET['no'];

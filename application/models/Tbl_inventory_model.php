@@ -18,6 +18,16 @@ class Tbl_inventory_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_by_id($id = null)
+    {
+        $this->db->select('to.nama_barang, tid.dtm_crt, tid.jumlah');
+        $this->db->from('tbl_inventory_detail tid');
+        $this->db->join('tbl_obat_alkes_bhp to','to.kode_barang = tid.kode_barang');
+        $this->db->where('tid.id_inventory',$id);
+        $this->db->order_by('tid.jumlah', 'ASC');
+        return $this->db->get()->result();
+    }
+
     function get_adj()
     {
         // $this->db->select('*');
@@ -40,10 +50,10 @@ class Tbl_inventory_model extends CI_Model
     }
 
     function json(){
-        $this->datatables->select('id_inventory');
+        $this->datatables->select('id_inventory,dtm_crt');
         $this->datatables->from('tbl_inventory');
         $this->datatables->where('inv_type','STOCK_ADJ');
-        $this->datatables->add_column('action', anchor(site_url('dataobat/edit_stok_adjustment/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', 'class="btn btn-info btn-sm btn-detail"') );
+        $this->datatables->add_column('action', anchor(site_url('dataobat/detail_stok_adjustment/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', 'class="btn btn-info btn-sm btn-detail"'), 'id_inventory' );
         return $this->datatables->generate();
     }
 
@@ -63,5 +73,15 @@ class Tbl_inventory_model extends CI_Model
     function json_detail_barang()
     {
         $this->datatables->select('kode_barang, ');
+    }
+
+    function get_stok()
+    {
+        $this->db->select('to.nama_barang, to.kode_barang, ti.jumlah');
+        $this->db->from('tbl_inventory_detail ti');
+        $this->db->join('tbl_obat_alkes_bhp to', 'to.kode_barang=ti.kode_barang');
+        // $this->db->where('kode_barang',$kode);
+        $query = $this->db->get();
+        return $query->result();
     }
 }
