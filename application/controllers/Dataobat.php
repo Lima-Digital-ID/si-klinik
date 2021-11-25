@@ -928,10 +928,7 @@ class Dataobat extends CI_Controller
             $detailInventory = array(
                 'id_inventory' => $_POST['id_inventory'],
                 'kode_barang' => $_POST['kode_barang'][$key],
-                'kode_gudang' => $_POST['kode_gudang'][$key],
-                'id_lokasi_barang' => $_POST['id_lokasi_barang'][$key],
                 'jumlah' => $getStokSekarang,
-
             );
             $this->db->insert('tbl_inventory_detail',$detailInventory);
             //select jenis obat, harga, from barang
