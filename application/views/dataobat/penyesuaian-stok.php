@@ -28,7 +28,7 @@
                                     <tr>
                                         <th width="30px">No</th>
                                         <th>Id Inventory</th>
-                                        <th>Kode Purchase</th>
+                                        <!-- <th>Kode Purchase</th> -->
                                         <!-- <th>Jumlah</th> -->
                                         <th width="20%">Aksi</th>
                                     </tr>
@@ -135,10 +135,6 @@
                             "data": "id_inventory"
                         },
                         {
-                            "data": "kode_purchase"
-                        },
-                        
-                        {
                             "data" : "action",
                             "orderable": false,
                             "className" : "text-center"
@@ -154,71 +150,71 @@
                     }
                 });
 
-                var t = $("#Mtable").dataTable({
-                    initComplete: function() {
-                        var api = this.api();
-                        $('#mytable_filter input')
-                                .off('.DT')
-                                .on('keyup.DT', function(e) {
-                                    if (e.keyCode == 13) {
-                                        api.search(this.value).draw();
-                            }
-                        });
-                    },
-                    oLanguage: {
-                        sProcessing: "loading..."
-                    },
-                    processing: true,
-                    serverSide: true,
-                    ajax: {"url": "d_json_adjustment/id", "type": "POST"},
-                    columns: [
-                        {
-                            "data": "id_inventory_detail"
-                        },
-                        {
-                            "data": "id_inventory"
-                        },
-                        {
-                            "data": "nama_barang"
-                        },
-                        {
-                            "data": "nama_gudang"
-                        },
-                        {
-                            "data": "lokasi"
-                        },
-                        {
-                            "data": "jumlah"
-                        },
-                        {
-                            "data": "harga"
-                        },
-                        {
-                            "data": "diskon"
-                        },
-                        {
-                            "data": "tgl_exp"
-                        },
-                        {
-                            "data": "notes"
-                        },
-                        // {
-                        //     "data": "kode_purchase"
-                        // },
-                    ],
-                    order: [[0, 'desc']],
-                    rowCallback: function(row, data, iDisplayIndex) {
-                        var info = this.fnPagingInfo();
-                        var page = info.iPage;
-                        var length = info.iLength;
-                        var index = page * length + (iDisplayIndex + 1);
-                        $('td:eq(0)', row).html(index);
-                    }
-                });
+                // var t = $("#Mtable").dataTable({
+                //     initComplete: function() {
+                //         var api = this.api();
+                //         $('#mytable_filter input')
+                //                 .off('.DT')
+                //                 .on('keyup.DT', function(e) {
+                //                     if (e.keyCode == 13) {
+                //                         api.search(this.value).draw();
+                //             }
+                //         });
+                //     },
+                //     oLanguage: {
+                //         sProcessing: "loading..."
+                //     },
+                //     processing: true,
+                //     serverSide: true,
+                //     ajax: {"url": "d_json_adjustment", "type": "POST"},
+                //     columns: [
+                //         {
+                //             "data": "id_inventory_detail"
+                //         },
+                //         {
+                //             "data": "id_inventory"
+                //         },
+                //         {
+                //             "data": "nama_barang"
+                //         },
+                //         {
+                //             "data": "nama_gudang"
+                //         },
+                //         {
+                //             "data": "lokasi"
+                //         },
+                //         {
+                //             "data": "jumlah"
+                //         },
+                //         {
+                //             "data": "harga"
+                //         },
+                //         {
+                //             "data": "diskon"
+                //         },
+                //         {
+                //             "data": "tgl_exp"
+                //         },
+                //         {
+                //             "data": "notes"
+                //         },
+                //         // {
+                //         //     "data": "kode_purchase"
+                //         // },
+                //     ],
+                //     order: [[0, 'desc']],
+                //     rowCallback: function(row, data, iDisplayIndex) {
+                //         var info = this.fnPagingInfo();
+                //         var page = info.iPage;
+                //         var length = info.iLength;
+                //         var index = page * length + (iDisplayIndex + 1);
+                //         $('td:eq(0)', row).html(index);
+                //     }
+                // });
 
-                    $('#mytable').on('click', '.btn-detail', function(e) {
+                    $('#myModal').on('click', '.btn-detail', function(e) {
                     e.preventDefault();
-                    var table = $('#mytable').DataTable();
+                    var table = $('#Mtable').DataTable();
                     var data = table.row($(this).closest('tr')).data()
                     var id = data.id_inventory_detail
                     var id_inv = data.id_inventory
@@ -234,7 +230,7 @@
 
                     $.ajax({
                         type: 'get',
-                        url: 'json_detail_adjusment',
+                        url: 'd_json_adjustment',
                         data: {
                             data: id,
                             data: id_inv,

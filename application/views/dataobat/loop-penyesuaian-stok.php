@@ -1,13 +1,9 @@
-<?php
-        $newTime = (int)time() + 1;
-        $kode_trx_ajd='RCP'.$newTime;
-        $kode_trx_po = 'PO'.$newTime;
-?>
-<div class="row loop_penyesuaian_stok box-body" data-no="<?= $no ?>">
+
+<div class="row loop-penyesuaian-stok box-body" data-no="<?= $no ?>">
 <!-- <br> -->
-            <input type="hidden" class="form-control" name=id_inventory[] value="<?php echo $kode_trx_ajd ?>" readonly>
-            <input type="hidden" class="form-control" name=inv_type[] value="STOCK_ADJ" readonly>
-            <input type="hidden" class="form-control" name=id_klinik[] value="1" readonly>
+<?php 
+        if($no!=0){
+    ?>
 <div class="form-group">
                         <div class="col-sm-2">Nama Barang</div>
                         <div class="col-sm-10">
@@ -53,33 +49,23 @@
                             <input type="text" class="form-control" name=jumlah[]>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">Harga Barang</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name=harga[]>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">Diskon</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name=diskon[]>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">Tanggal Kadaluarsa</div>
-                        <div class="col-sm-10">
-                            <input type="date" class="form-control" name=tgl_exp[]>
-                        </div>
-                    </div>
+                            <input type="hidden" class="form-control" name=harga[]>
+                            <input type="hidden" class="form-control" name=diskon[]>
+                            <input type="hidden" class="form-control" name=tgl_exp[]>
                     <div class="form-group">
                         <div class="col-sm-2">Notes</div>
                         <div class="col-sm-10">
                             <textarea type="text" class="form-control" name=notes[]></textarea>
                         </div>
                     </div>
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <div class="col-sm-12">
                             <a href="" class="btn btn-danger btn-sm remove-stok" data-no="<?= $no ?>"><span class="fa fa-trash"></span></a>
                         </div>
-                    </div> -->
+                    </div>
+
+        <!-- <div class="col-md-1">
+            <a href="" class="btn btn-danger btn-sm remove-lab" data-no="<?= $no ?>"><span class="fa fa-trash"></span></a>
+        </div> -->
+    <?php } ?>
 <!-- <br> -->

@@ -14,6 +14,7 @@ class Dataobat extends CI_Controller
         $this->load->model('Tbl_satuan_barang_model');
         $this->load->model('Tbl_inventory_model');
         $this->load->model('Transaksi_model');
+        $this->load->model('akuntansi/Transaksi_akuntansi_model');
         $this->load->library('form_validation');
         $this->load->library('datatables');
         $this->load->library('upload');
@@ -855,7 +856,7 @@ class Dataobat extends CI_Controller
 
     public function stok_adjustment(){
         // $data["adj"] = $this->Tbl_inventory_model->get_adj();
-        $this->template->load('template','dataobat/penyesuaian_stok');
+        $this->template->load('template','dataobat/penyesuaian-stok');
     }
 
     public function json_adjustment(){
@@ -868,8 +869,9 @@ class Dataobat extends CI_Controller
         echo $this->Tbl_inventory_model->json_detail();
     }
 
-    public function edit_stok_adjustment()
+    public function edit_stok_adjustment($id)
     {
+        $row = $this->Tbl_inventory_model->get_by_id($id);
         $this->template->load('template','dataobat/edit_penyesuaian_stok');
     }
 
@@ -883,13 +885,20 @@ class Dataobat extends CI_Controller
     //     header('Content-Type: application/json');
     //     echo json_encode($detail);
     // }
+    public function detail($id){
+        $this->db->select('tid.id_inventory, tid.jumlah, tid.notes');
+        $this->db->from('tbl_inventory_detail tid');
+        $this->db->join('tbl_obat_alkes_bhp to','to.kode_barang = ');
+        // $jenis = $this->db->get_where('tbl_obat_alkes_bhp', ['kode_barang' => $detailInventory['kode_barang']])->row();
+        $this->db->where('kode_barang', $id);
+    }
     
     public function create_adjustment()
     {
         $this->data['stok'] = $this->db->get('tbl_obat_alkes_bhp')->result();
         $this->data['gudang'] = $this->db->get('tbl_gudang')->result();
         $this->data['lokasi'] = $this->db->get('tbl_lokasi_barang')->result();
-        $this->template->load('template','dataobat/create_penyesuaian_stok', $this->data);
+        $this->template->load('template','dataobat/create-penyesuaian-stok', $this->data);
     }
 
     public function newItemAdj()
@@ -898,67 +907,80 @@ class Dataobat extends CI_Controller
         $this->data['gudang'] = $this->db->get('tbl_gudang')->result();
         $this->data['lokasi'] = $this->db->get('tbl_lokasi_barang')->result();
         $this->data['no'] = $_GET['no'];
-        $this->load->view('dataobat/loop_penyesuaian_stok',$this->data);
+        $this->load->view('dataobat/loop-penyesuaian-stok',$this->data);
     }
 
     public function insert_adjustment()
     {
-        $newTime = (int)time() + 1;
-        $kode_trx_ajd='RCP'.$newTime;
-        $kode_trx_po = 'PO'.$newTime;
-        var_dump($this->input->post('id_inventory'));
-        var_dump($this->input->post('kode_purchase'));
-        var_dump($this->input->post('inv_type'));
-        // var_dump($this->input);
-        foreach ($_POST['id_inventory'] as $key => $value){
-            $inventory = array(
-                'id_inventory' => $_POST['id_inventory'][$key],
-                // 'kode_purchase' => $_POST['kode_purchase'][$key],
-                'inv_type' => $_POST['inv_type'][$key],
-                'id_klinik'     => $_POST['id_klinik'][$key],
-            );
-            
-            // var_dump($inventory);
-            // $this->db->insert('tbl_inventory',$inventory);
-            // $this->db->insert('tbl_inventory',['id_inventory' => $this->input->post('')];
-            // $this->db->insert('tbl_inventory',['id_inventory' => $inventory['id_inventory']];
-            $this->db->insert('tbl_inventory',['id_inventory' => $inventory['id_inventory'], 'inv_type' => $inventory['inv_type'], 'id_klinik' => $inventory['id_klinik']]);
-        }
-
-        // echo "<pre>";
-        // print_r($inventory);
-        // echo "</pre>";
-        
-        foreach ($_POST['id_inventory'] as $key => $value){
+        $inventory = array(
+            'id_inventory' => $_POST['id_inventory'],
+            'inv_type' => $_POST['inv_type'],
+            'id_klinik'     => $_POST['id_klinik'],
+        );
+            $this->db->insert('tbl_inventory', $inventory);
+        $totalAlkes = 0;
+        $totalObat = 0;
+        foreach ($_POST['kode_barang'] as $key => $value){
+            $getStokLama = $this->Tbl_obat_alkes_bhp_model->get_stok_obat($value);
+            var_dump($getStokLama);
+            $getStokSekarang=$getStokLama->jumlah-$_POST['jumlah'][$key];
+            var_dump($getStokSekarang);
             $detailInventory = array(
-                'id_inventory' => $_POST['id_inventory'][$key],
+                'id_inventory' => $_POST['id_inventory'],
                 'kode_barang' => $_POST['kode_barang'][$key],
                 'kode_gudang' => $_POST['kode_gudang'][$key],
                 'id_lokasi_barang' => $_POST['id_lokasi_barang'][$key],
-                'jumlah' => $value,
-                'harga' => $_POST['harga'][$key],
-                'diskon' => $_POST['diskon'][$key],
-                'tgl_exp' => $_POST['tgl_exp'][$key],
-                'notes' => $_POST['notes'][$key],
+                'jumlah' => $getStokSekarang,
+
             );
-            // var_dump($detailInventory);
-            // var_dump($this->input->post('id_inventory'));
-            // $this->db->insert("tbl_inventory_detail",$detailInventory);
-            $this->db->insert('tbl_inventory_detail',['id_inventory' => $detailInventory['id_inventory'],'kode_gudang' => $detailInventory['kode_gudang'], 'id_lokasi_barang' => $detailInventory['id_lokasi_barang'], 'jumlah' => $value, 'harga' => $detailInventory['harga'], 'diskon' => $detailInventory['diskon'], 'tgl_exp' => $detailInventory['tgl_exp'], 'notes' => $detailInventory['notes'], ]);
+            $this->db->insert('tbl_inventory_detail',$detailInventory);
+            //select jenis obat, harga, from barang
+            $this->db->select('jenis_barang,harga');
+            // $this->db->from('tbl_obat_alkes_bhp');
+            $jenis = $this->db->get_where('tbl_obat_alkes_bhp', ['kode_barang' => $detailInventory['kode_barang']])->row();
+            // $this->db->where('kode_barang', $getStokLama);
+            // buat variabel isinya selisih x harga 
+            if ( $jenis->jenis_barang == '1') {//cek jenis obati itu obat atau alkes
+                $totalObat=$getStokSekarang*$jenis->harga; //kalo obat $totalobat+=selisih * harga
+            }else{
+                $totalAlkes=$getStokSekarang*$jenis->harga; // alkes $totalAlkes+=selisih * harga
+            }
         }
-        // $this->db->insert('tbl_inventory_detail',['id_inventory' => $kode_trx_ajd,'kode_barang' => $value,'jml_barang' => $det_inv1['jumlah']]);
-        // echo "<pre>";
-        // print_r($detailInventory);
-        // echo "</pre>";
-
-        redirect(base_url()."dataobat/stok_adjustment");
-    }
-
-    
-        public function detail(){
-        $detail = $this->Pendaftaran_online_model->detail_pendaftar_online();
-        header('Content-Type: application/json');
-        echo json_encode($detail);
+        // insert ke akun 
+        $data_trx=array(
+            'deskripsi'     => 'Stock Adjustmen Obat',
+            'tanggal'       => date('Y-m-d'),
+        );
+        $insert=$this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi', $data_trx);
+        if ($insert) {
+            $id_last=$this->db->select_max('id_trx_akun')->from('tbl_trx_akuntansi')->get()->row();
+            // laba rugi berjalan(debit,akun)
+            $data=array(
+                'id_trx_akun'   => $id_last->id_trx_akun,
+                'id_akun'       => 111,
+                'jumlah'        => $totalObat+$totalAlkes,  //$totalObat+$totalAlkes
+                'tipe'          => 'DEBIT',
+                'keterangan'    => 'akun',
+            );
+            $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
+            //persediaan obat(kredit,lawan)
+            $data=array(
+                'id_trx_akun'   => $id_last->id_trx_akun,
+                'id_akun'       => 58,
+                'jumlah'        => $totalObat, //$totalObat
+                'tipe'          => 'KREDIT',
+                'keterangan'    => 'lawan',
+            );
+            $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
+            //persediaan alkes(kredit,lawan)
+            $data=array(
+                'id_trx_akun'   => $id_last->id_trx_akun,
+                'tipe'          => 'KREDIT',
+                'keterangan'    => 'lawan',
+            );
+            $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $data);
+        }
+    redirect(base_url()."dataobat/stok_adjustment");
     }
 }
 
