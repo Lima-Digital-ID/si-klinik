@@ -27,6 +27,7 @@
                                 <thead>
                                     <tr>
                                         <th width="30px">No</th>
+                                        <th>Kode Stok Adjustment</th>
                                         <th>Tanggal</th>
                                         <!-- <th>Kode Purchase</th> -->
                                         <!-- <th>Jumlah</th> -->
@@ -129,10 +130,13 @@
                     ajax: {"url": "json_adjustment", "type": "POST"},
                     columns: [
                         {
-                            "data": "id_inventory"
+                            "data": "kode"
                         },
                         {
-                            "data": "dtm_crt"
+                            "data": "kode"
+                        },
+                        {
+                            "data": "tanggal"
                         },
                         {
                             "data" : "action",

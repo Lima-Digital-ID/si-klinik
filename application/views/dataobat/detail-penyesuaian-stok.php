@@ -18,8 +18,8 @@
                                     <tr>
                                         <th width="30px">No</th>
                                         <th>Nama Barang</th>
-                                        <th>Tanggal</th>
-                                        <th>Jumlah</th>
+                                        <th>Stok Awal</th>
+                                        <th>Stok Setelah Penyesuaian</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -29,8 +29,8 @@
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?= $detail->nama_barang ?></td>
-                                        <td><?= $detail->dtm_crt ?></td>
-                                        <td><?= $detail->jumlah ?></td>
+                                        <td><?= $detail->from_stok ?></td>
+                                        <td><?= $detail->to_stok ?></td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>

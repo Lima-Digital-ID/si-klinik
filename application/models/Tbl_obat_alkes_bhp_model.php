@@ -91,7 +91,13 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         $tipeGetData->join('tbl_inventory ti','tid1.id_inventory=ti.id_inventory');
         $tipeGetData->join('tbl_obat_alkes_bhp toa','tid1.kode_barang=toa.kode_barang');
         // $tipeGetData->where("ti.inv_type='RECEIPT_ORDER' OR ti.inv_type='RETURN_STUFF' AND ti.id_klinik=1 AND toa.jenis_barang=1");
-        $tipeGetData->where("ti.id_klinik=1 AND toa.jenis_barang=$jenis_barang");
+        if($jenis_barang!=null){
+            $whereJenis = "and  toa.jenis_barang='$jenis_barang'";
+        }
+        else{
+            $whereJenis = "";
+        }
+        $tipeGetData->where("ti.id_klinik=1 $whereJenis");
         $tipeGetData->group_by("tid1.kode_barang");
 
         if($json){
