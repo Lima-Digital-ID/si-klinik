@@ -73,23 +73,21 @@
                             foreach ($pendapatan as $key => $value) {
                             ?>
                             <tr>
+                            <?php
+                                if ($value->id_akun == 46 || $value->id_akun == 64 || $value->id_akun == 69){
+                                    $total=$value->jumlah_debit-$value->jumlah_kredit;  
+                                    $sum_pendapatan-=$total;
+                            ?>
+                                    <td><?=$value->nama_akun?></td>
+                                    <td align="right">- Rp. <?=formatRupiah($total)?></td>
                                 <?php
-                                if ($value->id_akun == 39 || $value->id_akun == 62 || $value->id_akun == 63 || $value->id_akun == 68) {
+                                } else{
                                     $total=$value->jumlah_kredit-$value->jumlah_debit;
                                     $sum_pendapatan+=$total;
                                 ?>
                                     <td><?=$value->nama_akun?></td>
                                     <td align="right">Rp. <?=formatRupiah($total)?></td>
-                                <?php
-                                }else if ($value->id_akun == 46 || $value->id_akun == 64 || $value->id_akun == 69){
-                                    $total=$value->jumlah_debit-$value->jumlah_kredit;  
-                                    $sum_pendapatan-=$total;
-                                ?>
-                                    <td><?=$value->nama_akun?></td>
-                                    <td align="right">- Rp. <?=formatRupiah($total)?></td>
-                                <?php
-                                }
-                                ?>
+                                <?php } ?>
                             </tr>
                             <?php
                             }
