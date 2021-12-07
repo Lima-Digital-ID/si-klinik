@@ -449,8 +449,8 @@ class Transaksi_akuntansi extends CI_Controller
     
     public function neraca(){
         $date=0;
-        if ($this->input->post('bulan')) {
-            $date=$this->input->post('tahun').'-'.$this->input->post('bulan');
+        if ($this->input->get('bulan')) {
+            $date=$this->input->get('tahun').'-'.$this->input->get('bulan');
         }elseif ($this->session->userdata('bulan')) {
             $date=$this->session->userdata('bulan');
         }else{
@@ -460,7 +460,14 @@ class Transaksi_akuntansi extends CI_Controller
         $data['bulan']=json_encode(explode('-', $date));
         $data['data_saldo']=$this->Akuntansi_model->cekAllJurnal($date);
         $data['saldo']=$this->Akuntansi_model->cekSaldoKas($date);
-        $this->template->load('template','akuntansi/transaksi_akuntansi/neraca_coba', $data);
+        if(isset($_GET['export'])){
+            header("Content-type: application/vnd-ms-excel");
+            header("Content-Disposition: attachment; filename=Neraca Saldo ".$date.".xls");            
+            $this->load->view('akuntansi/transaksi_akuntansi/export_neraca_saldo', $data);
+        }
+        else{
+            $this->template->load('template','akuntansi/transaksi_akuntansi/neraca_coba', $data);
+        }
     }
     public function close_book(){
         $data['bulan']=date('m');

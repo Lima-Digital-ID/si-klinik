@@ -9,11 +9,9 @@
                     </div>
         
                     <div class="box-body">
-                        <div style="padding-bottom: 10px;">
-                            <form action="<?=current_url()?>" method="post">
-                            <div class="row">
-                                
-                                <div class="col-sm-7">
+                    <div class="row">
+                        <div class="col-md-6">
+                        <form action="<?=current_url()?>" method="get">
                                     <div class="form-inline">
                                         <label>Pilih Bulan : </label>
                                         <select class="form-control select2" name="bulan" required>
@@ -45,18 +43,26 @@
                                         ?>
                                         <button class="btn btn-primary"  onclick="cekAbsensiDate()"><i class="fa fa-search"></i></button>
                                     </div>
-                                </div>
-                            </div>
                                 <br>
                             </form>
                         </div>
+                        <div class="col-md-6 text-right">
+                            <a href="<?= isset($_GET['bulan']) ? '?bulan='.$_GET['bulan'].'&tahun='.$_GET['tahun'].'&export=true' : '?export=true' ?>" class="btn btn-success"><span class="fa fa-file-excel-o"></span> Export Excel</a>
+                        </div>
+                    </div>
         
                     <?php
                     function formatRupiah($num){
                         return number_format($num, 0, '.', '.');
                     }
+                    function tglIndo($date){
+                        $ex = explode('-',$date);
+                        $bulan = ['','Januari', 'Februari', 'Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+                        return $bulan[$ex[1]]." ".$ex[0];
+                    }
+
                     ?>
-                    <h4 id="bulan">Neraca Saldo Bulan November 2019</h4>
+                    <h4 id="bulan">Neraca Saldo Bulan <?= tglIndo($date) ?></h4>
                     <table class="table table-bordered">
                         <thead id="table">
                             <tr>
@@ -147,12 +153,3 @@
 <script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
 <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
-<script type="text/javascript">
-    var bulan=<?=$bulan?>;
-    $('#bulan').html('Neraca Saldo Bulan '+formatBulan(bulan));
-    function formatBulan(val){
-        var bulan = ['Januari', 'Februari', 'Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-        var getMonth=val[1];
-        return bulan[getMonth-1]+' '+val[0];
-    }
-</script>
