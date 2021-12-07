@@ -36,9 +36,6 @@ class Laporan extends CI_Controller
         // header('Content-Type: application/json');
         // echo json_encode($data);
         // exit();
-        echo "<pre>";
-        print_r($data['pendapatan']);
-        echo "</pre>";
         $this->template->load('template','akuntansi/laporan/report_profit_loss', $data);
     }
 
