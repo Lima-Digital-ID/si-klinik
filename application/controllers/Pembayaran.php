@@ -245,8 +245,8 @@ class Pembayaran extends CI_Controller
             //Set session sukses
             $this->session->set_flashdata('message', 'Data pembayaran berhasil disimpan, No Periksa ' . $data_transaksi->no_transaksi);
             $this->session->set_flashdata('message_type', 'success');
-            
-            redirect(site_url('pembayaran/cetak_surat/'.$id_transaksi.'?view=cetak_struk_periksa&tab='.$_GET['tab']));
+            $tabUrl = $_GET['tab'] != 'pemeriksaan' ? '&tab='.$_GET['tab'] : '';
+            redirect(site_url('pembayaran/cetak_surat/'.$id_transaksi.'?view=cetak_struk_periksa'.$tabUrl));
         } else {
             $this->data['id_transaksi'] = $data_transaksi->id_transaksi;
             $this->data['kode_transaksi'] = $data_transaksi->kode_transaksi;
