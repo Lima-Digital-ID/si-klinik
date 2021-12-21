@@ -158,24 +158,6 @@ class Rapid_antigen extends CI_Controller
             $this->Tbl_rapid_antigen_model->update($post,$id);
             
             $getNama = $this->Tbl_rapid_antigen_model->detailRapid($id,'nama');
-            //insert to transaksi
-            //insert transaksi detail
-            $tr = array(
-                'kode_transaksi' => "RAPANTIGEN",
-				'id_klinik' => $this->id_klinik,
-                'no_transaksi' => $getNoSampel->no_sampel,
-                'tgl_transaksi' => date('Y-m-d'),
-                'status_transaksi' => 0,
-                'atas_nama' => $getNama->nama,
-            );
-            $trDetail = array(
-                [
-                'no_transaksi' => $getNoSampel->no_sampel,
-                'deskripsi' => 'Biaya Pemeriksaan',
-                'amount_transaksi' => biayaSK('rapid_antigen'),
-                'dc' => 'd']
-            );
-            $this->Transaksi_model->insert($tr,$trDetail);
 
             //input inventory barang 
             $kode_receipt1='RCP'.time();
@@ -199,8 +181,28 @@ class Rapid_antigen extends CI_Controller
                 );
                 $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv1);
                 $this->db->insert('alkes_periksa_rapid',['no_sampel' => $getNoSampel->no_sampel,'kode_barang' => $value,'jml_barang' => $det_inv1['jumlah']]);
-                $totalBiayaObat+=($getObat1->harga * $_POST['jml_barang'][$key]) - $getObat1->diskon;
+                $biayaObat = ($getObat1->harga * $_POST['jml_barang'][$key]) - $getObat1->diskon;
+                $totalBiayaObat+=$biayaObat;
             }
+            //insert to transaksi
+            //insert transaksi detail
+            $tr = array(
+                'kode_transaksi' => "RAPANTIGEN",
+				'id_klinik' => $this->id_klinik,
+                'no_transaksi' => $getNoSampel->no_sampel,
+                'tgl_transaksi' => date('Y-m-d'),
+                'status_transaksi' => 0,
+                'atas_nama' => $getNama->nama,
+            );
+            $trDetail = array(
+                [
+                'no_transaksi' => $getNoSampel->no_sampel,
+                'deskripsi' => 'Biaya Pemeriksaan',
+                'amount_transaksi' => biayaSK('rapid_antigen')-$totalBiayaObat,
+                'dc' => 'd']
+            );
+            $this->Transaksi_model->insert($tr,$trDetail);
+
 
             //insert akuntansi
             //insert detail akuntansi
