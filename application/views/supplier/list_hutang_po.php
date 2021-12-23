@@ -49,6 +49,7 @@
                                     <th>Keterangan</th>
                                     <th>Jenis Pembayaran</th>
                                     <th>Sisa Hutang</th>
+                                    <th>Tanggal PO</th>
                             		<th width="150px">Action</th>
                                 </tr>
                             </thead>
@@ -134,6 +135,7 @@
             // return ribuan;
             $(this).val(ribuan)
         })
+        
 
         $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
         {
@@ -182,6 +184,9 @@
                 }},
                 {"data":"sisa_hutang","render":function(data, type, row){
                     return 'Rp. '+formatRupiah(row.sisa_hutang);
+                }},
+                {"data":"tanggal_po","render":function(data, type, row){
+                    return tglIndo(row.tanggal_po);
                 }},
                 {
                     "data" : "action",
@@ -238,5 +243,10 @@
         ribuan = ribuan.join('.').split('').reverse().join('');
         return ribuan;
       }
+    function tglIndo(tgl){
+        var split = tgl.split('-')
+        return split[2]+'-'+split[1]+'-'+split[0]
+
+    }
 
 </script>
