@@ -213,23 +213,29 @@ class Rapid_antigen extends CI_Controller
 
             $trAkuntansiDetail = array(
                 [
-                    'id_akun' => 62,
-                    'jumlah' => biayaSK('rapid_antigen'),
+                    'id_akun' => 62, //pemeriksaan
+                    'jumlah' => biayaSK('rapid_antigen')-$totalBiayaObat,
                     'tipe' => 'KREDIT',
                     'keterangan' => 'akun'
                 ],
+                [//pendapatan dari penjualan obat
+                    'id_akun'       => 41,
+                    'jumlah'        => $totalBiayaObat,
+                    'tipe'          => 'KREDIT',
+                    'keterangan'    => 'akun',
+                ],
                 [
-                    'id_akun' => 20,
+                    'id_akun' => 20, //kas
                     'jumlah' => biayaSK('rapid_antigen'),
                     'tipe' => 'DEBIT',
                     'keterangan' => 'lawan'
                 ],
-                [//kas bertambah
-                    'id_akun'       => 20,
-                    'jumlah'        => $totalBiayaObat,
-                    'tipe'          => 'DEBIT',
-                    'keterangan'    => 'lawan',
-                ],
+                // [//kas bertambah
+                //     'id_akun'       => 20,
+                //     'jumlah'        => $totalBiayaObat,
+                //     'tipe'          => 'DEBIT',
+                //     'keterangan'    => 'lawan',
+                // ],
                 [//hpp
                     'id_akun'       => 65,
                     'jumlah'        => $totalBiayaObat,
@@ -242,12 +248,6 @@ class Rapid_antigen extends CI_Controller
                     'tipe'          => 'KREDIT',
                     'keterangan'    => 'akun',
                 ],
-                [//pendapatan dari penjualan obat
-                    'id_akun'       => 41,
-                    'jumlah'        => $totalBiayaObat,
-                    'tipe'          => 'KREDIT',
-                    'keterangan'    => 'akun',
-                ]
             );
             $this->Transaksi_akuntansi_model->insertWithDetail($trAkuntansi,$trAkuntansiDetail);
 
