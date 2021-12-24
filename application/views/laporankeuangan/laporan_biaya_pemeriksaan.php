@@ -33,6 +33,7 @@
                         ?>
                         <hr />
                         <div style="padding-bottom: 10px;">
+                		<?php echo anchor(site_url('laporankeuangan/excelBiaya/'.$_GET['dari'].'_'.$_GET['sampai']), '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm"'); ?>
                 		<?php //echo anchor(site_url('laporankeuangan/excel/'.$_GET['dari'].'_'.$_GET['sampai']), '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm"'); ?>
                 		<?php // echo anchor(site_url('laporankeuangan/pdf'), '<i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export PDF', 'class="btn btn-danger btn-sm"'); ?></div>
                         <div style="padding-bottom: 10px;">
