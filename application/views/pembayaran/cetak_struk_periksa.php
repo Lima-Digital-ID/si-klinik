@@ -93,7 +93,7 @@
             $i = 1;
             foreach($transaksi_d as $data){
               if(strpos($data->deskripsi, 'Pembayaran Biaya Medis') === false){
-                if($data->amount_transaksi > 0){
+                if($data->amount_transaksi > 0 && $_GET['tab']=='rapid' && $data->deskripsi!='Biaya Administrasi'){
     ?>
                     <tr style="border-bottom:1px solid black; border-bottom:1px solid black">
                         <td align="left"><?php echo $data->deskripsi;?></td>
