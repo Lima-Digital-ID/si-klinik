@@ -34,7 +34,7 @@
                                     <input type="text" name="nomor" class="form-control" value="<?= isset($_POST['nomor']) ? $_POST['nomor'] :  $number ?>">
                                 </div>
                                 <div class="col-sm-9" style="padding-left:0px">
-                                    <h4 style="margin-top:8px">&nbsp; /<?= $bln."/COVID-19/KR/".date('Y') ?></h4>
+                                    <h4 style="margin-top:8px">&nbsp; /<?= $bln."/COVID-19/".$klinik_code."/".date('Y') ?></h4>
                                 </div>
                             </div>
                             <div class="form-group row">

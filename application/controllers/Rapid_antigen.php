@@ -27,7 +27,6 @@ class Rapid_antigen extends CI_Controller
     }
     public function index()
     {
-
         $post = $this->input->post();
         $this->form_validation->set_rules('nomor', 'Nomor', 'trim|required');
         $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
@@ -64,7 +63,14 @@ class Rapid_antigen extends CI_Controller
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
         $data['array_bln'] = array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
         $data['bln'] = $data['array_bln'][date('n')];
-        $getKode = $this->Tbl_rapid_antigen_model->getKode();
+
+        if($_SESSION['id_user_level']=='10'){ //if login sebagai rapid
+            $data['klinik_code'] = 'KRR';
+        }
+        else{
+            $data['klinik_code'] = 'KR';
+        }
+        $getKode = $this->Tbl_rapid_antigen_model->getKode($data['klinik_code']);
         if(count($getKode)==0){
             $data['number'] = 1;
         }
@@ -75,7 +81,7 @@ class Rapid_antigen extends CI_Controller
         $data['errorNomor'] = '';
         $errorCode = false;
         if(isset($_POST['nomor'])){
-            $kode = $_POST['nomor']."/$data[bln]/COVID-19/KR/".date('Y');
+            $kode = $_POST['nomor']."/$data[bln]/COVID-19/".$data['klinik_code']."/".date('Y');
             $cekNomor = $this->db->get_where('tbl_rapid_antigen',['no_sampel'=> $kode])->num_rows();
 
             if($cekNomor==1){
@@ -104,8 +110,14 @@ class Rapid_antigen extends CI_Controller
     public function apiListPemeriksaanDokter()
     {
         header('Content-Type: application/json');
+        if($_SESSION['id_user_level']=='10'){ //if login sebagai rapid
+            $klinik_code = 'KRR';
+        }
+        else{
+            $klinik_code = 'KR';
+        }
 
-        echo $this->Tbl_rapid_antigen_model->listPemeriksaanDokter();
+        echo $this->Tbl_rapid_antigen_model->listPemeriksaanDokter($klinik_code);
     }
     public function list_rapid_antigen()
     {
