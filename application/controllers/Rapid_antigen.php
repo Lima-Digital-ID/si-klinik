@@ -65,10 +65,10 @@ class Rapid_antigen extends CI_Controller
         $data['bln'] = $data['array_bln'][date('n')];
 
         if($_SESSION['id_user_level']=='10'){ //if login sebagai rapid
-            $data['klinik_code'] = 'KRR';
+            $data['klinik_code'] = '1';
         }
         else{
-            $data['klinik_code'] = 'KR';
+            $data['klinik_code'] = '0';
         }
         $getKode = $this->Tbl_rapid_antigen_model->getKode($data['klinik_code']);
         if(count($getKode)==0){
@@ -81,7 +81,13 @@ class Rapid_antigen extends CI_Controller
         $data['errorNomor'] = '';
         $errorCode = false;
         if(isset($_POST['nomor'])){
-            $kode = $_POST['nomor']."/$data[bln]/COVID-19/".$data['klinik_code']."/".date('Y');
+            if($_SESSION['id_user_level']=='10'){ //if login sebagai rapid
+                $kode = $_POST['nomor']."/$data[bln]/".$_POST['extend_code']."/".date('Y');
+            }
+            else{
+                $kode = $_POST['nomor']."/$data[bln]/COVID-19/KR/".date('Y');
+            }
+    
             $cekNomor = $this->db->get_where('tbl_rapid_antigen',['no_sampel'=> $kode])->num_rows();
 
             if($cekNomor==1){
@@ -93,6 +99,8 @@ class Rapid_antigen extends CI_Controller
             if($errorCode==false){
                 $post['no_sampel'] = $kode;
                 $post['tgl_buat'] = date('Y-m-d');
+                $post['tipe'] = $_SESSION['id_user_level']=='10' ? '1' : '0';
+                unset($post['extend_code']);
                 unset($post['nomor']);
                 $this->Tbl_rapid_antigen_model->insert($post);
                 
@@ -111,10 +119,10 @@ class Rapid_antigen extends CI_Controller
     {
         header('Content-Type: application/json');
         if($_SESSION['id_user_level']=='10'){ //if login sebagai rapid
-            $klinik_code = 'KRR';
+            $klinik_code = '1';
         }
         else{
-            $klinik_code = 'KR';
+            $klinik_code = '0';
         }
 
         echo $this->Tbl_rapid_antigen_model->listPemeriksaanDokter($klinik_code);

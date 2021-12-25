@@ -24,8 +24,7 @@ class Tbl_rapid_antigen_model extends CI_Model
     public function getKode($code)
     {
         $this->db->select('no_sampel');
-        $this->db->where(['MONTH(tgl_buat)' => date('m'), 'YEAR(tgl_buat)' => date('Y')]);
-        $this->db->like('no_sampel',$code);
+        $this->db->where(['MONTH(tgl_buat)' => date('m'), 'YEAR(tgl_buat)' => date('Y'),'tipe' => $code]);
         $this->db->order_by('id_rapid','desc');
         $this->db->limit(1);
         return $this->db->get($this->table)->result();
@@ -34,8 +33,7 @@ class Tbl_rapid_antigen_model extends CI_Model
     {
         $this->datatables->select('id_rapid,no_sampel,nama,nik_or_passport');
         $this->datatables->from($this->table);
-        $this->datatables->where(['status' => '0']);
-        $this->db->like('no_sampel',$code);
+        $this->datatables->where(['status' => '0','tipe' => $code]);
         $this->db->order_by('id_rapid','asc');
         $this->datatables->add_column('Periksa', anchor(site_url('rapid_antigen/periksa/$1'),'<i class="fa fa-stethoscope"></i> Periksa','class="btn btn-success btn-sm"'),'id_rapid');
 
