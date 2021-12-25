@@ -830,7 +830,7 @@ class Periksamedis extends CI_Controller
             $arr = array(
                 'no_transaksi' => $data_transaksi['no_transaksi'],
                 'deskripsi' => 'Biaya Tindakan '.$lab->item,
-                'amount_transaksi' => $lab->harga - $biayaObat,
+                'amount_transaksi' => $lab->harga,
                 'dc' => 'd'
             );
             

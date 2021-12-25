@@ -210,7 +210,7 @@ class Rapid_antigen extends CI_Controller
                 [
                 'no_transaksi' => $getNoSampel->no_sampel,
                 'deskripsi' => 'Biaya Pemeriksaan',
-                'amount_transaksi' => biayaSK('rapid_antigen')-$totalBiayaObat,
+                'amount_transaksi' => biayaSK('rapid_antigen'),
                 'dc' => 'd']
             );
             $this->Transaksi_model->insert($tr,$trDetail);
