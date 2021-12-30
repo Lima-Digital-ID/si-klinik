@@ -21,10 +21,10 @@ class Laporan extends CI_Controller
         // $this->template->load('template','akuntansi/master_akun/tbl_akun_list');
     }
 
-    public function laba_rugi(){
+    public function laba_rugi($export=""){
         $date=0;
-        if ($this->input->post('bulan')) {
-            $date=$this->input->post('tahun').'-'.$this->input->post('bulan');
+        if ($this->input->get('bulan')) {
+            $date=$this->input->get('tahun').'-'.$this->input->get('bulan');
         }elseif ($this->session->userdata('bulan')) {
             $date=$this->session->userdata('bulan');
         }else{
@@ -36,7 +36,15 @@ class Laporan extends CI_Controller
         // header('Content-Type: application/json');
         // echo json_encode($data);
         // exit();
-        $this->template->load('template','akuntansi/laporan/report_profit_loss', $data);
+        if($export!=""){
+            $filename = "report_profit_loss_$date";
+            header("Content-Type: application/xls");    
+            header("Content-Disposition: attachment; filename=$filename.xls");              
+            $this->load->view('akuntansi/laporan/table_report_profit_loss', $data);
+        }
+        else{
+            $this->template->load('template','akuntansi/laporan/report_profit_loss', $data);
+        }
     }
 
     public function kas() 
