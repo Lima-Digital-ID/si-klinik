@@ -157,53 +157,9 @@ class Laporankeuangan extends CI_Controller
     
     public function excel($filter = null)
     {
-        $this->load->helper('exportexcel');
-        $namaFile = "laporan_keuangan-".$filter."-".date('Ymd').".xls";
-        $judul = "laporan_keuangan";
-        $tablehead = 0;
-        $tablebody = 1;
-        $nourut = 1;
-        //penulisan header
-        header("Pragma: public");
-        header("Expires: 0");
-        header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
-        header("Content-Type: application/force-download");
-        header("Content-Type: application/octet-stream");
-        header("Content-Type: application/download");
-        header("Content-Disposition: attachment;filename=" . $namaFile . "");
-        header("Content-Transfer-Encoding: binary ");
-
-        xlsBOF();
-
-        $kolomhead = 0;
-        xlsWriteLabel($tablehead, $kolomhead++, "No");
-    	xlsWriteLabel($tablehead, $kolomhead++, "Tanggal Transaksi");
-    	xlsWriteLabel($tablehead, $kolomhead++, "Klinik");
-    	xlsWriteLabel($tablehead, $kolomhead++, "No Transaksi");
-    	xlsWriteLabel($tablehead, $kolomhead++, "Deskripsi Transaksi");
-    	xlsWriteLabel($tablehead, $kolomhead++, "Nominal Transaksi");
-    	xlsWriteLabel($tablehead, $kolomhead++, "Debit");
-    	xlsWriteLabel($tablehead, $kolomhead++, "Credit");
-
-	    foreach ($this->Transaksi_model->get_laporan_keuangan($filter) as $data) {
-            $kolombody = 0;
-
-            //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
-            xlsWriteNumber($tablebody, $kolombody++, $nourut);
-    	    xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
-    	    xlsWriteLabel($tablebody, $kolombody++, $data->klinik);
-    	    xlsWriteLabel($tablebody, $kolombody++, $data->no_transaksi);
-    	    xlsWriteLabel($tablebody, $kolombody++, $data->deskripsi);
-    	    xlsWriteNumber($tablebody, $kolombody++, $data->amount_transaksi);
-    	    xlsWriteNumber($tablebody, $kolombody++, $data->debit);
-    	    xlsWriteNumber($tablebody, $kolombody++, $data->credit);
-    	    
-    
-    	    $tablebody++;
-            $nourut++;
-        }
-
-        xlsEOF();
-        exit();
+        $data['data'] = $this->Transaksi_model->json_keuangan($filter,$json=false);
+        header("Content-type: application/vnd-ms-excel");
+        header("Content-Disposition: attachment; filename=laporan_keuangan_$filter.xls");        
+        $this->load->view('laporankeuangan/export_laporan_keuangan',$data);
     }
 }
