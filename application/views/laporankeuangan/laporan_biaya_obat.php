@@ -41,14 +41,14 @@ if($id_klinik != ''){
         if($rekap_laporan == 1){
             $filters = $rekap_laporan.'_'.$filter_tanggal.'_'.$id_klinik;
         } else if($rekap_laporan == 2){
-            $filters = $rekap_laporan.'_'.$filter_bulan.'_'.$id_klinik;
+            $filters = $rekap_laporan.'_'.$filter_bulan.'-'.$filter_tahun.'_'.$id_klinik;
         } else if($rekap_laporan == 3){
             $filters = $rekap_laporan.'_'.$filter_tahun.'_'.$id_klinik;
         }
 ?>
                         <hr />
                         <div style="padding-bottom: 10px;">
-                		<?php echo anchor(site_url('laporankeuangan/excel/'.$filters), '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm"'); ?>
+                		<?php echo anchor(site_url('laporankeuangan/excelBiayaObat/'.$filters), '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm"'); ?>
                 		<?php // echo anchor(site_url('laporankeuangan/pdf'), '<i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export PDF', 'class="btn btn-danger btn-sm"'); ?></div>
                         <div style="padding-bottom: 10px;">
                         </div>
@@ -122,7 +122,7 @@ if($id_klinik != ''){
 <?php
     } else if ($rekap_laporan == 2) {
 ?>
-            ajax: {"url": "json_biaya_obat/<?php echo $rekap_laporan.'_'.$filter_bulan.'_'.$id_klinik;?>", "type": "POST"},
+            ajax: {"url": "json_biaya_obat/<?php echo $rekap_laporan.'_'.$filter_bulan.'-'.$filter_tahun.'_'.$id_klinik;?>", "type": "POST"},
 <?php
     } else if ($rekap_laporan == 3) {
 ?>
@@ -173,7 +173,7 @@ if($id_klinik != ''){
             } else if(rekap_laporan == 2){
                 document.getElementById("div_tanggal").style.display="none";
                 document.getElementById("div_bulan").style.display="block";
-                document.getElementById("div_tahun").style.display="none";
+                document.getElementById("div_tahun").style.display="block";
             } else if(rekap_laporan == 3){
                 document.getElementById("div_tanggal").style.display="none";
                 document.getElementById("div_bulan").style.display="none";

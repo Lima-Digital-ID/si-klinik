@@ -125,6 +125,12 @@ class Laporankeuangan extends CI_Controller
         header('Content-Type: application/json');
         echo $this->Transaksi_model->json_biaya_obat($filter);
     }
+    public function excelBiayaObat($filter = null) {
+        $data['data'] = $this->Transaksi_model->json_biaya_obat($filter,$json=false);
+        header("Content-type: application/vnd-ms-excel");
+        header("Content-Disposition: attachment; filename=laporan_keuangan_$filter.xls");        
+        $this->load->view('laporankeuangan/export_laporan_keuangan',$data);
+    }
     public function json_biaya_tindakan($filter = null) {
         header('Content-Type: application/json');
         echo $this->Transaksi_model->json_biaya_tindakan($filter);
