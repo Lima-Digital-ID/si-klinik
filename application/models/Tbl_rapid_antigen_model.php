@@ -55,7 +55,7 @@ class Tbl_rapid_antigen_model extends CI_Model
             $this->datatables->add_column('cetak',anchor(site_url('rapid_antigen/preview?sampel=$1'),'Cetak Surat Rapid Antigen','class="btn btn-danger btn-sm"'),'no_sampel');
         }
         $this->datatables->add_column('status',$status=='0' ? 'Belum Membayar' : 'Lunas');
-
+        $this->db->order_by('r.no_sampel','desc');
         return $this->datatables->generate();
     }    
     public function detailRapid($id,$select="")
