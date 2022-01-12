@@ -17,7 +17,7 @@ class Tbl_sksehat_model extends CI_Model
     public function getLastNomor()
     {
         $this->db->select('nomor');
-        $this->db->order_by('nomor','desc');
+        $this->db->order_by('dtm_crt','desc');
         $this->db->limit(1);
         return $this->db->get($this->table,['MONTH(tgl_cetak)' => date('m'),'YEAR(tgl_cetak)' => date('Y')])->result();
     }
