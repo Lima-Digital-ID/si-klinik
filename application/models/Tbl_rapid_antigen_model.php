@@ -42,7 +42,7 @@ class Tbl_rapid_antigen_model extends CI_Model
     }
     public function jsonRapid($id_klinik,$status)
     {
-        $this->datatables->select('r.no_sampel,r.nama,r.nik_or_passport,tr.id_transaksi');
+        $this->datatables->select('r.no_sampel,r.nama,r.nik_or_passport,tr.id_transaksi,r.tgl_pemeriksaan');
         $this->datatables->from($this->table." as r");
         $this->datatables->join('tbl_transaksi tr','r.no_sampel = tr.no_transaksi');
         $this->datatables->where(['tr.id_klinik' => $id_klinik,'status_transaksi' => $status]);

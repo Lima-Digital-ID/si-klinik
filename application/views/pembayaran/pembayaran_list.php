@@ -195,6 +195,7 @@
                                     <thead>
                                         <tr>
                                             <th width="30px">No</th>
+                                            <th>Tanggal Periksa</th>
                                             <th>No Sampel</th>
                                             <th>NIK / Passport</th>
                                             <th>Nama</th>
@@ -614,7 +615,10 @@
                 {
                     "data": "no_sampel",
                     "orderable": false
-                },{"data": "no_sampel"},{"data": "nik_or_passport"},{"data": "nama"},{"data": "status"},
+                },
+                {"data": "no_sampel"},
+                {"data": "tgl_pemeriksaan"},
+                {"data": "nik_or_passport"},{"data": "nama"},{"data": "status"},
                 {
                     "render" : function(data,type,row){
                         return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+row.cetak
