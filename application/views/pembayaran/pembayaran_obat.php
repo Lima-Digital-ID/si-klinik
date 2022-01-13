@@ -23,6 +23,7 @@
                     <div class="box-body">
                         <div style="padding-bottom: 10px;">
                         </div>
+                        <div class="table-responsive">
                         <table class="table table-bordered table-striped" id="mytable">
                             <thead>
                                 <tr>
@@ -37,6 +38,7 @@
 
                         </table>
                     </div>
+                    </div>
                 </div>
                 
                 <div class="box box-warning box-solid">
@@ -48,6 +50,7 @@
                     <div class="box-body">
                         <div style="padding-bottom: 10px;">
                         </div>
+                        <div class="table-responsive">
                         <table class="table table-bordered table-striped" id="mytable2">
                             <thead>
                                 <tr>
@@ -61,6 +64,7 @@
                             </thead>
 
                         </table>
+                    </div>
                     </div>
                 </div>
             </div>

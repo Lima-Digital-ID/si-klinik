@@ -35,6 +35,7 @@
                         <br>
                         <div class="tab-content">
                         <div id="menu1" class="tab-pane fade in active">
+                        <div class="table-responsive">
                             <table class="table table-bordered table-striped" id="mytable">
                                 <thead>
                                     <tr>
@@ -50,7 +51,9 @@
                                 </thead>
                             </table>
                         </div>
+                        </div>
                         <div id="menu2" class="tab-pane fade">
+                        <div class="table-responsive">
                             <table class="table table-bordered table-striped" id="sksehat" width="100%">
                                 <thead>
                                     <tr>
@@ -63,7 +66,9 @@
                                 </thead>
                             </table>
                         </div>
+                        </div>
                         <div id="menu3" class="tab-pane fade">
+                        <div class="table-responsive">
                             <table class="table table-bordered table-striped" width="100%" id="rapid">
                                 <thead>
                                     <tr>
@@ -77,7 +82,9 @@
                                 </thead>
                             </table>
                         </div>
+                        </div>
                         <div id="hamil" class="tab-pane fade">
+                        <div class="table-responsive">
                             <table class="table table-bordered table-striped" width="100%" id="tableHamil">
                                 <thead>
                                     <tr>
@@ -92,7 +99,9 @@
                                 </thead>
                             </table>
                         </div>
+                        </div>
                         <div id="anak" class="tab-pane fade">
+                        <div class="table-responsive">
                             <table class="table table-bordered table-striped" width="100%" id="tableAnak">
                                 <thead>
                                     <tr>
@@ -107,7 +116,9 @@
                                 </thead>
                             </table>
                         </div>
+                        </div>
                         <div id="jasa" class="tab-pane fade">
+                        <div class="table-responsive">
                             <table class="table table-bordered table-striped" width="100%" id="tableJasa">
                                 <thead>
                                     <tr>
@@ -122,7 +133,9 @@
                                 </thead>
                             </table>
                         </div>
+                        </div>
                         <div id="lab" class="tab-pane fade">
+                        <div class="table-responsive">
                             <table class="table table-bordered table-striped" width="100%" id="tableLab">
                                 <thead>
                                     <tr>
@@ -136,6 +149,7 @@
                                     </tr>
                                 </thead>
                             </table>
+                        </div>
                         </div>
                         </div>                        
                     </div>
@@ -162,6 +176,7 @@
                         <br>
                         <div class="tab-content">
                             <div id="list1" class="tab-pane fade in active">
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-striped" id="mytable2">
                                     <thead>
                                         <tr>
@@ -177,7 +192,9 @@
                                     </thead>
                                 </table>
                             </div>
+                            </div>
                             <div id="list2" class="tab-pane fade in">
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-striped" id="sksehat2" width="100%">
                                     <thead>
                                         <tr>
@@ -190,7 +207,9 @@
                                     </thead>
                                 </table>
                             </div>
+                            </div>
                             <div id="list3" class="tab-pane fade in">
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-striped" width="100%" id="rapid2">
                                     <thead>
                                         <tr>
@@ -205,7 +224,9 @@
                                     </thead>
                                 </table>
                             </div>
+                            </div>
                             <div id="listHamil" class="tab-pane fade">
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-striped" width="100%" id="tableListHamil">
                                     <thead>
                                         <tr>
@@ -221,7 +242,9 @@
                                     </thead>
                                 </table>
                             </div>
+                            </div>
                             <div id="listAnak" class="tab-pane fade">
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-striped" width="100%" id="tableListAnak">
                                     <thead>
                                         <tr>
@@ -237,7 +260,9 @@
                                     </thead>
                                 </table>
                             </div>
+                            </div>
                             <div id="listJasa" class="tab-pane fade">
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-striped" width="100%" id="tableListJasa">
                                     <thead>
                                         <tr>
@@ -253,7 +278,9 @@
                                     </thead>
                                 </table>
                             </div>
+                            </div>
                             <div id="listLab" class="tab-pane fade">
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-striped" width="100%" id="tableListLab">
                                     <thead>
                                         <tr>
@@ -269,7 +296,7 @@
                                     </thead>
                                 </table>
                             </div>
-
+                            </div>
                         </div>
                     </div>
                 </div>

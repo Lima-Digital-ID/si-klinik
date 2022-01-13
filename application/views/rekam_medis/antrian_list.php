@@ -41,6 +41,7 @@
                         <br>
                         <div class="tab-content">
                             <div id="medis" class="tab-pane fade in active">
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-striped" id="mytable">
                                     <thead>
                                         <tr>
@@ -58,7 +59,9 @@
                                     </thead>
                                 </table>
                             </div>
+                            </div>
                             <div id="anak" class="tab-pane fade in">
+                            <div class="table-responsive">
                             <table class="table table-bordered table-striped" width="100%" id="tableAnak">
                                     <thead>
                                         <tr>
@@ -76,7 +79,9 @@
                                     </thead>
                                 </table>
                             </div>
+                            </div>
                             <div id="hamil" class="tab-pane fade in">
+                            <div class="table-responsive">
                             <table class="table table-bordered table-striped" width="100%" id="tableHamil">
                                     <thead>
                                         <tr>
@@ -94,7 +99,9 @@
                                     </thead>
                                 </table>
                             </div>
+                            </div>
                             <div id="jasa" class="tab-pane fade in">
+                            <div class="table-responsive">
                             <table class="table table-bordered table-striped" width="100%" id="tableJasa">
                                     <thead>
                                         <tr>
@@ -112,7 +119,9 @@
                                     </thead>
                                 </table>
                             </div>
+                            </div>
                             <div id="lab" class="tab-pane fade in">
+                            <div class="table-responsive">
                             <table class="table table-bordered table-striped" width="100%" id="tableLab">
                                     <thead>
                                         <tr>
@@ -129,6 +138,7 @@
                                         </tr>
                                     </thead>
                                 </table>
+                            </div>
                             </div>
                         </div>
                     </div>
