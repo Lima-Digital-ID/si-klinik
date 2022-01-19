@@ -276,7 +276,17 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
-
+    public function obat_terbanyak()
+    {
+        $this->datatables->select('id.kode_barang,COUNT(jumlah) ttl,nama_barang');
+        $this->datatables->from('tbl_inventory_detail id');
+        $this->datatables->join('tbl_inventory i','id.id_inventory = i.id_inventory');
+        $this->datatables->join('tbl_obat_alkes_bhp o','id.kode_barang = o.kode_barang');
+        $this->datatables->where(['i.inv_type' => 'TRX_STUFF','id.kode_barang !=' => '','jenis_barang' => '1']);
+        $this->db->group_by('id.kode_barang');
+        $this->db->order_by('ttl','desc');
+        return $this->datatables->generate();
+    }
 }
 
 /* End of file Tbl_obat_alkes_bhp_model.php */
