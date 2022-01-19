@@ -65,7 +65,8 @@ class Dataobat extends CI_Controller
                 'kode_barang' => $value->kode_barang,
                 'nama_barang' => $value->nama_barang,
                 'stok' => $getStok,
-                'minimum_stok' => $value->minimal_stok 
+                'minimum_stok' => $value->minimal_stok,
+                'harga' => $value->harga,
             );
             $stok[] = $row;
         }
@@ -79,7 +80,13 @@ class Dataobat extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode($output);
     }
-    
+    function historyPembelian(){
+        $kode_barang = $_GET['kode_barang'];
+        $this->db->select('i.kode_purchase,di.kode_barang,i.dtm_crt,di.harga,di.diskon');
+        $this->db->join('tbl_inventory i','di.id_inventory = i.id_inventory');
+        $data = $this->db->get_where('tbl_inventory_detail di',['kode_barang' => $kode_barang,'inv_type' => 'RECEIPT_ORDER'])->result();
+        echo json_encode($data);
+    }
     public function history()
     {
         $data['barang'] = $this->Tbl_obat_alkes_bhp_model->getStokStep1();
