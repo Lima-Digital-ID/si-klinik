@@ -20,6 +20,17 @@
                             <!-- <input type="hidden" class="form-control" name="supplier" required value="<?=$data[0]->kode_supplier?>" /> -->
                         </div>
                     </div>
+                <br>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>
+                                Tanggal Penerimaan Barang
+                            </label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control" name="tanggal_penerimaan" required/>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-sm-12">
                 <br>

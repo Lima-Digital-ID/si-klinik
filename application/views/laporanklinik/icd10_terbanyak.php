@@ -5,7 +5,7 @@
                 <div class="box box-warning box-solid">
 
                     <div class="box-header">
-                        <h3 class="box-title">Obat Keluar Terbanyak</h3>
+                        <h3 class="box-title">Kode ICD10 Paling Banyak</h3>
                     </div>
 
                     <div class="box-body">

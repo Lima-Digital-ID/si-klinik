@@ -47,6 +47,7 @@
                                     <th>Total Harga</th>
                                     <th>Keterangan</th>
                                     <th>Status</th>
+                                    <th>Tanggal Penerimaan</th>
                             		<th width="150px">Action</th>
                                 </tr>
                             </thead>
@@ -127,7 +128,9 @@
                     "orderable": false
                 },{"data": "kode_purchase"},{"data": "nama_supplier"},{"data": "nama_apoteker"},{"render": function (data, type, row){
                  return 'Rp. '+formatRupiah(row.total_harga);
-                }},{"data": "keterangan"},{"data": "status"},
+                }},{"data": "keterangan"},
+                {"data": "status"},
+                {"data": "tanggal_penerimaan"},
                 {
                     "data" : "action",
                     "orderable": false,

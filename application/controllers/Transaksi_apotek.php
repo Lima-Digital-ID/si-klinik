@@ -150,6 +150,7 @@ class Transaksi_apotek extends CI_Controller
             $row['total_harga']  = $value->total_harga;
             $row['keterangan']   = $value->keterangan;
             $row['status']   = ($value->is_closed != TRUE ? 'Open' : 'Closed');
+            $row['tanggal_penerimaan']   = ($value->is_receive != TRUE ? '-' : date('d-m-Y',strtotime($value->tanggal_penerimaan)));
             $row['action']       = ($value->is_receive != TRUE ? anchor(site_url('transaksi_apotek/receipt_order/').$value->kode_purchase ,'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>','class="btn btn-success btn-sm"')
                                     : anchor(site_url('transaksi_apotek/print_receipt/').$value->kode_purchase,'<i class="fa fa-print" aria-hidden="true"></i>', array('target'=>'_blank' , 'class'=>'btn btn-primary btn-sm')));
                 // ." ".anchor(site_url('dataobat/delete/').$value->kode_purchase,'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"')
@@ -206,6 +207,7 @@ class Transaksi_apotek extends CI_Controller
             //update po -> close
             $data_update=array(
                 'pengirim'      => $this->input->post('pengirim',TRUE),
+                'tanggal_penerimaan'      => $this->input->post('tanggal_penerimaan',TRUE),
                 'is_receive'    => TRUE
             );
             if($getPO->jenis_pembayaran==0){ // jika tipe bayar adalah cash 
