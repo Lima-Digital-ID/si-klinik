@@ -105,7 +105,7 @@ $diskon=$total_transaksi*(($getDiskon != null ? $getDiskon->diskon : 0) / 100);
 						<div class="form-group">
 							<div class="col-sm-3">Total Subsidi</div>
     						<div class="col-sm-3">
-    							<?php echo form_input(array('id'=>'subsidi_transaksi','name'=>'subsidi_transaksi','type'=>'number','value'=>$diskon,'class'=>'form-control','style'=>'text-align:right;','readonly'=>'readonly','placeholder'=>'0','onchange'=>'hitung_bayar()'));?>
+    							<?php echo form_input(array('id'=>'subsidi_transaksi','name'=>'subsidi_transaksi','type'=>'number','value'=>$diskon,'class'=>'form-control','style'=>'text-align:right;','placeholder'=>'0','onkeyup'=>'hitung_bayar()'));?>
     						</div>
 						</div>
 						<div class="form-group">

@@ -630,6 +630,9 @@ class Pembayaran extends CI_Controller
         $data['transaksi']=$this->Transaksi_model->getDetailTrxObat($no_transaksi);
         $data['petugas']=$this->session->userdata('full_name');
         $data['getDiskon']=$this->db->where('bulan', date('Y-m'))->get('tbl_diskon_trx')->row();
+        $this->db->select("amount_transaksi");
+        $query = $this->db->get_where("tbl_transaksi_d",["deskripsi" => "Subsidi dari Kasir","no_transaksi" => $no_transaksi]);
+        $data['subsidi'] = $query->num_rows()==0 ? 0 : $query->row()->amount_transaksi; 
         $this->load->view('pembayaran/cetak_struk', $data);
     }
 }

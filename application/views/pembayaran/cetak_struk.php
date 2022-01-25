@@ -75,7 +75,8 @@
       </td>
     </tr>
     <?php } 
-        $diskon=$total_transaksi*(($getDiskon != null ? $getDiskon->diskon : 0) / 100);
+        // $diskon=$total_transaksi*(($getDiskon != null ? $getDiskon->diskon : 0) / 100);
+        $diskon = $subsidi;
     ?>
     <tr>
       <td colspan="3">------------------------------------------</td>
