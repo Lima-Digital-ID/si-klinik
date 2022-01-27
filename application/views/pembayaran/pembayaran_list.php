@@ -77,6 +77,7 @@
                                         <th>NIK / Passport</th>
                                         <th>Nama</th>
                                         <th>Status</th>
+                                        <th>Tgl Pemeriksaan</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -605,7 +606,7 @@
                 {
                     "data": "no_sampel",
                     "orderable": false
-                },{"data": "no_sampel"},{"data": "nik_or_passport"},{"data": "nama"},{"data": "status"},
+                },{"data": "no_sampel"},{"data": "nik_or_passport"},{"data": "nama"},{"data": "status"},{"data" : "tgl_pemeriksaan"},
                 {
                     "data" : "action",
                     "orderable": false,
