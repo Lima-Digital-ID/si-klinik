@@ -34,7 +34,7 @@ class Supplier extends CI_Controller
             'kode_purchase' => $_POST['kode_purchase'],
             'nominal' => $bayar,
             'tipe' => '1',
-            'tanggal' => date('Y-m-d H:i:s'),
+            'tanggal' => $_POST['tanggal'],
         );
         $this->db->insert('tbl_kartu_hutang',$kartuHutang);
 
@@ -45,7 +45,7 @@ class Supplier extends CI_Controller
         //akuntansi
         $data_trx=array(
             'deskripsi'     => 'Pembayaran Hutang dengan Kode '. $_POST['kode_purchase'],
-            'tanggal'       => date('Y-m-d'),
+            'tanggal'       => $_POST['tanggal'],
         );
         $insert=$this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi', $data_trx);
         $id_last=$this->db->select_max('id_trx_akun')->from('tbl_trx_akuntansi')->get()->row();

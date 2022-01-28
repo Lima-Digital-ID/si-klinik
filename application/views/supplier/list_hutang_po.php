@@ -112,6 +112,9 @@
         <label for="">Nominal Bayar</label>
         <input type="text" name="bayar" class="form-control" id="nominalBayar">
         <br>
+        <label for="">Tanggal Bayar</label>
+        <input type="date" name="tanggal" class="form-control" id="tanggal">
+        <br>
         <button class="btn btn-primary">Bayar</button>
       </form>
     </div>
