@@ -125,7 +125,7 @@ class Transaksi_model extends CI_Model
             // $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);
             
         if($tipe==1 || $tipe==4){
-            $where.="and tbl_pendaftaran.tipe_periksa = '1' or $where and tbl_pendaftaran.tipe_periksa = '4'";
+            $where.="and (tbl_pendaftaran.tipe_periksa = '1' or tbl_pendaftaran.tipe_periksa = '4')";
             // $this->datatables->where('tbl_pendaftaran.tipe_periksa', '1');
             // $this->datatables->or_where('tbl_pendaftaran.tipe_periksa', '4');
         }
@@ -150,22 +150,29 @@ class Transaksi_model extends CI_Model
         $this->datatables->join('tbl_pasien','tbl_periksa.no_rekam_medis=tbl_pasien.no_rekam_medis');
         $this->datatables->join('tbl_pendaftaran','tbl_pasien.no_rekam_medis=tbl_pendaftaran.no_rekam_medis');
         $this->datatables->join('tbl_klinik','tbl_transaksi.id_klinik=tbl_klinik.id_klinik');
-        $this->datatables->where('status_transaksi', '1');
-        if($id_klinik != null)
-            $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);
-
+        // $this->datatables->where('status_transaksi', '1');
+        $whereStatus = "status_transaksi = '1' ";
+        // if($id_klinik != null){
+        //     $where.="and tbl_transaksi.id_klinik = '$id_klinik' ";
+        //     // $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);
+        // }
+        
         $this->datatables->add_column('cetak_struk',anchor(site_url('pembayaran/cetak_surat/$1?view=cetak_struk_periksa'),'Cetak Struk',array('class' => 'btn btn-info btn-sm','target'=>'_blank')),'id_transaksi');
         $this->datatables->add_column('action',anchor(site_url('pembayaran/cetak_surat/$1'),'Cetak Kwitansi',array('class' => 'btn btn-warning btn-sm','target'=>'_blank')),'id_transaksi');
-
+        
         if($tipe==1 || $tipe==4){
-            $this->datatables->where('tbl_pendaftaran.tipe_periksa', '1');
-            $this->datatables->or_where('tbl_pendaftaran.tipe_periksa', '4');
             $this->datatables->add_column('cetak', anchor(site_url('pembayaran/cetak-sksakit?id=$1'),'Cetak SK Sakit','class="btn btn-danger btn-sm"'),'no_periksa');
+            $where = $whereStatus."and (tbl_pendaftaran.tipe_periksa = '1' or tbl_pendaftaran.tipe_periksa = '4') ";
+            
+            // $this->datatables->where('tbl_pendaftaran.tipe_periksa', '1');
+            // $this->datatables->or_where('tbl_pendaftaran.tipe_periksa', '4');
         }
         else{
             $this->datatables->add_column('cetak', anchor(site_url('pembayaran/cetak-sklab?id=$1'),'Cetak SK LAB','class="btn btn-danger btn-sm"'),'no_periksa');
-            $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
+            $where = $whereStatus."and tbl_pendaftaran.tipe_periksa = '$tipe'";
+            // $this->datatables->where('tbl_pendaftaran.tipe_periksa', $tipe);
         }
+        $this->datatables->where($where);
         $this->db->order_by('tbl_transaksi.no_transaksi','desc');
         $this->datatables->group_by('tbl_transaksi.no_transaksi');
             

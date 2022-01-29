@@ -572,6 +572,7 @@
                     "render" : function(data,type,row){
                         return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+row.cetak
                     },
+                    "searchable" : false,
                     "orderable": false,
                     "className" : "text-center"
                 }
@@ -651,6 +652,7 @@
                     "render" : function(data,type,row){
                         return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+row.cetak
                     },
+                    "searchable" : false,
                     "orderable": false,
                     "className" : "text-center"
                 }
@@ -692,6 +694,7 @@
                         var cetak = row.is_surat_ket_sakit=='1' ? row.cetak : ''
                         return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+cetak
                     },
+                    "searchable" : false,
                     "orderable": false,
                     "className" : "text-center"
                 }
@@ -732,6 +735,7 @@
                         var cetak = row.is_surat_ket_sakit=='1' ? row.cetak : ''
                         return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+cetak
                     },
+                    "searchable" : false,
                     "orderable": false,
                     "className" : "text-center"
                 }
@@ -772,6 +776,7 @@
                         var cetak = row.is_surat_ket_sakit=='1' ? row.cetak : ''
                         return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+cetak
                     },
+                    "searchable" :false,
                     "orderable": false,
                     "className" : "text-center"
                 }
@@ -812,6 +817,7 @@
                         var cetak = row.is_surat_ket_sakit=='1' ? row.cetak : ''
                         return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+cetak
                     },
+                    "searchable" : false,
                     "orderable": false,
                     "className" : "text-center"
                 }
@@ -851,6 +857,7 @@
                     "render" : function(data,type,row){
                         return row.cetak_struk+"&nbsp;"+row.action+"&nbsp;"+row.cetak
                     },
+                    "searchable" : false,
                     "orderable": false,
                     "className" : "text-center"
                 }
