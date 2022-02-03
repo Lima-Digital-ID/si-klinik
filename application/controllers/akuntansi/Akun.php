@@ -188,14 +188,24 @@ class Akun extends CI_Controller
     }
     public function detailBukuBesar($id){
         $date=date('Y-m');
+        $filter=0;
+        $sampai=0;
+        if ($this->input->post('date') || $this->input->post('sampai')) {
+            $filter=$this->input->post('date');
+            $sampai=$this->input->post('sampai');
+        }else{
+            $filter=date('Y-m-d');
+            $sampai=date('Y-m-d');
+        }
         $cekParent=$this->db->where('id_akun', $id)->get('tbl_akun_detail')->row();
         if ($cekParent->id_parent == 3) {
             $data['data_saldo']=$this->Akuntansi_model->getSaldoAkun($id, $date);
         }else{
             $data['data_saldo']=$this->Akuntansi_model->getSaldoAkun(1, $date);
         }
+        // $data['bulan']=json_encode(explode('-', $filter));
         $data['akun']=$this->db->where('id_akun', $id)->get('tbl_akun')->row();
-        $data['data']=$this->Akuntansi_model->getdetailBukuBesar(date('Y-m'), $id);
+        $data['data']=$this->Akuntansi_model->getdetailBukuBesar($filter,$sampai, $id);
         $this->template->load('template','akuntansi/buku_besar/detail_akun', $data);
     }
     public function tutup_buku(){

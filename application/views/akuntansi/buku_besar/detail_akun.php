@@ -23,7 +23,20 @@
                     <div class="box-body">
                         <div style="padding-bottom: 10px;">
                             <form action="<?=current_url()?>" method="post">
-                            <div class="row">                                
+                            <div class="row">                              
+                            <div align="right">
+                                    <div class="form-inline">
+                                        <div class="col-sm-9">
+                                            <label>Dari Tanggal : </label>
+                                            <input type="date" name="date" class="form-control" value="<?= isset($filter) ? $filter : '' ?>">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Sampai Tanggal : </label>
+                                            <input type="date" name="sampai" class="form-control" value="<?= isset($sampai) ? $sampai : '' ?>">
+                                            <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div> 
                                 <!-- <div class="col-sm-12">
                                     <div class="form-inline">
                                         <label>Pilih Bulan : </label>
