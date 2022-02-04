@@ -215,8 +215,8 @@
                                     <thead>
                                         <tr>
                                             <th width="30px">No</th>
-                                            <th>Tanggal Periksa</th>
                                             <th>No Sampel</th>
+                                            <th>Tanggal Periksa</th>
                                             <th>NIK / Passport</th>
                                             <th>Nama</th>
                                             <th>Status</th>
