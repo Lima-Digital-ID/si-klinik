@@ -52,7 +52,7 @@ class Akuntansi_model extends CI_Model
         $this->datatables->add_column('action', anchor(site_url('akuntansi/akun/detailBukuBesar/$1'),'<i class="fa fa-list" aria-hidden="true"></i>','class="btn btn-info btn-sm" title="Detail"'), 'id_akun');            
         return $this->datatables->generate();
     }
-    function getDetailBukuBesar($date, $id)
+    function getDetailBukuBesar($dari, $sampai, $id)
     {
         // $db=$this->db->query('SELECT COALESCE((SELECT SUM(trd.jumlah) FROM tbl_trx_akuntansi_detail trd 
         //   JOIN tbl_trx_akuntansi tra ON trd.id_trx_akun=tra.id_trx_akun 
@@ -91,7 +91,10 @@ class Akuntansi_model extends CI_Model
           JOIN tbl_trx_akuntansi tra ON trd.id_trx_akun=tra.id_trx_akun 
           WHERE tra.tanggal=tra1.tanggal  and tipe="DEBIT" AND trd.id_akun IN ( SELECT id_akun FROM tbl_akun_detail WHERE turunan2='.$id.')), 0) AS jumlah_debit,
           tra1.tanggal FROM tbl_trx_akuntansi tra1 
-          JOIN tbl_trx_akuntansi_detail trd2 on trd2.id_trx_akun=tra1.id_trx_akun WHERE tra1.tanggal LIKE "'.$date.'%" GROUP by tra1.tanggal');
+          JOIN tbl_trx_akuntansi_detail trd2 on trd2.id_trx_akun=tra1.id_trx_akun 
+          WHERE tra1.tanggal >= "'.$dari.'" and tra1.tanggal <= "'.$sampai.'"  GROUP by tra1.tanggal');
+          // WHERE tra1.tanggal LIKE "'.$date.'%" GROUP by tra1.tanggal');
+          
         
         return $db->result();        
     }
