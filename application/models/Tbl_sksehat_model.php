@@ -26,7 +26,7 @@ class Tbl_sksehat_model extends CI_Model
         $this->datatables->select('sk.nomor,sk.nama,tr.id_transaksi');
         $this->datatables->from($this->table." as sk");
         $this->datatables->join('tbl_transaksi tr','sk.nomor = tr.no_transaksi');
-        $this->datatables->where(['tr.id_klinik' => $idKlinik,'tr.status_transaksi'=>$status]);
+        $this->datatables->where(['month(tgl_cetak)' => date('m'),'tr.id_klinik' => $idKlinik,'tr.status_transaksi'=>$status]);
         if($status=='0'){
             $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1?tab=sks'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
         }
