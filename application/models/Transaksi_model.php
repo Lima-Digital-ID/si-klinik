@@ -151,7 +151,7 @@ class Transaksi_model extends CI_Model
         $this->datatables->join('tbl_pendaftaran','tbl_pasien.no_rekam_medis=tbl_pendaftaran.no_rekam_medis');
         $this->datatables->join('tbl_klinik','tbl_transaksi.id_klinik=tbl_klinik.id_klinik');
         // $this->datatables->where('status_transaksi', '1');
-        $whereStatus = "month(tgl_pembayaran) = '"+date('m')+"' and status_transaksi = '1' ";
+        $whereStatus = "month(tbl_transaksi.dtm_upd) = '".date('m')."' and status_transaksi = '1' ";
         // if($id_klinik != null){
         //     $where.="and tbl_transaksi.id_klinik = '$id_klinik' ";
         //     // $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);
