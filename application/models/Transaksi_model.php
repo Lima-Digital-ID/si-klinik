@@ -142,7 +142,7 @@ class Transaksi_model extends CI_Model
         return $this->datatables->generate();
     }
     
-    function json2($id_klinik = null,$tipe) {
+    function json2($id_klinik = null,$tipe,$between=null) {
         $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));");        
         $this->datatables->select('id_transaksi,kode_transaksi,tbl_klinik.nama as id_klinik,tbl_transaksi.no_transaksi,tbl_periksa.is_surat_ket_sakit,tbl_periksa.no_periksa,tbl_periksa.dtm_crt as tgl_periksa,tbl_periksa.dtm_upd as tgl_pengambilan, (CASE status_transaksi WHEN 1 THEN "Lunas" ELSE "Belum Dibayar" END) as status_transaksi, tbl_transaksi.dtm_upd as tgl_pembayaran, tbl_pasien.nama_lengkap as nama_pasien');
         $this->datatables->from('tbl_periksa');
@@ -151,7 +151,13 @@ class Transaksi_model extends CI_Model
         $this->datatables->join('tbl_pendaftaran','tbl_pasien.no_rekam_medis=tbl_pendaftaran.no_rekam_medis');
         $this->datatables->join('tbl_klinik','tbl_transaksi.id_klinik=tbl_klinik.id_klinik');
         // $this->datatables->where('status_transaksi', '1');
-        $whereStatus = "month(tbl_transaksi.dtm_upd) = '".date('m')."' and status_transaksi = '1' ";
+        $whereStatus = "status_transaksi = '1' ";
+        if($between==null){
+            $whereStatus.=" and month(tbl_transaksi.dtm_upd) = '".date('m')."' ";
+        }
+        else{
+            $whereStatus.=" and tbl_transaksi.dtm_upd between '".$between[0]." 00:00:00' and '".$between[1]." 23:59:59' ";
+        }
         // if($id_klinik != null){
         //     $where.="and tbl_transaksi.id_klinik = '$id_klinik' ";
         //     // $this->datatables->where('tbl_transaksi.id_klinik', $id_klinik);

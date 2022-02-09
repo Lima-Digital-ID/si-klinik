@@ -40,17 +40,23 @@ class Tbl_rapid_antigen_model extends CI_Model
         return $this->datatables->generate();
 
     }
-    public function jsonRapid($id_klinik,$status)
+    public function jsonRapid($id_klinik,$status,$between=null)
     {
         $this->datatables->select('r.no_sampel,r.nama,r.nik_or_passport,tr.id_transaksi,r.tgl_pemeriksaan');
         $this->datatables->from($this->table." as r");
         $this->datatables->join('tbl_transaksi tr','r.no_sampel = tr.no_transaksi');
         $this->datatables->where(['tr.id_klinik' => $id_klinik,'status_transaksi' => $status]);
+        if($between==null){
+            $whereTgl = "month(r.tgl_pemeriksaan) = '".date('m')."' ";
+        }
+        else{
+            $whereTgl = "r.tgl_pemeriksaan between'".$between[0]." 00:00:00' and '".$between[1]." 23:59:59' ";
+        }
         if($status=='0'){
             $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1?tab=rapid'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
         }
         else{
-            $this->datatables->where(['month(r.tgl_pemeriksaan)' => date('m')]);
+            $this->datatables->where($whereTgl);
             $this->datatables->add_column('cetak_struk',anchor(site_url('pembayaran/cetak_surat/$1?view=cetak_struk_periksa&tab=rapid'),'Cetak Struk',array('class' => 'btn btn-info btn-sm','target'=>'_blank')),'id_transaksi');
             $this->datatables->add_column('action',anchor(site_url('pembayaran/cetak_surat/$1?tab=rapid'),'Cetak Kwitansi','class="btn btn-warning btn-sm"'),'id_transaksi');
             $this->datatables->add_column('cetak',anchor(site_url('rapid_antigen/preview?sampel=$1'),'Cetak Surat Rapid Antigen','class="btn btn-danger btn-sm"'),'no_sampel');

@@ -21,12 +21,20 @@ class Tbl_sksehat_model extends CI_Model
         $this->db->limit(1);
         return $this->db->get($this->table,['MONTH(tgl_cetak)' => date('m'),'YEAR(tgl_cetak)' => date('Y')])->result();
     }
-    public function jsonSk($idKlinik,$status)
+    public function jsonSk($idKlinik,$status,$between=null)
     {
         $this->datatables->select('sk.nomor,sk.nama,tr.id_transaksi');
         $this->datatables->from($this->table." as sk");
         $this->datatables->join('tbl_transaksi tr','sk.nomor = tr.no_transaksi');
-        $this->datatables->where(['month(tgl_cetak)' => date('m'),'tr.id_klinik' => $idKlinik,'tr.status_transaksi'=>$status]);
+        if($between==null){
+            $this->datatables->where(['month(tgl_cetak)' => date('m'),'tr.id_klinik' => $idKlinik,'tr.status_transaksi'=>$status]);
+        }else{
+            // $whereTgl = "tgl_cetak between '".$between[0]."' and '".$between[1]."'";
+            $this->datatables->where("tgl_cetak between'".$between[0]." 00:00:00' and '".$between[1]." 23:59:59'");
+            // $this->datatables->where('tgl_cetak betweem' $between);
+            $this->datatables->where(['tr.id_klinik' => $idKlinik,'tr.status_transaksi'=>$status]);
+        }
+        // $this->datatables->where(['month(tgl_cetak)' => date('m'),'tr.id_klinik' => $idKlinik,'tr.status_transaksi'=>$status]);
         if($status=='0'){
             $this->datatables->add_column('action',anchor(site_url('pembayaran/bayar/$1?tab=sks'),'Bayar','class="btn btn-danger btn-sm"'),'id_transaksi');
         }
