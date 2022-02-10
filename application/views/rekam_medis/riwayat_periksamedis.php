@@ -56,77 +56,85 @@
 </div>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script src="<?php echo base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
+<script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        // $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
-        // {
-        //     return {
-        //         "iStart": oSettings._iDisplayStart,
-        //         "iEnd": oSettings.fnDisplayEnd(),
-        //         "iLength": oSettings._iDisplayLength,
-        //         "iTotal": oSettings.fnRecordsTotal(),
-        //         "iFilteredTotal": oSettings.fnRecordsDisplay(),
-        //         "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
-        //         "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
-        //     };
-        // };
+        $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
+        {
+            return {
+                "iStart": oSettings._iDisplayStart,
+                "iEnd": oSettings.fnDisplayEnd(),
+                "iLength": oSettings._iDisplayLength,
+                "iTotal": oSettings.fnRecordsTotal(),
+                "iFilteredTotal": oSettings.fnRecordsDisplay(),
+                "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+                "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+            };
+        };
 
-        // var t = $("#mytable").dataTable({
-        //     initComplete: function() {
-        //         var api = this.api();
-        //         $('#mytable_filter input')
-        //         .off('.DT')
-        //         .on('keyup.DT', function(e) {
-        //             if (e.keyCode == 13) {
-        //                 api.search(this.value).draw();
-        //             }
-        //         });
-        //     },
-        //     oLanguage: {
-        //         sProcessing: "loading..."
-        //     },
-        //     processing: true,
-        //     serverSide: true,
-        //     ajax: {"url": "../periksamedis/json_riwayat", "type": "POST"},
-        //     columns: [
-        //         {
-        //             "data": "no_periksa",
-        //             "orderable": false
-        //         },{"data": "no_periksa"},{"data": "no_rekam_medis"},{"data": "nama_pasien"}/*,{"data": "klinik"},{"data": "nama_dokter"},{"data": "diagnosa"},{"data": "tgl_periksa"},{"data": "status"},*/,{"data": "action", "className" : "text-center"}
-        //     ],
-        //     order: [[0, 'asc']],
-        //     rowCallback: function(row, data, iDisplayIndex) {
-        //         var info = this.fnPagingInfo();
-        //         var page = info.iPage;
-        //         var length = info.iLength;
-        //         var index = page * length + (iDisplayIndex + 1);
-        //         $('td:eq(0)', row).html(index);
-        //     }
-        // });
-        t = $('#mytable').DataTable();
-        t.clear().draw(false);
-        $.ajax({
-            url : 'json_riwayat',
-            type : 'GET',
-            dataType : 'json',
-            success : function(response){
-                arrData=response;
-                var j=0;
-                for (var i = 0; i < arrData.length; i++) {
-                    j++;
-                    var tanggal=arrData[i]['dtm_crt'];
-                    // var tanggal=tanggal.split(' ');
-                    t.row.add([
-                        '<div class="text-center">'+j+'</div>',
-                        '<div class="text-left">'+arrData[i]['no_periksa']+'</div>',
-                        '<div class="text-left">'+arrData[i]['no_rekam_medis']+'</div>',
-                        '<div class="text-left">'+arrData[i]['nama_pasien']+'</div>',
-                        '<div class="text-left">'+
-                                '<a href="<?=site_url('periksamedis/riwayat_detail/')?>'+arrData[i]['no_rekam_medis']+'" class="btn waves-effect waves-light btn-xs btn-success"><i class="fa fa-money"></i></a> '+
-                                '</div>'
-                    ]).draw(false);
+        var t = $("#mytable").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable_filter input')
+                .off('.DT')
+                .on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "../periksamedis/json_riwayat", "type": "POST"},
+            columns: [
+                {
+                    "data": "no_rekam_medis",
+                    "orderable": false
+                },{"data": "no_periksa"},{"data": "no_rekam_medis"},{"data": "nama_pasien"},
+                {
+                    "data" : "action",
+                    "orderable": false,
+                    "className" : "text-center"
                 }
+            ],
+            order: [[0, 'asc']],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
             }
         });
+
+        // t = $('#mytable').DataTable();
+        // t.clear().draw(false);
+        // $.ajax({
+        //     url : 'json_riwayat',
+        //     type : 'GET',
+        //     dataType : 'json',
+        //     success : function(response){
+        //         arrData=response;
+        //         var j=0;
+        //         for (var i = 0; i < arrData.length; i++) {
+        //             j++;
+        //             var tanggal=arrData[i]['dtm_crt'];
+        //             // var tanggal=tanggal.split(' ');
+        //             t.row.add([
+        //                 '<div class="text-center">'+j+'</div>',
+        //                 '<div class="text-left">'+arrData[i]['no_periksa']+'</div>',
+        //                 '<div class="text-left">'+arrData[i]['no_rekam_medis']+'</div>',
+        //                 '<div class="text-left">'+arrData[i]['nama_pasien']+'</div>',
+        //                 '<div class="text-left">'+
+        //                         '<a href="<?=site_url('periksamedis/riwayat_detail/')?>'+arrData[i]['no_rekam_medis']+'" class="btn waves-effect waves-light btn-xs btn-success"><i class="fa fa-money"></i></a> '+
+        //                         '</div>'
+        //             ]).draw(false);
+        //         }
+        //     }
+        // });
     });
 </script>

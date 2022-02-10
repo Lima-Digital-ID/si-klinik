@@ -132,15 +132,27 @@ class Periksa_model extends CI_Model
         // if($id_dokter != null)
         //     $this->datatables->where('p.id_dokter',$id_dokter);
         // return $this->datatables->generate();
-        $data=$this->db->query('SELECT MAX(p.no_rekam_medis) AS no_rekam_medis, MAX(p.no_periksa) AS no_periksa, MAX(ps.nama_lengkap) as nama_pasien, MAX(k.nama) as klinik, MAX(d.nama_dokter) as nama_dokter, MAX(p.anamnesi) AS anamnesi, MAX(p.diagnosa) AS diagnosa, MAX(p.tindakan) AS tindakan, MAX(p.obat_detail) AS obat_detail, MAX(p.dtm_crt) as tgl_periksa,(CASE MAX(p.is_ambil_obat) WHEN 1 THEN "Selesai" ELSE "Obat Belum Diambil" END) as status, (CASE MAX(p.is_surat_ket_sakit) WHEN 1 THEN "" ELSE "disabled" END) as is_cetak
-            FROM `tbl_periksa` `p`
-            LEFT JOIN `tbl_pasien` `ps` ON `p`.`no_rekam_medis`=`ps`.`no_rekam_medis`
-            LEFT JOIN `tbl_pendaftaran` `pd` ON `p`.`no_pendaftaran`=`pd`.`no_pendaftaran`
-            LEFT JOIN `tbl_klinik` `k` ON `pd`.`id_klinik`=`k`.`id_klinik`
-            LEFT JOIN `tbl_dokter` `d` ON `p`.`id_dokter`=`d`.`id_dokter`
-            '.($id_dokter != 0 ? "WHERE `p`.`id_dokter` = ".$id_dokter : "").'
-            GROUP BY `p`.`no_rekam_medis`')->result();
-        return $data;
+        // $data=$this->db->query('SELECT MAX(p.no_rekam_medis) AS no_rekam_medis, MAX(p.no_periksa) AS no_periksa, MAX(ps.nama_lengkap) as nama_pasien, MAX(k.nama) as klinik, MAX(d.nama_dokter) as nama_dokter, MAX(p.anamnesi) AS anamnesi, MAX(p.diagnosa) AS diagnosa, MAX(p.tindakan) AS tindakan, MAX(p.obat_detail) AS obat_detail, MAX(p.dtm_crt) as tgl_periksa,(CASE MAX(p.is_ambil_obat) WHEN 1 THEN "Selesai" ELSE "Obat Belum Diambil" END) as status, (CASE MAX(p.is_surat_ket_sakit) WHEN 1 THEN "" ELSE "disabled" END) as is_cetak
+        //     FROM `tbl_periksa` `p`
+        //     LEFT JOIN `tbl_pasien` `ps` ON `p`.`no_rekam_medis`=`ps`.`no_rekam_medis`
+        //     LEFT JOIN `tbl_pendaftaran` `pd` ON `p`.`no_pendaftaran`=`pd`.`no_pendaftaran`
+        //     LEFT JOIN `tbl_klinik` `k` ON `pd`.`id_klinik`=`k`.`id_klinik`
+        //     LEFT JOIN `tbl_dokter` `d` ON `p`.`id_dokter`=`d`.`id_dokter`
+        //     '.($id_dokter != 0 ? "WHERE `p`.`id_dokter` = ".$id_dokter : "").'
+        //     GROUP BY `p`.`no_rekam_medis`')->result();
+        // return $data;
+        $this->datatables->select('MAX(p.no_rekam_medis) AS no_rekam_medis, MAX(p.no_periksa) AS no_periksa, MAX(ps.nama_lengkap) as nama_pasien, MAX(k.nama) as klinik, MAX(d.nama_dokter) as nama_dokter, MAX(p.anamnesi) AS anamnesi, MAX(p.diagnosa) AS diagnosa, MAX(p.tindakan) AS tindakan, MAX(p.obat_detail) AS obat_detail, MAX(p.dtm_crt) as tgl_periksa,(CASE MAX(p.is_ambil_obat) WHEN 1 THEN "Selesai" ELSE "Obat Belum Diambil" END) as status, (CASE MAX(p.is_surat_ket_sakit) WHEN 1 THEN "" ELSE "disabled" END) as is_cetak');
+        $this->datatables->from('tbl_periksa p');
+        $this->datatables->join('tbl_pasien ps','p.no_rekam_medis = ps.no_rekam_medis','left');
+        $this->datatables->join('tbl_pendaftaran pd','p.no_pendaftaran = pd.no_pendaftaran','left');
+        $this->datatables->join('tbl_klinik k','pd.id_klinik = k.id_klinik','left');
+        $this->datatables->join('tbl_dokter d','p.id_dokter = d.id_dokter','left');
+        $this->datatables->add_column('action',anchor(site_url('periksamedis/riwayat_detail/$1'),'<i class="fa fa-money"></i>', array('class' => 'btn waves-effect waves-light btn-xs btn-success')),'no_rekam_medis');
+        if($id_dokter != 0){
+            $this->datatables->where('p.id_dokter',$id_dokter);
+        }
+        $this->datatables->group_by('p.no_rekam_medis');
+        return $this->datatables->generate();
     }
     
     function json_riwayat_detail($id_dokter = null, $no_rekam_medis) {

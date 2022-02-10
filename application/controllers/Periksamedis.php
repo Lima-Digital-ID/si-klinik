@@ -1439,7 +1439,8 @@ class Periksamedis extends CI_Controller
     public function json_riwayat(){
         header('Content-Type: application/json');
         // echo $this->Periksa_model->json_riwayat($this->id_dokter);
-        echo json_encode($this->Periksa_model->json_riwayat($this->id_dokter));
+        echo ($this->Periksa_model->json_riwayat($this->id_dokter));
+        // echo json_encode($this->Periksa_model->json_riwayat($this->id_dokter));
     }
     
     public function json_riwayat_detail($no_rekam_medis){
