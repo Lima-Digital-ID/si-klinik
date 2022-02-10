@@ -156,7 +156,7 @@ class Periksa_model extends CI_Model
     }
     
     function json_riwayat_detail($id_dokter = null, $no_rekam_medis) {
-        $this->datatables->select('p.no_periksa, ps.nama_lengkap as nama_pasien, k.nama as klinik, d.nama_dokter as nama_dokter, p.anamnesi, p.diagnosa, p.tindakan, p.obat_detail,p.dtm_crt as tgl_periksa,(CASE p.is_ambil_obat WHEN 1 THEN "Selesai" ELSE "Obat Belum Diambil" END) as status, (CASE p.is_surat_ket_sakit WHEN 1 THEN "" ELSE "disabled" END) as is_cetak');
+        $this->datatables->select('p.no_periksa, ps.nama_lengkap as nama_pasien, k.nama as klinik, d.nama_dokter as nama_dokter, p.anamnesi, p.diagnosa, p.tindakan, p.obat_detail,p.dtm_crt as tgl_periksa,(CASE p.is_ambil_obat WHEN 1 THEN "Selesai" ELSE "Obat Belum Diambil" END) as status, (CASE p.is_surat_ket_sakit WHEN 1 THEN "" ELSE "hidden" END) as is_cetak');
         $this->datatables->from('tbl_periksa p');
         $this->datatables->join('tbl_pasien ps','p.no_rekam_medis=ps.no_rekam_medis','left');
         $this->datatables->join('tbl_pendaftaran pd','p.no_pendaftaran=pd.no_pendaftaran','left');
