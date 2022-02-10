@@ -165,7 +165,7 @@ class Periksa_model extends CI_Model
         $this->datatables->where('p.no_rekam_medis', $no_rekam_medis);
         $this->datatables->add_column('action',/*anchor(site_url('periksamedis/detail?id=$1'),'Detail', array('class' => 'btn btn-danger btn-sm','target'=>'_blank')) ." ".*/anchor(site_url('periksamedis/cetak_surat_ket_sakit?id=$1'),'Cetak Surat Ket. Sakit', array('class' => 'btn btn-info btn-sm $2','target'=>'_blank')),'no_periksa,is_cetak');
         
-        if($id_dokter != null)
+        if($id_dokter != 0)
             $this->datatables->where('p.id_dokter',$id_dokter);
         return $this->datatables->generate();
     }
