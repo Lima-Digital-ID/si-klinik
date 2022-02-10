@@ -1551,7 +1551,7 @@ class Periksamedis extends CI_Controller
         $date = new DateTime($data->tanggal_mulai);
         $tgl_periksa = $date->format('d/m/Y');
         $date2 = new DateTime($data->tanggal_mulai);
-        $date2->add(new DateInterval('P'.($data->lama_istirahat_surat-1).'D'));
+        // $date2->add(new DateInterval('P'.($data->lama_istirahat_surat-1).'D'));
         $tgl_periksa2 = $date2->format('d/m/Y');
         $this->data['tgl_periksa'] = $tgl_periksa;
         $this->data['tgl_periksa2'] = $tgl_periksa2;
