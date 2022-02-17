@@ -5,12 +5,35 @@
                 <div class="box box-warning box-solid">
 
                     <div class="box-header">
-                        <h3 class="box-title">Obat Keluar Terbanyak</h3>
+                        <h3 class="box-title">OBAT KELUAT TERBANYAK</h3>
                     </div>
 
                     <div class="box-body">
-                        <hr />
-                        <div class="table-responsive">
+                        <form action="" id="" method="get">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <label for="">Dari Tanggal</label>
+                                    <input type="date" name="dari" class="form-control" value="<?= isset($_GET['dari']) ? $_GET['dari'] : '' ?>" >
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Sampai Tanggal</label>
+                                    <input type="date" name="sampai" class="form-control" value="<?= isset($_GET['sampai']) ? $_GET['sampai'] : '' ?>" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <br>
+                                    <button class="btn btn-danger"><span class="fa fa-search"></span> Tampilkan</button>
+                                </div>
+                            </div>
+                    </form>
+                        <?php 
+                            if(isset($_GET['dari'])){
+                        ?>
+                        <div style="padding-bottom: 10px;">
+                        <div style="padding-bottom: 10px;">
+                        </div>
                         <table class="table table-bordered table-striped" id="mytable">
                             <thead>
                                 <tr>
@@ -21,7 +44,9 @@
                                 </tr>
                             </thead>
                         </table>
-                        </div>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -29,7 +54,6 @@
     </section>
 </div>
 <script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
-
 <script src="<?php echo base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
 <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
 <script type="text/javascript">
@@ -63,14 +87,14 @@
             },
             processing: true,
             serverSide: true,
-            ajax: {"url": "json_obat_keluar_terbanyak", "type": "POST"},
+            ajax: {"url": "jsonObatOut/<?php echo $_GET['dari'].'_'.$_GET['sampai'];?>", "type": "POST"},
             columns: [
                 {
                     "data": "kode_barang",
                     "orderable": false
                 },{"data": "kode_barang"},{"data": "nama_barang"},{"data": "ttl"}
             ],
-            order: [[1, 'asc']],
+            // order: [[4, 'asc']],
             rowCallback: function(row, data, iDisplayIndex) {
                 var info = this.fnPagingInfo();
                 var page = info.iPage;
@@ -79,7 +103,5 @@
                 $('td:eq(0)', row).html(index);
             }
         });
-        
     });
 </script>
-
