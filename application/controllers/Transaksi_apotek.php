@@ -333,14 +333,14 @@ class Transaksi_apotek extends CI_Controller
             }
             $kredit_kas=($data_akun['total_bersih']+$data_akun['total_bersih_alkes']);
 
-            $hpp=array(
-                'id_trx_akun'   => $id_last->id_trx_akun,
-                'id_akun'       => 65,
-                'jumlah'        => $kredit_kas,
-                'tipe'          => 'DEBIT',
-                'keterangan'    => 'lawan',
-            );
-            $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $hpp);
+            // $hpp=array(
+            //     'id_trx_akun'   => $id_last->id_trx_akun,
+            //     'id_akun'       => 65,
+            //     'jumlah'        => $kredit_kas,
+            //     'tipe'          => 'DEBIT',
+            //     'keterangan'    => 'lawan',
+            // );
+            // $this->Transaksi_akuntansi_model->insert('tbl_trx_akuntansi_detail', $hpp);
 
             if($data_akun['jenis_pembayaran']==0){
                 $data=array(
