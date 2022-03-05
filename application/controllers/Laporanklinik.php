@@ -75,6 +75,12 @@ class Laporanklinik extends CI_Controller
         echo $this->Tbl_rapid_antigen_model->jsonRapid(1,1,[$dari,$sampai]);
     }
 
+    public function jsonObatOut($filter=null)
+    {
+        header('Content-Type: application/json');
+        echo $this->Tbl_obat_alkes_bhp_model->most_obat($filter);
+    }
+
     public function laporan_suket_sehat(){
         $this->template->load('template','laporanklinik/suket_sehat');
     }
