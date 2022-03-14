@@ -71,7 +71,7 @@ class Periksamedis extends CI_Controller
                         }
                     }
                 }
-                $sktNomor = $this->input->post('nomor_skt')."/".date('m')."/KR/SK/".date('y');;
+                $sktNomor = $this->input->post('nomor_skt')."/".date('m')."/KR/SK/".date('y');
     
                 $data_periksa = array(
                     'no_periksa' => $this->input->post('no_periksa'),
@@ -260,7 +260,7 @@ class Periksamedis extends CI_Controller
                     ),
                     array(
                         'no_transaksi' => $this->input->post('no_periksa'),
-                        'deskripsi' => 'Biaya Tindakan '.$this->input->post('tindakan'),
+                        'deskripsi' => 'Biaya Tindakan '.$this->input->post('name_tindakan'),
                         'amount_transaksi' => $this->input->post('biaya_tindakan') != '' || $this->input->post('biaya_tindakan') != 0 ? $this->input->post('biaya_tindakan') : 0,
                         'dc' => 'd'
                     ),

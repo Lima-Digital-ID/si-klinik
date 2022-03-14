@@ -610,15 +610,16 @@
 							<div class="col-sm-4">
 								<div class="input-group">
                                     <span class="input-group-addon" style="background-color: #fcffc4;">Tindakan</span>
-                                    <input type="hidden" name="tindakan" id="nameTindakan">
-                                    <select name="biaya_tindakan" id="biaya_tindakan" style="width:100%" class="select2 form-control" onchange="hitung_biaya()">
-                                        <option value="0">---Pilih Tindakan---</option>
+                                    <input type="hidden" name="name_tindakan" id="nameTindakan">
+                                    <select name="select_tindakan" id="select_tindakan" style="width:100%" multiple="multiple" class="select2 form-control" onchange="hitung_biaya()">
+                                        <option value="">---Pilih Tindakan---</option>
                                         <?php 
                                             foreach ($master_tindakan as $key => $value) {
-                                                echo "<option data-tindakan='".$value->tindakan."' value='".$value->biaya."'>".$value->kode_tindakan." - ".$value->tindakan." ".number_format($value->biaya,0,',','.')."</option>";
+                                                echo "<option data-biaya='".$value->biaya."' data-tindakan='".$value->tindakan."' value='".$value->kode_tindakan."'>".$value->kode_tindakan." - ".$value->tindakan." ".number_format($value->biaya,0,',','.')."</option>";
                                             }
                                         ?>
                                     </select>
+                                    <input type="hidden" name="biaya_tindakan" id="biaya_tindakan" value='0'>
                                     <?php //echo form_input(array('id'=>'biaya_tindakan','name'=>'biaya_tindakan','type'=>'number','value'=>'','class'=>'form-control','style'=>'text-align:right;', 'onchange'=>'hitung_biaya()','placeholder'=>'0'));?>
                                 </div>
 							</div>
@@ -724,9 +725,20 @@
                 }
             })
         })
-        $("#biaya_tindakan").change(function(){
-            var tindakan = $(this).find(":selected").data('tindakan')
-            $("#nameTindakan").val(tindakan)
+        $("#select_tindakan").change(function(){
+            var nameTindakan = ''
+            var biayaTindakan = 0;
+            $.each($(this).val(),function(i,v){
+                var getAttr = $("#select_tindakan option[value='"+v+"']")
+                var tindakan = getAttr.attr('data-tindakan')
+                var biaya = parseInt(getAttr.attr('data-biaya'))
+                var glue = i!=0 ? ', ' : '';
+                nameTindakan+=glue+tindakan
+                biayaTindakan+=biaya
+            })
+            $("#nameTindakan").val(nameTindakan)
+            $("#biaya_tindakan").val(biayaTindakan)
+            console.log(biayaTindakan)
         })
         $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
         {
