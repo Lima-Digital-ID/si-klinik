@@ -348,4 +348,42 @@ class Akuntansi_model extends CI_Model
       // $this->db->where('tipe', 'DEBIT');
       return $this->db->get()->result();
     }
+    public function saldo_harian_bank($tipe,$id_akun,$dari,$sampai,$isSaldoAwal=false,$isKas=false)
+    {
+        $this->db->select('sum(jumlah) jumlah');
+        $this->db->from('tbl_akun a');
+        $this->db->join('tbl_trx_akuntansi_detail d','a.id_akun = d.id_akun','left');
+        $this->db->join('tbl_trx_akuntansi ta','d.id_trx_akun = ta.id_trx_akun','left');
+        if($isKas==false){
+          $this->db->where('a.id_main_akun',95);
+        }
+        $this->db->where('a.id_akun',$id_akun);
+        $this->db->where('tipe',$tipe);
+        if($isSaldoAwal==true){
+          $this->db->where('ta.tanggal <', $dari);
+        }
+        else{
+          $this->db->where('ta.tanggal >=', $dari);
+          $this->db->where('ta.tanggal <=', $sampai);        
+        }
+        return $this->db->get()->row();
+      }
+      
+    public function rekap_saldo_awal($id_akun,$dari,$sampai,$isKas=false)
+    {
+      $saldoAwal = $this->saldo_harian_bank('DEBIT',$id_akun,$dari,$sampai,$isSaldoAwal=true,$isKas)->jumlah - $this->saldo_harian_bank('KREDIT',$id_akun,$dari,$sampai,$isSaldoAwal=true,$isKas)->jumlah;
+      
+      return $saldoAwal;
+    }
+    
+    public function rekap_by_akun($id_akun,$dari,$sampai)
+    {
+      $this->db->select('sum(jumlah) jumlah');
+      $this->db->from('tbl_trx_akuntansi_detail d');
+      $this->db->join('tbl_trx_akuntansi ta','d.id_trx_akun = ta.id_trx_akun','left');
+      $this->db->where('d.id_akun',$id_akun);
+      $this->db->where('ta.tanggal >=', $dari);
+      $this->db->where('ta.tanggal <=', $sampai);        
+      return $this->db->get()->row();
+    }
 }

@@ -143,7 +143,7 @@ class Laporan extends CI_Controller
     public function rekap_all(){
         // $data['date']=date('Y-m');
         // $data['bulan']=json_encode(explode('-', date('Y-m')));
-
+        
         $data['akun_option']=array();
         foreach ($this->Tbl_akun_model->get_all_beban() as $key => $value) {
             if ($value->level != 0) {    
@@ -155,8 +155,8 @@ class Laporan extends CI_Controller
             }
         }
         // if(isset($_GET['dari'])){
-        //     $data['rekap'] = $this->Akuntansi_model->rekap_pengeluaran($_GET['dari'],$_GET['sampai']);
-        // }
+            //     $data['rekap'] = $this->Akuntansi_model->rekap_pengeluaran($_GET['dari'],$_GET['sampai']);
+            // }
     
         $this->template->load('template','akuntansi/laporan/rekap_all', $data);  
     }
@@ -169,8 +169,24 @@ class Laporan extends CI_Controller
     {
         $detail = $this->Akuntansi_model->rekap_pengeluaran_detail($_GET['dari'],$_GET['sampai'],$_GET['id_trx']);
         header('Content-Type: application/json');
-
+        
         echo json_encode($detail);
     }
+    
+    public function rekap_harian()
+    {
+        $data = array();
+        if(isset($_GET['dari']) && isset($_GET['sampai'])){
+            $this->db->select('id_akun,nama_akun');
+            $data['bank'] = $this->db->get_where('tbl_akun',['id_main_akun' => 95])->result();
+            $data['obat'] = $this->Akuntansi_model->rekap_by_akun(58,$_GET['dari'],$_GET['sampai']);
+            $data['bhp'] = $this->Akuntansi_model->rekap_by_akun(59,$_GET['dari'],$_GET['sampai']);
+            $data['pemeriksaan'] = $this->Akuntansi_model->rekap_by_akun(62,$_GET['dari'],$_GET['sampai']);
+            $data['tindakan'] = $this->Akuntansi_model->rekap_by_akun(63,$_GET['dari'],$_GET['sampai']);
+            $data['penjualan_obat'] = $this->Akuntansi_model->rekap_by_akun(39,$_GET['dari'],$_GET['sampai']);
+        }
 
+        $this->template->load('template','akuntansi/laporan/rekap_harian',$data);  
+    }
+    
 }
