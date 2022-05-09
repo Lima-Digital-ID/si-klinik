@@ -133,7 +133,7 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
 	function get_all_obat_alkes($id_klinik = null,$json=false)
     {
         $tipeGetData = $json ? $this->datatables : $this->db;
-        $tipeGetData->select($this->queryGetStok('RECEIPT_ORDER')." - ".$this->queryGetStok('RETURN_STUFF')." - ".$this->queryGetStok('RETURN_MONEY')." - ".$this->queryGetStok('TRX_STUFF')." - ".$this->queryGetStok('MANUFAKTUR_OUT')." + ".$this->queryGetStok('MANUFAKTUR_IN')." - ".$this->queryGetStok('STOCK_ADJ')." as stok_barang, MAX(tid1.kode_barang) AS kode_barang, MAX(tid1.harga) AS harga, MAX(toa.harga) AS harga_jual, MAX(tid1.diskon) AS diskon, MAX(tid1.tgl_exp) AS tgl_exp, MAX(toa.nama_barang) AS nama_barang");
+        $tipeGetData->select($this->queryGetStok('RECEIPT_ORDER')." - ".$this->queryGetStok('RETURN_STUFF')." - ".$this->queryGetStok('RETURN_MONEY')." - ".$this->queryGetStok('TRX_STUFF')." - ".$this->queryGetStok('MANUFAKTUR_OUT')." + ".$this->queryGetStok('MANUFAKTUR_IN')." - ".$this->queryGetStok('STOCK_ADJ')." as stok_barang, MAX(tid1.kode_barang) AS kode_barang, ".$this->getHargaFromPO()." as harga, MAX(toa.harga) as harga_jual, ".$this->getDiskonFromPO()." as diskon, MAX(tid1.tgl_exp) AS tgl_exp, MAX(toa.nama_barang) AS nama_barang");
         $tipeGetData->from("tbl_inventory_detail tid1");
         $tipeGetData->join('tbl_inventory ti','tid1.id_inventory=ti.id_inventory');
         $tipeGetData->join('tbl_obat_alkes_bhp toa','tid1.kode_barang=toa.kode_barang');
