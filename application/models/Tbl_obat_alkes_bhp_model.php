@@ -68,6 +68,24 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         return $getStok;
     }
 
+    public function getHargaFromPO()
+    {
+        $select = "(SELECT MAX(harga) as harga FROM `tbl_purchase_d` WHERE kode_barang=tid1.kode_barang)";
+        return $select;
+    }
+
+    public function getDiskonFromPO()
+    {
+        $select = "(SELECT MAX(diskon) as diskon FROM `tbl_purchase_d` WHERE kode_barang=tid1.kode_barang)";
+        return $select;
+    }
+
+    // public function getTglExpFromPO()
+    // {
+    //     $select = "(SELECT MAX(tid3.tgl_exp) as tgl_exp FROM `tbl_purchase_d` WHERE kode_barang=tid1.kode_barang)";
+    //     return $select;
+    // }
+
 	function get_all_obat($id_klinik = null,$json=false,$jenis_barang=1)
     {
         // $this->db->where('jenis_barang', '1'); //Get jenis barang = obat
@@ -86,7 +104,7 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         
         // $stok = $this->queryGetStok('RECEIPT_ORDER') - $this->queryGetStok('RETURN_STUFF') - $this->queryGetStok('RETURN_MONEY') - $this->queryGetStok('TRX_STUFF') - $this->queryGetStok('MANUFAKTUR_OUT') + $this->queryGetStok('MANUFAKTUR_IN');
 
-        $tipeGetData->select($this->queryGetStok('RECEIPT_ORDER')." - ".$this->queryGetStok('RETURN_STUFF')." - ".$this->queryGetStok('RETURN_MONEY')." - ".$this->queryGetStok('TRX_STUFF')." - ".$this->queryGetStok('MANUFAKTUR_OUT')." + ".$this->queryGetStok('MANUFAKTUR_IN')." - ".$this->queryGetStok('STOCK_ADJ')." as stok_barang, MAX(tid1.kode_barang) AS kode_barang, MAX(tid1.harga) AS harga, MAX(toa.harga) AS harga_jual, MAX(tid1.diskon) AS diskon, MAX(tid1.tgl_exp) AS tgl_exp, MAX(toa.nama_barang) AS nama_barang");
+        $tipeGetData->select($this->queryGetStok('RECEIPT_ORDER')." - ".$this->queryGetStok('RETURN_STUFF')." - ".$this->queryGetStok('RETURN_MONEY')." - ".$this->queryGetStok('TRX_STUFF')." - ".$this->queryGetStok('MANUFAKTUR_OUT')." + ".$this->queryGetStok('MANUFAKTUR_IN')." - ".$this->queryGetStok('STOCK_ADJ')." as stok_barang, MAX(tid1.kode_barang) AS kode_barang, ".$this->getHargaFromPO()." as harga, MAX(toa.harga) as harga_jual, ".$this->getDiskonFromPO()." as diskon, MAX(tid1.tgl_exp) as tgl_exp, MAX(toa.nama_barang) as nama_barang");
         $tipeGetData->from("tbl_inventory_detail tid1");
         $tipeGetData->join('tbl_inventory ti','tid1.id_inventory=ti.id_inventory');
         $tipeGetData->join('tbl_obat_alkes_bhp toa','tid1.kode_barang=toa.kode_barang');
