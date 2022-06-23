@@ -72,20 +72,13 @@ class Dataobat extends CI_Controller
     }
     public function getStokJson()
     {
-        $step1 = $this->Tbl_obat_alkes_bhp_model->Tbl_obat_alkes_bhp_model->getStokStep1();
+        $step1 = $this->Tbl_obat_alkes_bhp_model->get_all_obat_alkes();
         $stok = [];
         foreach ($step1 as $key => $value) {
-            $cek = $this->Tbl_obat_alkes_bhp_model->getStokStep2($value->kode_barang);
-            if($cek==0){
-                $getStok = 0;
-            }
-            else{
-                $getStok = $this->Tbl_obat_alkes_bhp_model->getStokStep3($value->kode_barang);
-            }
             $row = array(
                 'kode_barang' => $value->kode_barang,
                 'nama_barang' => $value->nama_barang,
-                'stok' => $getStok,
+                'stok' => $value->stok_barang,
                 'minimum_stok' => $value->minimal_stok,
                 'harga' => $value->harga,
             );
