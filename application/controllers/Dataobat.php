@@ -189,6 +189,7 @@ class Dataobat extends CI_Controller
             "tgl_exp" => $_POST['tgl_exp']
         );
         $this->db->insert("tbl_inventory_detail",$detailInventoryBJadi);
+        $this->db->query('update tbl_obat_alkes_bhp set stok_barang=stok_barang - '.$_POST['jumlah'].' where kode_barang="'.$kodeBarang.'"');
         
         $newTime = (int)time() + 1;
         $kode_receipt2='RCP'.$newTime;
@@ -220,6 +221,7 @@ class Dataobat extends CI_Controller
                 'harga' => $_POST['m_harga'][$key],
             );
             $this->db->insert("tbl_manufaktur_detail",$detail);
+            $this->db->query('update tbl_obat_alkes_bhp set stok_barang=stok_barang - '.$_POST['m_jumlah'][$key].' where kode_barang="'.$value.'"');
         }
 
         redirect(base_url()."dataobat/update/".$kodeBarang);
@@ -956,6 +958,7 @@ class Dataobat extends CI_Controller
                 'to_stok' => $_POST['jumlah'][$key],
             );
             $this->db->insert('tbl_stok_adjustment_detail',$detailAdj);
+            $this->db->query('update tbl_obat_alkes_bhp set stok_barang=stok_barang - '.$_POST['stok'][$key].' where kode_barang="'.$value.'"');
             //select jenis obat, harga, from barang
             $this->db->select('jenis_barang,harga');
             // $this->db->from('tbl_obat_alkes_bhp');

@@ -200,6 +200,7 @@ class Rapid_antigen extends CI_Controller
                     'tgl_exp' => $getObat1->tgl_exp,
                 );
                 $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv1);
+                $this->db->query('update tbl_obat_alkes_bhp set stok_barang=stok_barang - '.$_POST['jml_barang'][$key].' where kode_barang="'.$value.'"');
                 $this->db->insert('alkes_periksa_rapid',['no_sampel' => $getNoSampel->no_sampel,'kode_barang' => $value,'jml_barang' => $det_inv1['jumlah']]);
                 $biayaObat = ($getObat1->harga * $_POST['jml_barang'][$key]) - $getObat1->diskon;
                 $totalBiayaObat+=$biayaObat;
