@@ -164,6 +164,8 @@ class Periksamedis extends CI_Controller
                         $harga=$harga_obat-$diskon;
                         $total=$post_obat_jml[$i]*$harga;
                         $total_jual+=$total;
+                        
+                    $this->db->query('update tbl_obat_alkes_bhp set stok_barang=stok_barang - '.$post_obat_jml[$i].' where kode_barang="'.$kode_barang.'"');
                         $insert=$this->Transaksi_obat_model->insert('tbl_inventory_detail',$data_detail);
                 }
                 $no_periksa=$this->input->post('no_periksa');
@@ -820,6 +822,7 @@ class Periksamedis extends CI_Controller
                 'tgl_exp' => $getObat1->tgl_exp,
             );
             $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv1);
+            $this->db->query('update tbl_obat_alkes_bhp set stok_barang=stok_barang - '.$_POST['jml_barang'][$key].' where kode_barang="'.$_POST['kode_barang'][$key].'"');
             $this->db->insert('alkes_periksa_lab',['no_sampel' => $this->input->post('no_periksa'),'kode_barang' => $_POST['kode_barang'][$key],'jml_barang' => $det_inv1['jumlah']]);
 
             $biayaObat = ($getObat1->harga * $_POST['jml_barang'][$key]) - $getObat1->diskon;
@@ -1129,6 +1132,7 @@ class Periksamedis extends CI_Controller
             'diskon' => $getObat1->diskon,
             'tgl_exp' => $getObat1->tgl_exp,
         );
+        $this->db->query('update tbl_obat_alkes_bhp set stok_barang=stok_barang - '.$_POST['fe'].' where kode_barang="'.$post['jml_fe'].'"');
         $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv1);
 
         //input inventory barang alkes
@@ -1152,6 +1156,7 @@ class Periksamedis extends CI_Controller
                 'tgl_exp' => $getObat2->tgl_exp,
             );
             $this->Transaksi_obat_model->insert('tbl_inventory_detail',$det_inv2);
+            $this->db->query('update tbl_obat_alkes_bhp set stok_barang=stok_barang - '.$_POST['jml_barang'][$key].' where kode_barang="'.$_POST['kode_barang'][$key].'"');
             $this->db->insert('alkes_kontrol_kehamilan',['no_periksa' => $periksa['no_periksa'],'kode_barang' => $value,'jml_barang' => $det_inv2['jumlah']]);
             $totalBiayaAlkes+=($getObat2->harga * $_POST['jml_alkes'][$key]) - $getObat2->diskon;
         }

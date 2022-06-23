@@ -109,6 +109,7 @@ class Kasir extends CI_Controller
                     $harga_beli=$harga_obat-$diskon;
                     $total_beli+=($post_obat_jml[$i]*$harga_beli);
                     
+                    $this->db->query('update tbl_obat_alkes_bhp set stok_barang=stok_barang - '.$post_obat_jml[$i].' where kode_barang="'.$kode_barang.'"');
                     $insert=$this->Transaksi_obat_model->insert('tbl_inventory_detail',$data_detail);
             }
 

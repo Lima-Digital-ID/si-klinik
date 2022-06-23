@@ -240,6 +240,7 @@ class Transaksi_apotek extends CI_Controller
                     'tgl_exp' => $tgl_exp[$i],
                 );
                 $insert=$this->Transaksi_obat_model->insert('tbl_inventory_detail',$data_detail);
+                $this->db->query('update tbl_obat_alkes_bhp set stok_barang=stok_barang + '.$jumlah[$i].' where kode_barang="'.$barang[$i].'"');
                 $row=$this->db->where('kode_barang', $barang[$i])->get('tbl_obat_alkes_bhp')->row();
                 if ($row->jenis_barang == 2) {
                     $tempTotalAlkes=$jumlah[$i] * $harga[$i];
@@ -496,7 +497,8 @@ class Transaksi_apotek extends CI_Controller
                         'tgl_exp' => $tgl_exp[$i],
                     );
                     $insert=$this->Transaksi_obat_model->insert('tbl_inventory_detail',$data_detail);
-                 } 
+                } 
+                $this->db->query('update tbl_obat_alkes_bhp set stok_barang=stok_barang - '.$jumlah[$i].' where kode_barang="'.$barang[$i].'"');
             }
             $this->session->set_flashdata('message', 'Create Record Success 2');
             redirect(site_url('transaksi_apotek/retur_list'));
