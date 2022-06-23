@@ -434,7 +434,7 @@ class Periksamedis extends CI_Controller
             } 
             $this->data['nomor_skt'] = sprintf("%04s",$nomor);
 
-            // $this->template->load('template','rekam_medis/form_rekam_medis', $this->data);
+            $this->template->load('template','rekam_medis/form_rekam_medis', $this->data);
     
         }
         else if($data_pendaftaran->tipe_periksa=='2'){
