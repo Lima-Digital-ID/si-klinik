@@ -378,25 +378,25 @@ class Periksamedis extends CI_Controller
                 $this->data['alkes_option'] = array();
                 $this->data['alkes_option'][''] = 'Pilih Alat Kesehatan';
                 $alkes_opt_js = array();
-                // foreach ($this->Tbl_obat_alkes_bhp_model->get_all_alkes($this->id_klinik) as $alkes){
-                //     $this->data['alkes_option'][$alkes->kode_barang] = $alkes->nama_barang;
-                //     $alkes_opt_js[] = array(
-                //         'value' => $alkes->kode_barang,
-                //         'label' => $alkes->nama_barang
-                //     );
-                // }
+                foreach ($this->Tbl_obat_alkes_bhp_model->get_all_alkes($this->id_klinik) as $alkes){
+                    $this->data['alkes_option'][$alkes->kode_barang] = $alkes->nama_barang;
+                    $alkes_opt_js[] = array(
+                        'value' => $alkes->kode_barang,
+                        'label' => $alkes->nama_barang
+                    );
+                }
                 $this->data['alkes_option_js'] = json_encode($alkes_opt_js);
                 
                 $this->data['obat_option'] = array();
                 $this->data['obat_option'][''] = 'Pilih Obat';
                 $obat_opt_js = array();
-                // foreach ($this->Tbl_obat_alkes_bhp_model->get_all_obat($this->id_klinik) as $obat){
-                //     $this->data['obat_option'][$obat->kode_barang] = $obat->nama_barang;
-                //     $obat_opt_js[] = array(
-                //         'value' => $obat->kode_barang,
-                //         'label' => $obat->nama_barang
-                //     );
-                // }
+                foreach ($this->Tbl_obat_alkes_bhp_model->get_all_obat($this->id_klinik) as $obat){
+                    $this->data['obat_option'][$obat->kode_barang] = $obat->nama_barang;
+                    $obat_opt_js[] = array(
+                        'value' => $obat->kode_barang,
+                        'label' => $obat->nama_barang
+                    );
+                }
                 // for ($i=0; $i < count($obat_opt_js); $i++) { 
                 //     echo $obat_opt_js[$i]['value'];
                 // }
