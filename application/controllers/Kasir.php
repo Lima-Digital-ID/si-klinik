@@ -142,8 +142,9 @@ class Kasir extends CI_Controller
             //Insert into tbl_transaksi
             $this->Transaksi_model->insert($data_transkasi,$data_transaksi_d);
             $this->Transaksi_model->insert_transaksi_d_obat($data_transaksi_d_obat);
+            $id_last=$this->db->select_max('id_transaksi')->from('tbl_transaksi')->get()->row();
              
-            redirect('kasir/jual_obat');
+            redirect('pembayaran/bayar_obat/'.$id_last->id_transaksi);
         } else {
         
             $this->data['no_transaksi'] = 'TRXOBAT'.$this->Master_sequence_model->set_code_by_master_seq_code("NOTRANSAKSIOBAT");
