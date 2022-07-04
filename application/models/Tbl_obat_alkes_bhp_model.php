@@ -311,7 +311,7 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         $filter = explode("_", $filters);
         $dari = $filter[0];
         $sampai = $filter[1];
-        $this->datatables->select('id.kode_barang,COUNT(jumlah) ttl,nama_barang');
+        $this->datatables->select('id.kode_barang,sum(jumlah) ttl,nama_barang');
         $this->datatables->from('tbl_inventory_detail id');
         $this->datatables->join('tbl_inventory i','id.id_inventory = i.id_inventory');
         $this->datatables->join('tbl_obat_alkes_bhp o','id.kode_barang = o.kode_barang');
