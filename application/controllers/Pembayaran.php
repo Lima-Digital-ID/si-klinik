@@ -11,7 +11,6 @@ class Pembayaran extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        is_login();
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model('Transaksi_model');
         $this->load->model('Periksa_model');
@@ -27,6 +26,9 @@ class Pembayaran extends CI_Controller
         $this->load->model('Tbl_rapid_antigen_model');
         $this->id_klinik = $this->session->userdata('id_klinik');
         $this->nama_user = $this->session->userdata('full_name');
+        if($this->uri->segment(2)!='preview'){
+            is_login();
+        }
     }
 
     public function index()
@@ -99,10 +101,33 @@ class Pembayaran extends CI_Controller
             $subsidi_transaksi = str_replace('.','',$this->input->post('subsidi_transaksi'));
             $total_pembayaran = str_replace('.','',$this->input->post('total_pembayaran'));
 
+            
+            $this->load->library('ciqrcode'); //pemanggilan library QR CODE
+
+            $config['cacheable']    = true; //boolean, the default is true
+            $config['cachedir']     = 'assets/'; //string, the default is application/cache/
+            $config['errorlog']     = 'assets/'; //string, the default is application/logs/
+            $config['imagedir']     = 'assets/images/qr_code/'; //direktori penyimpanan qr code
+            $config['quality']      = true; //boolean, the default is true
+            $config['size']         = '1024'; //interger, the default is 1024
+            $config['black']        = array(224,255,255); // array, default is array(255,255,255)
+            $config['white']        = array(70,130,180); // array, default is array(0,0,0)
+            $this->ciqrcode->initialize($config);
+
+            $getId = $this->Transaksi_model->get_by_id($data_transaksi->id_transaksi);
+            $image_name = str_replace('/','-',$getId->id_transaksi).'.png'; //buat name dari qr code sesuai dengan nim
+
+            $params['data'] = base_url()."pembayaran/preview?cetak=struk&qr=".$getId->qr_code; //data yang akan di jadikan QR CODE
+            $params['level'] = 'H'; //H=High
+            $params['size'] = 10;
+            $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
+            $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+
             $data_trans = array(
                 'atas_nama' => $this->input->post('atas_nama'),
                 'status_transaksi' => 1,
                 'cara_pembayaran' => $this->input->post('cara_pembayaran'),
+                'qr_code' => $image_name,
                 'dtm_upd' => date("Y-m-d H:i:s",  time())
             );
             $biaya_tindakan=$biaya_pemeriksaan=$biaya_obat=0;
@@ -530,6 +555,7 @@ class Pembayaran extends CI_Controller
             // tahun
             $y = $today->diff($tanggal)->y;
 
+            $this->data['qr_code'] = $data_transaksi->qr_code;
             $this->data['umur'] = $y;
             $this->data['alamat'] = $data_pasien->alamat;
             $this->data['jk'] = '';
@@ -634,5 +660,44 @@ class Pembayaran extends CI_Controller
         $query = $this->db->get_where("tbl_transaksi_d",["deskripsi" => "Subsidi dari Kasir","no_transaksi" => $no_transaksi]);
         $data['subsidi'] = $query->num_rows()==0 ? 0 : $query->row()->amount_transaksi; 
         $this->load->view('pembayaran/cetak_struk', $data);
+    }
+
+    public function preview()
+    {   
+        $qr = explode(".png",$_GET['qr']);
+        $data_transaksi = $this->Transaksi_model->get_by_id($qr[0]); //Ini Row
+        $data_periksa = $this->Periksa_model->get_by_id($data_transaksi->no_transaksi);
+        $data_pasien = $this->Tbl_pasien_model->get_by_id($data_periksa->no_rekam_medis);
+        if ($_GET['cetak'] != 'surat') {
+            $this->data['id_transaksi'] = $data_transaksi->id_transaksi;
+            $this->data['kode_transaksi'] = $data_transaksi->kode_transaksi;
+            $this->data['klinik'] = $data_transaksi->id_klinik;
+            $this->data['no_transaksi'] = $data_transaksi->no_transaksi;
+            $this->data['tgl_transaksi'] = $data_transaksi->tgl_transaksi;
+            $this->data['status_transaksi'] = $data_transaksi->status_transaksi;
+            $this->data['total_transaksi'] = 0;
+            $this->data['bank'] = $this->Tbl_akun_model->get_all_bank();
+            $this->data['transaksi_d'] = $this->Transaksi_model->get_detail_by_h_id($data_transaksi->no_transaksi); //Ini array
+            $this->data['nama_pasien'] = $data_pasien->nama_lengkap;
+            $this->data['qr_code'] = $data_transaksi->qr_code;
+            $this->load->view('pembayaran/cetak_struk_periksa',$this->data);
+        } else {
+            $this->data['nama_pasien'] = $data_pasien->nama_lengkap;
+            $this->data['id_transaksi'] = $data_transaksi->no_transaksi;
+            $this->data['transaksi_d'] = $this->Transaksi_model->get_detail_by_h_id($data_transaksi->no_transaksi);
+            $this->data['tgl_cetak'] = date("d M Y",  time());
+            $this->data['qr_code'] = $data_transaksi->qr_code;
+            $tanggal = new DateTime($data_pasien->tanggal_lahir);
+            // tanggal hari ini
+            $today = new DateTime('today');
+            // tahun
+            $y = $today->diff($tanggal)->y;
+            $this->data['umur'] = $y;
+            $this->data['alamat'] = $data_pasien->alamat;
+            $this->data['jk'] = '';
+            $this->data['nama_pegawai'] = 'Kasir';
+            $this->load->view('pembayaran/cetak_surat',$this->data);
+        }
+        
     }
 }

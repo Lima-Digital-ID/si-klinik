@@ -117,6 +117,15 @@
 	</tr>
 </table>
 <br>
+<table width="100%">
+<thead>
+	<tr>
+		<td align="center">
+        <img src="<?= base_url()."assets/images/qr_code/".$qr_code ?>" width="50%" alt="" srcset="">
+    </td>
+	</tr>
+</thead>
+</table>  
 <!-- <table width="100%">
 <thead>
 	<tr>
@@ -131,8 +140,8 @@
 		<td align="right">(...................)</td>
 	</tr>
 </thead>
-</table>
- -->  </section>
+</table>   -->
+</section>
 
 </body>
 

@@ -162,7 +162,13 @@
       <td width="45%">
         <table width="100%">
           <tr>
-            <td><span style="margin-left:50px"></span> Denpasar, <?php echo $tgl_cetak;?></td>
+            <td>
+              <center>
+                <img src="<?= base_url()."assets/images/qr_code/".$qr_code ?>" width="30%" alt="" srcset="">
+              </center>
+            <br>
+            <span style="margin-left:50px"></span> Denpasar, <?php echo $tgl_cetak;?>
+          </td>
           </tr>
         </table>
       </td>
@@ -170,7 +176,7 @@
   </table>
   <br>
 </center>
-<div style="width:55%;margin-left:auto">
+<div style="width:50%;margin-left:auto">
   <span>(Guest Signature)</span>
   <span style="margin-left:70px">(Attending Physician)</span>
 </div>
