@@ -563,7 +563,6 @@ class Pembayaran extends CI_Controller
             // tahun
             $y = $today->diff($tanggal)->y;
 
-            $this->data['qr_code'] = $data_transaksi->qr_code_struk;
             $this->data['umur'] = $y;
             $this->data['alamat'] = $data_pasien->alamat;
             $this->data['jk'] = '';
@@ -579,13 +578,13 @@ class Pembayaran extends CI_Controller
             else if($_GET['tab']=='rapid'){
                 $this->db->select('nama,tgl_lahir,alamat_domisili,jenis_kelamin');
                 $getPasien = $this->db->get_where('tbl_rapid_antigen',['no_sampel' => $data_transaksi->no_transaksi])->row_array();
-
+                
                 $this->data['nama_pasien'] = $getPasien['nama'];
                 $tanggal = new DateTime($getPasien['tgl_lahir']);
-
+                
                 // tanggal hari ini
                 $today = new DateTime('today');
-        
+                
                 // tahun
                 $y = $today->diff($tanggal)->y;
         
@@ -594,6 +593,7 @@ class Pembayaran extends CI_Controller
                 $this->data['jk'] = $getPasien['jenis_kelamin'];
             }
         }
+        $this->data['qr_code'] = $data_transaksi->qr_code_struk;
         
         $this->data['id_transaksi'] = $data_transaksi->no_transaksi;
         $this->data['transaksi_d'] = $this->Transaksi_model->get_detail_by_h_id($data_transaksi->no_transaksi);
