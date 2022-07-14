@@ -115,19 +115,27 @@ class Pembayaran extends CI_Controller
             $this->ciqrcode->initialize($config);
 
             $getId = $this->Transaksi_model->get_by_id($data_transaksi->id_transaksi);
-            $image_name = str_replace('/','-',$getId->id_transaksi).'.png'; //buat name dari qr code sesuai dengan nim
+            $image_name = str_replace('/','-',$getId->id_transaksi).'st.png'; //buat name dari qr code sesuai dengan nim
+            $image_name2 = str_replace('/','-',$getId->id_transaksi).'su.png'; //buat name dari qr code sesuai dengan nim
 
-            $params['data'] = base_url()."pembayaran/preview?cetak=struk&qr=".$getId->qr_code; //data yang akan di jadikan QR CODE
+            $params['data'] = base_url()."pembayaran/preview?cetak=struk&qr=".$id_transaksi; //data yang akan di jadikan QR CODE
             $params['level'] = 'H'; //H=High
             $params['size'] = 10;
             $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
             $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
 
+            $params2['data'] = base_url()."pembayaran/preview?cetak=surat&qr=".$id_transaksi; //data yang akan di jadikan QR CODE
+            $params2['level'] = 'H'; //H=High
+            $params2['size'] = 10;
+            $params2['savename'] = FCPATH.$config['imagedir'].$image_name2; //simpan image QR CODE ke folder assets/images/
+            $this->ciqrcode->generate($params2); // fungsi untuk generate QR CODE
+
             $data_trans = array(
                 'atas_nama' => $this->input->post('atas_nama'),
                 'status_transaksi' => 1,
                 'cara_pembayaran' => $this->input->post('cara_pembayaran'),
-                'qr_code' => $image_name,
+                'qr_code_struk' => $image_name,
+                'qr_code_surat' => $image_name2,
                 'dtm_upd' => date("Y-m-d H:i:s",  time())
             );
             $biaya_tindakan=$biaya_pemeriksaan=$biaya_obat=0;
@@ -555,7 +563,7 @@ class Pembayaran extends CI_Controller
             // tahun
             $y = $today->diff($tanggal)->y;
 
-            $this->data['qr_code'] = $data_transaksi->qr_code;
+            $this->data['qr_code'] = $data_transaksi->qr_code_struk;
             $this->data['umur'] = $y;
             $this->data['alamat'] = $data_pasien->alamat;
             $this->data['jk'] = '';
@@ -664,8 +672,8 @@ class Pembayaran extends CI_Controller
 
     public function preview()
     {   
-        $qr = explode(".png",$_GET['qr']);
-        $data_transaksi = $this->Transaksi_model->get_by_id($qr[0]); //Ini Row
+        $qr = $_GET['qr'];
+        $data_transaksi = $this->Transaksi_model->get_by_id($qr); //Ini Row
         $data_periksa = $this->Periksa_model->get_by_id($data_transaksi->no_transaksi);
         $data_pasien = $this->Tbl_pasien_model->get_by_id($data_periksa->no_rekam_medis);
         if ($_GET['cetak'] != 'surat') {
@@ -679,14 +687,14 @@ class Pembayaran extends CI_Controller
             $this->data['bank'] = $this->Tbl_akun_model->get_all_bank();
             $this->data['transaksi_d'] = $this->Transaksi_model->get_detail_by_h_id($data_transaksi->no_transaksi); //Ini array
             $this->data['nama_pasien'] = $data_pasien->nama_lengkap;
-            $this->data['qr_code'] = $data_transaksi->qr_code;
+            $this->data['qr_code'] = $data_transaksi->qr_code_struk;
             $this->load->view('pembayaran/cetak_struk_periksa',$this->data);
         } else {
             $this->data['nama_pasien'] = $data_pasien->nama_lengkap;
             $this->data['id_transaksi'] = $data_transaksi->no_transaksi;
             $this->data['transaksi_d'] = $this->Transaksi_model->get_detail_by_h_id($data_transaksi->no_transaksi);
             $this->data['tgl_cetak'] = date("d M Y",  time());
-            $this->data['qr_code'] = $data_transaksi->qr_code;
+            $this->data['qr_code'] = $data_transaksi->qr_code_surat;
             $tanggal = new DateTime($data_pasien->tanggal_lahir);
             // tanggal hari ini
             $today = new DateTime('today');
