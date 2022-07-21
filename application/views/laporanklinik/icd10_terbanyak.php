@@ -9,6 +9,28 @@
                     </div>
 
                     <div class="box-body">
+                    <form action="" method="get">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="">Dari Tanggal</label>
+                                    <input type="date" name="dari" class="form-control" value="<?= isset($_GET['dari']) ? $_GET['dari'] : '' ?>" >
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Sampai Tanggal</label>
+                                    <input type="date" name="sampai" class="form-control" value="<?= isset($_GET['sampai']) ? $_GET['sampai'] : '' ?>" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <br>
+                                    <button type="submit" class='btn btn-primary'><span class="fa fa-filter"></span> Filter</button>
+                                    <button type="reset" class='btn btn-default'><span class="fa fa-times"></span> Reset</button>
+                                </div>
+                            </div>
+                        </form>
+                        <?php 
+                            if(isset($_GET['dari'])){
+                        ?>
                         <hr />
                         <div class="table-responsive">
                         <table class="table table-bordered table-striped" id="mytable">
@@ -22,6 +44,7 @@
                             </thead>
                         </table>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -29,7 +52,9 @@
     </section>
 </div>
 <script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
-
+<?php 
+    if(isset($_GET['dari'])){
+?>
 <script src="<?php echo base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
 <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
 <script type="text/javascript">
@@ -63,12 +88,15 @@
             },
             processing: true,
             serverSide: true,
-            ajax: {"url": "json_icd10_terbanyak", "type": "POST"},
+            ajax: {
+                "url": "json_icd10_terbanyak?dari=<?= $_GET['dari'] ?>&sampai=<?= $_GET['sampai'] ?>", 
+                "type": "POST",
+                },
             columns: [
                 {
                     "data": "code",
                     "orderable": false
-                },{"data": "code"},{"data": "diagnosa"},{"data": "ttl"}
+                },{"data": "code"},{"data": "diagnosa"},{"data": "ttl","searchable":false}
             ],
             order: [[1, 'asc']],
             rowCallback: function(row, data, iDisplayIndex) {
@@ -82,4 +110,4 @@
         
     });
 </script>
-
+<?php } ?>
