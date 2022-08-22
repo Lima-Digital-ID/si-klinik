@@ -661,7 +661,15 @@ class Periksamedis extends CI_Controller
     {
         $this->load->model('Tbl_sksehat_model');
         $data = $this->Tbl_sksehat_model->getDetail($_GET['nomor']);
-        $data['jenis_kelamin'] = $data['jenis_kelamin']=='L' ? 'Laki Laki' : 'Perempuan';
+        if($data['jenis_kelamin']=='L'){
+            $data['jenis_kelamin'] = "Laki Laki";
+        }
+        else if($data['jenis_kelamin']=='P'){
+            $data['jenis_kelamin'] = "Perempuan";
+        }
+        else{
+            $data['jenis_kelamin'] = "";
+        }
         $this->load->view('rekam_medis/cetak_surat_ket_sehat', $data);
     }
     

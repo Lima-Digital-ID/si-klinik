@@ -70,6 +70,16 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <div class="col-sm-4">Jenis Kelamin <?php echo form_error('jenis_kelamin'); ?></div>
+                            <div class="col-sm-8">
+                                <select name="jenis_kelamin" class="form-control" id="">
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="L">Laki Laki</option>
+                                    <option value="P">Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-4">Status Menikah <?php echo form_error('status_menikah'); ?></div>
                             <div class="col-sm-8">
                                 <?php echo form_dropdown('status_menikah', array(''=>'Pilih Status Menikah','Menikah'=>'Menikah','Belum Menikah'=>'Belum Menikah'),$status_menikah,array('id'=>'status_menikah','class'=>'form-control'));?>

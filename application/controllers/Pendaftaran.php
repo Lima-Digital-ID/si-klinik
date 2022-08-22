@@ -42,6 +42,7 @@ class Pendaftaran extends CI_Controller
 				'nik'               => $this->input->post('nik'),
 				'tanggal_lahir'     => $this->input->post('tanggal_lahir'),
 				'golongan_darah'    => $this->input->post('golongan_darah'),
+				'jenis_kelamin'    => $this->input->post('jenis_kelamin'),
 				'status_menikah'    => $this->input->post('status_menikah'),
 				'pekerjaan'      	=> $this->input->post('pekerjaan'),
 				'alamat'      		=> $this->input->post('alamat'),
@@ -280,6 +281,7 @@ class Pendaftaran extends CI_Controller
     	$this->form_validation->set_rules('nik', 'NIK', 'trim|required');
     	$this->form_validation->set_rules('tanggal_lahir', 'Tanggal Lahir', 'trim|required');
     // 	$this->form_validation->set_rules('golongan_darah', 'Golongan Darah', 'trim|required');
+    	$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'trim|required');
     	$this->form_validation->set_rules('status_menikah', 'Status Menikah', 'trim|required');
     	$this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'trim|required');
     	$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');

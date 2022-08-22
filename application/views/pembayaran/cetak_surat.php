@@ -103,7 +103,16 @@
             <tr>
               <td>Sex &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
               <td>:</td>
-              <td><?= $jk=='P' ? 'Perempuan' : 'Laki-Laki' ?></td>
+              <td>
+                <?php
+                  if($jk=='P'){
+                    echo "Perempuan";
+                  }
+                  else if($jk=='L'){
+                    echo "Laki-Laki";
+                  }
+                ?>
+              </td>
             </tr>
             <tr>
               <td>Nationality</td>
